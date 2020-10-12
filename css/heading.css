@@ -1,0 +1,20 @@
+.navbar-brand img {
+    height:50px !important;
+    width:80px !important;
+}
+ul li {
+    list-style: none;
+    margin-top:5px;
+}
+ul li a {
+    color : green;
+    font-weight : bold;
+    margin-top:10px;
+    padding:10px;
+    border-radius:5px;
+    transition: 0.4s;
+}
+ul li a:hover {
+    color:white;
+    background-color: green;
+}

@@ -1,18 +1,99 @@
+
+<?php 
+session_start();
+error_reporting(0);
+include('../link/config.php');
+if($_SESSION['alogin']!=''){
+    $_SESSION['alogin']=''; 
+    }
+    if(isset($_POST['login']))  
+    {
+    $select = $_POST['select'];
+
+    if ($select == "Admin") {
+
+        // Admin Login Section starts 
+    $email = $_POST['input-email'];
+    $password = $_POST['input-password'];
+
+    $_SESSION["email"]=$_POST['email']; // push to the session
+
+    // echo $email;
+    // echo $select;
+    // echo $password;
+    // $password=md5($_POST['pass']);
+    $sql ="SELECT email,password FROM admin WHERE email=:email and password=:password";
+    $query= $dbh -> prepare($sql);
+    $query-> bindParam(':email', $email, PDO::PARAM_STR);
+    $query-> bindParam(':password', $password, PDO::PARAM_STR);
+    $query-> execute(); 
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+    if($query->rowCount() > 0)
+    {
+    // $_SESSION['alogin']=$_POST['email'];
+    echo "<script>alert('Logged in Success');</script>";
+    echo "<script type='text/javascript'> document.location = 'admin-dashboard.php'; </script>";
+    } else{
+        
+        echo "<script>alert('Invalid Details.Enter Currect Information');</script>";
+        header("refresh:0;url=login.php");
+    
+    }
+
+    // Admin Login Section ends 
+    }
+    else{
+        // Authors sign in option starts 
+        echo "Author";
+        // Authors sign in Option ends 
+    }
+    } 
+
+
+
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IUBAT</title>
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/login.js"></script>
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- Jquery section starts  -->
+<script>
+
+$(document).ready(function(){
+    $("#Admin-id").click(function(){
+      $("#btn-signup").hide(1000);
+    });
+    $("#Author-id").click(function(){
+      $("#btn-signup").show(1000);
+    });
+  });
+
+
+
+</script>
+
+<!-- Jquery Section ends  -->
 </head>
 <body>
 
+
 <div id="logreg-forms">
-        <form class="form-signin">
+        <form class="form-signin" method="post">
             <h3 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h3>
             <div class="social-login">
                 <!-- <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
@@ -20,12 +101,12 @@
 
                 <div class="Admin_Author d-flex">
 
-                <div class="Admins">
+                <div class="Admins" id = "Admin-id">
                 <label for="Admin" class="admin-author">Admin</label>
-                <input type="radio" id = "Admin" name="select" value="Admin">
+                <input type="radio" id = "Admin" name="select" value="Admin" required>
                 </div>
 
-                <div class="Authors">
+                <div class="Authors" id = "Author-id">
                 <label for="Author" class="admin-author">Author</label>
                 <input type="radio" id = "Author" name="select" value="Author">
                 </div>
@@ -34,13 +115,18 @@
                 
 
             </div>
+        <!-- Sign in Section starts  -->
 
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+            <input type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="" autofocus="">
+
+            <input type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
             
-            <button class="btn btn-success btn-block" type="submit" ><i class="fas fa-sign-in-alt"></i> Sign in</button>
+            <button class="btn btn-success btn-block" name = "login" type="submit" ><i class="fas fa-sign-in-alt"></i> Sign in</button>
             <a href="#" id="forgot_pswd">Forgot password?</a>
             <hr>
+
+        <!-- Sign in section ends  -->
+
             <!-- <p>Don't have an account!</p>  -->
             <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
             </form>
@@ -102,7 +188,10 @@ $(()=>{
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery-3.5.1.slim.min.js"></script>
 <script src="../js/popper.min.js"></script>
-<script src="../js/login.js"></script>
+<!-- <script src="../js/login.js"></script>  -->
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/login.js"></script> -->
 <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>

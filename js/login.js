@@ -9,7 +9,7 @@ function toggleSignUp(e){
     $('#logreg-forms .form-signin').toggle(); // display:block or none
     $('#logreg-forms .form-signup').toggle(); // display:block or none
 }
-
+ 
 $(()=>{
     // Login Register Form
     $('#logreg-forms #forgot_pswd').click(toggleResetPswd);
@@ -18,6 +18,3 @@ $(()=>{
     $('#logreg-forms #cancel_signup').click(toggleSignUp);
 })
 
-document.getElementById('Admin').onclick(e=> {
-    console.log('clicked')
-})

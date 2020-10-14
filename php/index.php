@@ -22,6 +22,7 @@
         <p class="lead">Abstract:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur quam id quia aliquam possimus sapiente dolor eum recusandae eligendi, odio architecto mollitia est quis dignissimos iure. Soluta molestias labore deserunt?</p>
         <hr class="my-4">
         <a class="btn btn-success btn-sm" href="#" role="button">Download as PDF</a>
+        <a class="btn btn-success btn-sm float-right href="#" role="button">See More...</a>
         </div>
 
     <!-- DashBoard Section ends  -->
@@ -31,6 +32,7 @@
         <p class="lead">Abstract:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur quam id quia aliquam possimus sapiente dolor eum recusandae eligendi, odio architecto mollitia est quis dignissimos iure. Soluta molestias labore deserunt?</p>
         <hr class="my-4">
         <a class="btn btn-success btn-sm" href="#" role="button">Download as PDF</a>
+        <a class="btn btn-success btn-sm float-right href="#" role="button">See More...</a>
         </div>
 
     <!-- DashBoard Section ends  -->
@@ -40,6 +42,7 @@
         <p class="lead">Abstract:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur quam id quia aliquam possimus sapiente dolor eum recusandae eligendi, odio architecto mollitia est quis dignissimos iure. Soluta molestias labore deserunt?</p>
         <hr class="my-4">
         <a class="btn btn-success btn-sm" href="#" role="button">Download as PDF</a>
+        <a class="btn btn-success btn-sm float-right href="#" role="button">See More...</a>
         </div>
 
     <!-- DashBoard Section ends  -->

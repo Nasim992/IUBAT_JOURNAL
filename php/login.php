@@ -16,7 +16,7 @@ if($_SESSION['alogin']!=''){
     $email = $_POST['input-email'];
     $password = $_POST['input-password'];
 
-    $_SESSION["email"]=$_POST['email']; // push to the session
+    $_SESSION["email"]=$_POST['input-email']; // push to the session
 
     // echo $email;
     // echo $select;
@@ -30,7 +30,7 @@ if($_SESSION['alogin']!=''){
     $results=$query->fetchAll(PDO::FETCH_OBJ);
     if($query->rowCount() > 0)
     {
-    // $_SESSION['alogin']=$_POST['email'];
+    $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
     echo "<script type='text/javascript'> document.location = 'admin-dashboard.php'; </script>";
     } else{

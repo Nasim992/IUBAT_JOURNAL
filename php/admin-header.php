@@ -1,0 +1,79 @@
+<?php
+session_start();
+error_reporting(0);
+include('../link/config.php');
+
+if(strlen($_SESSION['alogin'])=="")
+    {    
+    header("Location: login.php"); 
+    }
+    else
+    { 
+        
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="../css/heading.css"> -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img src="../images/Iubat-logo.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav ml-auto">
+
+    <li class="nav-item dropdown" title="Operation">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user-cog" ></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Remove Authors</a>
+          <a class="dropdown-item" href="#">Change password</a>
+          <a class="dropdown-item" href="#">Show Authors list</a>
+      </li>
+
+
+        <li class="nav-item" title="total paper">
+            <a class="nav-link" href="#">Total paper</a>
+        </li>
+
+        <li class="nav-item" title="total paper">
+            <a class="nav-link" href="#">Total Author</a>
+        </li>
+
+        <li class="nav-item" title="New Paper">
+            <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+       
+        <li class="nav-item active" >
+       <a class="nav-link" href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
+        </li>
+
+
+
+  
+        </ul>
+  
+  </div>
+</nav>
+
+
+<!-- Essential Js,jquery,section starts  -->
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.slim.min.js"></script>
+<script src="../js/popper.min.js"></script>
+<!-- Essential Js,Jquery  section ends  -->
+</body>
+</html>
+
+    <?php } ?>

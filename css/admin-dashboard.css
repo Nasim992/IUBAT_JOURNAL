@@ -1,0 +1,25 @@
+.navbar-brand img {
+    height:50px !important;
+    width:80px !important;
+}
+
+.nav-item {
+    color:black !important;
+    padding:10px;
+}
+
+ul li a  {
+    color:black !important;
+    font-weight:bold !important;
+    transition:0.4s;
+}
+
+ul li a:hover {
+    color:white !important;
+    background-color: green;
+    border-radius : 10px;
+}
+.dropdown-menu a:hover {
+    color:white !important;
+    background-color: green;
+}

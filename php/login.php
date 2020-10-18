@@ -44,7 +44,9 @@ if($_SESSION['alogin']!=''){
     }
     else{
         // Authors sign in option starts 
-        echo "Author";
+     
+        include 'author-dashboard.php';
+
         // Authors sign in Option ends 
     }
     } 

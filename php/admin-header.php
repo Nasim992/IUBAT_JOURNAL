@@ -20,6 +20,8 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <link rel="stylesheet" href="../css/heading.css"> -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    
+   <link rel="stylesheet" href="../css/admin-dashboard.css">
 
 </head>
 <body>
@@ -41,7 +43,7 @@ if(strlen($_SESSION['alogin'])=="")
           <a class="dropdown-item" href="#">Remove Authors</a>
           <a class="dropdown-item" href="#">Change password</a>
           <a class="dropdown-item" href="#">Show Authors list</a>
-      </li>
+    </li>
 
 
         <li class="nav-item" title="total paper">

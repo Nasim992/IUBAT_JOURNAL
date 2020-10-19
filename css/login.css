@@ -115,21 +115,22 @@
 .Admins{
     flex-basis: 50%;
     float :left;
-    background-color:#28a745;
+    /* background-color:#28a745; */
     text-align:center;
     border-radius: 5px;
     margin-left:2px;
+    cursor:pointer;
 }
 .Authors {
     flex-basis: 50%;
     float :left;
-    background-color:#007bff;
+    /* background-color:#007bff; */
     text-align:center; 
     border-radius: 5px;
     margin-left:2px;
 }
 .admin-author {
-    color : white;
+    /* color : white; */
     font-size:16px;
 
     text-align:center;

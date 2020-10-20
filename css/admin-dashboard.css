@@ -10,7 +10,7 @@
 
 ul li a  {
     color:black !important;
-    font-weight:bold !important;
+    /* font-weight:bold !important; */
     transition:0.4s;
 }
 
@@ -23,3 +23,19 @@ ul li a:hover {
     color:white !important;
     background-color: green;
 }
+/* Author section css starts here */
+
+.author-heading {
+ color :rgb(6, 141, 13);
+ font-weight :700;
+ font-size:30px;
+ text-align:center;
+ margin-top : 40px;
+ margin-bottom:40px;
+}
+
+.author-form {
+    margin : 0px 150px 0px 150px;
+}
+
+/* Author section css ends here  */

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 22, 2020 at 10:39 AM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 22, 2020 at 06:31 PM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -73,11 +73,11 @@ INSERT INTO `author` (`id`, `name`, `email`, `password`, `contact`, `address`) V
 
 CREATE TABLE `paper` (
   `id` int(11) NOT NULL,
-  `author-email` varchar(100) NOT NULL,
-  `paper-name` varchar(255) NOT NULL,
+  `authoremail` varchar(100) NOT NULL,
+  `papername` varchar(255) NOT NULL,
   `abstract` varchar(8000) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `mime` varchar(255) DEFAULT NULL
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -111,7 +111,7 @@ ALTER TABLE `author`
 -- AUTO_INCREMENT for table `paper`
 --
 ALTER TABLE `paper`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

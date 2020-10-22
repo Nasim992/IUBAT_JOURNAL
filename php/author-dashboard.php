@@ -10,123 +10,52 @@ if(strlen($_SESSION['alogin'])=="")
     }
     else
     { 
-      // $authoremail = $_SESSION["email"];
-      // echo $authoremail;
-      
-      // Paper submission section starts here
+       $authoremail = $_SESSION["email"];
 
-      if (isset($_FILES['file'])) {
+      if(isset($_POST['submit']))
+    { 
+
+      $authoremailmain = $_POST['author-email'];
+      $papername = $_POST['paper-title'];
+      $abstract = $_POST['summary'];
+
         $file = $_FILES['file'];
-        // print_r($file);
-        $filename = $_FILES['file']['name'];
+
+        $name = $_FILES['file']['name'];
         $filetmp = $_FILES['file']['tmp_name'];
-        $filesize = $_FILES['file']['size'];
-        $fileerror = $_FILES['file']['error'];
-        $filetype = $_FILES['file']['type'];
 
-        echo $filename;
-        echo $filetmp;
-        echo $filesize;
-        echo $fileerror;
-        echo $filetype ;
+        $type = $_FILES['file']['type'];
 
-        move_uploaded_file($filetmp,"uploads/".$filename);
-
-      }
-      
-
-    //   if(isset($_POST['submit']))
-    // { 
-      // $authoremail = $_SESSION["email"];
-      // echo $authoremail;
-      // $papertitle = $_POST['paper-title'];
-      // echo $papertitle;
-      // $abstract = $_POST['summary'];
-      // echo $abstract;
-
-      // if (isset($_FILES['file'])) {
-      //   $file = $_FILES['file'];
-      //   // print_r($file);
-      //   $filename = $_FILES['file']['name'];
-      //   $filetmp = $_FILES['file']['tmp_name'];
-      //   $filesize = $_FILES['file']['size'];
-      //   $fileerror = $_FILES['file']['error'];
-      //   $filetype = $_FILES['file']['type'];
-
-      //   echo $filename;
-      //   echo $filetmp;
-      //   echo $filesize;
-      //   echo $fileerror;
-      //   echo $filetype ;
-
-      //   move_uploaded_file($filetmp,"uploads/".$filename);
-
-      // }
-      
-
+ 
       // echo $filename;
       // echo $filetmp;
       // echo $filesize;
       // echo $filetype;
-
-
-
-      // if(move_uploaded_file($filetmp,$fileDestination)){
-
-      //   $sql="INSERT INTO  paper(author-email,paper-name,abstract,name,mime) VALUES(:authoremail,:papertitle,:abstract,:filename,:filetype )";
-
-      //   $query = $dbh->prepare($sql);
-
-      //   $query->bindParam(':authoremail',$authoremail,PDO::PARAM_STR);
-      //   $query->bindParam(':papertitle',$papertitle,PDO::PARAM_STR);
-      //   $query->bindParam(':abstract',$abstract,PDO::PARAM_STR);
-      //   $query->bindParam(':name',$filename,PDO::PARAM_STR);
-      //   $query->bindParam(':type',$filetype,PDO::PARAM_STR);
-      //   // $query->bindParam(':file',$file,PDO::PARAM_STR);
-      //   $query->execute();
-
-      // }
-
-
-
-
-      // $query->bindParam(1,$authoremail);
-      // $query->bindParam(2,$papertitle);
-      // $query->bindParam(3,$abstract);
-      // $query->bindParam(4,$name);
-      // $query->bindParam(5,$mime);
-      // $query->bindParam(6,$file);
-      
-     
-
-    // $results=$query->fetchAll(PDO::FETCH_OBJ);
-    // $lastInsertId = $dbh->lastInsertId();
-    // if($lastInsertId)
-    // {
-    // echo "<script>alert('Signed Up Success');</script>";
-    // header("refresh:0;url=intro.php");
-    // } else{
-        
-    //     echo "<script>alert('Something went wrong .Please Try Again .May be your Username Matches with Others');</script>";
-    //     header("refresh:0;url=intro.php");
-
-    // }
-    // $results=$query->fetchAll(PDO::FETCH_OBJ);
-    // if($query->rowCount() > 0)
-    // {
-
-    //   echo "<script>alert('SSuccessfully added');</script>";
-    // // echo "<script type='text/javascript'> document.location = 'author-dashboard.php'; </script>";
-    // } else{
-        
-    //     echo "<script>alert('Invalid Details !Something went wrong .Please Try Again .May be your Username Matches with Others');</script>";
-    //     // header("refresh:0;url=author-dashboard.php");
-
-    // }
+      $sql="INSERT INTO  paper(authoremail,papername,abstract,name,type) VALUES(:authoremailmain,:papername,:abstract,:name,:type)";
+      $query = $dbh->prepare($sql);
+      $query->bindParam(':authoremailmain',$authoremailmain,PDO::PARAM_STR);
+      $query->bindParam(':papername',$papername,PDO::PARAM_STR);
+      $query->bindParam(':abstract',$abstract,PDO::PARAM_STR);
+      $query->bindParam(':name',$name,PDO::PARAM_STR);
+      $query->bindParam(':type',$type,PDO::PARAM_STR);
     
+      $query->execute();
 
-// }
-      // Paper submission section ends here 
+      $results=$query->fetchAll(PDO::FETCH_OBJ);
+      if($query->rowCount() > 0)
+      {
+        move_uploaded_file($filetmp,"../documents/".$name);
+      echo "<script>alert('Paper Uploaded Successfully.');</script>";
+      // echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
+      } else{
+          
+          echo "<script>alert('Invalid Details !This paper already Uploaded');</script>";
+          // header("refresh:0;url=login.php");
+
+      }   
+    }
+
+     
 
 ?>
 
@@ -153,8 +82,10 @@ if(strlen($_SESSION['alogin'])=="")
     <h1 class="author-heading">Upload your paper as a pdf format</h1>
 
       <form class = "author-form" method = "post" enctype = "multipart/form-data">
-      <div class="form-group">
 
+      <input type="hidden" id="custId" name="author-email" value="<?php echo $authoremail ?>">
+
+      <div class="form-group">
         <label for="formGroupExampleInput">Paper title : </label>
         <input type="text" class="form-control" id="formGroupExampleInput" name = "paper-title" placeholder="Write the title of the paper" required>
       </div>

@@ -36,7 +36,9 @@ if(strlen($_SESSION['alogin'])=="")
 
     <ul class="navbar-nav ml-auto">
 
-
+    <li class="nav-item" title="total paper">
+            <a class="nav-link" href="author-dashboard.php">Upload paper</a>
+    </li>
 
         <li class="nav-item" title="total paper">
             <a class="nav-link" href="#">All Paper</a>
@@ -47,7 +49,7 @@ if(strlen($_SESSION['alogin'])=="")
         </li>
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="#">Your Paper</a>
+            <a class="nav-link" href="author-paper-show.php">Your Paper</a>
         </li>
         
 

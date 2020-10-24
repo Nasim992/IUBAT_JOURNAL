@@ -41,11 +41,11 @@ if(strlen($_SESSION['alogin'])=="")
     </li>
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="#">All Paper</a>
+            <a class="nav-link" href="all-paper-author.php">All Paper</a>
         </li>
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="#">Change Password</a>
+            <a class="nav-link" href="change-password-author.php">Change Password</a>
         </li>
 
         <li class="nav-item" title="total paper">

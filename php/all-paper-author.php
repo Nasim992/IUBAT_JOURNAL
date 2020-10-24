@@ -1,12 +1,23 @@
 
 <?php 
+ session_start();
+ error_reporting(0);
  
  include('../link/config.php');
+ 
+ if(strlen($_SESSION['alogin'])=="")
+     {    
+     header("Location: login.php"); 
+     }
+     else
+     {  
+         $authoremail = $_SESSION["email"];
+ 
 
 ?>
 
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +33,7 @@
     <div class="container">
     <!-- Heading Sections starts  -->
     <?php 
-    include 'heading.php'
+    include 'author-header.php'
     ?>
     <!-- Heading Sections ends  --> 
  
@@ -67,3 +78,5 @@
 <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>
+
+      <?php } ?>

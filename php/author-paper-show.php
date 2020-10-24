@@ -9,7 +9,7 @@ if(strlen($_SESSION['alogin'])=="")
     header("Location: login.php"); 
     }
     else
-    { 
+    {  
         $authoremail = $_SESSION["email"];
 
 ?>
@@ -23,7 +23,7 @@ if(strlen($_SESSION['alogin'])=="")
 
     <title>Show Paper</title>
 
-        <script>
+        <script> 
         $(document).ready(function(){
         $("#myInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
@@ -62,7 +62,7 @@ if(strlen($_SESSION['alogin'])=="")
 
             <div class="row">
                 <div class="col-md-12">
-                                <div style="margin-top:20px;">
+                                <div style="margin-top:20px;float:right;width:50%;margin-bottom:20px;">
                                 <input id="myInput" class="form-control" type="text" placeholder="Search..">
                                </div>
 
@@ -82,14 +82,14 @@ if(strlen($_SESSION['alogin'])=="")
             <th class="result-color1">Actions</th>
         </tr>
     </thead>
-
+ 
     <tbody>
 <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type from paper WHERE authoremail='$authoremail' ";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
 $cnt=1;
-if($query->rowCount() > 0)
+if($query->rowCount() > 0) 
 {
 foreach($results as $result) 
 {   ?>
@@ -105,7 +105,7 @@ foreach($results as $result)
 
 <td >
 <a href="edit_symptoms.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a>
-<a href="delete_symptoms.php?stid=<?php echo htmlentities($result->id);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+<a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=../documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
 
 </td>
 </tr>

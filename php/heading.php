@@ -6,6 +6,19 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/heading.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+
+    <script> 
+        $(document).ready(function(){
+        $("#heading-input").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#heading-table tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+     </script>
+
 
 </head>
 <body>
@@ -23,8 +36,7 @@
 
         </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input id="heading-input" class="form-control mr-sm-2" type="text" placeholder="Search paper" aria-label="Search">
     </form>
     <ul>
        <li class="nav-item active">
@@ -35,10 +47,12 @@
 </nav>
 
 
+
 <!-- Essential Js,jquery,section starts  -->
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery-3.5.1.slim.min.js"></script>
 <script src="../js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
+
 </body>
 </html>

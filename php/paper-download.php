@@ -1,7 +1,18 @@
 <?php 
+session_start();
+error_reporting(0);
 
 $link = mysqli_connect("localhost", "root", "", "iubat");
- 
+  
+if(strlen($_SESSION['alogin'])=="")
+    {    
+        $authoremail = "";
+    }
+    else
+    {  
+      $authoremail = $_SESSION["email"];
+    }
+
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
@@ -24,6 +35,15 @@ $abstract = $file['abstract'];
 $authorname = $file['authoremail'];
 $filepath = '../documents/'.$file['name'];
 
+
+$sql = "SELECT * FROM author WHERE  email= '$authorname' ";
+
+$result1 = mysqli_query($link,$sql);
+
+$file1 = mysqli_fetch_assoc($result1);
+
+$name = $file1['name'];
+
 ?>
 
 <!DOCTYPE html>
@@ -37,17 +57,44 @@ $filepath = '../documents/'.$file['name'];
 
     <link rel="stylesheet" href="../css/index.css">
     <title>Document</title>
-</head>
+</head> 
 <body>
 <div class="container">
    <!-- Dashboard section starts  -->
        <div class="jumbotron">
+     
         <h5 class="display-4">Name : <?php echo $title ?></h5>
-        <h6 class="display-5">Author:<span style='color:green;'> <?php echo $authorname ?></span></h6>
+        <?php 
+        if ($authoremail == "") {
+            ?>
+         
+          <?php 
+        }
+        else {
+        ?>
+       <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name ?></span></h6>
+        <?php 
+        }  
+        ?>
+        
+        <h6 class="display-5">Email:<span style='color:green;'> <?php echo $authorname ?></span></h6>
         <p class="lead"><?php echo $abstract ?></p>
         <hr class="my-4">
-        <a href="author-paper-show.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
-        <a class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?>" role="button">Download as PDF</a>
+      
+        <?php 
+        if ($authoremail == "") {
+            ?>
+          <a href="index.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+         
+          <?php 
+        }
+        else {
+        ?>
+       <a href="author-paper-show.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+        <?php 
+        }  
+        ?>
+        <a class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download as PDF</a>
         </div>
 
     <!-- DashBoard Section ends  -->
@@ -67,4 +114,4 @@ $filepath = '../documents/'.$file['name'];
 <?php } else  {
 
     echo " Id is empty";
-    }?>
+    } ?>

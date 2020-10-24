@@ -40,17 +40,17 @@ if(strlen($_SESSION['alogin'])=="")
       $query->bindParam(':type',$type,PDO::PARAM_STR);
     
       $query->execute();
-
+ 
       $results=$query->fetchAll(PDO::FETCH_OBJ);
       if($query->rowCount() > 0)
       {
         move_uploaded_file($filetmp,"../documents/".$name);
       echo "<script>alert('Paper Uploaded Successfully.');</script>";
-      // echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
+      echo "<script type='text/javascript'> document.location = 'author-paper-show.php'; </script>";
       } else{
           
-          echo "<script>alert('Invalid Details !This paper already Uploaded');</script>";
-          // header("refresh:0;url=login.php");
+          echo "<script>alert('Invalid Details !This paper has already Uploaded');</script>";
+          header("refresh:0;url=author-dashboard.php");
 
       }   
     }
@@ -97,7 +97,7 @@ if(strlen($_SESSION['alogin'])=="")
       </div>
       <div class="form-group">
       <label for="exampleFormControlFile1">Upload file : </label>
-      <input type="file" class="form-control-file" name="file"id="exampleFormControlFile1"  required>
+      <input type="file" class="form-control-file" name="file"id="exampleFormControlFile1" accept = "application/pdf"  required>
       </div>
       <!-- accept = "application/pdf" -->
       <hr>

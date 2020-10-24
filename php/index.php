@@ -1,3 +1,11 @@
+
+<?php 
+ 
+ include('../link/config.php');
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,49 +15,50 @@
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
 </head>
-<body>
+<body> 
+
     <div class="container">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php'
     ?>
-    <!-- Heading Sections ends  -->
+    <!-- Heading Sections ends  --> 
  
-    <!-- Dashboard section starts  -->
-        <div class="jumbotron">
-        <h5 class="display-4">Title</h5>
-        <p class="lead">Abstract:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur quam id quia aliquam possimus sapiente dolor eum recusandae eligendi, odio architecto mollitia est quis dignissimos iure. Soluta molestias labore deserunt?</p>
-        <hr class="my-4">
-        <a class="btn btn-success btn-sm" href="#" role="button">Download as PDF</a>
-        <a class="btn btn-success btn-sm float-right href="#" role="button">See More...</a>
-        </div>
+    <table id="heading-table">
+           <tbody>
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type from paper ";
+      $query = $dbh->prepare($sql); 
+      $query->execute(); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1;
+      if($query->rowCount() > 0) 
+      {
+      foreach($results as $result) 
+      {   ?>
 
-    <!-- DashBoard Section ends  -->
-      <!-- Dashboard section starts  -->
-      <div class="jumbotron">
-        <h5 class="display-4">Title</h5>
-        <p class="lead">Abstract:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur quam id quia aliquam possimus sapiente dolor eum recusandae eligendi, odio architecto mollitia est quis dignissimos iure. Soluta molestias labore deserunt?</p>
-        <hr class="my-4">
-        <a class="btn btn-success btn-sm" href="#" role="button">Download as PDF</a>
-        <a class="btn btn-success btn-sm float-right href="#" role="button">See More...</a>
-        </div>
+          <!-- Dashboard section starts  -->
+      
+            <tr>
+            <td>
+            <div class="jumbotron  mb-0" >
+            <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
+            <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+            <hr class="my-4">
+            <a class="btn btn-success btn-sm" href="paper-download.php?id=<?php echo htmlentities($result->id);?>" role="button">Download as PDF</a>
+            <a class="btn btn-success btn-sm float-right href="#" role="button">See More...</a> 
+            </td>
+           </div>
+           </tr>
+          
+      
 
-    <!-- DashBoard Section ends  -->
-      <!-- Dashboard section starts  -->
-      <div class="jumbotron">
-        <h5 class="display-4">Title</h5>
-        <p class="lead">Abstract:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur quam id quia aliquam possimus sapiente dolor eum recusandae eligendi, odio architecto mollitia est quis dignissimos iure. Soluta molestias labore deserunt?</p>
-        <hr class="my-4">
-        <a class="btn btn-success btn-sm" href="#" role="button">Download as PDF</a>
-        <a class="btn btn-success btn-sm float-right href="#" role="button">See More...</a>
-        </div>
+       <!-- DashBoard Section ends  -->
 
-    <!-- DashBoard Section ends  -->
-    
-
-
-
+    <?php }} ?>
+    </tbody>
+    </table>
     </div>
 <!-- Essential Js,jquery,section starts  -->
 <script src="../js/bootstrap.min.js"></script>

@@ -1,6 +1,6 @@
 .jumbotron {
-    height:200px;
-    background-color: rgb(248, 245, 245) !important;
+    background-color: rgba(248, 245, 245, 0.801) !important;
+    margin-bottom:0px !important;
 }
 .jumbotron h5 {
     font-weight:bold !important;
@@ -15,3 +15,4 @@
 body {
     background-color : #f3f3f3 !important;
 }
+

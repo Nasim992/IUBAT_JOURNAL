@@ -6,18 +6,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/heading.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <!-- <script src="../js/jquery-3.5.1.slim.min.js"></script> -->
 
-    <script> 
-        $(document).ready(function(){
-        $("#heading-input").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#heading-table tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-     </script>
+
 
 
 </head>
@@ -53,6 +44,8 @@
 <script src="../js/jquery-3.5.1.slim.min.js"></script>
 <script src="../js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
+
+
 
 </body>
 </html>

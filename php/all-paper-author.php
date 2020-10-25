@@ -31,11 +31,13 @@
 <body> 
 
     <div class="container">
+    <div class="sticky-top">
     <!-- Heading Sections starts  -->
     <?php 
     include 'author-header.php'
     ?>
     <!-- Heading Sections ends  --> 
+    </div>
  
     <table id="heading-table">
            <tbody>

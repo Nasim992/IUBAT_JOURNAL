@@ -20,7 +20,7 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <link rel="stylesheet" href="../css/heading.css"> -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    
+    <!-- <script src="../js/jquery-3.5.1.slim.min.js"></script> -->
    <link rel="stylesheet" href="../css/admin-dashboard.css">
 
 </head>
@@ -75,6 +75,16 @@ if(strlen($_SESSION['alogin'])=="")
 <script src="../js/jquery-3.5.1.slim.min.js"></script>
 <script src="../js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
+<script> 
+        $(document).ready(function(){
+        $("#myInput-admin").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable-admin tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
 </body>
 </html>
 

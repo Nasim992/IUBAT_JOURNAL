@@ -70,6 +70,7 @@ if(strlen($_SESSION['alogin'])=="")
 </head>
 <body>
   <div class="container">
+  <div class="sticky-top">
     <!-- Header section starts here  -->
 
     <?php 
@@ -77,6 +78,7 @@ if(strlen($_SESSION['alogin'])=="")
     ?>
 
     <!-- Header section ends here  -->
+    </div>
 
     <!-- input file section starts here  -->
     <h1 class="author-heading">Upload your paper as a pdf format</h1>

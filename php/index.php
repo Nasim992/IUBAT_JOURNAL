@@ -15,16 +15,18 @@
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css">
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <!-- <script src="../js/jquery-3.5.1.slim.min.js"></script> -->
 </head>
 <body> 
 
     <div class="container">
+    <div class="sticky-top">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php'
     ?>
     <!-- Heading Sections ends  --> 
+    </div>
  
     <table id="heading-table">
            <tbody>
@@ -65,5 +67,15 @@
 <script src="../js/jquery-3.5.1.slim.min.js"></script>
 <script src="../js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
+   <script> 
+        $(document).ready(function(){
+        $("#heading-input").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#heading-table tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+     </script>
 </body>
 </html>

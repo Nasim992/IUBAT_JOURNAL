@@ -30,11 +30,11 @@
  
     <table id="heading-table">
            <tbody>
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type from paper ";
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action==1 ";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
-      $cnt=1;
+      $cnt=1; 
       if($query->rowCount() > 0) 
       {
       foreach($results as $result) 

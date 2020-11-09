@@ -11,11 +11,11 @@ if(strlen($_SESSION['alogin'])=="")
     else
     { 
        $authoremail = $_SESSION["email"];
+       $id=intval($_GET['id']);
+       $nameprevious = $_GET['nameprevious'];
 
       if(isset($_POST['submit']))
-    { 
-
-      $authoremailmain = $_POST['author-email'];
+    {
       $papername = $_POST['paper-title'];
       $abstract = $_POST['summary'];
 
@@ -26,36 +26,42 @@ if(strlen($_SESSION['alogin'])=="")
 
         $type = $_FILES['file']['type'];
 
-        $action = 0 ;
- 
-      // echo $filename;
-      // echo $filetmp;
-      // echo $filesize;
-      // echo $filetype;
-      $sql="INSERT INTO  paper(authoremail,papername,abstract,name,type,action) VALUES(:authoremailmain,:papername,:abstract,:name,:type,:action)";
+      $sql="update paper set papername=:papername,abstract=:abstract,name=:name where id=:id ";
+
       $query = $dbh->prepare($sql);
-      $query->bindParam(':authoremailmain',$authoremailmain,PDO::PARAM_STR);
       $query->bindParam(':papername',$papername,PDO::PARAM_STR);
       $query->bindParam(':abstract',$abstract,PDO::PARAM_STR);
-      $query->bindParam(':name',$name,PDO::PARAM_STR);
-      $query->bindParam(':type',$type,PDO::PARAM_STR);
-      $query->bindParam(':action',$action,PDO::PARAM_STR);
-    
+      $query->bindParam(':name',$name,PDO::PARAM_STR); 
+
+      $query->bindParam(':id',$id,PDO::PARAM_STR);
+
       $query->execute();
- 
+
       $results=$query->fetchAll(PDO::FETCH_OBJ);
+
       if($query->rowCount() > 0)
       {
-        move_uploaded_file($filetmp,"../documents/".$name);
-      echo "<script>alert('Paper Uploaded Successfully.');</script>";
-      echo "<script type='text/javascript'> document.location = 'author-paper-show.php'; </script>";
+
+     // Built-in PHP function to delete file
+     unlink($_GET["nameprevious"]);
+  
+     // Redirecting back
+    //   header("Location: " . $_SERVER["HTTP_REFERER"]);
+ 
+      move_uploaded_file($filetmp,"../documents/".$name);
+        echo "<script>alert('Paper Updated Successfully.');</script>";
+       echo "<script type='text/javascript'> document.location = 'author-paper-show.php'; </script>";
       } else{
           
-          echo "<script>alert('Invalid Details !This paper has already Uploaded');</script>";
-          header("refresh:0;url=author-dashboard.php");
+        echo "<script>alert('Invalid Details !Something went wrong');</script>";
+        header("refresh:0;url=author-paper-show.php");
 
-      }   
-    }
+      }
+
+    }   
+       
+
+    
 
      
 
@@ -83,20 +89,32 @@ if(strlen($_SESSION['alogin'])=="")
     </div>
 
     <!-- input file section starts here  -->
-    <h1 class="author-heading">Upload your paper as a pdf format</h1>
+    <h1 class="author-heading">Update your paper</h1>
 
       <form class = "author-form" method = "post" enctype = "multipart/form-data">
 
-      <input type="hidden" id="custId" name="author-email" value="<?php echo $authoremail ?>">
+                    <?php 
+
+                $sql = "SELECT * from paper where id=$id";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':id',$id,PDO::PARAM_STR);
+                $query->execute();
+                $results=$query->fetchAll(PDO::FETCH_OBJ);
+                $cnt=1;
+                if($query->rowCount() > 0)
+                {
+                foreach($results as $result)
+                { 
+                    ?>
 
       <div class="form-group">
         <label for="formGroupExampleInput">Paper title : </label>
-        <input type="text" class="form-control" id="formGroupExampleInput" name = "paper-title" placeholder="Write the title of the paper" required>
+        <input type="text" class="form-control bigText" id="formGroupExampleInput" name = "paper-title" value="<?php echo htmlentities($result->papername)?>" required>
       </div>
 
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Abstract : </label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" name= "summary" rows="8" placeholder ="Write the short summary about the paper" required></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name= "summary" rows="8" required><?php echo htmlentities($result->abstract)?></textarea>
 
       </div>
       <div class="form-group">
@@ -106,7 +124,9 @@ if(strlen($_SESSION['alogin'])=="")
       <!-- accept = "application/pdf" -->
       <hr>
 
-      <button class="btn btn-success  btn-block" name = "submit" type="submit" >Submit</button>
+      <?php }} ?>   
+
+      <button class="btn btn-success  btn-block" name = "submit" type="submit" >Update</button>
       </form>
 
     <!-- Input file section ends here  -->

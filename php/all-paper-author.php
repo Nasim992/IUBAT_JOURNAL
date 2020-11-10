@@ -39,9 +39,9 @@
     <!-- Heading Sections ends  --> 
     </div>
  
-    <table id="heading-table">
+    <table id="heading-table"> 
            <tbody>
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type from paper ";
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper where action=1"; 
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 

@@ -88,7 +88,7 @@ if(strlen($_SESSION['alogin'])=="")
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
       $cnt=1; 
-      if($query->rowCount() > 0) 
+      if($query->rowCount() > 0)  
       {
       foreach($results as $result) 
       {   ?>
@@ -97,26 +97,14 @@ if(strlen($_SESSION['alogin'])=="")
       
             <tr>
             <td>
-            <div class="jumbotron" >
+            <div class="jumbotron" > 
+
+            <div class="d-flex justify-content-between">
+            <div>
             <p>Paper ID : <?php echo htmlentities($result->id);?></p>
-            <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
-            <p><b>Author Email: <?php echo htmlentities($result->authoremail);?></b></p>
-            <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
-
-            <div class=" d-flex justify-content-center">
-            <div class="p-4">
-            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
             </div>
-            <div class="p-4">
-            <p><?php echo htmlentities($result->type);?></p>
-            </div>
-            <div class="p-4">
-            <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=../documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a>
-            <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=../documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
-            </div>
-
-            <div class="p-4">
-            <p><b> <?php
+            <div>
+            <p><b> Status: <?php
             //  echo htmlentities($result->action);
             $test = htmlentities($result->action);
 
@@ -136,6 +124,25 @@ if(strlen($_SESSION['alogin'])=="")
             ?>
             </span></b></p>
             </div>
+            </div>
+
+            <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
+            <p><b>Author Email: <?php echo htmlentities($result->authoremail);?></b></p>
+            <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+
+            <div class=" d-flex justify-content-end">
+            <div class="p-4">
+            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
+            </div>
+            <div class="p-4">
+            <p><?php echo htmlentities($result->type);?></p>
+            </div>
+            <div class="p-4">
+            <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=../documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a>
+            <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=../documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+            </div>
+
+           
 
            </div>
            <hr>

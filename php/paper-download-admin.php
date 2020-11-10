@@ -17,7 +17,10 @@ if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-// $id=intval($_GET['id']);
+$idstr=strval($_GET['id']);
+
+$unpublished = $idstr[-1];
+
 
 if (!empty($_GET['id'])) {
 $id=intval($_GET['id']);
@@ -70,8 +73,19 @@ $name = $file1['name'];
         <p class="lead"><?php echo $abstract ?></p>
         <hr class="my-4">
 
-        <a href="admin-dashboard.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
-        <a class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download as PDF</a>
+    <?php if($unpublished == 'u') {
+     ?>
+     <a href="unpublished-paper.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+
+     <?php  
+    }
+    else {
+     ?>
+     <a href="admin-dashboard.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+
+    <?php } ?>
+
+     <a class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download as PDF</a>
         </div>
 
     <!-- DashBoard Section ends  -->

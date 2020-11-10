@@ -56,19 +56,13 @@ if(strlen($_SESSION['alogin'])=="")
         echo "<script>alert('Invalid Details !Something went wrong');</script>";
         header("refresh:0;url=author-paper-show.php");
 
-      }
+      } 
 
     }   
-       
-
-    
-
-     
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

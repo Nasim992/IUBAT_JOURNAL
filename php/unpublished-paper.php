@@ -9,8 +9,37 @@ if(strlen($_SESSION['alogin'])=="")
     }
     else
     {  
+    if(isset($_POST['accept-paper']))
+        {
+            $id = $_POST['id'];
+            $action = 1;
 
-?> 
+            $sql="update paper set action=:action where id=:id and action!=1 ";
+
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':action',$action,PDO::PARAM_STR);
+    
+            $query->bindParam(':id',$id,PDO::PARAM_STR);
+      
+            $query->execute();
+      
+            $results=$query->fetchAll(PDO::FETCH_OBJ);
+      
+            if($query->rowCount() > 0)
+            {
+
+        echo "<script>alert('Paper accepted...');</script>";
+        header("refresh:0;url=unpublished-paper.php");
+        }else{
+          
+        echo "<script>alert('Paper is already Accepted!');</script>";
+        header("refresh:0;url=unpublished-paper.php");
+
+      } 
+    }
+
+
+?>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +64,9 @@ if(strlen($_SESSION['alogin'])=="")
     <style>
      .jumbotron {
          padding:0px !important;
+     }
+     button[type="submit"]:hover {
+         background-color:none !important;
      }
      </style>
 </head>
@@ -76,12 +108,12 @@ include 'admin-header.php';
 
                         <div class="panel-body p-20">
  
-<table id="myTable-admin"  cellspacing="0" width="100%">
+   <table id="myTable-admin"  cellspacing="0" width="100%">
 
 <!-- Admin Paper showing sections starts (jumbotron section) here -->
 
 <tbody>
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper";
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action = 0";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -128,15 +160,35 @@ include 'admin-header.php';
             <p><b>Author Email: <?php echo htmlentities($result->authoremail);?></b></p>
             <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
 
-            <div class=" d-flex justify-content-end">
+            <div class=" d-flex justify-content-between bg-light">
+
             <div class="p-4">
-            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
+            <a href="paper-download-admin.php?id=<?php echo htmlentities($result->id);?>u " title="Download"><?php echo htmlentities($result->name);?></a>
             </div>
+
             <div class="p-4">
             <p><?php echo htmlentities($result->type);?></p>
             </div>
+
             <div class="p-4">
-            <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=../documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a>
+            <a href="feedback-paper.php?id=<?php echo htmlentities($result->id);?>" style="color:red;" title="Give Feedback">Feedback</a>
+            </div>
+            <div class="p-4">
+
+            <form method="post">
+
+            <input type="hidden" name="id" value="<?php echo htmlentities($result->id);?>">
+
+            <button type="submit"  class="bg-light" name="accept-paper" onclick="return confirm('Are you sure you want accept this paper?');" style="border:none;color:green;"> Accept <i class="fas fa-check"></i></button>
+
+            <!-- <a href="accepted-paper.php?id=<?php echo htmlentities($result->id);?>" name="accept-paper" style="color:green;" onclick="return confirm('Are you sure you want accept this paper?');" title="Accept">Accept <i class="fas fa-check"></i></a> -->
+            </form>
+
+            </div>
+
+
+            <div class="p-4">
+            <!-- <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=../documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a> -->
             <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=../documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
             </div>
 

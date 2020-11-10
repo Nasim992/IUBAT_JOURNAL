@@ -30,7 +30,7 @@
  
     <table id="heading-table">
            <tbody>
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action==1 ";
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1 ";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 

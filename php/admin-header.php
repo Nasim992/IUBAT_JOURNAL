@@ -7,8 +7,55 @@ if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: login.php"); 
     }
-    else
+    else  
     { 
+      //  New Paper count section starts here 
+
+        $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 0";
+        $stmt = $dbh->prepare($query);
+        
+        // execute query
+        $stmt->execute();
+        
+        // get total rows
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $total_rows = $row['total_rows'];
+
+
+     // New Paper count section ends here 
+
+           //  Number of Published paper  count section starts here 
+
+           $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 1";
+           $stmt = $dbh->prepare($query);
+           
+           // execute query
+           $stmt->execute();
+           
+           // get total rows
+           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+           $total_published = $row['total_rows'];
+   
+   
+        // Number of Published paper  count section ends here 
+
+
+         //  Number of Authors  count section starts here 
+
+         $query = "SELECT COUNT(*) as total_rows FROM author";
+         $stmt = $dbh->prepare($query);
+         
+         // execute query
+         $stmt->execute();
+         
+         // get total rows
+         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+         $total_authors = $row['total_rows'];
+ 
+ 
+      // Number of Authors count section ends here 
+
+       
         
 ?>
 <!DOCTYPE html>
@@ -47,15 +94,21 @@ if(strlen($_SESSION['alogin'])=="")
 
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="#">Total paper</a>
+            <a class="nav-link" href="#">Published Paper <b>(<?php echo $total_published; ?>)</b></a>
         </li>
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="#">Total Author</a>
+            <a class="nav-link" href="#">Author <b>(<?php echo $total_authors; ?>)</b></a>
         </li>
 
         <li class="nav-item" title="New Paper">
-            <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+
+        <?php   
+
+
+        ?>
+
+            <a class="nav-link" href="unpublished-paper.php"><b><sub><?php echo $total_rows; ?></sub></b>&nbsp<i class="fas fa-bell"></i></a>
        
         <li class="nav-item active" >
        <a class="nav-link" href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>

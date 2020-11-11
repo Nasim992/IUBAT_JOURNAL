@@ -1,8 +1,9 @@
 <?php
 session_start();
 error_reporting(0);
-
+ 
 include('../link/config.php');
+ 
 
 if(strlen($_SESSION['alogin'])=="")
     {    
@@ -14,10 +15,10 @@ if(strlen($_SESSION['alogin'])=="")
 
         if(isset($_POST['submit']))
         {
-    $password=md5($_POST['password']);
+    $password=($_POST['password']);
     $newpassword=md5($_POST['newpassword']);
 
-        $sql ="SELECT password FROM author WHERE email=:authoremail and password=:password and password!=:newpassword";
+        $sql ="SELECT password FROM admin WHERE email=:authoremail and password=:password and password!=:newpassword";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':authoremail', $authoremail, PDO::PARAM_STR);
     $query-> bindParam(':password', $password, PDO::PARAM_STR);
@@ -27,7 +28,7 @@ if(strlen($_SESSION['alogin'])=="")
     
     if($query -> rowCount() > 0)
     {
-    $con="update author set password=:newpassword where email=:authoremail";
+    $con="update admin set password=:newpassword where email=:authoremail";
     $chngpwd1 = $dbh->prepare($con);
     $chngpwd1-> bindParam(':authoremail', $authoremail, PDO::PARAM_STR); 
     $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
@@ -38,7 +39,7 @@ if(strlen($_SESSION['alogin'])=="")
     }
     else {
         echo "<script>alert('You entered wrong password Or,Your Current password cannot be your new password');</script>";
-        header("refresh:0;url=change-password-author.php");
+        header("refresh:0;url=change-password-admin.php");
     }
     }    
 
@@ -53,7 +54,7 @@ if(strlen($_SESSION['alogin'])=="")
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <title>Change password Author</title>
+    <title>Change password Admin</title>
 
 <style>
 .change-password-form {
@@ -69,7 +70,7 @@ if(strlen($_SESSION['alogin'])=="")
 <!-- Author showing header sections starts  -->
 
 <?php 
-    include 'author-header.php';
+    include 'admin-header.php';
     ?>
 
 <!-- Author showing header sections ends   -->
@@ -81,7 +82,7 @@ if(strlen($_SESSION['alogin'])=="")
          <input type="password" name="password" class="form-control" required="required" id="success" placeholder="Enter Old Password">
                                                       
           </div>
-           </div>
+           </div> 
            <div class="form-group has-success">
             <label for="success" class="control-label">New Password</label>
             <div class="">
@@ -98,12 +99,12 @@ if(strlen($_SESSION['alogin'])=="")
 
                <div class="d-flex justify-content-between mt-5">
                <div>
-               <a href="author-paper-show.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+               <a href="admin-dashboard.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
                </div>
                 <div >
                 <button type="submit" name="submit" class="btn btn-success btn-block float-right" >Change password</button>
                 </div>
-                  
+                 
                </div>                                     
              </form>
     </div>

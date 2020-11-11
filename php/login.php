@@ -15,7 +15,7 @@ if($_SESSION['alogin']!=''){
     // Admin Login Section starts 
 
     $email = $_POST['input-email'];
-    $password = $_POST['input-password'];
+    $password = md5($_POST['input-password']);
 
     $_SESSION["email"]=$_POST['input-email']; // push to the session
 
@@ -38,7 +38,7 @@ if($_SESSION['alogin']!=''){
     echo "<script type='text/javascript'> document.location = 'admin-dashboard.php'; </script>";
     } else{
         
-        echo "<script>alert('Invalid Details.Enter Currect Information');</script>";
+        echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
         header("refresh:0;url=login.php");
     
     }

@@ -81,7 +81,7 @@ include 'admin-header.php';
 <!-- Admin Paper showing sections starts (jumbotron section) here -->
 
 <tbody>
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper";
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -136,7 +136,7 @@ include 'admin-header.php';
             <p><?php echo htmlentities($result->type);?></p>
             </div>
             <div class="p-4">
-            <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=../documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a>
+            <a href="edit-paper-admin.php?id=<?php echo htmlentities($result->id);?>&nameprevious=../documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a>
             <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=../documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
             </div>
 
@@ -180,7 +180,7 @@ include 'admin-header.php';
     </thead>
  
     <tbody>
-<?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type from paper ";
+<?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 

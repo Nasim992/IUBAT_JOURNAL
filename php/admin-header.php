@@ -9,6 +9,24 @@ if(strlen($_SESSION['alogin'])=="")
     }
     else  
     { 
+
+      $adminemail = $_SESSION["email"];
+
+      // Check that the admin is logged in or not section starts here 
+       $sql = "SELECT admin.id,admin.user_name,admin.full_name,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+      $query = $dbh->prepare($sql); 
+      $query->execute(); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1;
+      if($query->rowCount() > 0) 
+      {
+      // foreach($results as $result) 
+      
+      // Check that the admin is logged in or not section ends here 
+
+
+
+
       //  New Paper count section starts here 
 
         $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 0";
@@ -84,17 +102,17 @@ if(strlen($_SESSION['alogin'])=="")
 
     <li class="nav-item dropdown" title="Operation">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-user-cog" ></i>
+        <i class="fas fa-user-cog" ></i> 
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Remove Authors</a>
-          <a class="dropdown-item" href="#">Change password</a>
+          <a class="dropdown-item" href="change-password-admin.php">Change password</a>
           <a class="dropdown-item" href="#">Show Authors list</a>
     </li>
 
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="#">Published Paper <b>(<?php echo $total_published; ?>)</b></a>
+            <a class="nav-link" href="admin-dashboard.php">Published Paper <b>(<?php echo $total_published; ?>)</b></a>
         </li>
 
         <li class="nav-item" title="total paper">
@@ -141,4 +159,9 @@ if(strlen($_SESSION['alogin'])=="")
 </body>
 </html>
 
-    <?php } ?>
+    <?php }
+    else {
+      echo "What ";
+    }
+
+   }?>

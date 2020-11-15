@@ -5,14 +5,14 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: login.php"); 
+    header("Location: login.php");  
     }
-    else  
     { 
 
-      $adminemail = $_SESSION["email"];
 
       // Check that the admin is logged in or not section starts here 
+      $adminemail = $_SESSION["email"];
+
        $sql = "SELECT admin.id,admin.user_name,admin.full_name,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
       $query = $dbh->prepare($sql); 
       $query->execute(); 
@@ -20,7 +20,6 @@ if(strlen($_SESSION['alogin'])=="")
       $cnt=1;
       if($query->rowCount() > 0) 
       {
-      // foreach($results as $result) 
       
       // Check that the admin is logged in or not section ends here 
 
@@ -74,7 +73,7 @@ if(strlen($_SESSION['alogin'])=="")
       // Number of Authors count section ends here 
 
        
-        
+         
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,7 +88,7 @@ if(strlen($_SESSION['alogin'])=="")
    <link rel="stylesheet" href="../css/admin-dashboard.css">
 
 </head>
-<body>
+<body> 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#"><img src="../images/Iubat-logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,9 +104,8 @@ if(strlen($_SESSION['alogin'])=="")
         <i class="fas fa-user-cog" ></i> 
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Remove Authors</a>
           <a class="dropdown-item" href="change-password-admin.php">Change password</a>
-          <a class="dropdown-item" href="#">Show Authors list</a>
+          <a class="dropdown-item" href="add-admin.php">Add Another Admin</a>
     </li>
 
 
@@ -116,7 +114,7 @@ if(strlen($_SESSION['alogin'])=="")
         </li>
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="#">Author <b>(<?php echo $total_authors; ?>)</b></a>
+            <a class="nav-link" href="admin-show-authors.php">Author <b>(<?php echo $total_authors; ?>)</b></a>
         </li>
 
         <li class="nav-item" title="New Paper">
@@ -161,7 +159,8 @@ if(strlen($_SESSION['alogin'])=="")
 
     <?php }
     else {
-      echo "What ";
+      echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
+      header("refresh:0;url=login.php");
     }
 
    }?>

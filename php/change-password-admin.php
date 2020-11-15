@@ -7,10 +7,26 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: login.php"); 
+    header("Location: login.php");  
     }
     else
     {  
+
+    // Check that the admin is logged in or not section starts here 
+     $adminemail = $_SESSION["email"];
+
+     $sql = "SELECT admin.id,admin.user_name,admin.full_name,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+     $query = $dbh->prepare($sql); 
+     $query->execute(); 
+     $results=$query->fetchAll(PDO::FETCH_OBJ); 
+     $cnt=1;
+     if($query->rowCount() > 0) 
+     {
+     
+     // Check that the admin is logged in or not section ends here 
+
+
+
         $authoremail = $_SESSION["email"];
 
         if(isset($_POST['submit']))
@@ -67,13 +83,15 @@ if(strlen($_SESSION['alogin'])=="")
 </head>
 <body>
     <div class="container">
+    <div class="sticky-top">
 <!-- Author showing header sections starts  -->
 
-<?php 
-    include 'admin-header.php';
-    ?>
+<?php
+include 'admin-header.php';
+?>
 
 <!-- Author showing header sections ends   -->
+</div>
 
     <form  class="change-password-form" method="post">
          <div class="form-group has-success">
@@ -109,12 +127,24 @@ if(strlen($_SESSION['alogin'])=="")
              </form>
     </div>
 
-        <!-- Essential Js,jquery,section starts  -->
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/popper.min.js"></script>
-
-        <!-- Essential Js,Jquery  section ends  -->   
+<!-- Essential Js,jquery,section starts  -->
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.slim.min.js"></script>
+<script src="../js/popper.min.js"></script>
+<!-- Essential Js,Jquery  section ends  -->  
+  
 </body>
 </html>
 
-<?php     }  ?>
+<?php     
+
+}
+else {
+  echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
+  header("refresh:0;url=login.php");
+}
+
+}
+    
+
+?>

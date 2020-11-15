@@ -10,7 +10,21 @@ if(strlen($_SESSION['alogin'])=="")
     else
     {  
 
-?> 
+     // Check that the admin is logged in or not section starts here 
+     $adminemail = $_SESSION["email"];
+
+     $sql = "SELECT admin.id,admin.user_name,admin.full_name,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+     $query = $dbh->prepare($sql); 
+     $query->execute(); 
+     $results=$query->fetchAll(PDO::FETCH_OBJ); 
+     $cnt=1;
+     if($query->rowCount() > 0) 
+     {
+     
+     // Check that the admin is logged in or not section ends here 
+
+
+?>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +49,7 @@ if(strlen($_SESSION['alogin'])=="")
     <style>
      .jumbotron {
          padding:0px !important;
-     }
+     } 
      </style>
 </head>
 <body>
@@ -54,7 +68,7 @@ include 'admin-header.php';
 
 
     <!-- Authors paper showing sections starts here  -->
-    <div class="content-container">
+<div class="content-container">
 
 <div class="main-page">
     <div class="container-fluid">
@@ -130,7 +144,7 @@ include 'admin-header.php';
 
             <div class=" d-flex justify-content-end">
             <div class="p-4">
-            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
+            <a href="paper-download-admin.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
             </div>
             <div class="p-4">
             <p><?php echo htmlentities($result->type);?></p>
@@ -225,7 +239,7 @@ foreach($results as $result)
         </div>
         <!-- /.container-fluid -->
     </section>
-    <!-- /.section -->
+    <!-- /.section --> 
 
 </div>
 <!-- /.main-page -->
@@ -248,4 +262,16 @@ foreach($results as $result)
 </body>
 </html>
 
-    <?php } ?>
+    <?php 
+
+}
+else {
+  echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
+  header("refresh:0;url=login.php");
+}
+
+}
+    
+    
+    
+    ?>

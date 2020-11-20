@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 
-include('../link/config.php');
+include('link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
@@ -48,7 +48,7 @@ if(strlen($_SESSION['alogin'])=="")
      // Redirecting back
     //   header("Location: " . $_SERVER["HTTP_REFERER"]);
  
-      move_uploaded_file($filetmp,"../documents/".$name);
+      move_uploaded_file($filetmp,"documents/".$name);
         echo "<script>alert('Paper Updated Successfully.');</script>";
        echo "<script type='text/javascript'> document.location = 'author-paper-show.php'; </script>";
       } else{
@@ -67,8 +67,8 @@ if(strlen($_SESSION['alogin'])=="")
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Author Dashboard</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/admin-dashboard.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
 </head>
 <body>
   <div class="container">
@@ -128,9 +128,9 @@ if(strlen($_SESSION['alogin'])=="")
   </div>
 
     <!-- Essential Js,jquery,section starts  -->
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
-    <script src="../js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->    
 </body>
 </html>

@@ -1,9 +1,12 @@
-<?php 
+<?php  
 session_start();
 error_reporting(0);
 
+// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
+
 $link = mysqli_connect("localhost", "root", "", "iubat");
   
+
 if(strlen($_SESSION['alogin'])=="")
     {    
         $authoremail = "";
@@ -33,7 +36,7 @@ $filename = $file['name'];
 $title = $file['papername'];
 $abstract = $file['abstract'];
 $authorname = $file['authoremail'];
-$filepath = '../documents/'.$file['name'];
+$filepath = 'documents/'.$file['name'];
 
 
 $sql = "SELECT * FROM author WHERE  email= '$authorname' ";
@@ -51,11 +54,11 @@ $name = $file1['name'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="css/index.css">
     <title>Document</title>
 </head> 
 <body>
@@ -102,9 +105,9 @@ $name = $file1['name'];
     </div>
 
 <!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.5.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>

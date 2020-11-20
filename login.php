@@ -2,7 +2,7 @@
 <?php 
 session_start();
 error_reporting(0);
-include('../link/config.php');
+include('link/config.php');
 if($_SESSION['alogin']!=''){
     $_SESSION['alogin']=''; 
     }
@@ -136,11 +136,11 @@ if($_SESSION['alogin']!=''){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IUBAT</title>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
-    <script src="../js/login.js"></script>
-    <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/login.js"></script>
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!-- Jquery section starts  -->
@@ -270,13 +270,13 @@ $(()=>{
 
 
 <!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<!-- <script src="../js/login.js"></script>  -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.5.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<!-- <script src="js/login.js"></script>  -->
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="../js/login.js"></script> -->
+<script src="js/login.js"></script> -->
 <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>

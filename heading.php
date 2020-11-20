@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/heading.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <!-- <script src="../js/jquery-3.5.1.slim.min.js"></script> -->
+    <link rel="stylesheet" href="css/heading.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 
 
 
@@ -15,7 +15,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="index.php"><img src="../images/Iubat-logo.png"></a>
+  <a class="navbar-brand" href="index.php"><img src="images/Iubat-logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -40,9 +40,9 @@
 
 
 <!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.5.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
 
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('../link/config.php');
+include('link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
@@ -46,11 +46,11 @@ if(strlen($_SESSION['alogin'])=="")
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Pannel</title>
-    <!-- <link rel="stylesheet" href="../css/heading.css"> -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/admin-dashboard.css">
-    <link rel="stylesheet" href="../css/index.css">
-    <!-- <script src="../js/jquery-3.5.1.slim.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="css/heading.css"> -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
     <!-- <script> 
         $(document).ready(function(){
         $("#myInput-admin").on("keyup", function() {
@@ -188,8 +188,8 @@ include 'admin-header.php';
 
 
             <div class="p-4">
-            <!-- <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=../documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a> -->
-            <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=../documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+            <!-- <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a> -->
+            <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
             </div>
 
            
@@ -253,7 +253,7 @@ foreach($results as $result)
 
 <td >
 <a href="edit_symptoms.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a>
-<a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=../documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+<a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
 
 </td>
 </tr>
@@ -293,9 +293,9 @@ foreach($results as $result)
 
 </div>
 <!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.5.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->    
 </body>
 </html>

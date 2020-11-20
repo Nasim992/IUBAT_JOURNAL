@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('../link/config.php');
+include('link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
@@ -33,11 +33,11 @@ if(strlen($_SESSION['alogin'])=="")
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <link rel="stylesheet" href="../css/heading.css"> -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/heading.css"> -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <!-- <script src="../js/jquery-3.5.1.slim.min.js"></script> -->
-   <link rel="stylesheet" href="../css/admin-dashboard.css">
+    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+   <link rel="stylesheet" href="css/admin-dashboard.css">
 
 </head>
 <body>
@@ -93,7 +93,7 @@ foreach($results as $result)
 
 <td >
 <a href="edit_author.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a>
-<a href="delete-author.php?id=<?php echo htmlentities($result->id);?>&name=../documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+<a href="delete-author.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
 
 </td>
 </tr>
@@ -117,9 +117,9 @@ foreach($results as $result)
 </div>
 
 <!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.5.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
 <script>
             $(function($) {
                 $('#example').DataTable();

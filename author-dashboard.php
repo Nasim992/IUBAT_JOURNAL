@@ -72,6 +72,7 @@ if(strlen($_SESSION['alogin'])=="")
 </head>
 <body>
   <div class="container">
+
   <div class="sticky-top">
     <!-- Header section starts here  -->
 
@@ -102,7 +103,7 @@ if(strlen($_SESSION['alogin'])=="")
       <div class="form-group">
       <label for="exampleFormControlFile1">Upload file : </label>
       <input type="file" class="form-control-file" name="file"id="exampleFormControlFile1" accept = "application/pdf"  required>
-      </div>
+      </div> 
       <!-- accept = "application/pdf" -->
       <hr>
 

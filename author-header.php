@@ -63,7 +63,7 @@ if(strlen($_SESSION['alogin'])=="")
        <a class="nav-link" href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>
 
-
+ 
 
    
         </ul>

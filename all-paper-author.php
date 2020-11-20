@@ -1,4 +1,3 @@
-
 <?php 
  session_start();
  error_reporting(0);
@@ -6,7 +5,7 @@
  include('link/config.php');
  
  if(strlen($_SESSION['alogin'])=="")
-     {    
+     {     
      header("Location: login.php"); 
      }
      else
@@ -26,7 +25,6 @@
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
 </head>
 <body> 
 

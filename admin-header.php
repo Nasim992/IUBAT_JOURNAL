@@ -24,7 +24,7 @@ if(strlen($_SESSION['alogin'])=="")
       // Check that the admin is logged in or not section ends here 
 
 
-
+ 
 
       //  New Paper count section starts here 
 
@@ -87,7 +87,7 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
    <link rel="stylesheet" href="css/admin-dashboard.css">
 
-</head>
+</head> 
 <body> 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#"><img src="images/Iubat-logo.png"></a>

@@ -48,7 +48,7 @@
             <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
             <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <hr class="my-4">
-            <a class="btn btn-success btn-sm" href="paper-download.php?id=<?php echo htmlentities($result->id);?>" role="button">Download as PDF</a>
+            <a class="btn btn-success btn-sm" href="paper-download.php?id=<?php echo htmlentities($result->id);?>" role="button">Download</a>
             <a class="btn btn-success btn-sm float-right" href="see-more-public.php?id=<?php echo htmlentities($result->id);?>" role="button">See More...</a> 
             </td>
            </div>

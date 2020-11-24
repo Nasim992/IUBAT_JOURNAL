@@ -1,12 +1,80 @@
 
 <?php 
+ session_start();
+ error_reporting(0);
  
  include('link/config.php');
 
+//  Check that someone is logged in or not 
+
+ if(strlen($_SESSION['alogin'])=="")
+    { 
+      $emails = "Anonymous";
+    }
+    else
+    { 
+       $emails = $_SESSION["email"];
+    }
+//  Check that someone is logged in or not 
+
+// Insert Comment To the Database section starte here 
+
+    $id=intval($_GET['id']);
+    $msg = "";
+      if(isset($_POST['submit']))
+    { 
+      $paperid = $id;
+
+      $name = $_POST['name'];
+
+      if ($name !='') {
+        $name = $_POST['name'];
+      }
+      else {
+        $name = "Anonymous";
+      }
+      
+      $email = $emails;
+      $comments = $_POST['comment'];
+
+      $sql="INSERT INTO  comments(paperid,name,email,comments) VALUES(:paperid,:name,:email,:comments)";
+      $query = $dbh->prepare($sql);
+      $query->bindParam(':paperid',$paperid,PDO::PARAM_STR);
+      $query->bindParam(':name',$name,PDO::PARAM_STR);
+      $query->bindParam(':email',$email,PDO::PARAM_STR);
+      $query->bindParam(':comments',$comments,PDO::PARAM_STR);
+    
+      $query->execute();
+ 
+      $results=$query->fetchAll(PDO::FETCH_OBJ);
+      if($query->rowCount() > 0)
+      {
+        $msg = "Comment Posted Successfully!";
+
+      } else{
+          
+         $msg  = "Something Went Wrong! ";
+
+      }    
+    }
+
+  // Insert Comment To the Database section ends here 
 
 
-//  $authoremail = $_SESSION["email"];
- $id=intval($_GET['id']);
+  // Total Comments Count Sections starts here 
+  
+  $query = "SELECT COUNT(*) as total_rows FROM comments WHERE paperid = '$id'";
+  $stmt = $dbh->prepare($query);
+  
+  // execute query
+  $stmt->execute();
+  
+  // get total rows
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  $total_rows = $row['total_rows'];
+
+
+  // Total Comments Sections ends here 
 
 
 ?>
@@ -87,21 +155,22 @@
 
 <div class="d-flex justify-content-between comments row col-sm-12">
 
-<div class="p-5 col-sm-12 col-lg-8 col-md-6">
-<form>
+<div class="p-5 col-sm-12 col-lg-6 col-md-6">
+<form method="post">
+
 <div class="form-group">
-    <label for="exampleInputEmail1">Name(Optional)</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your name">
+    <label class="control-label" for="exampleInputEmail1">Name(Optional)</label>
+    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your name">
   </div>
-  <div class="form-group"> 
+  <!-- <div class="form-group"> 
     <label for="exampleInputEmail1">Email address(Optional)</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
+  </div> -->
 
   <div class="form-group"> 
         <label for="exampleFormControlTextarea1">Comments: </label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" name= "summary" rows="4" placeholder="Write Your Comments About the Paper " required></textarea>
+        <textarea name="comment" class="form-control " id="exampleFormControlTextarea1" name= "summary" rows="4" placeholder="Write Your Comments About the Paper " required></textarea>
 
      </div>
 
@@ -109,13 +178,58 @@
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div> -->
-  <button type="submit" class="btn btn-primary">Comments</button>
-</form>
+  <div class="form-group">
+  <button type="submit" name="submit" class="btn btn-primary">Post Comment</button>
+  <h5 class="float-right text-success p-2"><?php echo $msg ?></h5>
+  </div>
+
+
+  </form>
+
+</div>
+ 
+<div class="p-5 col-sm-12 col-lg-6 col-md-6 row justify-content-center">
+<div class=" rounded mt-2">
+<h4 class="p-2">Comments(<?php echo $total_rows ?>) </h4>
+<div class="rounded p-3">
+<?php $sql = "SELECT comments.id,comments.paperid,comments.name,comments.email,comments.comments,comments.time from comments WHERE paperid='$id' ORDER BY id DESC";
+      $query = $dbh->prepare($sql); 
+      $query->execute(); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1; 
+      if($query->rowCount() > 0)  
+      {
+      foreach($results as $result) 
+      {  
+        ?>
+    <div class="card mb-2 border-secondary">
+    <div class="card-header bg-success py-1 text-light d-flex justify-content-between">
+        <div>
+        <span>Posted by:<?php echo htmlentities($result->name);?> &nbsp&nbsp&nbsp</span>
+        </div>
+        <div>
+        <span class="float-right"> On: <?php echo htmlentities($result->time);?></span>
+        </div>
+    </div>
+    <div class="card-body py-2">
+    <p class="card-text"> <?php echo htmlentities($result->comments);?> </p>
+    </div>
+
+    <div class="card-footer py-2">
+    <div class="float-right">
+    <a href="delete-message.php" class="text-danger mr-2" onclick="return confirm('Do you want to delete this comment?');" title ="Delete"><i class="fas fa-trash"></i></a>
+    <a href="edit-message.php" class="text-success mr-2"  title ="Edit"><i class="fas fa-edit"></i></a>
+
+    </div>
+    </div>
+
+    </div>
+
+      <?php }} ?>
 
 </div>
 
-<div class="p-5 col-sm-12 col-lg-4 col-md-6">
-<h1>Comments are showing here !!</h1>
+</div>
 </div>
 
 </div>

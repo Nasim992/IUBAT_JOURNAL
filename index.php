@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
-</head>
+</head> 
 <body> 
 
     <div class="container">

@@ -107,7 +107,7 @@ include 'admin-header.php';
 
           <!-- Dashboard section starts  -->
       
-            <tr>
+            <tr> 
             <td>
             <div class="jumbotron" > 
 

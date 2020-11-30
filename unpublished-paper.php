@@ -86,29 +86,12 @@ include 'admin-header.php';
 
 
     <!-- Authors paper showing sections starts here  -->
-    <div class="content-container">
+    <div style="margin-top:20px;float:right;width:50%;margin-bottom:20px;">
+    <input id="myInput-admin" class="form-control" type="text" placeholder="Search..">
+     </div>
 
-<div class="main-page">
-    <div class="container-fluid">
-        <div class="row page-title-div">
-  
-    
-
-    <section class="section">
-        <div class="container-fluid">
-
-         
-
-            <div class="row">
-                <div class="col-md-12">
-                                <div style="margin-top:20px;float:right;width:50%;margin-bottom:20px;">
-                                <input id="myInput-admin" class="form-control" type="text" placeholder="Search..">
-                               </div>
-
-
-                        <div class="panel-body p-20">
- 
-   <table id="myTable-admin"  cellspacing="0" width="100%">
+<div class="table-responsive">
+   <table id="myTable-admin" class="table"  cellspacing="0" width="100%">
 
 <!-- Admin Paper showing sections starts (jumbotron section) here -->
 
@@ -129,7 +112,7 @@ include 'admin-header.php';
             <td>
             <div class="jumbotron" > 
 
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between row col-sm-12">
             <div>
             <p>Paper ID : <?php echo htmlentities($result->id);?></p>
             </div>
@@ -160,20 +143,20 @@ include 'admin-header.php';
             <p><b>Author Email: <?php echo htmlentities($result->authoremail);?></b></p>
             <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
 
-            <div class=" d-flex justify-content-between bg-light">
+            <div class=" d-flex justify-content-between bg-light row col-sm-12">
 
-            <div class="p-4">
+            <div>
             <a href="paper-download-admin.php?id=<?php echo htmlentities($result->id);?>u " title="Download"><?php echo htmlentities($result->name);?></a>
             </div>
 
-            <div class="p-4">
+            <div >
             <p><?php echo htmlentities($result->type);?></p>
             </div>
 
-            <div class="p-4">
+            <div >
             <a href="feedback-paper.php?id=<?php echo htmlentities($result->id);?>" style="color:red;" title="Give Feedback">Feedback</a>
             </div>
-            <div class="p-4">
+            <div >
 
             <form method="post">
 
@@ -187,7 +170,7 @@ include 'admin-header.php';
             </div>
 
 
-            <div class="p-4">
+            <div >
             <!-- <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a> -->
             <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
             </div>
@@ -264,30 +247,8 @@ foreach($results as $result)
 
 
 </table>
-
-
-<!-- /.col-md-12 -->
 </div>
 
-                    </div>
-                </div>
-                <!-- /.col-md-6 -->
-
-  
-        </div>
-        <!-- /.container-fluid -->
-    </section>
-    <!-- /.section -->
-
-</div>
-<!-- /.main-page -->
-
-
-
-</div>
-<!-- /.content-container -->
-</div>
-<!-- /.content-wrapper -->
 
     <!-- Authors paper showing sections ends here  -->
 

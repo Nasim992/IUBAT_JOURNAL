@@ -67,7 +67,7 @@ if(strlen($_SESSION['alogin'])=="")
                   </div> 
 
         <!-- <div class="panel-body p-20"> -->
-
+<div class="table-responsive">
 <table  id="myTable"  cellspacing="0" width="100%">
 
 <!-- Author paper showing section starts (Jumbotron section) -->
@@ -89,7 +89,7 @@ if(strlen($_SESSION['alogin'])=="")
             <td>
             <div class="jumbotron" > 
 
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between col-sm-12">
             <div>
             <p>Paper ID : <?php echo htmlentities($result->id);?></p>
             </div>
@@ -120,14 +120,13 @@ if(strlen($_SESSION['alogin'])=="")
             <p><b>Author Email: <?php echo htmlentities($result->authoremail);?></b></p>
             <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
 
-            <div class=" d-flex justify-content-end">
-            <div class="p-4">
+            <div class=" d-flex justify-content-between col-sm-12">
+            <div >
             <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
             </div>
-            <div class="p-4">
+            <div >
             <p><?php echo htmlentities($result->type);?></p>
             </div>
-            <div class="p-4">
             <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a>
             <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
             </div>
@@ -146,7 +145,7 @@ if(strlen($_SESSION['alogin'])=="")
 
     <?php }} ?>
     </tbody>
-
+        </table>
 
 
 <!-- Authors paper showing section ends (jumbotron section) -->

@@ -63,7 +63,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Author Dashboard</title>
@@ -85,8 +85,8 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- input file section starts here  -->
     <h1 class="author-heading">Upload your paper as a pdf format</h1>
-
-      <form class = "author-form" method = "post" enctype = "multipart/form-data">
+   <div class="author-form col-lg-12 col-sm-12 col-md-12">
+      <form clas="author-form" method = "post" enctype = "multipart/form-data">
 
       <input type="hidden" id="custId" name="author-email" value="<?php echo $authoremail ?>">
 
@@ -109,6 +109,7 @@ if(strlen($_SESSION['alogin'])=="")
 
       <button class="btn btn-success  btn-block" name = "submit" type="submit" >Submit</button>
       </form>
+      </div>
 
     <!-- Input file section ends here  -->
 

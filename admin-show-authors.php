@@ -56,11 +56,14 @@ include 'admin-header.php';
                                 <div style="margin-top:20px;float:right;width:50%;margin-bottom:20px;">
                                 <input id="myInput-admin" class="form-control" type="text" placeholder="Search..">
                             </div>
-<table class="table table-striped table-responsive{-sm|-md|-lg|-xl}"  cellspacing="0" width="100%">
+
+<div class="table-responsive"> 
+
+<table  class="table"  cellspacing="0">
 
 <thead>
         <tr>
-            <th  scope="col">#</th>
+            <th >#</th>
             <th >id</th>
             <th >Author Name</th>
             <th >Author Email</th>
@@ -69,12 +72,8 @@ include 'admin-header.php';
             <th >Actions</th>
         </tr>
 </thead>
-</table>
-<table id="myTable-admin" class="table table-striped  table-hover table-responsive{-sm|-md|-lg|-xl}"  cellspacing="0" width="100%">
 
-
- 
-<tbody>
+<tbody id="myTable-admin">
 <?php $sql = "SELECT author.id,author.name,author.email,author.contact,author.address  from author";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
@@ -91,7 +90,7 @@ foreach($results as $result)
             <td ><?php echo htmlentities($result->contact);?></td>
             <td ><?php echo htmlentities($result->address);?></td>
 
-<td >
+<td>
 <a href="edit_author.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a>
 <a href="delete-author.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
 
@@ -104,6 +103,7 @@ foreach($results as $result)
 
 
 </table>
+</div>
 
                 </div>
 

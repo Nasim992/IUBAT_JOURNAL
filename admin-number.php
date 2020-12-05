@@ -65,16 +65,16 @@ include 'admin-header.php';
         <tr>
             <th >#</th>
             <th >id</th>
-            <th >Author Name</th>
-            <th >Author Email</th>
-            <th >Author Contact</th>
-            <th >Author Address</th>
+            <th >Admin Name</th>
+            <th >Full Name</th>
+            <th >Email</th>
+            <th >Contact Address</th>
             <th >Actions</th>
         </tr>
 </thead>
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT author.id,author.name,author.email,author.contact,author.address  from author";
+<?php $sql = "SELECT admin.id,admin.username,admin.fullname,admin.email,admin.contact  from admin";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -85,14 +85,14 @@ foreach($results as $result)
 {   ?>
 <tr>
 <td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->id);?></td>
-            <td ><?php echo htmlentities($result->name);?></td>
+            <td ><?php echo htmlentities($result->username);?></td>
+            <td ><?php echo htmlentities($result->fullname);?></td>
             <td ><?php echo htmlentities($result->email);?></td>
             <td ><?php echo htmlentities($result->contact);?></td>
-            <td ><?php echo htmlentities($result->address);?></td>
 
 <td>
-<a href="edit_author.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a>
-<a href="delete-author.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+<a href="edit_admin.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a>
+<a href="delete-admin.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
 
 </td>
 </tr>

@@ -13,7 +13,7 @@ if(strlen($_SESSION['alogin'])=="")
       // Check that the admin is logged in or not section starts here 
       $adminemail = $_SESSION["email"];
 
-       $sql = "SELECT admin.id,admin.user_name,admin.full_name,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+       $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -72,6 +72,21 @@ if(strlen($_SESSION['alogin'])=="")
  
       // Number of Authors count section ends here 
 
+         //  Number of Admins  count section starts here 
+
+               $query = "SELECT COUNT(*) as total_rows FROM admin";
+               $stmt = $dbh->prepare($query);
+               
+               // execute query
+               $stmt->execute();
+               
+               // get total rows
+               $row = $stmt->fetch(PDO::FETCH_ASSOC);
+               $total_admin = $row['total_rows'];
+       
+       
+          // Number of Admins count section ends here 
+
        
          
 ?>
@@ -112,6 +127,11 @@ if(strlen($_SESSION['alogin'])=="")
         <li class="nav-item" title="total paper">
             <a class="nav-link" href="admin-dashboard.php">Published Paper <b>(<?php echo $total_published; ?>)</b></a>
         </li>
+
+        <li class="nav-item" title="total paper">
+            <a class="nav-link" href="admin-number.php">Admin <b>(<?php echo $total_admin; ?>)</b></a>
+        </li>
+
 
         <li class="nav-item" title="total paper">
             <a class="nav-link" href="admin-show-authors.php">Author <b>(<?php echo $total_authors; ?>)</b></a>

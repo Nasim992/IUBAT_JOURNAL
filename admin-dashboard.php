@@ -13,7 +13,7 @@ if(strlen($_SESSION['alogin'])=="")
      // Check that the admin is logged in or not section starts here 
      $adminemail = $_SESSION["email"];
 
-     $sql = "SELECT admin.id,admin.user_name,admin.full_name,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+     $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
      $results=$query->fetchAll(PDO::FETCH_OBJ); 

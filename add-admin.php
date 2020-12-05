@@ -7,13 +7,13 @@ if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: login.php"); 
     } 
-    else
+    else 
     {  
 
      // Check that the admin is logged in or not section starts here 
      $adminemail = $_SESSION["email"];
 
-     $sql = "SELECT admin.id,admin.user_name,admin.full_name,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+     $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -21,7 +21,45 @@ if(strlen($_SESSION['alogin'])=="")
      if($query->rowCount() > 0) 
      {
      
-     // Check that the admin is logged in or not section ends here 
+// Check that the admin is logged in or not section ends here 
+
+
+if(isset($_POST['submit'])) 
+  {
+$username=$_POST['uname'];
+$password=md5($_POST['password']);
+$newpassword=md5($_POST['newpassword']);
+$fullname=$_POST['fname'];
+$email=$_POST['email'];
+$contact=$_POST['contact'];
+// $username=$_SESSION["username"];
+if($password==$newpassword) 
+{
+$sql="INSERT INTO  admin(username,fullname,password,email,contact) VALUES(:username,:fullname,:password,:email,:contact)";
+$query= $dbh -> prepare($sql);
+$query-> bindParam(':username', $username, PDO::PARAM_STR);
+$query-> bindParam(':fullname', $fullname, PDO::PARAM_STR);
+$query-> bindParam(':password', $password, PDO::PARAM_STR);
+$query-> bindParam(':email', $email, PDO::PARAM_STR);
+$query-> bindParam(':contact', $contact, PDO::PARAM_STR); 
+$query->execute();
+if( $query->rowCount() > 0) 
+{
+  echo "<script>alert('Admin Added Succssfully');</script>";
+}
+
+else {
+    echo "<script>alert('Email Already Available');</script>";
+}
+
+} 
+else
+{
+  echo "<script>alert('Password Doesn't Match.');</script>";
+}
+
+ }
+
 
 
 ?>  
@@ -63,36 +101,56 @@ include 'admin-header.php';
 
 <!-- Admin Addition Section Starts here  -->
 
-<form  name="chngpwd" class="chngpass" method="post" \ onSubmit="return valid();">
-                                                    <div class="form-group has-success">
-                                                        <label for="success" class="control-label">User Email</label>
-                                                		<div class="">
-                                                    <input type="text" name="uname" class="form-control" id="inputEmail3" placeholder="UserName" required>
+<form  name="chngpwd" class="chngpass" method="post">
+<div class="form-group has-success">
+        <label for="success" class="control-label">User Name</label>
+         <div class="">
+        <input type="text" name="uname" class="form-control" id="inputEmail3" placeholder="UserName" required>
                    
-                                                		</div>
-                                                	</div>
-                                                  <div class="form-group has-success">
-                                                        <label for="success" class="control-label">Password</label>
-                                                        <div class="">
-                                                            <input type="password" name="password" required="required" class="form-control" id="success"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"   title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Password">
-                                                        </div>
-                                                    </div>
-                                                       <div class="form-group has-success">
-                                                        <label for="success" class="control-label">Confirm Password</label>
-                                                        <div class="">
-                                                            <input type="password" name="newpassword" required="required" class="form-control" id="success"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"   title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Confirm Password">
-                                                        </div>
-                                                    </div>
+            </div>
+        </div>
+        <div class="form-group has-success">
+        <label for="success" class="control-label">Full Name</label>
+         <div class="">
+        <input type="text" name="fname" class="form-control" id="inputEmail3" placeholder="Enter Full Name" required>
+                   
+            </div>
+        </div>
+        <div class="form-group has-success">
+        <label for="success" class="control-label">User Email</label>
+         <div class="">
+        <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Enter Email" required>
+                   
+            </div>
+        </div>
+        <div class="form-group has-success">
+            <label for="success" class="control-label">Password</label>
+            <div class="">
+                <input type="password" name="password" required="required" class="form-control" id="success"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"   title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Password">
+            </div>
+         </div>
+             <div class="form-group has-success">
+            <label for="success" class="control-label">Confirm Password</label>
+            <div class="">
+                  <input type="password" name="newpassword" required="required" class="form-control" id="success"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"   title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Confirm Password">
+             </div>
+         </div>
+    <div class="form-group has-success">
+        <label for="success" class="control-label">Contact</label>
+         <div class="">
+        <input type="text" name="contact" class="form-control" id="inputEmail3" placeholder="Contact Number" required>        
+            </div>
+        </div>
                                                     
-  <div class="form-group has-success">
+  <div class="form-group  text-center">
 
-                                                        <div class="">
-                                                           <button type="submit" name="submit" class="result-color1">Submit</button>
-                                                    </div>
+     <div class="">
+        <button type="submit" name="submit" class="bg-success text-white col-lg-6 p-1">Submit</button>
+        </div>
 
 
                                                     
-                                                </form>
+        </form>
 <!-- Admin Addition Section ends Here  -->
 </div>
 
@@ -121,7 +179,4 @@ else {
 }
 
 }
-    
-    
-    
     ?>

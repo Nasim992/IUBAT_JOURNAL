@@ -61,15 +61,25 @@
 
 #logreg-forms .google-btn{ background-color: #DF4B3B; }
 
-#logreg-forms .form-reset, #logreg-forms .form-signup{ display: none; }
+#logreg-forms .form-reset, #logreg-forms .form-signup{ display: none; padding: 30px; }
 
 #logreg-forms .form-signup .social-btn{ width:210px; }
 
 #logreg-forms .form-signup input { margin-bottom: 2px;}
-
+.form-signin{
+    padding:30px !important;
+}
+.Admin_Author {
+    margin-right: 30px;
+}
 .form-signup .social-login{
     width:210px !important;
     margin: 0 auto;
+}
+
+form input{
+    
+margin: 10px 0px;
 }
 
 /* Mobile */
@@ -135,4 +145,19 @@
 
     text-align:center;
     cursor:pointer;
+}
+.logo-container {
+    
+width: 50px;
+    
+margin: 0 auto;
+}
+.logo-container img{
+height: 40px;
+}
+.logo{
+
+font-size: 40px;
+
+color: #008000ba;
 }

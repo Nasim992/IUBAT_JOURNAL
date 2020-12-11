@@ -48,7 +48,7 @@ if($_SESSION['alogin']!=''){
     }
     else{
 
-        // Authors sign in option starts here
+    // Authors sign in option starts here
 
     $email = $_POST['input-email'];
     $password=md5($_POST["input-password"]); 
@@ -70,7 +70,7 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'author-dashboard.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'all-paper-author.php'; </script>";
     } else{
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
@@ -78,7 +78,7 @@ if($_SESSION['alogin']!=''){
     
     }
 
-        // Authors sign in Option ends here
+     // Authors sign in Option ends here
     }
     }
 
@@ -127,6 +127,47 @@ if($_SESSION['alogin']!=''){
         }
 
     // Sign Up form section ends here 
+
+    // Reset-Password section starts here 
+    if(isset($_POST['rsubmit']))  
+    {
+        $rname = $_POST['rname'];
+        $remail = $_POST['remail'];
+        $rpassword = md5($_POST['rpassword']);
+        $rcontact = $_POST['rconatct'];
+
+
+        $sql="update author set password=:rpassword  where email=:remail and contact=:rcontact ";
+
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':rname',$rname,PDO::PARAM_STR);
+        $query->bindParam(':remail',$remail,PDO::PARAM_STR);
+        $query->bindParam(':rpassword',$rpassword,PDO::PARAM_STR); 
+        $query->bindParam(':rcontact',$rcontact,PDO::PARAM_STR); 
+  
+        $query->execute();
+  
+        // $results=$query->fetchAll(PDO::FETCH_OBJ);
+  
+        // if($query->rowCount() > 0)
+        // {
+  
+        //     echo "bal";
+        //     echo "<script>alert('Invalid Details !Something went wrong.Email address already is in use');</script>";
+        // }
+        // else {
+        //     echo "sal";
+        // }
+
+ 
+
+    }
+
+
+
+    // Reset-Password section ends here 
+
+
 ?>
 
 
@@ -141,6 +182,21 @@ if($_SESSION['alogin']!=''){
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/brands.css">
+    <link rel="stylesheet" href="css/brands.min.css">
+    <link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="css/regular.css">
+    <link rel="stylesheet" href="css/regular.min.css">
+    <link rel="stylesheet" href="css/solid.css">
+    <link rel="stylesheet" href="css/solid.min.css">
+    <link rel="stylesheet" href="css/svg-with-js.css">
+    <link rel="stylesheet" href="css/svg-with-js.min.css">
+    <link rel="stylesheet" href="css/v4-shims.css">
+    <link rel="stylesheet" href="css/v4-shims.min.css">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!-- Jquery section starts  -->
@@ -149,9 +205,11 @@ if($_SESSION['alogin']!=''){
 $(document).ready(function(){
     $("#Admin-id").click(function(){
       $("#btn-signup").hide(1000);
+      $("#forgot_pswd").hide(1000);
     });
     $("#Author-id").click(function(){
       $("#btn-signup").show(1000);
+      $("#forgot_pswd").show(1000);
     });
   });
 
@@ -166,8 +224,15 @@ $(document).ready(function(){
 
 <div id="logreg-forms">
         <form class="form-signin" method="post">
+       <div class="logo-container">
+                <i class="fas fa-users logo"></i>
+            </div>
             <h3 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h3>
             <div class="social-login">
+                <!-- <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> -->
+
+               
                 <!-- <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
                 <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> -->
 
@@ -184,9 +249,9 @@ $(document).ready(function(){
                 </div>
 
                 </div>
-                
-
             </div>
+
+
         <!-- Sign in Section starts  -->
 
             <input type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="" autofocus="">
@@ -199,16 +264,34 @@ $(document).ready(function(){
 
         <!-- Sign in section ends  -->
 
+
             <!-- <p>Don't have an account!</p>  -->
             <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
             </form>
 
 
-            <form action="/reset/password/" class="form-reset">
-                <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-                <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
+           <!-- Reset section starts here  -->
+
+            <form  class="form-reset" method="post">
+            <div class="logo-container">
+                    <img src="images/forgotpass.png" alt="">
+            </div>
+
+                <input type="text" name="rname" id="resetEmail" class="form-control" placeholder="Enter your Name" required="" autofocus="">
+
+                <input type="email" name="remail" id="resetEmail" class="form-control" placeholder="Email address" required="" >
+
+                <input type="text" name="rcontact" id="resetEmail" class="form-control" placeholder="Enter your contact" required="">
+
+                <input type="password" name="rpassword" id="resetEmail" class="form-control" placeholder="Enter password" required="">
+
+                <button class="btn btn-primary btn-block" type="submit" name="rsubmit">Reset Password</button>
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
             </form>
+
+          <!-- Reset section ends here  -->
+
+
             
             
             <!-- Sign up section starts here  -->
@@ -220,6 +303,10 @@ $(document).ready(function(){
                 <!-- <div class="social-login">
                     <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up with Google+</span> </button>
                 </div> -->
+
+                <div class="logo-container">
+                    <i class="fas fa-user-plus logo"></i>
+                </div>
                 
                 <p style="text-align:center">Sign UP</p>
 
@@ -270,9 +357,11 @@ $(()=>{
 
 
 <!-- Essential Js,jquery,section starts  -->
+
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
+
 <!-- <script src="js/login.js"></script>  -->
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

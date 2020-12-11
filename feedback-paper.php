@@ -107,14 +107,14 @@
     <div class="sticky-top">
     <!-- Heading Sections starts  -->
     <?php 
-    include 'heading.php' 
+    include 'admin-header.php' 
     ?>
     <!-- Heading Sections ends  --> 
     </div>
  
     <table id="heading-table">
            <tbody>
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE id='$id' and action = 1 ";
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE id='$id' and action = 0 ";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -130,15 +130,15 @@
             <td>
             <div class="jumbotron  mb-0" >
             <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
-            <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+            <h6 ><?php echo htmlentities($result->authoremail);?></h6>
+            <p class="lead"><span  style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <hr class="my-4">
 
             <div class="d-flex justify-content-between">
-            <div>
+            <!-- <div>
             <a href="index.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
-            </div>
+            </div> -->
             <div>
-            <a class="btn btn-success btn-sm" href="paper-download.php?id=<?php echo htmlentities($result->id);?>" role="button">Download</a>
             </div>
             </div>
            </div>
@@ -147,7 +147,7 @@
           
        <!-- DashBoard Section ends  -->
 
-    <?php }} ?>
+    
     </tbody>
     </table>
 
@@ -159,9 +159,10 @@
 <form method="post">
 
 <div class="form-group">
-    <label class="control-label" for="exampleInputEmail1">Name(Optional)</label>
-    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your name">
+    <label class="control-label" for="exampleInputEmail1">Email</label>
+    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your name" value="<?php echo htmlentities($result->authoremail);?>" disabled>
   </div>
+  <?php }} ?>
   <!-- <div class="form-group"> 
     <label for="exampleInputEmail1">Email address(Optional)</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -169,8 +170,8 @@
   </div> -->
 
   <div class="form-group"> 
-        <label for="exampleFormControlTextarea1">Comments: </label>
-        <textarea name="comment" class="form-control " id="exampleFormControlTextarea1" name= "summary" rows="4" placeholder="Write Your Comments About the Paper " required></textarea>
+        <label for="exampleFormControlTextarea1">Reviews: </label>
+        <textarea name="comment" class="form-control " id="exampleFormControlTextarea1" name= "summary" rows="4" placeholder="Give Reviews to the paper  " required></textarea>
 
      </div>
 
@@ -217,8 +218,8 @@
 
     <div class="card-footer py-2">
     <div class="float-right">
-    <!-- <a href="delete-message.php" class="text-danger mr-2" onclick="return confirm('Do you want to delete this comment?');" title ="Delete"><i class="fas fa-trash"></i></a>
-    <a href="edit-message.php" class="text-success mr-2"  title ="Edit"><i class="fas fa-edit"></i></a> -->
+    <a href="delete-message.php" class="text-danger mr-2" onclick="return confirm('Do you want to delete this comment?');" title ="Delete"><i class="fas fa-trash"></i></a>
+    <a href="edit-message.php" class="text-success mr-2"  title ="Edit"><i class="fas fa-edit"></i></a>
 
     </div>
     </div>

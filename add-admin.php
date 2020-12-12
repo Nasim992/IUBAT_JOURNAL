@@ -77,9 +77,7 @@ else
     <link rel="stylesheet" href="css/index.css">
     <style>
     .chngpass {
-    margin-left:100px;
-    margin-right:100px;
-    margin-top:50px;
+        margin: 1px 233px;
     }
     </style>
 </head>
@@ -103,6 +101,10 @@ include 'admin-header.php';
 <!-- Admin Addition Section Starts here  -->
 
 <form  name="chngpwd" class="chngpass" method="post">
+    <div class="logo-container">
+        <img src="images/admin.png" alt="">
+    </div>
+    
 <div class="form-group has-success">
         <label for="success" class="control-label">User Name</label>
          <div class="">

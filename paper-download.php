@@ -64,7 +64,7 @@ $name = $file1['name'];
 <body>
 <div class="container">
    <!-- Dashboard section starts  -->
-       <div class="jumbotron">
+       <div class="jumbotron p-3"> 
      
         <h5 class="display-4">Name : <?php echo $title ?></h5>
         <?php 
@@ -81,7 +81,7 @@ $name = $file1['name'];
         ?>
         
         <h6 class="display-5">Email:<span style='color:green;'> <?php echo $authorname ?></span></h6>
-        <p class="lead"><?php echo $abstract ?></p>
+        <p ><?php echo $abstract ?></p>
         <hr class="my-4">
       
         <?php 

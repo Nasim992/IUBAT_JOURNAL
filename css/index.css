@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 .jumbotron {
     background-color: rgb(254 254 254 / 80%) !important;
 }
@@ -14,7 +14,6 @@
 }
 body {
     background-color: #fefefe !important;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .form-admin{

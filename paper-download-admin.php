@@ -73,7 +73,7 @@ $name = $file1['name'];
         <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name ?></span></h6>
         
         <h6 class="display-5">Email:<span style='color:green;'> <?php echo $authorname ?></span></h6>
-        <p class="lead"><?php echo $abstract ?></p>
+        <p ><?php echo $abstract ?></p>
         <hr class="my-4">
 
     <?php if($unpublished == 'u') {

@@ -100,7 +100,7 @@ include 'admin-header.php';
 
 <!-- Admin Addition Section Starts here  -->
 
-<form  name="chngpwd" class="chngpass" method="post">
+<form  name="chngpwd" class="chngpass form-admin" method="post">
     <div class="logo-container">
         <img src="images/admin.png" alt="">
     </div>

@@ -147,7 +147,7 @@ include 'admin-header.php';
 
             <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
             <p><b>Author Email: <?php echo htmlentities($result->authoremail);?></b></p>
-            <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+            <p ><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
 
             <div class=" d-flex justify-content-between bg-light row col-sm-12">
 

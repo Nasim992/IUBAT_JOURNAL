@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 .jumbotron {
     background-color: rgb(254 254 254 / 80%) !important;
 }
@@ -12,13 +13,14 @@
     font-size:16px;
 }
 body {
-    background-color: #fefefe !important
+    background-color: #fefefe !important;
+    font-family: 'Montserrat', sans-serif;
 }
 
-form{
+.form-admin{
     border: 1px solid #78777780;
     padding:30px;
-    width: 60%;
+    width: 60%; 
     border-radius: 5px;
 }
 
@@ -38,7 +40,7 @@ img{
     margin: 0 auto;
     }
 @media screen and (max-width: 992px) {
-    form{
+    .form-admin{
         border: 1px solid #78777780;
         padding:30px;
         width: 100%;

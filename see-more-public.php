@@ -130,7 +130,7 @@
             <td>
             <div class="jumbotron  mb-0" >
             <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
-            <p class="lead"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+            <p ><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <hr class="my-4">
 
             <div class="d-flex justify-content-between">

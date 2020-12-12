@@ -145,7 +145,7 @@ include 'admin-header.php';
   <div class="form-group  text-center">
 
      <div class="">
-        <button type="submit" name="submit" class="bg-success text-white col-lg-6 p-1">Submit</button>
+        <button type="submit" name="submit" class="bg-success text-white col-lg-6 p-2">Submit</button>
         </div>
 
 

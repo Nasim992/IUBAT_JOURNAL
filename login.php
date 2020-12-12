@@ -71,7 +71,7 @@ if($_SESSION['alogin']!=''){
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
     echo "<script type='text/javascript'> document.location = 'all-paper-author.php'; </script>";
-    } else{
+    } else{ 
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
         header("refresh:0;url=login.php");
@@ -128,36 +128,43 @@ if($_SESSION['alogin']!=''){
 
     // Sign Up form section ends here 
 
+          $name = $_POST['rname'];
+        $email = $_POST['remail'];
+        $password = md5($_POST['rpassword']);
+        $contact = $_POST['rconatct'];
+
+
+
     // Reset-Password section starts here 
+    
     if(isset($_POST['rsubmit']))  
     {
-        $rname = $_POST['rname'];
-        $remail = $_POST['remail'];
-        $rpassword = md5($_POST['rpassword']);
-        $rcontact = $_POST['rconatct'];
+        $name = $_POST['rname'];
+        $email = $_POST['remail'];
+        $password = md5($_POST['rpassword']);
+        $contact = $_POST['rconatct'];
 
 
-        $sql="update author set password=:rpassword  where email=:remail and contact=:rcontact ";
+        $sql="update author set password=:password  where email=:email and contact=:contact ";
 
         $query = $dbh->prepare($sql);
-        $query->bindParam(':rname',$rname,PDO::PARAM_STR);
-        $query->bindParam(':remail',$remail,PDO::PARAM_STR);
-        $query->bindParam(':rpassword',$rpassword,PDO::PARAM_STR); 
-        $query->bindParam(':rcontact',$rcontact,PDO::PARAM_STR); 
+        // $query->bindParam(':name',$name,PDO::PARAM_STR);
+        $query->bindParam(':email',$email,PDO::PARAM_STR);
+        $query->bindParam(':password',$password,PDO::PARAM_STR); 
+        $query->bindParam(':contact',$contact,PDO::PARAM_STR); 
   
         $query->execute();
   
-        // $results=$query->fetchAll(PDO::FETCH_OBJ);
+        $results=$query->fetchAll(PDO::FETCH_OBJ);
   
-        // if($query->rowCount() > 0)
-        // {
+        if($query->rowCount() > 0)
+        {
   
-        //     echo "bal";
-        //     echo "<script>alert('Invalid Details !Something went wrong.Email address already is in use');</script>";
-        // }
-        // else {
-        //     echo "sal";
-        // }
+            echo "<script>alert('Password Changed Successfully');</script>";
+        }
+        else {
+            echo "<script>alert('Contact Information is wrong');</script>";
+        }
 
  
 
@@ -283,7 +290,7 @@ $(document).ready(function(){
 
                 <input type="text" name="rcontact" id="resetEmail" class="form-control" placeholder="Enter your contact" required="">
 
-                <input type="password" name="rpassword" id="resetEmail" class="form-control" placeholder="Enter password" required="">
+                <input type="password" name="rpassword" id="resetEmail" class="form-control" placeholder="Enter New Password" required="">
 
                 <button class="btn btn-primary btn-block" type="submit" name="rsubmit">Reset Password</button>
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>

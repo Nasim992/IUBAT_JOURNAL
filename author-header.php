@@ -9,7 +9,41 @@ if(strlen($_SESSION['alogin'])=="")
     }
     else
     { 
+
+        $email =  $_SESSION['alogin'];
         
+                 //  Number of Reviews   count section starts here 
+
+                 $query = "SELECT COUNT(*) as total_rowsrev FROM reviews";
+                 $stmt = $dbh->prepare($query);
+                  
+                 // execute query
+                 $stmt->execute();
+                 
+                 // get total rows
+                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                 $total_reviews = $row['total_rowsrev'];
+         
+         
+            // Number of Reviews  count section ends here 
+
+                 //  Number of comments   count section starts here 
+
+                 $query = "SELECT COUNT(*) as total_rowscom FROM comments";
+                 $stmt = $dbh->prepare($query);
+                 
+                 // execute query
+                 $stmt->execute();
+                 
+                 // get total rows
+                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                 $total_comments = $row['total_rowscom'];
+         
+         
+            // Number of comments  count section ends here            
+
+            
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,10 +88,10 @@ if(strlen($_SESSION['alogin'])=="")
         
 
         <li class="nav-item" title="Messages">
-            <a class="nav-link" href="#"><i class="fas fa-envelope-square"></i></a>
+            <a class="nav-link" href="#"><i class="fas fa-envelope-square"></i>&nbsp<b><sup><?php echo $total_reviews; ?></sup></b></a>
 
         <li class="nav-item" title="New Paper">
-            <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+            <a class="nav-link" href="#"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_comments; ?></sup></b></a>
        
         <li class="nav-item active" >
        <a class="nav-link" href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>

@@ -35,6 +35,8 @@ if(strlen($_SESSION['alogin'])=="")
     <title>Document</title>
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
    <link rel="stylesheet" href="css/admin-dashboard.css">
@@ -53,13 +55,11 @@ include 'admin-header.php';
 <!-- Author showing header sections ends   -->
 </div>
 
-                                <div style="margin-top:20px;float:right;width:50%;margin-bottom:20px;">
-                                <input id="myInput-admin" class="form-control" type="text" placeholder="Search..">
-                            </div>
+            
 
-<div class="table-responsive"> 
+<div class="table-responsive p-4"> 
 
-<table  class="table"  cellspacing="0">
+<table id="dtBasicExample" class="table"  cellspacing="0">
 
 <thead>
         <tr>
@@ -120,7 +120,8 @@ foreach($results as $result)
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
-<script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script>
             $(function($) {
                 $('#example').DataTable();
 
@@ -132,6 +133,13 @@ foreach($results as $result)
 
                 $('#example3').DataTable();
             });
+
+            $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+            });
+            </script>
+
         </script>
 <!-- Essential Js,Jquery  section ends  -->
 

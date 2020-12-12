@@ -9,12 +9,11 @@
 
  if(strlen($_SESSION['alogin'])=="")
     { 
-      $emails = "Anonymous";
+      header("Location: login.php"); 
     }
-    else
-    { 
-       $emails = $_SESSION["email"];
-    }
+    else {
+      $emails = $_SESSION["email"];
+
 //  Check that someone is logged in or not 
 
 // Insert Comment To the Database section starte here 
@@ -25,31 +24,21 @@
     { 
       $paperid = $id;
 
-      $name = $_POST['name'];
-
-      if ($name !='') {
-        $name = $_POST['name'];
-      }
-      else {
-        $name = "Anonymous";
-      }
-      
       $email = $emails;
-      $comments = $_POST['comment'];
+      $review = $_POST['comment'];
 
-      $sql="INSERT INTO  comments(paperid,name,email,comments) VALUES(:paperid,:name,:email,:comments)";
+      $sql="INSERT INTO  reviews(paperid,email,review) VALUES(:paperid,:email,:review)";
       $query = $dbh->prepare($sql);
       $query->bindParam(':paperid',$paperid,PDO::PARAM_STR);
-      $query->bindParam(':name',$name,PDO::PARAM_STR);
       $query->bindParam(':email',$email,PDO::PARAM_STR);
-      $query->bindParam(':comments',$comments,PDO::PARAM_STR);
+      $query->bindParam(':review',$review,PDO::PARAM_STR);
     
       $query->execute();
  
       $results=$query->fetchAll(PDO::FETCH_OBJ);
       if($query->rowCount() > 0)
       {
-        $msg = "Comment Posted Successfully!";
+        $msg = "Review Sent Successfully!";
 
       } else{
           
@@ -61,9 +50,9 @@
   // Insert Comment To the Database section ends here 
 
 
-  // Total Comments Count Sections starts here 
+  // Total Reviews Count Sections starts here 
   
-  $query = "SELECT COUNT(*) as total_rows FROM comments WHERE paperid = '$id'";
+  $query = "SELECT COUNT(*) as total_rows23 FROM reviews WHERE paperid = '$id'";
   $stmt = $dbh->prepare($query);
   
   // execute query
@@ -71,10 +60,10 @@
   
   // get total rows
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-  $total_rows = $row['total_rows'];
+  $total_rows23 = $row['total_rows23'];
 
 
-  // Total Comments Sections ends here 
+  // Total Reviews Count  Sections ends here 
 
 
 ?>
@@ -158,10 +147,10 @@
 <div class="p-5 col-sm-12 col-lg-6 col-md-6">
 <form method="post">
 
-<div class="form-group">
+<!-- <div class="form-group">
     <label class="control-label" for="exampleInputEmail1">Email</label>
-    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your name" value="<?php echo htmlentities($result->authoremail);?>" disabled>
-  </div>
+    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your name" value="<?php echo $email;?>" disabled>
+  </div> -->
   <?php }} ?>
   <!-- <div class="form-group"> 
     <label for="exampleInputEmail1">Email address(Optional)</label>
@@ -180,7 +169,7 @@
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div> -->
   <div class="form-group">
-  <button type="submit" name="submit" class="btn btn-primary">Post Comment</button>
+  <button type="submit" name="submit" class="btn btn-primary">Sent Reviews</button>
   <h5 class="float-right text-success p-2"><?php echo $msg ?></h5>
   </div>
 
@@ -191,9 +180,9 @@
  
 <div class="p-5 col-sm-12 col-lg-6 col-md-6 row justify-content-center">
 <div class=" rounded mt-2">
-<h4 class="p-2">Comments(<?php echo $total_rows ?>) </h4>
+<h4 class="p-2">Reviews(<?php echo $total_rows23 ?>)</h4>
 <div class="rounded p-3">
-<?php $sql = "SELECT comments.id,comments.paperid,comments.name,comments.email,comments.comments,comments.time from comments WHERE paperid='$id' ORDER BY id DESC";
+<?php $sql = "SELECT reviews.id,reviews.paperid,reviews.email,reviews.review,reviews.time from reviews WHERE paperid='$id' ORDER BY id DESC";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -206,14 +195,14 @@
     <div class="card mb-2 border-secondary">
     <div class="card-header bg-success py-1 text-light d-flex justify-content-between">
         <div>
-        <span>Posted by:<?php echo htmlentities($result->name);?> &nbsp&nbsp&nbsp</span>
+        <span>Posted by:<?php echo htmlentities($result->email);?> &nbsp&nbsp&nbsp</span>
         </div>
         <div>
         <span class="float-right"> On: <?php echo htmlentities($result->time);?></span>
         </div>
     </div>
     <div class="card-body py-2">
-    <p class="card-text"> <?php echo htmlentities($result->comments);?> </p>
+    <p class="card-text"> <?php echo htmlentities($result->review);?> </p>
     </div>
 
     <div class="card-footer py-2">
@@ -257,3 +246,5 @@
      </script>
 </body>
 </html>
+
+<?php } ?>

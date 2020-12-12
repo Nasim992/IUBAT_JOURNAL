@@ -215,7 +215,7 @@
     <p class="card-text"> <?php echo htmlentities($result->comments);?> </p>
     </div>
 
-    <div class="card-footer py-2">
+    <div class="card-footer py-2"> 
     <div class="float-right">
     <!-- <a href="delete-message.php" class="text-danger mr-2" onclick="return confirm('Do you want to delete this comment?');" title ="Delete"><i class="fas fa-trash"></i></a>
     <a href="edit-message.php" class="text-success mr-2"  title ="Edit"><i class="fas fa-edit"></i></a> -->

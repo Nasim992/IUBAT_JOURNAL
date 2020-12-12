@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('link/config.php');
+include('link/config.php'); 
 
 if(strlen($_SESSION['alogin'])=="")
     {    
@@ -32,14 +32,15 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Total Authors</title>
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
-   <link rel="stylesheet" href="css/admin-dashboard.css">
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/fontawesome.v5.3.1.all.css">
+    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script>
+   <link rel="stylesheet" href="css/admin-dashboard.css"> -->
 
 </head>
 <body>
@@ -120,7 +121,7 @@ foreach($results as $result)
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
         <script>
             $(function($) {
                 $('#example').DataTable();
@@ -134,13 +135,14 @@ foreach($results as $result)
                 $('#example3').DataTable();
             });
 
+            // DataTables section starts here 
             $(document).ready(function () {
             $('#dtBasicExample').DataTable();
             $('.dataTables_length').addClass('bs-select');
             });
+            // Datables section ends here 
             </script>
 
-        </script>
 <!-- Essential Js,Jquery  section ends  -->
 
 

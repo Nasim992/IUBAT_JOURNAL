@@ -76,7 +76,7 @@ if(strlen($_SESSION['alogin'])=="")
 
                $query = "SELECT COUNT(*) as total_rows FROM admin";
                $stmt = $dbh->prepare($query);
-               
+                
                // execute query
                $stmt->execute();
                
@@ -125,16 +125,16 @@ if(strlen($_SESSION['alogin'])=="")
 
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="admin-dashboard.php">Published Paper <b>(<?php echo $total_published; ?>)</b></a>
+            <a class="nav-link" href="admin-dashboard.php">Published Paper &nbsp<b><sup><?php echo $total_published; ?></sup></b></a>
         </li>
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="admin-number.php">Admin <b>(<?php echo $total_admin; ?>)</b></a>
+            <a class="nav-link" href="admin-number.php">Admin &nbsp<b><sup><?php echo $total_admin; ?></sup></b></a>
         </li>
 
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="admin-show-authors.php">Author <b>(<?php echo $total_authors; ?>)</b></a>
+            <a class="nav-link" href="admin-show-authors.php">Author &nbsp<b><sup><?php echo $total_authors; ?></sup></b></a>
         </li>
 
         <li class="nav-item" title="New Paper">
@@ -144,7 +144,7 @@ if(strlen($_SESSION['alogin'])=="")
 
         ?>
 
-            <a class="nav-link" href="unpublished-paper.php"><b><sub><?php echo $total_rows; ?></sub></b>&nbsp<i class="fas fa-bell"></i></a>
+            <a class="nav-link" href="unpublished-paper.php"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_rows; ?></sup></b></a>
        
         <li class="nav-item active" >
        <a class="nav-link" href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>

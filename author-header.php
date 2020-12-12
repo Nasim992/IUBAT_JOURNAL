@@ -27,7 +27,7 @@ if(strlen($_SESSION['alogin'])=="")
          
             // Number of Reviews  count section ends here 
 
-                 //  Number of comments   count section starts here 
+            //  Number of comments   count section starts here 
 
                  $query = "SELECT COUNT(*) as total_rowscom FROM comments";
                  $stmt = $dbh->prepare($query);
@@ -40,7 +40,22 @@ if(strlen($_SESSION['alogin'])=="")
                  $total_comments = $row['total_rowscom'];
          
          
-            // Number of comments  count section ends here            
+            // Number of comments  count section ends here  
+            
+            //  Number of paper  count section starts here 
+
+                $query = "SELECT COUNT(*) as total_paper FROM paper where authoremail='$email'";
+                $stmt = $dbh->prepare($query);
+                             
+                // execute query
+                $stmt->execute();
+                             
+                // get total rows
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $total_paper = $row['total_paper'];
+                     
+                     
+            // Number of paper  count section ends here  
 
             
 
@@ -83,7 +98,7 @@ if(strlen($_SESSION['alogin'])=="")
         </li>
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="author-paper-show.php">Your Paper</a>
+            <a class="nav-link" href="author-paper-show.php">Your Paper &nbsp<b><sup><?php echo $total_paper; ?></sup></b></a>
         </li>
         
 

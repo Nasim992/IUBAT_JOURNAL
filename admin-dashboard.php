@@ -30,27 +30,14 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Pannel</title>
+    <title>Published paper</title>
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/admin-dashboard.css">
     <link rel="stylesheet" href="css/index.css">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
-    <!-- <script> 
-        $(document).ready(function(){
-        $("#myInput-admin").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable-admin tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script> -->
-    <style>
-     .jumbotron {
-         padding:0px !important;
-     } 
-     </style>
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/fontawesome.v5.3.1.all.css">
 </head>
 <body>
 <div class="container">
@@ -69,14 +56,15 @@ include 'admin-header.php';
 
     <!-- Authors paper showing sections starts here  -->
 
+<div class="table-responsive p-4">
+<table id="dtBasicExample"  cellspacing="0">
+    <thead>
+        <tr>
+            <th>
 
-    
-     <div style="margin-top:20px;float:right;width:50%;margin-bottom:20px;">
-     <input id="myInput-admin" class="form-control" type="text" placeholder="Search..">
-     </div>
-
-<div class="table-responsive">
-<table   cellspacing="0" width="100%">
+            </th>
+        </tr>
+    </thead>
 
 <!-- Admin Paper showing sections starts (jumbotron section) here -->
 
@@ -171,6 +159,15 @@ include 'admin-header.php';
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script>
+            // DataTables section starts here 
+            $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+            });
+            // Datables section ends here 
+</script>
 <!-- Essential Js,Jquery  section ends  -->    
 </body>
 </html>

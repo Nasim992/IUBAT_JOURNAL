@@ -19,27 +19,12 @@ if(strlen($_SESSION['alogin'])=="")
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/fontawesome.v5.3.1.all.css">
 
-    <title>Show Paper</title>
-
-        <script>  
-        $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-     </script>
-
-     <style>
-     .jumbotron {
-         padding:0px !important;
-     }
-     </style>
+    <title>Author paper</title>
 
 </head>
 <body>
@@ -58,21 +43,18 @@ if(strlen($_SESSION['alogin'])=="")
 
 <!-- Authors paper showing sections starts here  -->
 
-            <div class="row">
-                <div class="col-md-12">
-                                <div style="margin-top:20px;float:right;width:50%;margin-bottom:20px;">
-                                <input id="myInput" class="form-control" type="text" placeholder="Search..">
-                               </div>
-                  </div>
-                  </div> 
 
         <!-- <div class="panel-body p-20"> -->
-<div class="table-responsive">
-<table  id="myTable"  cellspacing="0" width="100%">
+<div class="table-responsive p-4">
+<table   id="dtBasicExample"  cellspacing="0">
+
+<thead>
+    <tr><th></th></tr>
+</thead>
 
 <!-- Author paper showing section starts (Jumbotron section) -->
 
-<tbody>
+<tbody id="myTable">
     <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE authoremail='$authoremail'";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
@@ -156,6 +138,17 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/popper.min.js"></script>
+    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+
+    <script>
+            // DataTables section starts here 
+             $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+            });
+            // Datables section ends here 
+    </script>
 
     <!-- Essential Js,Jquery  section ends  -->   
 </body>

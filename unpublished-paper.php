@@ -50,10 +50,13 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/admin-dashboard.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/fontawesome.v5.3.1.all.css">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
     <!-- <script> 
         $(document).ready(function(){
-        $("#myInput-admin").on("keyup", function() {
+        $("#myInput-admin").on("keyup", function() { 
             var value = $(this).val().toLowerCase();
             $("#myTable-admin tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -86,16 +89,19 @@ include 'admin-header.php';
 
 
     <!-- Authors paper showing sections starts here  -->
-    <div style="margin-top:20px;float:right;width:50%;margin-bottom:20px;">
-    <input id="myInput-admin" class="form-control" type="text" placeholder="Search..">
-     </div>
 
-<div class="table-responsive">
-   <table id="myTable-admin" class="table"  cellspacing="0" width="100%">
+<div class="table-responsive p-4">
+   <table  id="dtBasicExample" class="table "  cellspacing="0">
+
+   <thead>
+       <tr>
+           <th></th>
+       </tr>
+   </thead>
 
 <!-- Admin Paper showing sections starts (jumbotron section) here -->
 
-<tbody>
+<tbody id="myTable-admin">
     <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action = 0";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
@@ -110,7 +116,7 @@ include 'admin-header.php';
       
             <tr>
             <td>
-            <div class="jumbotron" > 
+            <div class="jumbotron p-2" >  
 
             <div class="d-flex justify-content-between row col-sm-12">
             <div>
@@ -257,6 +263,17 @@ foreach($results as $result)
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+
+<!-- Datatables section starts here  -->
+<script>
+            $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+            });
+</script>
+<!-- Datables section ends here  -->
+
 <!-- Essential Js,Jquery  section ends  -->    
 </body>
 </html>

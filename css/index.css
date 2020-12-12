@@ -1,6 +1,5 @@
 .jumbotron {
-    background-color: rgba(248, 245, 245, 0.801) !important;
-    margin-bottom:0px !important;
+    background-color: rgb(254 254 254 / 80%) !important;
 }
 .jumbotron h5 {
     font-weight:bold !important;
@@ -13,6 +12,6 @@
     font-size:16px;
 }
 body {
-    background-color : #f3f3f3 !important;
+    background-color: #fefefe !important
 }
 

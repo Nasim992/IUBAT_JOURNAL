@@ -78,7 +78,7 @@ include 'admin-header.php';
 <?php $sql = "SELECT author.id,author.name,author.email,author.contact,author.address  from author";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
-$results=$query->fetchAll(PDO::FETCH_OBJ); 
+$results=$query->fetchAll(PDO::FETCH_OBJ);  
 $cnt=1;
 if($query->rowCount() > 0) 
 {
@@ -92,8 +92,8 @@ foreach($results as $result)
             <td ><?php echo htmlentities($result->address);?></td>
 
 <td>
-<a href="edit_author.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a>
-<a href="delete-author.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+<!-- <a href="edit_author.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a> -->
+<a class="text-danger" href="delete-author.php?id=<?php echo htmlentities($result->id);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
 
 </td>
 </tr>

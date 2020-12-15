@@ -2,7 +2,7 @@
 
 $link = mysqli_connect("localhost", "root", "", "iubat");
 
- // $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
+//  $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
 
  
 if($link === false){
@@ -22,9 +22,9 @@ header("Location: " . $_SERVER["HTTP_REFERER"]);
 $sql="DELETE FROM paper WHERE id=$id ";
 
 if(mysqli_query($link, $sql)){
-    echo "Selected disease were deleted successfully.";
+    echo "Selected paper were deleted successfully.";
 
-    header("refresh:1;url=show_disease.php");
+    header("refresh:1;url=author-dashboard.php"); 
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }

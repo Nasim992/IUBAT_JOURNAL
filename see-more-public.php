@@ -103,14 +103,16 @@
 </head>
 <body> 
 
-    <div class="container">
-    <div class="sticky-top">
+<div class="sticky-top">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php' 
     ?>
     <!-- Heading Sections ends  --> 
     </div>
+
+    <div class="container">
+   
  
     <table id="heading-table">
            <tbody>
@@ -129,16 +131,17 @@
             <tr> 
             <td>
             <div class="jumbotron  mb-0" >
-            <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
-            <p ><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+            <h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?></h5>
+            <h5 style="font-size:14px;"><?php echo htmlentities($result->authoremail);?></h5>
+            <p style="font-size:13px;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <hr class="my-4">
 
             <div class="d-flex justify-content-between">
             <div>
-            <a href="index.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+            <a style="font-size:13px;" href="index.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
             </div>
             <div>
-            <a class="btn btn-success btn-sm" href="paper-download.php?id=<?php echo htmlentities($result->id);?>" role="button">Download</a>
+            <a style="font-size:13px;" class="btn btn-success btn-sm" href="paper-download.php?id=<?php echo htmlentities($result->id);?>" role="button">Download</a>
             </div>
             </div>
            </div>
@@ -156,7 +159,7 @@
 <div class="d-flex justify-content-between comments row col-sm-12">
 
 <div class="p-5 col-sm-12 col-lg-6 col-md-6">
-<form method="post">
+<form style="font-size:13px;" method="post">
 
 <div class="form-group">
     <label class="control-label" for="exampleInputEmail1">Name(Optional)</label>

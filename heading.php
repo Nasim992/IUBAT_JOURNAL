@@ -8,32 +8,67 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 
-
+ 
 
 
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar nav-class navbar-expand-lg navbar-light text-white">
   <a class="navbar-brand" href="index.php"><img src="images/Iubat-logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+    <ul>
+       <li class="nav-item active">
+        <a class="nav-link" href="#">Aim and Scope</a>
+      </li>
+      </ul>
+      <ul>
+       <li class="nav-item active">
+        <a class="nav-link" href="#">Instruction for Author</a>
+      </li>
+      </ul>
+      <ul>
+       <li class="nav-item active">
+        <a class="nav-link" href="#">Journal Info</a>
+      </li>
+      </ul>
+      <ul>
+       <li class="nav-item active">
+        <a class="nav-link" href="#">Editorial Board</a>
+      </li>
+      </ul>
+      <ul>
+       <li class="nav-item active">
+        <a class="nav-link" href="#">Archive</a>
+      </li>
+      </ul>
+      <ul>
+       <li class="nav-item active">
+        <a class="nav-link" href="login.php">Submit an Article</a>
+      </li>
+      </ul>
 
-
-
-        </ul>
-    <form class="form-inline my-2 my-lg-0">
+      <ul>
+        <li class="nav-item active">
+        <form class="form-inline  my-lg-0">
       <input id="heading-input" class="form-control mr-sm-2" type="text" placeholder="Search paper" aria-label="Search">
     </form>
-    <ul>
+        </li>
+      </ul>
+         <ul>
        <li class="nav-item active">
         <a class="nav-link" href="login.php">Login</a>
       </li>
       </ul>
+      
+        </ul>
+        
+   
   </div>
 </nav>
 

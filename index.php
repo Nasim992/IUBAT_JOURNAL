@@ -1,7 +1,7 @@
 
 <?php 
  
- include('link/config.php');
+ include('link/config.php'); 
 
 ?>
 
@@ -18,15 +18,16 @@
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-
-    <div class="container">
-    <div class="sticky-top">
+<div class="sticky-top mr-2 ml-2 pb-3">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php'
     ?>
     <!-- Heading Sections ends  --> 
     </div>
+ 
+    <div class="container">
+ 
  
     <table id="heading-table">
            <tbody>
@@ -35,23 +36,25 @@
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
       $cnt=1; 
+ 
       if($query->rowCount() > 0) 
       {
       foreach($results as $result) 
-      {   ?>
 
+{   ?>
           <!-- Dashboard section starts  -->
       
             <tr>
             <td>
             <div class="jumbotron  mb-0" >
-            <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
-            <p ><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+            <h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?></h5>
+            <!-- <h5 style="font-size:15px;"><?php echo htmlentities($result->authoremail);?></h5> -->
+            <p style="font-size:14px;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <hr class="my-4">
 
             <div class="pb-3">
-              <a class="btn btn-success btn-sm" href="paper-download.php?id=<?php echo htmlentities($result->id);?>" role="button">Download</a>
-            <a class="btn btn-success btn-sm float-right" href="see-more-public.php?id=<?php echo htmlentities($result->id);?>" role="button">See More...</a> 
+              <a style="font-size:14px;" class="btn btn-success btn-sm" href="paper-download.php?id=<?php echo htmlentities($result->id);?>" role="button">Download</a>
+            <a style="font-size:14px;" class="btn btn-success btn-sm float-right" href="see-more-public.php?id=<?php echo htmlentities($result->id);?>" role="button">See More...</a> 
            </div>
 
             </td>

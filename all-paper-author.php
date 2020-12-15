@@ -27,15 +27,15 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body> 
-
-    <div class="container">
-    <div class="sticky-top">
+   <div class="sticky-top">
     <!-- Heading Sections starts  -->
     <?php 
     include 'author-header.php'
     ?>
     <!-- Heading Sections ends  --> 
     </div>
+    <div class="container">
+   
  
     <table id="heading-table"> 
            <tbody>

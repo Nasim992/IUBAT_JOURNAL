@@ -68,15 +68,16 @@ if(strlen($_SESSION['alogin'])=="")
     <title>Document</title>
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/heading.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     
-   <link rel="stylesheet" href="css/admin-dashboard.css">
+   <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
 
-</head>
+</head> 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#"><img src="images/Iubat-logo.png"></a>
+<nav class="navbar nav-class navbar-expand-lg navbar-light ">
+  <a class="navbar-brand" href="all-paper-author.php"><img src="images/Iubat-logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -85,31 +86,31 @@ if(strlen($_SESSION['alogin'])=="")
 
     <ul class="navbar-nav ml-auto">
 
-    <li class="nav-item" title="total paper">
+    <li class="nav-item active" title="total paper">
             <a class="nav-link" href="author-dashboard.php">Upload paper</a>
     </li>
 
-        <li class="nav-item" title="total paper">
+        <li class="nav-item active" title="total paper">
             <a class="nav-link" href="all-paper-author.php">All Paper</a>
         </li>
 
-        <li class="nav-item" title="total paper">
+        <li class="nav-item active" title="total paper">
             <a class="nav-link" href="change-password-author.php">Change Password</a>
         </li>
 
-        <li class="nav-item" title="total paper">
+        <li class="nav-item active" title="total paper">
             <a class="nav-link" href="author-paper-show.php">Your Paper &nbsp<b><sup><?php echo $total_paper; ?></sup></b></a>
         </li>
         
 
-        <li class="nav-item" title="Messages">
+        <li class="nav-item active" title="Messages">
             <a class="nav-link" href="#"><i class="fas fa-envelope-square"></i>&nbsp<b><sup><?php echo $total_reviews; ?></sup></b></a>
 
-        <li class="nav-item" title="New Paper">
+        <li class="nav-item active" title="New Paper">
             <a class="nav-link" href="#"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_comments; ?></sup></b></a>
        
         <li class="nav-item active" >
-       <a class="nav-link" href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link " href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>
 
  

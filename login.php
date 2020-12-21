@@ -226,10 +226,20 @@ $(document).ready(function(){
 
 <!-- Jquery Section ends  -->
 </head>
-<body>
- 
+<body style="font-size:13px;">
 
-<div id="logreg-forms">
+<div class="sticky-top mr-2 ml-2 pb-3">
+    <!-- Heading Sections starts  -->
+    <?php 
+    include 'heading.php';
+    ?>
+    <!-- Heading Sections ends  --> 
+    </div>
+
+    <div class="container">
+       <div class="row">
+           <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+           <div id="logreg-forms">
         <form class="form-signin" method="post">
        <div class="logo-container">
                 <i class="fas fa-users logo"></i>
@@ -255,25 +265,41 @@ $(document).ready(function(){
                 <input type="radio" id = "Author" name="select" checked="checked" value="Author">
                 </div>
 
-                </div>
+                </div> 
             </div>
 
 
         <!-- Sign in Section starts  -->
 
-            <input type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="" autofocus="">
+            <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="" autofocus="">
 
-            <input type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
+            <input style="font-size:13px;" type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
             
-            <button class="btn btn-success btn-block" name = "login" type="submit" ><i class="fas fa-sign-in-alt"></i> Sign in</button>
+            <button class="btn btn-success btn-sm" name = "login" type="submit" > Admin Login</button>
+            <button class="btn btn-success btn-sm " name = "login" type="submit" > Reviewer Login</button>
+            <button class="btn btn-success btn-sm" name = "login" type="submit" > Editor Login</button>
+            <button class="btn btn-success btn-sm" name = "login" type="submit" > Publisher Login</button>
+
+            <div class="login-details ">
+           <ul class="d-flex justify-content-center">
+            <li><a href="#"> Send Login Details</a></li>
+            <li id="btn-signup"><a href="#">Register Now</a></li>
+            <li><a href="#">login Help </a></li>
+            </ul>
+
+            </div>
+
             <a href="#" id="forgot_pswd">Forgot password?</a>
             <hr>
+
+      
+
 
         <!-- Sign in section ends  -->
 
 
             <!-- <p>Don't have an account!</p>  -->
-            <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
+            <!-- <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button> -->
             </form>
 
 
@@ -338,6 +364,24 @@ $(document).ready(function(){
             <br>
             
     </div>
+           </div>
+           <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 ml-6 description">
+               <h4 class="text-center"><b>Instructions </b></h4>
+            <p><b>First-time users:</b><small> Please click on the word "Register" in the navigation bar at the top of the page and enter the requested information. Upon successful registration, you will be sent an e-mail with instructions to verify your registration. NOTE: If you received an e-mail from us with an assigned user ID and password, DO NOT REGISTER AGAIN. Simply use that information to login. Usernames and passwords may be changed after registration (see instructions below).</small></p>
+            <p><b>Repeat Users:</b><small>  Please click the "Login" button from the menu above and proceed as appropriate.</small></p>
+            <p><b>Authors:</b><small>Please click the "Login" button from the menu above and login to the system as "Author." You may then submit your manuscript and track its progress through the system.</small></p>
+            <p><b>Reviewers:</b><small>Please click the "Login" button from the menu above and login to the system as "Reviewer." You may then view and/or download manuscripts assigned to you for review or submit your comments to the editor and the authors.</small></p>
+            <p><b>To change your username and/or password:</b><small> Once you are registered, you may change your contact information, username and/or password at any time. Simply log in to the system and click on "Update My Information" in the navigation bar at the top of the page.</small></p>
+
+
+
+           </div>
+
+       </div>
+    </div>
+
+
+ 
     <p style="text-align:center">
         <a href="http://bit.ly/2RjWFMfunction toggleResetPswd(e){
     e.preventDefault();
@@ -359,8 +403,6 @@ $(()=>{
     $('#logreg-forms #cancel_signup').click(toggleSignUp);
 })g" target="_blank" style="color:black"> <a href="index.php" id="cancel_signup"><i class="fas fa-angle-left"></i> Back to the main page</a></a>
     </p>
-
-    </div>
 
 
 <!-- Essential Js,jquery,section starts  -->

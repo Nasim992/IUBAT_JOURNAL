@@ -2,6 +2,9 @@
     height:50px !important;
     width:80px !important;
 }
+ul li {
+    list-style: none;
+}
 ul li a {
     /* color : green; */
     font-weight : bold;
@@ -22,3 +25,17 @@ ul li a {
     background-color:#e5eee9 !important;
     font-size: 16px;
 }
+/* Author section css starts here */
+
+/* .author-heading {
+    color :rgb(6, 141, 13);
+    font-weight :700;
+    font-size:30px;
+    text-align:center;
+    margin-top : 40px;
+    margin-bottom:40px;
+   }
+   .author-form {
+       margin:50 auto;
+   } */
+   /* Author section css ends here  */

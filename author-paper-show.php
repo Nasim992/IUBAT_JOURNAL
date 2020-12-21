@@ -28,7 +28,6 @@ if(strlen($_SESSION['alogin'])=="")
 
 </head>
 <body>
-<div class="container">
 
 <div class="sticky-top">
 <!-- Author showing header sections starts  -->
@@ -39,6 +38,8 @@ if(strlen($_SESSION['alogin'])=="")
 
 <!-- Author showing header sections ends   -->
 </div>
+
+<div class="container">
 
 
 <!-- Authors paper showing sections starts here  -->

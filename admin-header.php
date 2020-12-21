@@ -142,7 +142,7 @@ if(strlen($_SESSION['alogin'])=="")
         <?php   
 
 
-        ?>
+        ?> 
 
             <a class="nav-link" href="unpublished-paper.php"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_rows; ?></sup></b></a>
        

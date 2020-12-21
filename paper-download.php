@@ -97,7 +97,7 @@ $name = $file1['name'];
         <?php 
         }  
         ?>
-        <a class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download as PDF</a>
+        <a style="font-size:14px;" class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download as PDF</a>
         </div>
 
     <!-- DashBoard Section ends  -->

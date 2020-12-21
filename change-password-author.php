@@ -64,14 +64,15 @@ if(strlen($_SESSION['alogin'])=="")
 
 </head>
 <body>
-    <div class="container">
 <!-- Author showing header sections starts  -->
 
 <?php 
     include 'author-header.php';
-    ?>
+?>
 
 <!-- Author showing header sections ends   -->
+    <div class="container">
+
 
     <form  class="change-password-form" method="post">
          <div class="form-group has-success">

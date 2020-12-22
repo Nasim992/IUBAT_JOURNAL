@@ -70,7 +70,7 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'all-paper-author.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'upload-paper1.php'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
@@ -86,6 +86,7 @@ if($_SESSION['alogin']!=''){
 
         if(isset($_POST['sign-up']))
         { 
+
         $username=$_POST['user-name'];
         $email=$_POST['user-email'];
         $password=md5($_POST["user-password"]); 
@@ -128,7 +129,7 @@ if($_SESSION['alogin']!=''){
 
     // Sign Up form section ends here 
 
-          $name = $_POST['rname'];
+        $name = $_POST['rname'];
         $email = $_POST['remail'];
         $password = md5($_POST['rpassword']);
         $contact = $_POST['rconatct'];
@@ -206,25 +207,6 @@ if($_SESSION['alogin']!=''){
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <!-- Jquery section starts  -->
-<script>
-
-$(document).ready(function(){
-    $("#Admin-id").click(function(){
-      $("#btn-signup").hide(1000);
-      $("#forgot_pswd").hide(1000);
-    });
-    $("#Author-id").click(function(){
-      $("#btn-signup").show(1000);
-      $("#forgot_pswd").show(1000);
-    });
-  });
-
-
-
-</script>
-
-<!-- Jquery Section ends  -->
 </head>
 <body style="font-size:13px;">
 
@@ -236,15 +218,15 @@ $(document).ready(function(){
     <!-- Heading Sections ends  --> 
     </div>
 
-    <div class="container">
+    <div class="container form-control-login">
        <div class="row">
-           <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+           <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-section-login">
            <div id="logreg-forms">
         <form class="form-signin" method="post">
        <div class="logo-container">
                 <i class="fas fa-users logo"></i>
             </div>
-            <h3 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h3>
+            <h3 class="h3 mb-3 font-weight-normal" style="text-align: center;font-size:18px; padding:5px;"><b> SIGN IN</b></h3>
             <div class="social-login">
                 <!-- <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
                 <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> -->
@@ -340,22 +322,46 @@ $(document).ready(function(){
                 <div class="logo-container">
                     <i class="fas fa-user-plus logo"></i>
                 </div>
+                 
+                <h2 style="text-align:center;font-size:18px;padding:5px;"><b>REGISTRATION FORM</b></h2>
+
+                <!-- New Registration Form section starts Here  -->
+                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name = "userName" placeholder="Enter Preferred User Name" required="" autofocus="">
+
+                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name = "title" placeholder="Title (Mr., Mrs., Dr., etc.)" required="" autofocus="">
+
+                <div class="input-group">
+
+                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6" name = "firstName" placeholder="First Name" required="" autofocus="">
+
+                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6 ml-1" name = "middleName" placeholder="Middle Name(Optional)"  autofocus="">
+
+                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6 ml-1" name = "lastName" placeholder="Last Name" required="" autofocus="">
+
+                </div>
+
+                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemail" placeholder="Primary Email Address" required="" autofocus="">
+
+                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemailAgain" placeholder="Primary Email Address again" required="" autofocus="">
+
+                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemailcc" placeholder="Primary CC Email Address" required="" autofocus="">
+
+                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "semail" placeholder="Secondary Email Address" required="" autofocus="">
+
+                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "semailcc" placeholder="Secondary CC Email Address" required="" autofocus="">
+
                 
-                <p style="text-align:center">Sign UP</p>
+                <!-- New Registration Form Section Ends Here  -->
 
-                <input type="text" id="user-name" class="form-control" name = "user-name" placeholder="Full name" required="" autofocus="">
+                <input style="font-size:11px;" type="password" id="user-pass" name = "user-password" class="form-control" placeholder="Password" required autofocus="">
 
-                <input type="email" id="user-email" class="form-control"name = "user-email" placeholder="Email address" required autofocus="">
+                <input style="font-size:11px;" type="password" id="user-repeatpass" name = "repeat-password" class="form-control" placeholder="Repeat Password" required autofocus="">
 
-                <input type="password" id="user-pass" name = "user-password" class="form-control" placeholder="Password" required autofocus="">
+                <input style="font-size:11px;" type="text" id="user-contact" name = "user-contact" class="form-control" placeholder="Contact Number" required autofocus="">
 
-                <input type="password" id="user-repeatpass" name = "repeat-password" class="form-control" placeholder="Repeat Password" required autofocus="">
+                <input style="font-size:11px;" type="text" id="user-address" name = "user-address" class="form-control" placeholder="Address" required autofocus="">
 
-                <input type="text" id="user-contact" name = "user-contact" class="form-control" placeholder="Contact Number" required autofocus="">
-
-                <input type="text" id="user-address" name = "user-address" class="form-control" placeholder="Address" required autofocus="">
-
-                <button name="sign-up" class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
+                <button name="sign-up" class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> REGISTER</button>
                 <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
             </form>
 
@@ -405,14 +411,14 @@ $(()=>{
     </p>
 
 
-<!-- Essential Js,jquery,section starts  -->
+<!-- Essential Js,jquery,section starts  --> 
 
-<script src="js/bootstrap.min.js"></script>
+<!-- <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
+<script src="js/popper.min.js"></script> -->
 
 <!-- <script src="js/login.js"></script>  -->
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/login.js"></script> -->
 <!-- Essential Js,Jquery  section ends  -->

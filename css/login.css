@@ -4,7 +4,7 @@
     width:500px;
     margin:2vh auto;
     background-color:#ffffff;
-    /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
      border:2px solid rgba(212, 214, 212, 0.904);
 }
@@ -165,7 +165,7 @@ color: #008000ba;
 
 .login-details{
     /* width: 100%; */
-    margin: 10px 0;
+    margin: 5px 0;
     }
     .login-details ul{
         /* width: 50%; */
@@ -179,13 +179,26 @@ color: #008000ba;
     
     margin: 0 15px;
     }
+
     /* .login-details ul li a{
     text-decoration: none;
     }
      */
 
+     /* Instruction Section Starts here  */
     .description {
        margin-left:100px !important;
-
-       
      }
+ @media screen and (max-width: 992px) {
+     .description {
+      margin-left:10px !important;
+       }
+     }
+
+     /* Instruction Section Ends Here */
+
+.form-control-login input{
+
+    border-radius:10px;
+
+}

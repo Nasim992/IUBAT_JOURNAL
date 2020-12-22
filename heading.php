@@ -49,7 +49,7 @@
       </ul>
       <ul>
        <li class="nav-item active">
-        <a class="nav-link" href="login.php">Submit an Article</a>
+        <a class="nav-link" href="upload-paper1.php">Submit an Article</a>
       </li>
       </ul>
 

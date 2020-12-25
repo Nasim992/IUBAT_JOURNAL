@@ -40,6 +40,48 @@ if(isset($_POST['submit']))
 
     $action = 0 ;
 
+    echo $papername;
+
+    $cauname1 = $_POST['caufullname1'];
+    $cauname2 = $_POST['caufullname2'];
+    $cauname3 = $_POST['caufullname3'];
+    $cauname4 = $_POST['caufullname4'];
+    $cauname5 = $_POST['caufullname5'];
+
+    $cauemail1 = $_POST['cauemail1'];
+    $cauemail2 = $_POST['cauemail2'];
+    $cauemail3 = $_POST['cauemail3'];
+    $cauemail4 = $_POST['cauemail4'];
+    $cauemail5 = $_POST['cauemail5'];
+
+    $caudept1 = $_POST['caudept1'];
+    $caudept2 = $_POST['caudept2'];
+    $caudept3 = $_POST['caudept3'];
+    $caudept4 = $_POST['caudept4'];
+    $caudept5 = $_POST['caudept5'];
+
+    $cauinstute1 = $_POST['cauinstitute1'];
+    $cauinstute2 = $_POST['cauinstitute2'];
+    $cauinstute3 = $_POST['cauinstitute3'];
+    $cauinstute4 = $_POST['cauinstitute4'];
+    $cauinstute5 = $_POST['cauinstitute5'];
+
+    $cauaddress1 = $_POST['cauaddress1'];
+    $cauaddress2 = $_POST['cauaddress2'];
+    $cauaddress3 = $_POST['cauaddress3'];
+    $cauaddress4 = $_POST['cauaddress4'];
+    $cauaddress5 = $_POST['cauaddress5'];
+
+
+
+
+    echo $cauname1;
+    echo $cauname2;
+    echo $cauname3;
+    echo $cauname4;
+    echo $cauname5;
+
+
     
 
 
@@ -47,7 +89,9 @@ if(isset($_POST['submit']))
   // echo $filetmp;
   // echo $filesize;
   // echo $filetype;
-  $sql="INSERT INTO  paper(authoremail,papername,abstract,name,type,action) VALUES(:authoremailmain,:papername,:abstract,:name,:type,:action)";
+
+  $sql="INSERT INTO  paper(authoremail,papername,abstract,name,type,action,cauname1,cauname2,cauname3,cauname4,cauname5,cauemail1,cauemail2,cauemail3,cauemail4,cauemail5,caudept1,caudept2,caudept3,caudept4,caudept5,cauinstute1,cauinstute2,cauinstute3,cauinstute4,cauinstute5,cauaddress1,cauaddress2,cauaddress3,cauaddress4,cauaddress5) VALUES(:authoremailmain,:papername,:abstract,:name,:type,:action,:cauname1,:cauname2,:cauname3,:cauname4,:cauname5,:cauemail1,:cauemail2,:cauemail3,:cauemail4,:cauemail5,:caudept1,:caudept2,:caudept3,:caudept4,:caudept5,:cauinstute1,:cauinstute2,:cauinstute3,:cauinstute4,:cauinstute5,:cauaddress1,:cauaddress2,:cauaddress3,:cauaddress4,:cauaddress5)";
+
   $query = $dbh->prepare($sql);
   $query->bindParam(':authoremailmain',$authoremailmain,PDO::PARAM_STR);
   $query->bindParam(':papername',$papername,PDO::PARAM_STR);
@@ -55,6 +99,42 @@ if(isset($_POST['submit']))
   $query->bindParam(':name',$name,PDO::PARAM_STR);
   $query->bindParam(':type',$type,PDO::PARAM_STR);
   $query->bindParam(':action',$action,PDO::PARAM_STR);
+
+  $query->bindParam(':cauname1',$cauname1,PDO::PARAM_STR);
+  $query->bindParam(':cauname2',$cauname2,PDO::PARAM_STR);
+  $query->bindParam(':cauname3',$cauname3,PDO::PARAM_STR);
+  $query->bindParam(':cauname4',$cauname4,PDO::PARAM_STR);
+  $query->bindParam(':cauname5',$cauname5,PDO::PARAM_STR);
+
+  $query->bindParam(':cauemail1',$cauemail1,PDO::PARAM_STR);
+  $query->bindParam(':cauemail2',$cauemail2,PDO::PARAM_STR);
+  $query->bindParam(':cauemail3',$cauemail3,PDO::PARAM_STR);
+  $query->bindParam(':cauemail4',$cauemail4,PDO::PARAM_STR);
+  $query->bindParam(':cauemail5',$cauemail5,PDO::PARAM_STR);
+
+  $query->bindParam(':caudept1',$caudept1,PDO::PARAM_STR);
+  $query->bindParam(':caudept2',$caudept2,PDO::PARAM_STR);
+  $query->bindParam(':caudept3',$caudept3,PDO::PARAM_STR);
+  $query->bindParam(':caudept4',$caudept4,PDO::PARAM_STR);
+  $query->bindParam(':caudept5',$caudept5,PDO::PARAM_STR);
+
+  $query->bindParam(':cauinstute1',$cauinstute1,PDO::PARAM_STR);
+  $query->bindParam(':cauinstute2',$cauinstute2,PDO::PARAM_STR);
+  $query->bindParam(':cauinstute3',$cauinstute3,PDO::PARAM_STR);
+  $query->bindParam(':cauinstute4',$cauinstute4,PDO::PARAM_STR);
+  $query->bindParam(':cauinstute5',$cauinstute5,PDO::PARAM_STR);
+
+  $query->bindParam(':cauaddress1',$cauaddress1,PDO::PARAM_STR);
+  $query->bindParam(':cauaddress2',$cauaddress2,PDO::PARAM_STR);
+  $query->bindParam(':cauaddress3',$cauaddress3,PDO::PARAM_STR);
+  $query->bindParam(':cauaddress4',$cauaddress4,PDO::PARAM_STR);
+  $query->bindParam(':cauaddress5',$cauaddress5,PDO::PARAM_STR);
+
+
+
+
+
+
 
   $query->execute();
 
@@ -67,7 +147,7 @@ if(isset($_POST['submit']))
   } else{
       
       echo "<script>alert('Invalid Details !This paper has already Uploaded');</script>";
-      // header("refresh:0;url=author-dashboard.php");
+      header("refresh:0;url=upload-paper1.php");
 
   }   
 }
@@ -175,35 +255,35 @@ form {
 <div class="input-group">
 <label class="col-sm-3 col-form-label" for="formGroupExampleInput">Name:</label>
 <div class="col-sm-9">
-<input type="text" class="form-control" id="formGroupExampleInput" name = "fullname+<?php echo $x+1;?>" placeholder="FullName " required>
+<input type="text" class="form-control" id="formGroupExampleInput" name = "caufullname<?php echo $x+1;?>" placeholder="FullName " required>
 </div>
 </div>
 <br>
 <div class="input-group">
 <label class="col-sm-3 col-form-label" for="formGroupExampleInput">Email:</label>
 <div class="col-sm-9">
-<input type="email" class="form-control" id="formGroupExampleInput" name = "email+<?php echo $x+1;?>" placeholder="email " required>
+<input type="email" class="form-control" id="formGroupExampleInput" name = "cauemail<?php echo $x+1;?>" placeholder="email " required>
 </div>
 </div>
 <br>
 <div class="input-group">
 <label class="col-sm-3 col-form-label" for="formGroupExampleInput">Dept.:</label>
 <div class="col-sm-9">
-<input type="text" class="form-control" id="formGroupExampleInput" name = "dept+<?php echo $x+1;?>" placeholder="Department " required>
+<input type="text" class="form-control" id="formGroupExampleInput" name = "caudept<?php echo $x+1;?>" placeholder="Department " required>
 </div>
 </div>
 <br>
 <div class="input-group">
 <label class="col-sm-3 col-form-label" for="formGroupExampleInput">Institute:</label>
 <div class="col-sm-9">
-<input type="text" class="form-control" id="formGroupExampleInput" name = "institute+<?php echo $x+1;?>" placeholder="Institute" required>
+<input type="text" class="form-control" id="formGroupExampleInput" name = "cauinstitute<?php echo $x+1;?>" placeholder="Institute" required>
 </div>
 </div>
 <br>
 <div class="input-group">
 <label class="col-sm-3 col-form-label" for="formGroupExampleInput">Address:</label>
 <div class="col-sm-9">
-<input type="text" class="form-control" id="formGroupExampleInput" name = "address+<?php echo $x+1;?>" placeholder="address" required>
+<input type="text" class="form-control" id="formGroupExampleInput" name = "cauaddress<?php echo $x+1;?>" placeholder="address" required>
 </div>
 </div>
 

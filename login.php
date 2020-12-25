@@ -58,7 +58,7 @@ if($_SESSION['alogin']!=''){
     // echo $select;
     // echo $password;
     // $password=md5($_POST['pass']);
-    $sql ="SELECT email,password FROM author WHERE email=:email and password=:password";
+    $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> bindParam(':password', $password, PDO::PARAM_STR);
@@ -81,18 +81,40 @@ if($_SESSION['alogin']!=''){
      // Authors sign in Option ends here
     }
     }
-
     // Sign Up form section starts here 
 
         if(isset($_POST['sign-up']))
         { 
 
-        $username=$_POST['user-name'];
-        $email=$_POST['user-email'];
-        $password=md5($_POST["user-password"]); 
-        $repeatPassword=md5($_POST["repeat-password"]);
+        $username=$_POST['userName'];
+        $title=$_POST['title'];
+        $firstname=$_POST['firstName'];
+        $middlename=$_POST['middleName'];
+        $lastname=$_POST['lastName'];
+        $pemail=$_POST['pemail'];
+        $pemailAgain=$_POST['pemailAgain'];
+        $pemailcc=$_POST['pemailcc'];
+        $semail=$_POST['semail'];
+        $semailcc=$_POST['semailcc'];
+        $userpassword=md5($_POST['user-password']);
+        $repeatpassword=md5($_POST['repeat-password']);
         $contact=$_POST['user-contact'];
         $address=$_POST['user-address'];
+
+        // echo $username;
+        // echo $title;
+        // echo $firstname;
+        // echo $middlename;
+        // echo $lastname;
+        // echo $pemail;
+        // echo $pemailAgain;
+        // echo $pemailcc;
+        // echo $semail;
+        // echo  $secmailcc;
+        // echo $userpassword;
+        // echo $repeatPassword;
+        // echo $contact;
+        // echo $address;
 
         // echo $username;
         // echo $email;
@@ -100,12 +122,24 @@ if($_SESSION['alogin']!=''){
         // echo $repeatPassword;
         // echo $contact;
         // echo $address;
+     if ($pemail==$pemailAgain || $userpassword==$repeatPassword)
+     {
+    
+        $sql="INSERT INTO  author(username,title,firstname,middlename,lastname,primaryemail,primaryemailcc,secondaryemail,secondaryemailcc,password,contact,address) VALUES(:username,:title,:firstname,:middlename,:lastname,:pemail,:pemailcc,:semail,:semailcc,:userpassword,:contact,:address)";
 
-        $sql="INSERT INTO  author(name,email,password,contact,address) VALUES(:username,:email,:password,:contact,:address)";
         $query = $dbh->prepare($sql);
+
         $query->bindParam(':username',$username,PDO::PARAM_STR);
-        $query->bindParam(':email',$email,PDO::PARAM_STR);
-        $query->bindParam(':password',$password,PDO::PARAM_STR);
+        $query->bindParam(':title',$title,PDO::PARAM_STR);
+        $query->bindParam(':firstname',$firstname,PDO::PARAM_STR);
+        $query->bindParam(':middlename',$middlename,PDO::PARAM_STR);
+        $query->bindParam(':lastname',$lastname,PDO::PARAM_STR);
+        $query->bindParam(':pemail',$pemail,PDO::PARAM_STR);
+        $query->bindParam(':pemailcc',$pemailcc,PDO::PARAM_STR);
+        $query->bindParam(':semail',$semail,PDO::PARAM_STR);
+        $query->bindParam(':semailcc',$semailcc,PDO::PARAM_STR);
+
+        $query->bindParam(':userpassword',$userpassword,PDO::PARAM_STR);
         $query->bindParam(':contact',$contact,PDO::PARAM_STR);
         $query->bindParam(':address',$address,PDO::PARAM_STR);
       
@@ -119,11 +153,15 @@ if($_SESSION['alogin']!=''){
         echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
         } else{
             
-            echo "<script>alert('Invalid Details !Something went wrong.Email address already is in use');</script>";
+            echo "<script>alert('Invalid Details !UserName or Email address already is in use');</script>";
             header("refresh:0;url=login.php");
 
         }
-        
+     }
+     else {
+        echo "<script>alert('Email or password doesen't matched with previous');</script>";
+        header("refresh:0;url=login.php");
+     }
 
         }
 
@@ -206,7 +244,6 @@ if($_SESSION['alogin']!=''){
     <link rel="stylesheet" href="css/v4-shims.min.css">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
 </head>
 <body style="font-size:13px;">
 
@@ -326,7 +363,9 @@ if($_SESSION['alogin']!=''){
                 <h2 style="text-align:center;font-size:18px;padding:5px;"><b>REGISTRATION FORM</b></h2>
 
                 <!-- New Registration Form section starts Here  -->
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name = "userName" placeholder="Enter Preferred User Name" required="" autofocus="">
+                <input style="font-size:11px;" type="text" id="txt_username" class="form-control" name = "userName" placeholder="Enter Preferred User Name" required="" autofocus="">
+                   <span><b id="uname_response"></b></span>
+
 
                 <input style="font-size:11px;" type="text" id="user-name" class="form-control" name = "title" placeholder="Title (Mr., Mrs., Dr., etc.)" required="" autofocus="">
 
@@ -340,9 +379,11 @@ if($_SESSION['alogin']!=''){
 
                 </div>
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemail" placeholder="Primary Email Address" required="" autofocus="">
+                <input style="font-size:11px;" type="email" id="pemail" class="form-control" onfocusout = "handlefocus()" name = "pemail" placeholder="Primary Email Address" required="" autofocus="">
+                <span><b id="pemail-text"></b></span>
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemailAgain" placeholder="Primary Email Address again" required="" autofocus="">
+                <input style="font-size:11px;" type="email" id="pemailAgain" class="form-control" name = "pemailAgain" placeholder="Primary Email Address again" required="" autofocus="">
+                <span><b id="pemailAgain-response"></b></span>
 
                 <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemailcc" placeholder="Primary CC Email Address" required="" autofocus="">
 
@@ -353,9 +394,12 @@ if($_SESSION['alogin']!=''){
                 
                 <!-- New Registration Form Section Ends Here  -->
 
-                <input style="font-size:11px;" type="password" id="user-pass" name = "user-password" class="form-control" placeholder="Password" required autofocus="">
+                <input style="font-size:11px;" type="password" id="user-pass" onfocusout="handlepasschange()" name = "user-password" class="form-control" placeholder="Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required autofocus="">
 
-                <input style="font-size:11px;" type="password" id="user-repeatpass" name = "repeat-password" class="form-control" placeholder="Repeat Password" required autofocus="">
+                <input style="font-size:11px;" type="password" id="user-repeatpass" name = "repeat-password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" placeholder="Repeat Password" required autofocus="">
+                    <span><b id="user-reapeatpass-response"></b></span>
 
                 <input style="font-size:11px;" type="text" id="user-contact" name = "user-contact" class="form-control" placeholder="Contact Number" required autofocus="">
 
@@ -410,17 +454,138 @@ $(()=>{
 })g" target="_blank" style="color:black"> <a href="index.php" id="cancel_signup"><i class="fas fa-angle-left"></i> Back to the main page</a></a>
     </p>
 
-
-<!-- Essential Js,jquery,section starts  --> 
-
-<!-- <script src="js/bootstrap.min.js"></script>
-<script src="js/jquery-3.5.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script> -->
-
-<!-- <script src="js/login.js"></script>  -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="js/login.js"></script> -->
-<!-- Essential Js,Jquery  section ends  -->
 </body>
+
+<!-- Check that the username is availavle on the database or not  -->
+<script>
+$(document).ready(function(){
+
+   $("#txt_username").keyup(function(){
+
+      var username = $(this).val().trim();
+
+      if(username != ''){
+
+         $.ajax({
+            url: 'link/ajaxfile.php',
+            type: 'post',
+            data: {username: username},
+            success: function(response){
+
+                $('#uname_response').html(response);
+
+             }
+         });
+      }else{
+         $("#uname_response").html("");
+      }
+
+    });
+
+ });
+
+
+//  Email is exists or not checking email
+
+$(document).ready(function(){
+
+$("#pemail").keyup(function(){
+
+   var primaryemail = $(this).val().trim();
+
+   if(primaryemail != ''){
+
+      $.ajax({
+         url: 'link/ajaxfile.php',
+         type: 'post',
+         data: {primaryemail: primaryemail},
+         success: function(response){
+
+             $('#pemail-text').html(response);
+
+          }
+      });
+   }else{
+      $("#pemail-text").html("");
+   }
+
+ });
+
+});
+// Check that the email address is exists or not in the database secion ends here 
+
+
+// Checking Previous Email is matched or not starts here
+
+function handlefocus() {
+
+    $(document).ready(function(){
+
+        var pemail = document.getElementById('pemail').value;
+     $("#pemailAgain").keyup(function(){
+
+   var pemailAgain = $(this).val().trim();
+
+      if(pemailAgain != ''){
+
+      $.ajax({
+         url: 'link/ajaxfile.php',
+         type: 'post',
+         data: {pemailAgain: pemailAgain,pemail:pemail},
+         success: function(response){
+
+             $('#pemailAgain-response').html(response);
+
+          }
+      });
+   }else{
+      $("#pemailAgain-response").html("");
+   }
+
+ });
+
+});
+}
+// Checking previous Email is matched or not ends here
+
+// Checking that the reapeat pass is matched or not section starts here 
+
+function handlepasschange() {
+
+$(document).ready(function(){
+
+    var userpassword = document.getElementById('user-pass').value;
+    console.log(userpassword);
+ $("#user-repeatpass").keyup(function(){
+
+var userrepeatpass = $(this).val().trim();
+
+  if(userrepeatpass != ''){
+
+  $.ajax({
+     url: 'link/ajaxfile.php',
+     type: 'post',
+     data: {userrepeatpass: userrepeatpass,userpassword:userpassword},
+     success: function(response){
+
+         $('#user-reapeatpass-response').html(response);
+
+      }
+  });
+}else{
+  $("#user-reapeatpass-response").html("");
+}
+
+});
+
+});
+}
+
+// Checking that the repeat pass is matched or not section ends here  section is ends here 
+
+
+</script>
+
+<!-- Check that the username is availavle on the database or not  -->
+
 </html>

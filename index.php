@@ -42,7 +42,7 @@
     </div>
     </div> 
     </div>
-
+ 
     <div class="row">
     <!-- Sidebar section starts here  -->
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -106,13 +106,40 @@
       foreach($results as $result) 
 
 {   ?>
+
+<!-- Select User name section starts here  -->
+<?php  
+
+$link = mysqli_connect("localhost", "root", "", "iubat");
+
+// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
+  
+
+$authoremail = htmlentities($result->authoremail);
+
+$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
+
+$result1 = mysqli_query($link,$sql1); 
+
+$file1 = mysqli_fetch_assoc($result1);
+
+$title = $file1['title'];
+$fname= $file1['firstname'];
+$middlename= $file1['middlename'];
+$lastname= $file1['lastname'];
+
+$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+
+?>
+<!-- Select user  name section ends here  -->
+
           <!-- Dashboard section starts  -->
       
             <tr>
             <td>
             <div class="jumbotron  mb-0" >
             <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?></h5></a>
-            <!-- <h5 style="font-size:15px;"><?php echo htmlentities($result->authoremail);?></h5> -->
+            <h5 class="text-secondary" style="font-size:15px;"><?php echo $authorname;?></h5>
             <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
       <!--Individual Read More section starts here   -->

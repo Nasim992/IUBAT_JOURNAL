@@ -2,9 +2,9 @@
 session_start();
 error_reporting(0);
 
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
+$link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
 
-$link = mysqli_connect("localhost", "root", "", "iubat");
+// $link = mysqli_connect("localhost", "root", "", "iubat");
   
 
 if(strlen($_SESSION['alogin'])=="")
@@ -17,7 +17,7 @@ if(strlen($_SESSION['alogin'])=="")
     }
 
 if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+    die("ERROR: Could not connect. " .mysqli_connect_error());
 }
 
 // $id=intval($_GET['id']);
@@ -33,19 +33,24 @@ $file = mysqli_fetch_assoc($result);
 
 $filename = $file['name'];
 
-$title = $file['papername'];
+$papername = $file['papername'];
 $abstract = $file['abstract'];
 $authorname = $file['authoremail'];
 $filepath = 'documents/'.$file['name'];
 
 
-$sql = "SELECT * FROM author WHERE  email= '$authorname' ";
+$sql = "SELECT * FROM author WHERE  primaryemail= '$authorname' ";
 
-$result1 = mysqli_query($link,$sql);
+$result1 = mysqli_query($link,$sql); 
 
 $file1 = mysqli_fetch_assoc($result1);
 
-$name = $file1['name'];
+$title = $file1['title'];
+$fname= $file1['firstname'];
+$middlename= $file1['middlename'];
+$lastname= $file1['lastname'];
+
+$name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 ?>
 
@@ -66,7 +71,7 @@ $name = $file1['name'];
    <!-- Dashboard section starts  -->
        <div class="jumbotron p-3"> 
      
-        <h5 class="display-4">Name : <?php echo $title ?></h5>
+        <h5 class="display-4">Name : <?php echo $papername ?></h5>
         <?php 
         if ($authoremail == "") {
             ?>
@@ -75,7 +80,7 @@ $name = $file1['name'];
         }
         else {
         ?>
-       <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name ?></span></h6>
+       <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
         <?php 
         }  
         ?>

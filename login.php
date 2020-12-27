@@ -6,12 +6,10 @@ include('link/config.php');
 if($_SESSION['alogin']!=''){
     $_SESSION['alogin']=''; 
     }
-    if(isset($_POST['login']))  
+
+
+    if(isset($_POST['admin-login']))  
     {
-    $select = $_POST['select'];
-
-    if ($select == "Admin") {
-
     // Admin Login Section starts 
 
     $email = $_POST['input-email'];
@@ -42,13 +40,13 @@ if($_SESSION['alogin']!=''){
         header("refresh:0;url=login.php");
     
     }
+}
 
     // Admin Login Section ends 
     
-    }
-    else{
-
-    // Authors sign in option starts here
+    //  publisher sign in option starts here
+    if(isset($_POST['publisher-login']))  
+    {
 
     $email = $_POST['input-email'];
     $password=md5($_POST["input-password"]); 
@@ -62,7 +60,7 @@ if($_SESSION['alogin']!=''){
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> bindParam(':password', $password, PDO::PARAM_STR);
-    $query-> execute(); 
+    $query-> execute();  
 
     $results=$query->fetchAll(PDO::FETCH_OBJ);
 
@@ -77,10 +75,81 @@ if($_SESSION['alogin']!=''){
         header("refresh:0;url=login.php");
     
     }
+    }
+     
+//  Publisher sign in Option ends here
 
-     // Authors sign in Option ends here
+    //  Reviewer login in option starts here
+    if(isset($_POST['reviewer-login']))  
+    {
+
+    $email = $_POST['input-email'];
+    $password=md5($_POST["input-password"]); 
+    $_SESSION["email"]=$_POST['input-email']; // push to the session
+
+    // echo $email;
+    // echo $select;
+    // echo $password;
+    // $password=md5($_POST['pass']);
+    $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password";
+    $query= $dbh -> prepare($sql);
+    $query-> bindParam(':email', $email, PDO::PARAM_STR);
+    $query-> bindParam(':password', $password, PDO::PARAM_STR);
+    $query-> execute();  
+
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+
+    if($query->rowCount() > 0)
+    {
+    $_SESSION['alogin']=$_POST['input-email'];
+    echo "<script>alert('Logged in Success');</script>";
+    echo "<script type='text/javascript'> document.location = 'upload-paper1.php'; </script>";
+    } else{ 
+        
+        echo "<script>alert('Invalid Details.Or,You are not selected as a Reviewer');</script>";
+        header("refresh:0;url=login.php");
+    
+    }
+    } 
+     
+//  Reviewer Log in Option ends here
+
+    //  Editor login in option starts here
+    if(isset($_POST['reviewer-login']))  
+    {
+
+    $email = $_POST['input-email'];
+    $password=md5($_POST["input-password"]); 
+    $_SESSION["email"]=$_POST['input-email']; // push to the session
+
+    // echo $email;
+    // echo $select;
+    // echo $password;
+    // $password=md5($_POST['pass']);
+    $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password";
+    $query= $dbh -> prepare($sql);
+    $query-> bindParam(':email', $email, PDO::PARAM_STR);
+    $query-> bindParam(':password', $password, PDO::PARAM_STR);
+    $query-> execute();  
+
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+
+    if($query->rowCount() > 0)
+    {
+    $_SESSION['alogin']=$_POST['input-email'];
+    echo "<script>alert('Logged in Success');</script>";
+    echo "<script type='text/javascript'> document.location = 'upload-paper1.php'; </script>";
+    } else{ 
+        
+        echo "<script>alert('Invalid Details.Or,You are not selected as a Editor');</script>";
+        header("refresh:0;url=login.php");
+    
     }
     }
+     
+//  Editor Log in Option ends here
+
+
     // Sign Up form section starts here 
 
         if(isset($_POST['sign-up']))
@@ -210,7 +279,6 @@ if($_SESSION['alogin']!=''){
     }
 
 
-
     // Reset-Password section ends here 
 
 
@@ -245,7 +313,7 @@ if($_SESSION['alogin']!=''){
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
-<body style="font-size:13px;">
+<body style="font-size:13px; font-weight:bold;">
 
 <div class="sticky-top mr-2 ml-2 pb-3">
     <!-- Heading Sections starts  -->
@@ -272,19 +340,6 @@ if($_SESSION['alogin']!=''){
                 <!-- <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
                 <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> -->
 
-                <div class="Admin_Author d-flex">
-
-                <div class="Admins" id = "Admin-id">
-                <label for="Admin" class="admin-author">Admin</label>
-                <input type="radio" id = "Admin" name="select" value="Admin"  required>
-                </div>
-
-                <div class="Authors" id = "Author-id">
-                <label for="Author" class="admin-author">Author</label>
-                <input type="radio" id = "Author" name="select" checked="checked" value="Author">
-                </div>
-
-                </div> 
             </div>
 
 
@@ -294,10 +349,10 @@ if($_SESSION['alogin']!=''){
 
             <input style="font-size:13px;" type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
             
-            <button class="btn btn-success btn-sm" name = "login" type="submit" > Admin Login</button>
-            <button class="btn btn-success btn-sm " name = "login" type="submit" > Reviewer Login</button>
-            <button class="btn btn-success btn-sm" name = "login" type="submit" > Editor Login</button>
-            <button class="btn btn-success btn-sm" name = "login" type="submit" > Publisher Login</button>
+            <button class="btn btn-success btn-sm" name = "admin-login" type="submit" > Admin Login</button>
+            <button class="btn btn-success btn-sm " name = "reviewer-login" type="submit" > Reviewer Login</button>
+            <button class="btn btn-success btn-sm" name = "editor-login" type="submit" > Editor Login</button>
+            <button class="btn btn-success btn-sm" name = "publisher-login" type="submit" > Publisher Login</button>
 
             <div class="login-details ">
            <ul class="d-flex justify-content-center">

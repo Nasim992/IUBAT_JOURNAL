@@ -40,7 +40,7 @@ if(isset($_POST['submit']))
 
     $action = 0 ;
 
-    echo $papername;
+    // echo $numberOfCoAuthor;
 
     $cauname1 = $_POST['caufullname1'];
     $cauname2 = $_POST['caufullname2'];
@@ -75,11 +75,11 @@ if(isset($_POST['submit']))
 
 
 
-    echo $cauname1;
-    echo $cauname2;
-    echo $cauname3;
-    echo $cauname4;
-    echo $cauname5;
+    // echo $cauname1;
+    // echo $cauname2;
+    // echo $cauname3;
+    // echo $cauname4;
+    // echo $cauname5;
 
 
     
@@ -90,13 +90,14 @@ if(isset($_POST['submit']))
   // echo $filesize;
   // echo $filetype;
 
-  $sql="INSERT INTO  paper(authoremail,papername,abstract,name,type,action,cauname1,cauname2,cauname3,cauname4,cauname5,cauemail1,cauemail2,cauemail3,cauemail4,cauemail5,caudept1,caudept2,caudept3,caudept4,caudept5,cauinstute1,cauinstute2,cauinstute3,cauinstute4,cauinstute5,cauaddress1,cauaddress2,cauaddress3,cauaddress4,cauaddress5) VALUES(:authoremailmain,:papername,:abstract,:name,:type,:action,:cauname1,:cauname2,:cauname3,:cauname4,:cauname5,:cauemail1,:cauemail2,:cauemail3,:cauemail4,:cauemail5,:caudept1,:caudept2,:caudept3,:caudept4,:caudept5,:cauinstute1,:cauinstute2,:cauinstute3,:cauinstute4,:cauinstute5,:cauaddress1,:cauaddress2,:cauaddress3,:cauaddress4,:cauaddress5)";
+  $sql="INSERT INTO  paper(authoremail,papername,numberofcoauthor,abstract,name,type,action,cauname1,cauname2,cauname3,cauname4,cauname5,cauemail1,cauemail2,cauemail3,cauemail4,cauemail5,caudept1,caudept2,caudept3,caudept4,caudept5,cauinstute1,cauinstute2,cauinstute3,cauinstute4,cauinstute5,cauaddress1,cauaddress2,cauaddress3,cauaddress4,cauaddress5) VALUES(:authoremailmain,:papername,:numberOfCoAuthorp,:abstract,:name,:type,:action,:cauname1,:cauname2,:cauname3,:cauname4,:cauname5,:cauemail1,:cauemail2,:cauemail3,:cauemail4,:cauemail5,:caudept1,:caudept2,:caudept3,:caudept4,:caudept5,:cauinstute1,:cauinstute2,:cauinstute3,:cauinstute4,:cauinstute5,:cauaddress1,:cauaddress2,:cauaddress3,:cauaddress4,:cauaddress5)";
 
   $query = $dbh->prepare($sql);
   $query->bindParam(':authoremailmain',$authoremailmain,PDO::PARAM_STR);
   $query->bindParam(':papername',$papername,PDO::PARAM_STR);
   $query->bindParam(':abstract',$abstract,PDO::PARAM_STR);
   $query->bindParam(':name',$name,PDO::PARAM_STR);
+   $query->bindParam(':numberOfCoAuthorp',$numberOfCoAuthorp,PDO::PARAM_STR);
   $query->bindParam(':type',$type,PDO::PARAM_STR);
   $query->bindParam(':action',$action,PDO::PARAM_STR);
 
@@ -211,7 +212,7 @@ form {
    <br>
 
 <input type="hidden" id="custId" name="author-email" value="<?php echo $authoremail ?>"> 
-<input type="hidden" id="custId" name="co-authors-number" value="<?php echo $numberOfCoAuthor ?>">
+<input type="hidden" id="custId" name="number-of-coauthors" value="<?php echo $numberOfCoAuthor ?>">
 <input type="hidden" id="custId" name="paper-title" value="<?php echo $papername ?>">
 <!-- <div class="input-group">
 <label class="col-sm-2 col-form-label" for="formGroupExampleInput">PaperTitle:</label>

@@ -2,7 +2,7 @@
 
 $host = "localhost"; /* Host name */
 $user = "root"; /* User */
-$password = ""; /* Password */
+$password = ""; /* Password */ 
 $dbname = "iubat"; /* Database name */
 
 // $host = "sql103.epizy.com"; /* Host name */

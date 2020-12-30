@@ -17,7 +17,7 @@
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top mr-2 ml-2 pb-3">
+<div class="sticky-top mr-1 ml-1 pb-3">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php'
@@ -34,7 +34,7 @@
     <div class="text-left pb-4">
     <h3 class="text-dark "><b>IUBAT ENGINEERING JOURNAL</b></h3>
     <p class="text-secondary"><b>Editor-in-Chief : </b>Magdy Abd-Alazim Ahmed</p>
-    <a class="text-secondary" href="#" title="Journal Editorial Board">> View Editorial Board</a>
+    <a class="text-secondary" href="editorialboard.php" title="Journal Editorial Board">> View Editorial Board</a>
     <div class="d-flex justify-content-start">
     <a class="pr-3 text-secondary" href="#" title="Cite Score"><b>> Cite score : 0.00</b></a>
     <a class="text-secondary" href="#" title="Impact Factor"><b>Impact Factor : 0.00</b></a>

@@ -5,7 +5,7 @@ error_reporting(0);
 include('link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
-    {    
+    {     
     header("Location: login.php"); 
     }
     else
@@ -54,11 +54,22 @@ if(strlen($_SESSION['alogin'])=="")
 
     <title>Change password Author</title>
 
-<style>
-.change-password-form {
-    margin-left:100px;
-    margin-right:100px;
-    margin-top:50px;
+    <style>
+@media only screen and (max-width: 992px) {
+  form {
+    margin-left:0px !important;
+    margin-right:0px !important; 
+  }
+}
+form {
+
+  padding:20px;
+  margin-top:20px;
+  margin-left:200px;
+  margin-right:200px;
+  border:2px solid #e3e3e3;
+  font-size:14px;
+  
 }
 </style>
 
@@ -101,7 +112,7 @@ if(strlen($_SESSION['alogin'])=="")
                <a href="author-paper-show.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
                </div>
                 <div >
-                <button type="submit" name="submit" class="btn btn-success btn-block float-right" >Change password</button>
+                <button type="submit" name="submit" class="btn btn-success btn-sm btn-block float-right" >Change password</button>
                 </div>
                   
                </div>                                     

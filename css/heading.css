@@ -5,21 +5,22 @@
 ul li {
     list-style: none;
 }
-ul li a {
+.ul-nav li a {
     /* color : green; */
-    font-weight : bold;
-    display: block;
+    font-weight : 500;
+    /* display: block; */
     /* margin-top:10px;
     padding:10px; */
-    /* border-radius:10px; */
+    border-radius:30px;
 
     transition: 0.4s;
  
 } 
- ul li a:hover {
-    color:rgb(226, 11, 11) !important;
-    /* border-radius:10px; */
-    /* border:2px solid green; */
+ .ul-nav li a:hover {
+    background-color:rgb(28, 119, 5) !important;
+    border-radius:30px;
+    color:white !important;
+    /* border:0.5px solid green; */
 } 
 .nav-class {
     background-color:#e5eee9 !important;

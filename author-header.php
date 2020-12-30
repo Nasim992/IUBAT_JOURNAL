@@ -74,7 +74,7 @@ if(strlen($_SESSION['alogin'])=="")
    <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
 
 </head> 
-<body>
+<body> 
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light ">
   <a class="navbar-brand" href="all-paper-author.php"><img src="images/Iubat-logo.png"></a>
@@ -84,7 +84,7 @@ if(strlen($_SESSION['alogin'])=="")
  
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto ul-nav">
 
    <ul>
    <li class="nav-item active" title="total paper">

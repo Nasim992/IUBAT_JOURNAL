@@ -21,35 +21,35 @@
   </button>
 
   <div class="collapse navbar-collapse " id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto ul-nav">
     <ul>
        <li class="nav-item active">
-        <a class="nav-link" href="#">Aim and Scope</a>
+        <a class="nav-link" href="aimandscope.php">Aim_and_Scope</a>
       </li>
       </ul>
       <ul>
        <li class="nav-item active">
-        <a class="nav-link" href="#">Instruction for Author</a>
+        <a class="nav-link" href="instructionforauthors.php">Instruction_for_Author</a>
       </li>
       </ul>
       <ul>
        <li class="nav-item active">
-        <a class="nav-link" href="#">Journal Info</a>
+        <a class="nav-link" href="journalinfo.php">Journal_Info</a>
       </li>
       </ul>
       <ul>
        <li class="nav-item active">
-        <a class="nav-link" href="#">Editorial Board</a>
+        <a class="nav-link" href="editorialboard.php">Editorial_Board</a>
       </li>
       </ul>
       <ul>
        <li class="nav-item active">
-        <a class="nav-link" href="#">Archive</a>
+        <a class="nav-link" href="archive.php">Archive</a>
       </li>
       </ul>
       <ul>
        <li class="nav-item active">
-        <a class="nav-link" href="upload-paper1.php">Submit an Article</a>
+        <a class="nav-link" href="upload-paper1.php">Submit_an_Article</a>
       </li>
       </ul>
 

@@ -44,7 +44,8 @@ if($_SESSION['alogin']!=''){
 
     // Admin Login Section ends 
     
-    //  publisher sign in option starts here
+    //  publisher log in option starts here
+
     if(isset($_POST['publisher-login']))  
     {
 
@@ -86,12 +87,11 @@ if($_SESSION['alogin']!=''){
     $email = $_POST['input-email'];
     $password=md5($_POST["input-password"]); 
     $_SESSION["email"]=$_POST['input-email']; // push to the session
-
     // echo $email;
     // echo $select;
     // echo $password;
     // $password=md5($_POST['pass']);
-    $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password";
+    $sql ="SELECT primaryemail,password,reviewerselection FROM author WHERE primaryemail=:email and password=:password and reviewerselection=1";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> bindParam(':password', $password, PDO::PARAM_STR);
@@ -115,7 +115,7 @@ if($_SESSION['alogin']!=''){
 //  Reviewer Log in Option ends here
 
     //  Editor login in option starts here
-    if(isset($_POST['reviewer-login']))  
+    if(isset($_POST['editor-login']))  
     {
 
     $email = $_POST['input-email'];
@@ -126,7 +126,7 @@ if($_SESSION['alogin']!=''){
     // echo $select;
     // echo $password;
     // $password=md5($_POST['pass']);
-    $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password";
+    $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password and editorselection=1";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> bindParam(':password', $password, PDO::PARAM_STR);
@@ -343,7 +343,7 @@ if($_SESSION['alogin']!=''){
             </div>
 
 
-        <!-- Sign in Section starts  -->
+        <!-- Sign in Section starts Here -->
 
             <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="" autofocus="">
 
@@ -369,7 +369,7 @@ if($_SESSION['alogin']!=''){
       
 
 
-        <!-- Sign in section ends  -->
+        <!-- Sign in section ends Here -->
 
 
             <!-- <p>Don't have an account!</p>  -->

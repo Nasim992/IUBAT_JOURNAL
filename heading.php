@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/heading.css"> 
@@ -62,6 +62,9 @@
       </ul>
          <ul>
        <li class="nav-item active">
+       <?php
+       
+       ?>
         <a class="nav-link" href="login.php">Login</a>
       </li>
       </ul>

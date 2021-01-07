@@ -44,17 +44,18 @@ if(strlen($_SESSION['alogin'])=="")
 
 </head>
 <body>
-<div class="container">
-
-<div class="sticky-top">
 <!-- Author showing header sections starts  -->
-
+<div class="sticky-top">
 <?php
 include 'admin-header.php';
 ?>
-
-<!-- Author showing header sections ends   -->
 </div>
+<!-- Author showing header sections ends   -->
+
+<div class="container">
+
+
+
 
             
 
@@ -66,16 +67,26 @@ include 'admin-header.php';
         <tr>
             <th >#</th>
             <th >id</th>
-            <th >Author Name</th>
-            <th >Author Email</th>
-            <th >Author Contact</th>
-            <th >Author Address</th>
-            <th >Actions</th>
+            <th >UserName</th>
+            <th >Title</th>
+            <th >First Name</th>
+            <th >Middle Name</th>
+            <th >Last Name</th>
+            <th >Primary Email</th>
+            <th >Primary Email cc</th>
+            <th >Secondary Email</th>
+            <th >Secondary Email cc</th>
+            <th >Contact</th>
+            <th >Address</th>
+            <th >Registration Time</th>
+            <th >Reviewer Selection</th>
+            <th >Editor Selection</th>
+            <th >Action</th>
         </tr>
 </thead>
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT author.id,author.name,author.email,author.contact,author.address  from author";
+<?php $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.primaryemailcc,author.secondaryemail,author.secondaryemailcc,author.contact,author.address,author.registrationtime,author.reviewerselection,author.editorselection from author";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ);  
@@ -85,11 +96,21 @@ if($query->rowCount() > 0)
 foreach($results as $result) 
 {   ?>
 <tr>
-<td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->id);?></td>
-            <td ><?php echo htmlentities($result->name);?></td>
-            <td ><?php echo htmlentities($result->email);?></td>
+<td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->id);?></td> 
+            <td ><?php echo htmlentities($result->username);?></td>
+            <td ><?php echo htmlentities($result->title);?></td>
+            <td ><?php echo htmlentities($result->firstname);?></td>
+            <td ><?php echo htmlentities($result->middlename);?></td>
+            <td ><?php echo htmlentities($result->lastname);?></td>
+            <td ><?php echo htmlentities($result->primaryemail);?></td>
+            <td ><?php echo htmlentities($result->primaryemailcc);?></td>
+            <td ><?php echo htmlentities($result->secondaryemail);?></td>
+            <td ><?php echo htmlentities($result->secondaryemailcc);?></td>
             <td ><?php echo htmlentities($result->contact);?></td>
             <td ><?php echo htmlentities($result->address);?></td>
+            <td ><?php echo htmlentities($result->registrationtime);?></td>
+            <td ><?php echo htmlentities($result->reviewerselection);?></td>
+            <td ><?php echo htmlentities($result->editorselection);?></td>
 
 <td>
 <!-- <a href="edit_author.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a> -->

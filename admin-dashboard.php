@@ -25,135 +25,316 @@ if(strlen($_SESSION['alogin'])=="")
 
 
 ?>  
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Published paper</title>
+    <title>Admin Dashboard</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/admin-dashboard.css">
+    <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/fontawesome.v5.3.1.all.css">
+    
+<style>
+.sidebar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #f7f9f7;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 16px;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: black;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: white;
+  color: green;
+  padding: 10px 15px;
+  border: none;
+}
+
+/* .openbtn:hover {
+  background-color: #444;
+} */
+
+#main {
+  transition: margin-left .5s;
+  /* padding: 16px; */
+  margin-left:250px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+/* Progress bar section starts here  */
+.card.card-statistic-1, .card.card-statistic-2 {
+    display: inline-block;
+    width: 100%;
+}
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    background-color: #fff;
+    border-radius: 3px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+}
+.card.card-statistic-1 .card-icon {
+    line-height: 90px;
+}
+.card.card-statistic-1 .card-icon, .card.card-statistic-2 .card-icon {
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+    border-radius: 3px;
+    line-height: 94px;
+    text-align: center;
+    float: left;
+    margin-right: 15px;
+}
+.card.card-statistic-1 .card-body {
+    font-size: 20px;
+}
+.card.card-statistic-1 .card-body, .card.card-statistic-2 .card-body {
+    font-size: 26px;
+    font-weight: 700;
+    color: #34395e;
+    padding-bottom: 0;
+}
+.card.card-statistic-1 .card-body, .card.card-statistic-2 .card-body {
+    padding-top: 0;
+}
+.card .card-body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.card .card-header, .card .card-body, .card .card-footer {
+    background-color: transparent;
+    padding: 20px 25px;
+}
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+.card.card-statistic-1 .card-header h4 {
+    margin-bottom: 0;
+}
+.card.card-statistic-1 .card-header h4, .card.card-statistic-2 .card-header h4 {
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: .5px;
+}
+.card.card-statistic-1 .card-header h4, .card.card-statistic-2 .card-header h4 {
+    line-height: 1.2;
+    color: #98a6ad;
+}
+.card .card-header h4 {
+    font-size: 16px;
+    line-height: 28px;
+    color: #6777ef;
+    padding-right: 10px;
+    margin-bottom: 0;
+}
+.card.card-statistic-1 .card-icon .ion, .card.card-statistic-1 .card-icon .fas, .card.card-statistic-1 .card-icon .far, .card.card-statistic-1 .card-icon .fab, .card.card-statistic-1 .card-icon .fal, .card.card-statistic-2 .card-icon .ion, .card.card-statistic-2 .card-icon .fas, .card.card-statistic-2 .card-icon .far, .card.card-statistic-2 .card-icon .fab, .card.card-statistic-2 .card-icon .fal {
+    font-size: 22px;
+    color: #fff;
+}
+.fas, .far, .fab, .fal {
+    font-size: 13px;
+}
+/* Progress bar section ends here */
+</style>
+
 </head>
 <body>
-<div class="container">
 
-
+<!-- Author showing header sections starts  --> 
 <div class="sticky-top">
-<!-- Author showing header sections starts  -->
-
 <?php
 include 'admin-header.php';
-?>
-
+?> 
+</div>
 <!-- Author showing header sections ends   -->
+
+
+<div id="mySidebar" class="sidebar mt-5">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Add another admin</a>
+  <a href="#">Change password</a>
+  <a href="#">About</a>
+  <a href="#">Journal</a>
+  <a href="#">Author</a>
+  <a href="#">Contact</a>
 </div>
 
+<div id="main"> 
 
-    <!-- Authors paper showing sections starts here  -->
+<a href="#"><span class="openbtn" onclick="openNav()">☰</span></a>
+<div class="container">
 
-<div class="table-responsive p-4">
-<table id="dtBasicExample"  cellspacing="0">
-    <thead>
-        <tr>
-            <th>
-
-            </th>
-        </tr>
-    </thead>
-
-<!-- Admin Paper showing sections starts (jumbotron section) here -->
-
-<tbody id="myTable-admin">
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1";
-      $query = $dbh->prepare($sql); 
-      $query->execute(); 
-      $results=$query->fetchAll(PDO::FETCH_OBJ); 
-      $cnt=1; 
-      if($query->rowCount() > 0)  
-      {
-      foreach($results as $result) 
-      {   ?>
-
-          <!-- Dashboard section starts  -->
-      
-            <tr> 
-            <td>
-            <div class="jumbotron "> 
-
-            <div class="d-flex justify-content-between row col-sm-12">
-            <div>
-            <p>Paper ID : <?php echo htmlentities($result->id);?></p>
+<!-- Progress bar section starts here  -->
+<div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="far fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Admin</h4>
+                  </div>
+                  <div class="card-body">
+                    10
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-            <p><b> Status: <?php
-            //  echo htmlentities($result->action);
-            $test = htmlentities($result->action);
-
-            if ($test!=1) {
-                ?>
-                <span style="color:goldenrod;">
-               <?php  echo "Pending";
-            }
-            else {
-                ?>
-                </span>
-                <span style="color:green;">
-                <?php
-                echo "Published";
-            }
-            
-            ?>
-            </span></b></p>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="far fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Editor</h4>
+                  </div>
+                  <div class="card-body">
+                    10
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="far fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Authors</h4>
+                  </div>
+                  <div class="card-body">
+                    10
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
-            <p><b>Author Email: <?php echo htmlentities($result->authoremail);?></b></p>
-            <p ><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
-
-            <div class=" d-flex justify-content-between row col-sm-12">
-            <div >
-            <a href="paper-download-admin.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="far fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Reviewer</h4>
+                  </div>
+                  <div class="card-body">
+                    9
+                  </div>
+                </div>
+              </div>
             </div>
-            <div >
-            <p><?php echo htmlentities($result->type);?></p>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-danger">
+                  <i class="far fa-newspaper"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Feedback</h4>
+                  </div>
+                  <div class="card-body">
+                    42
+                  </div>
+                </div>
+              </div>
             </div>
-            <div >
-            <!-- <a href="edit-paper-admin.php?id=<?php echo htmlentities($result->id);?>&nameprevious=documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a> -->
-            <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="far fa-file"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Published Paper</h4>
+                  </div>
+                  <div class="card-body">
+                    1,201
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="far fa-file"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Unpublished Paper</h4>
+                  </div>
+                  <div class="card-body">
+                    34
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-success">
+                  <i class="fas fa-circle"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Online Users</h4>
+                  </div>
+                  <div class="card-body">
+                    47
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<!-- Progress bar section ends here  -->
 
-           
-
-           </div>
-           <hr>
-            </td>
-           </div>
-           </tr>
-          
-      
-
-       <!-- DashBoard Section ends  -->
-
-    <?php }} ?>
-    </tbody>
-
-
-
-
-
-<!-- Admin Paper showing sections ends (Jumbotron section) here  -->
-
-
-</table>
 </div>
-    <!-- Authors paper showing sections ends here  -->
-
 </div>
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
@@ -167,12 +348,23 @@ include 'admin-header.php';
             $('.dataTables_length').addClass('bs-select');
             });
             // Datables section ends here 
+
+            function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+
 </script>
 <!-- Essential Js,Jquery  section ends  -->    
 </body>
 </html>
 
-    <?php 
+<?php 
 
 }
 else {
@@ -184,4 +376,4 @@ else {
     
     
     
-    ?>
+?>

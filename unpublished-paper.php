@@ -74,7 +74,6 @@ if(strlen($_SESSION['alogin'])=="")
      </style>
 </head>
 <body>
-<div class="container">
 
 
 <div class="sticky-top">
@@ -86,6 +85,11 @@ include 'admin-header.php';
 
 <!-- Author showing header sections ends   -->
 </div>
+
+
+<div class="container">
+
+
 
 
     <!-- Authors paper showing sections starts here  -->

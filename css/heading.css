@@ -4,8 +4,8 @@
 }
 ul li {
     list-style: none;
-}
-.ul-nav li a {
+} 
+.ul-nav li a { 
     /* color : green; */
     font-weight : 500;
     /* display: block; */
@@ -16,7 +16,7 @@ ul li {
     transition: 0.4s;
  
 } 
- .ul-nav li a:hover {
+ .ul-nav li a:hover { 
     background-color:rgb(28, 119, 5) !important;
     border-radius:30px;
     color:white !important;

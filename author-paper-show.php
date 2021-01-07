@@ -14,49 +14,83 @@ if(strlen($_SESSION['alogin'])=="")
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Paper Status</title>
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css"> 
     <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/fontawesome.v5.3.1.all.css">
+    <style>
 
-    <title>Author paper</title>
+    .fontSize14px {
+        font-size:14px !important;
+    }
+    .fontSize16px {
+        font-size:16px !important;
+    }
+    .fontSize13px {
+        font-size:13px !important;
+    }
+    
+    </style>
 
-</head>
-<body>
-
-<div class="sticky-top">
-<!-- Author showing header sections starts  -->
-
+    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+</head> 
+<body> 
+<div class="sticky-top mr-1 ml-1 pb-3">
+    <!-- Heading Sections starts  -->
     <?php 
-    include 'author-header.php';
+    include 'author-header.php'
     ?>
+    <!-- Heading Sections ends  --> 
+    </div>
+ 
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
-<!-- Author showing header sections ends   -->
-</div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
+    <div class="text-left pb-4">
+   <?php
+   include 'header.php';
+   ?>
+    </div>
+    </div> 
+    </div>
+ 
+    <div class="row">
+    <!-- Sidebar section starts here  -->
+    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+     
+    <?php 
+    include 'sidelinks.php';
+    ?>
+     
+    </div>
+    <!-- Sidebar Section ends here  -->
+    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
+    <div class="text-left pb-4">
+ 
+    </div>
 
-<div class="container">
 
-
-<!-- Authors paper showing sections starts here  -->
-
-
-        <!-- <div class="panel-body p-20"> -->
-<div class="table-responsive p-4">
+<div  class="table-responsive">
 <table   id="dtBasicExample"  cellspacing="0">
 
-<thead>
+<thead> 
     <tr><th></th></tr>
 </thead>
 
 <!-- Author paper showing section starts (Jumbotron section) -->
 
 <tbody id="myTable">
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE authoremail='$authoremail'";
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.cauname1,paper.cauname2,paper.cauname3,paper.cauname4,paper.cauname5,paper.uploaddate from paper WHERE authoremail='$authoremail'";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -66,6 +100,34 @@ if(strlen($_SESSION['alogin'])=="")
       foreach($results as $result) 
       {   ?>
 
+<?php  
+
+$link = mysqli_connect("localhost", "root", "", "iubat");
+
+// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
+  
+
+$authoremail = htmlentities($result->authoremail);
+
+$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
+
+$result1 = mysqli_query($link,$sql1); 
+
+$file1 = mysqli_fetch_assoc($result1);
+
+$title = $file1['title'];
+$fname= $file1['firstname'];
+$middlename= $file1['middlename'];
+$lastname= $file1['lastname'];
+
+$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+
+?>
+<!-- Select user  name section ends here  -->
+
+
+
+
           <!-- Dashboard section starts  -->
       
             <tr>
@@ -74,12 +136,26 @@ if(strlen($_SESSION['alogin'])=="")
 
             <div class="d-flex justify-content-between col-sm-12">
             <div>
-            <p>Paper ID : <?php echo htmlentities($result->id);?></p>
+            <p class="fontSize14px">Paper ID : <?php echo htmlentities($result->id);?></p>
             </div>
             <div>
-            <p><b> Status: <?php
+            <p class="fontSize14px"><b> Status: <?php
             //  echo htmlentities($result->action);
             $test = htmlentities($result->action);
+            $pdate = htmlentities($result->pdate);
+            $pmonth = htmlentities($result->pmonth);
+            $pyear = htmlentities($result->pyear);
+
+            
+            $cauname1 = htmlentities($result->cauname1);
+            $cauname2 = htmlentities($result->cauname2);
+            $cauname3 = htmlentities($result->cauname3);
+            $cauname4 = htmlentities($result->cauname4);
+            $cauname5 = htmlentities($result->cauname5);
+
+            $uploaddate = htmlentities($result->uploaddate);
+
+            $cauname = $cauname1.' '.$cauname2.' '.$cauname3.' '.$cauname4.' '.$cauname5;
 
             if ($test!=1) {
                 ?>
@@ -91,7 +167,7 @@ if(strlen($_SESSION['alogin'])=="")
                 </span>
                 <span style="color:green;">
                 <?php
-                echo "Published";
+                echo "Published on ".$pdate.'-'.$pmonth.'-'.$pyear;
             }
             
             ?>
@@ -99,9 +175,21 @@ if(strlen($_SESSION['alogin'])=="")
             </div>
             </div>
 
-            <h5 class="display-4"><?php echo htmlentities($result->papername);?></h5>
-            <p><b>Author Email: <?php echo htmlentities($result->authoremail);?></b></p>
-            <p ><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+            <h5 class="display-4 fontSize16px"><?php echo htmlentities($result->papername);?></h5>
+            <p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate; ?></p>
+
+            <div class="d-flex justify-content-between">
+            <p class="fontSize14px"><b>Author:</b> <?php echo $authorname ?></p>
+         <a href="#"><p class="fontSize14px">Number of Co-Author: <?php echo htmlentities($result->numberofcoauthor);?></p></a>
+            </div>
+
+            <div class="d-flex justify-content-between">
+            <p class="fontSize14px"><b>Email:</b> <?php echo htmlentities($result->authoremail);?></p>
+            <p class="fontSize14px"><b>Co-Authors:</b>[<?php echo $cauname; ?>]</p>
+
+            </div>
+
+            <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
 
             <div class=" d-flex justify-content-between col-sm-12">
             <div >
@@ -135,9 +223,16 @@ if(strlen($_SESSION['alogin'])=="")
 
 
 </div>
-
-    <!-- Essential Js,jquery,section starts  -->
-    <script src="js/bootstrap.min.js"></script>
+    </div>
+    </div>
+    </div>
+    <!-- Footer section starts here  -->
+    <?php
+    include 'footer.php'
+    ?>
+    <!-- Footer section ends here  -->
+ <!-- Essential Js,jquery,section starts  -->
+ <script src="js/bootstrap.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
@@ -156,6 +251,3 @@ if(strlen($_SESSION['alogin'])=="")
 </html>
 
 <?php } ?>
-
-
-

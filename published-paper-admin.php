@@ -1,20 +1,47 @@
+<?php 
+session_start();
+error_reporting(0);
+include('link/config.php');
 
+if(strlen($_SESSION['alogin'])=="")
+    {    
+    header("Location: login.php");  
+    } else {
+
+
+
+      // Check that the admin is logged in or not section starts here 
+      $adminemail = $_SESSION["email"];
+
+       $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+      $query = $dbh->prepare($sql); 
+      $query->execute(); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1;
+      if($query->rowCount() > 0) 
+      {
+      
+      // Check that the admin is logged in or not section ends here 
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All paper Author</title>
+    <title>IUBAT</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css"> 
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top mr-1 ml-1 pb-3">
+<div class="sticky-top pb-3">
     <!-- Heading Sections starts  -->
     <?php 
-    include 'author-header.php'
+    include 'admin-header.php'
     ?>
     <!-- Heading Sections ends  --> 
     </div>
@@ -26,9 +53,9 @@
     </div>
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
     <div class="text-left pb-4">
-   <?php
-   include 'header.php';
-   ?>
+        <?php 
+         include 'header.php';
+        ?>
     </div>
     </div> 
     </div>
@@ -36,10 +63,11 @@
     <div class="row">
     <!-- Sidebar section starts here  -->
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <?php
-        include 'sidelinks.php';
-        ?>
+     <?php
+     include 'sidelinks.php';
+     ?> 
     </div>
+    
     <!-- Sidebar Section ends here  -->
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
     <div class="text-left pb-4">
@@ -164,3 +192,11 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
   </script>
 </body>
 </html>
+
+<?php }
+    else {
+      echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
+      header("refresh:0;url=login.php");
+    }
+
+   }?>

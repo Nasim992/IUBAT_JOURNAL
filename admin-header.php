@@ -6,8 +6,8 @@ include('link/config.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: login.php");  
-    }
-    { 
+    } else {
+
 
 
       // Check that the admin is logged in or not section starts here 
@@ -92,7 +92,7 @@ if(strlen($_SESSION['alogin'])=="")
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -101,18 +101,23 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
    <link rel="stylesheet" href="css/admin-dashboard.css">
+   <!-- <link rel="stylesheet" href="css/index.css">  -->
+  
 
 </head> 
-<body> 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#"><img src="images/Iubat-logo.png"></a>
+<body>  
+
+
+
+<nav class="navbar nav-class navbar-expand-lg navbar-light text-white">
+  <a class="navbar-brand" href="admin-dashboard.php"><img src="images/Iubat-logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto ul-nav">
 
     <li class="nav-item dropdown" title="Operation">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,7 +130,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="admin-dashboard.php">Published Paper &nbsp<b><sup><?php echo $total_published; ?></sup></b></a>
+            <a class="nav-link" href="published-paper-admin.php">Published Paper &nbsp<b><sup><?php echo $total_published; ?></sup></b></a>
         </li>
 
         <li class="nav-item" title="total paper">

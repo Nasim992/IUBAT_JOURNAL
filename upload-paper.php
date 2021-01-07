@@ -306,7 +306,7 @@ form {
 <a href="upload-paper1.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
 </div>
 <div>
-<button class="btn btn-success " name = "submit" type="submit" >Submit</button>
+<button class="btn btn-sm btn-success " name = "submit" type="submit" >Submit</button>
 </div>
 </div>
 

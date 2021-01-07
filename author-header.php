@@ -5,7 +5,7 @@ include('link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: login.php"); 
+    header("Location: login.php");  
     }
     else
     { 
@@ -115,7 +115,7 @@ if(strlen($_SESSION['alogin'])=="")
 <li class="nav-item active" title="Messages">
 <a class="nav-link" href="#"><i class="fas fa-envelope-square"></i>&nbsp<b><sup><?php echo $total_reviews; ?></sup></b></a>
 
-</ul>
+</ul> 
 
 <ul>
 <li class="nav-item active" title="New Paper">
@@ -124,8 +124,37 @@ if(strlen($_SESSION['alogin'])=="")
 </ul>
 
 <ul>
+
+<?php  
+
+$link = mysqli_connect("localhost", "root", "", "iubat");
+
+// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
+  
+
+$authoremail = $_SESSION["email"];
+
+$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
+
+$result1 = mysqli_query($link,$sql1); 
+
+$file1 = mysqli_fetch_assoc($result1);
+
+$username = $file1['username'];
+
+$title = $file1['title'];
+$fname= $file1['firstname'];
+$middlename= $file1['middlename'];
+$lastname= $file1['lastname'];
+
+$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+
+?>
+<!-- Select user  name section ends here  -->
+
+
 <li class="nav-item active" >
-       <a class="nav-link " href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link " href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $username; ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>
 </ul>
 

@@ -101,7 +101,7 @@ foreach($results as $result)
             <td ><?php echo htmlentities($result->title);?></td>
             <td ><?php echo htmlentities($result->firstname);?></td>
             <td ><?php echo htmlentities($result->middlename);?></td>
-            <td ><?php echo htmlentities($result->lastname);?></td>
+            <td ><?php echo htmlentities($result->lastname);?></td> 
             <td ><?php echo htmlentities($result->primaryemail);?></td>
             <td ><?php echo htmlentities($result->primaryemailcc);?></td>
             <td ><?php echo htmlentities($result->secondaryemail);?></td>

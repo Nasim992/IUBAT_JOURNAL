@@ -4,7 +4,7 @@ error_reporting(0);
 
 include('link/config.php');
 
-if(strlen($_SESSION['alogin'])=="")
+if(strlen($_SESSION['alogin'])=="") 
     {    
     header("Location: login.php"); 
     }
@@ -70,7 +70,7 @@ if(strlen($_SESSION['alogin'])=="")
      
     <?php 
     include 'sidelinks.php';
-    ?>
+    ?> 
      
     </div>
     <!-- Sidebar Section ends here  -->

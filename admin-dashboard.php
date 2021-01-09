@@ -23,6 +23,65 @@ if(strlen($_SESSION['alogin'])=="")
      
      // Check that the admin is logged in or not section ends here 
 
+           //  New Paper count section starts here 
+
+           $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 0";
+           $stmt = $dbh->prepare($query);
+           
+           // execute query
+           $stmt->execute();
+           
+           // get total rows
+           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+           $total_rows = $row['total_rows'];
+   
+   
+        // New Paper count section ends here 
+
+                  //  Number of Published paper  count section starts here 
+
+                  $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 1";
+                  $stmt = $dbh->prepare($query);
+                  
+                  // execute query
+                  $stmt->execute();
+                  
+                  // get total rows
+                  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                  $total_published = $row['total_rows'];
+          
+          
+        // Number of Published paper  count section ends here 
+              //  Number of Authors  count section starts here 
+
+                 $query = "SELECT COUNT(*) as total_rows FROM author";
+                 $stmt = $dbh->prepare($query);
+                 
+                 // execute query
+                 $stmt->execute();
+                 
+                 // get total rows
+                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                 $total_authors = $row['total_rows'];
+         
+         
+              // Number of Authors count section ends here 
+
+                      //  Number of Admins  count section starts here 
+
+                      $query = "SELECT COUNT(*) as total_rows FROM admin";
+                      $stmt = $dbh->prepare($query);
+                       
+                      // execute query
+                      $stmt->execute();
+                      
+                      // get total rows
+                      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                      $total_admin = $row['total_rows'];
+              
+              
+                 // Number of Admins count section ends here 
+
 
 ?>  
 
@@ -82,6 +141,8 @@ if(strlen($_SESSION['alogin'])=="")
   color: green;
   padding: 10px 15px;
   border: none;
+  display:none;
+  overflow: hidden;
 }
 
 /* .openbtn:hover {
@@ -110,7 +171,9 @@ if(strlen($_SESSION['alogin'])=="")
     border-radius: 3px;
     border: none;
     position: relative;
+    margin-top:10px;
     margin-bottom: 30px;
+    cursor:pointer;
 }
 .card.card-statistic-1 .card-icon {
     line-height: 90px;
@@ -204,15 +267,15 @@ include 'admin-header.php';
   <a href="#">Contact</a>
 </div>
 
-<div id="main"> 
+<div id="main">  
 
-<a href="#"><span class="openbtn" onclick="openNav()">☰</span></a>
-<div class="container">
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<div class="container"> 
 
 <!-- Progress bar section starts here  -->
 <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
+              <a href="admin-number.php"><div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
                   <i class="far fa-user"></i>
                 </div>
@@ -221,10 +284,10 @@ include 'admin-header.php';
                     <h4>Admin</h4>
                   </div>
                   <div class="card-body">
-                    10
+                    <?php echo $total_admin ?>
                   </div>
                 </div>
-              </div>
+              </div></a>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
@@ -248,10 +311,10 @@ include 'admin-header.php';
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Authors</h4>
+                    <h4>Author</h4>
                   </div>
                   <div class="card-body">
-                    10
+                    <?php echo $total_authors;  ?>
                   </div>
                 </div>
               </div>
@@ -296,7 +359,9 @@ include 'admin-header.php';
                     <h4>Published Paper</h4>
                   </div>
                   <div class="card-body">
-                    1,201
+                    <?php
+                    echo $total_published;
+                    ?>
                   </div>
                 </div>
               </div>
@@ -311,7 +376,9 @@ include 'admin-header.php';
                     <h4>Unpublished Paper</h4>
                   </div>
                   <div class="card-body">
-                    34
+                    <?php
+                    echo $total_rows;
+                    ?>
                   </div>
                 </div>
               </div>
@@ -349,14 +416,17 @@ include 'admin-header.php';
             });
             // Datables section ends here 
 
-            function openNav() {
+   function openNav() {
   document.getElementById("mySidebar").style.width = "250px";
   document.getElementById("main").style.marginLeft = "250px";
+  document.getElementById("main").style.paddingTop = "10px";
+  document.getElementById("closesign").style.display = "none";
 }
 
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
+  document.getElementById("closesign").style.display ="block" ;
 }
 
 </script>

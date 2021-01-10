@@ -12,6 +12,9 @@ if($link === false){
 $id=intval($_GET['id']);
 $name = $_GET['name'];
 
+// echo $id;
+// echo $name;
+
 // Built-in PHP function to delete file
 unlink($_GET["name"]);
  

@@ -32,13 +32,7 @@
     </div>
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
     <div class="text-left pb-4">
-    <h3 class="text-dark "><b>IUBAT ENGINEERING JOURNAL</b></h3>
-    <p class="text-secondary"><b>Editor-in-Chief : </b>Magdy Abd-Alazim Ahmed</p>
-    <a class="text-secondary" href="editorialboard.php" title="Journal Editorial Board">> View Editorial Board</a>
-    <div class="d-flex justify-content-start">
-    <a class="pr-3 text-secondary" href="#" title="Cite Score"><b>> Cite score : 0.00</b></a>
-    <a class="text-secondary" href="#" title="Impact Factor"><b>Impact Factor : 0.00</b></a>
-    </div>
+    <?php include "header.php"; ?>
     </div>
     </div> 
     </div>
@@ -46,28 +40,8 @@
     <div class="row">
     <!-- Sidebar section starts here  -->
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-
-    <h6 style="font-size:15px;" class="text-secondary"><b>JOURNAL METRICS</b></h6>
+    <?php include "sidelinks.php"; ?>
     
-    <ul class="list-group text-dark bg-secondary">
-    <li class="list-group-item"><a style="font-weight:400;" class="text-secondary" href="#"> > CiteScore : 0.00</a></li>
-    <li class="list-group-item"><a style="font-weight:400;" class="text-secondary" href="#"> > Impact Factor : 0.00</a></li>
-    <li class="list-group-item"><a style="font-weight:400;" class="text-secondary" href="#"> > View more on journal insights</a></li>
-    </ul>
-    <h6 style="font-size:15px;" class="text-secondary pt-4"><b>YOUR RESEARCH DATA</b></h6>
-    
-    <ul class="list-group text-dark bg-secondary">
-    <li class="list-group-item"><a style="font-weight:400;" class="text-secondary" href="#"> > Share your research data</a></li>
-    </ul>
-    
-    <h6 style="font-size:15px;" class="text-secondary pt-4"><b>RELATED LINKS</b></h6>
-    
-    <ul class="list-group text-dark bg-secondary">
-    <li class="list-group-item"><a style="font-weight:400;" class="text-secondary" href="#"> > Author States</a></li>
-    <li class="list-group-item"><a style="font-weight:400;" class="text-secondary" href="#"> > Researcher Academy</a></li>
-    <li class="list-group-item"><a style="font-weight:400;" class="text-secondary" href="#"> > Author Resources</a></li>
-    <li class="list-group-item"><a style="font-weight:400;" class="text-secondary" href="#"> > Try out personalized alert features</a></li>
-    </ul>
  
     </div>
     <!-- Sidebar Section ends here  -->

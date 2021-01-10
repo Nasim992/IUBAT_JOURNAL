@@ -104,13 +104,16 @@ if(strlen($_SESSION['alogin'])=="")
   height: 100%;
   width: 250px;
   position: fixed;
-  z-index: 1;
+  z-index: 1; 
   top: 0;
   left: 0;
   background-color: #f7f9f7;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
+     /* transition: all 0.3s cubic-bezier(.25,.8,.25,1); */
+     border:2px solid rgba(212, 214, 212, 0.904);
 }
 
 .sidebar a {
@@ -265,7 +268,7 @@ include 'admin-header.php';
   <a href="#">Journal</a>
   <a href="#">Author</a>
   <a href="#">Contact</a>
-</div>
+</div> 
 
 <div id="main">  
 
@@ -443,7 +446,5 @@ else {
 }
 
 }
-    
-    
     
 ?>

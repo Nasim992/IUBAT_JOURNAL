@@ -81,8 +81,8 @@ if(strlen($_SESSION['alogin'])=="")
 
 </head>
 <body>
-    <div class="container">
-    <div class="sticky-top">
+
+<div class="sticky-top">
 <!-- Author showing header sections starts  -->
 
 <?php
@@ -91,6 +91,8 @@ include 'admin-header.php';
 
 <!-- Author showing header sections ends   -->
 </div>
+
+    <div class="container">
 
     <form  class="change-password-form" method="post">
          <div class="form-group has-success">

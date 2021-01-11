@@ -27,7 +27,7 @@ $sql="DELETE FROM paper WHERE id=$id ";
 if(mysqli_query($link, $sql)){
     echo "Selected paper were deleted successfully.";
 
-    header("refresh:1;url=author-dashboard.php"); 
+    header("refresh:0;url=unpublished-paper.php"); 
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }

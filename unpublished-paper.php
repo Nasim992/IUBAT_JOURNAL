@@ -41,7 +41,7 @@ if(strlen($_SESSION['alogin'])=="")
 <div class="sticky-top pb-3">
     <!-- Heading Sections starts  -->
     <?php 
-    include 'admin-header.php'
+    include 'admin-header.php';
     ?>
     <!-- Heading Sections ends  --> 
     </div>
@@ -52,9 +52,9 @@ if(strlen($_SESSION['alogin'])=="")
 
     </div>
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
+    <div class="text-left ">
         <?php 
-         include 'header.php';
+        //  include 'header.php';
         ?>
     </div>
     </div> 
@@ -70,10 +70,10 @@ if(strlen($_SESSION['alogin'])=="")
     
     <!-- Sidebar Section ends here  -->
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
+    <div class="text-left">
     
     </div>
-
+    <h5 class="text-center"><b>UNPUBLISHED PAPER</b></h4>
 <hr class="bg-secondary" >
     <table id="heading-table">
     <tbody>
@@ -151,7 +151,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
     <!-- Footer section starts here  -->
     <?php
-    include 'footer.php'
+    include 'footer.php';
     ?>
     <!-- Footer section ends here  -->
 <!-- Essential Js,jquery,section starts  -->

@@ -122,6 +122,9 @@ if(isset($_POST['select-reviewer']))
     $assignmonth = date('m');
     $assignyear = date('Y');
 
+    
+
+
     $sqlinsert="INSERT INTO reviewertable (paperid,username,primaryemail,assigndate,assignmonth,assignyear) VALUES('$id','$usernameauthor','$primaryemail','$assigndate','$assignmonth','$assignyear')";
 
     if(mysqli_query($link, $sqlinsert))
@@ -173,7 +176,6 @@ if(isset($_POST['select-editor']))
 }
 // Editor selection section ends here 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -182,7 +184,7 @@ if(isset($_POST['select-editor']))
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css"> 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/index.css">
@@ -194,99 +196,152 @@ if(isset($_POST['select-editor']))
     </style>
 </head> 
 <body>
+<div class="sticky-top pb-3">
+    <!-- Heading Sections starts  -->
+    <?php 
+    include 'admin-header.php';
+    ?>
+    <!-- Heading Sections ends  --> 
+    </div>
 <div class="container">
-   <!-- Dashboard section starts  --> 
-       <div class="jumbotron">
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
+    <div class="text-left ">
+        <?php 
+        //  include 'header.php';
+        ?>
+    </div>
+    </div> 
+    </div>
+ 
+    <div class="row">
+    <!-- Sidebar section starts here  -->
+    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+     <?php
+     include 'sidelinks.php';
+     ?> 
+    </div>
+    
+    <!-- Sidebar Section ends here  -->
+    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
+    <div class="text-left">
+    
+    </div>
+    <h5 class="text-center"><b>UNPUBLISHED PAPER</b></h4>
+<hr class="bg-secondary" >
+ <!-- Dashboard section starts  --> 
+ <div class="jumbotron">
      
-        <h5 style="font-size:18px" class="display-4">Name : <?php echo $papername ?></h5>
-        <h6 style="font-size:15px;" class="display-5">Uploaded on:<span style='color:#122916;'> <small><?php echo $uploaddate ?></small></span></h6>
+     <h5 style="font-size:18px" class="display-4">Name : <?php echo $papername ?></h5>
+     <h6 style="font-size:15px;" class="display-5">Uploaded on:<span style='color:#122916;'> <small><?php echo $uploaddate ?></small></span></h6>
 
-      <div class="d-flex justify-content-between">
-            <p class="fontSize14px"><b>Author:</b> <?php echo $authorname ?></p>
-         <a href="#"><p class="fontSize14px">Number of Co-Author:0 <?php echo htmlentities($result->numberofcoauthor);?></p></a>
-            </div>
-        
-            <div class="d-flex justify-content-between">
-            <p class="fontSize14px"><b>Email:</b> <?php echo $authormail;?></p>
-            <p class="fontSize14px"><b>Co-Authors:</b>[<?php echo $cauname; ?>]</p>
-            </div>
-            <div class="d-flex justify-content-between">
+   <div class="d-flex justify-content-between">
+         <p class="fontSize14px"><b>Author:</b> <?php echo $authorname ?></p>
+      <a href="#"><p class="fontSize14px">Number of Co-Author:0 <?php echo htmlentities($result->numberofcoauthor);?></p></a>
+         </div>
+     
+         <div class="d-flex justify-content-between">
+         <p class="fontSize14px"><b>Email:</b> <?php echo $authormail;?></p>
+         <p class="fontSize14px"><b>Co-Authors:</b>[<?php echo $cauname; ?>]</p>
+         </div>
+         <div class="d-flex justify-content-between">
 
-            <div>
-            <h6 style="font-size:15px;" class="display-5">Reviewer:<span style='color:#122916;'> <small>
-            <?php
-        include('link/config.php');
-        $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username from reviewertable Where paperid='$id'";
-        $query = $dbh->prepare($sql); 
-        $query->execute(); 
-        $results=$query->fetchAll(PDO::FETCH_OBJ); 
-        $cnt=1;
-        if($query->rowCount() > 0) 
-        {
-        foreach($results as $result) 
-        { 
-        ?>
-        <?php echo htmlentities($result->username);?>
-        <?php 
-        }}
-        ?>
-            
-            </small></span></h6>
-            </div>
-            <div>
-            <h6 style="font-size:15px;" class="display-5">Editor:<span style='color:#122916;'> <small>
-            <?php
-        include('link/config.php');
-        $sql = "SELECT editortable.id,editortable.paperid,editortable.username from editortable Where paperid='$id'";
-        $query = $dbh->prepare($sql); 
-        $query->execute(); 
-        $results=$query->fetchAll(PDO::FETCH_OBJ); 
-        $cnt=1;
-        if($query->rowCount() > 0) 
-        {
-        foreach($results as $result) 
-        { 
-        ?>
-        <?php echo htmlentities($result->username);?>
-        <?php 
-        }}
-        ?>
-            
-            </small></span></h6>
-            </div>
+         <div>
+         <h6 style="font-size:15px;" class="display-5">Reviewer:<span style='color:#122916;'> <small>
+         <?php
+     include('link/config.php');
+     $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username from reviewertable Where paperid='$id'";
+     $query = $dbh->prepare($sql); 
+     $query->execute(); 
+     $results=$query->fetchAll(PDO::FETCH_OBJ); 
+     $cnt=1;
+     if($query->rowCount() > 0) 
+     {
+     $arrayusernamereviewershowing = array();
+     foreach($results as $result) 
+     { 
 
-            </div>
+         $usernamereviewer = htmlentities($result->username);
+         array_push($arrayusernamereviewershowing,$usernamereviewer);
+     }}
 
-        <p style="font-size:14px"><?php echo $abstract ?></p>
-        <hr >
-
- <div class="row">
- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
- <?php if($unpublished == 'u') {
+                    foreach( $arrayusernamereviewershowing  as $arrpap){
+                     $sqlnameeditorr = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
+                     $resultnameeditorr = mysqli_query($link,$sqlnameeditorr);
+                     $filenameeditorr = mysqli_fetch_assoc($resultnameeditorr);
+                     $fullname =  $filenameeditorr['title'].$filenameeditorr['firstname'].' '.$filenameeditorr['middlename'].' '.$filenameeditorr['lastname'];
+                     echo $fullname.' ';
+                   }
      ?>
-     <a style="font-size:13px;" href="unpublished-paper.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+         
+         </small></span></h6>
+         </div>
+         <div>
+         <h6 style="font-size:15px;" class="display-5">Editor:<span style='color:#122916;'> <small>
+         <?php
+     include('link/config.php');
+     $sql = "SELECT editortable.id,editortable.paperid,editortable.username from editortable Where paperid='$id'";
+     $query = $dbh->prepare($sql); 
+     $query->execute(); 
+     $results=$query->fetchAll(PDO::FETCH_OBJ); 
+     $cnt=1;
+     $arrayusernameeditorshowing = array();
+     if($query->rowCount() > 0) 
+     {
+     foreach($results as $result) 
+     { 
+     $usernameeditor = htmlentities($result->username);
+     array_push($arrayusernameeditorshowing,$usernameeditor);
+     }}
 
-     <?php  
-    }
-    else {
+             foreach( $arrayusernameeditorshowing  as $arrpap){
+               $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
+               $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
+               $filenameeditorp = mysqli_fetch_assoc($resultnameeditorp);
+               $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
+               echo $fullname.' ';
+             }
      ?>
-     <a style="font-size:13px;" href="admin-dashboard.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+         
+         </small></span></h6>
+         </div>
 
-    <?php } ?>
- </div>
- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
- <a style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:0</a>
- </div>
- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
- <a style="font-size:13px;" title="Reviewer Feedback" class="">Editor Feedback:0</a>
- </div>
- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
- <a style="font-size:13px;" title="Reviewer Feedback" class="">Status:<span class="text-success">Satisfactory</span></a>
- </div>
- <br>
- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
- <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepath ?> "target ="_blank" role="button"><?php echo $filename;  ?></a>
- </div>
+         </div>
+
+     <p style="font-size:14px"><?php echo $abstract ?></p>
+     <hr >
+
+<div class="row">
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<?php if($unpublished == 'u') {
+  ?>
+  <a style="font-size:13px;" href="unpublished-paper.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+
+  <?php  
+ }
+ else {
+  ?>
+  <a style="font-size:13px;" href="admin-dashboard.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+
+ <?php } ?>
+</div>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<a style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:0</a>
+</div>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<a style="font-size:13px;" title="Reviewer Feedback" class="">Editor Feedback:0</a>
+</div>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<a style="font-size:13px;" title="Reviewer Feedback" class="">Status:<span class="text-success">Satisfactory</span></a>
+</div>
+<br>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepath ?> "target ="_blank" role="button"><?php echo $filename;  ?></a>
+</div>
 
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <form method="post">
@@ -294,8 +349,8 @@ if(isset($_POST['select-editor']))
 
 <button  type="submit"  class="bg-light" name="accept-paper" onclick="return confirm('Are you sure you want accept this paper?');" style="border:none;color:green;margin-top:0px;"> Accept <i class="fas fa-check"></i></button>
 </form>
- </div>
- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+</div>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <form method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
 
@@ -309,228 +364,164 @@ if(isset($_POST['select-editor']))
 
 </div>
 <hr class="bg-success">
-    <!-- DashBoard Section ends  -->
-    <div class="row">
-    <!-- Feedback Shown Section starts here  -->
-    <div style="border-right:3px solid #000b2073;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-    <h3 style="font-size:17px" class="text-dark "><b><i>Feedback Section</i></b></h3>
-     <hr class="bg-success">
-    </div>
-    <!-- Feedback Shown Section ends Here  -->
-    <!-- Selecting Editor Reviewer Selection section starts here  -->
-    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-     <div class="row">
-     <!-- Reviewer Selection starts Here  -->
-     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-     <h3 style="font-size:17px" class="text-dark "><b><i>Select Reviewer of this paper</i></b></h3>
-     <hr class="bg-success">
-
-     <?php
-     $sqlreviewer = "SELECT username FROM author";
-     $resultreviewer = mysqli_query($link,$sqlreviewer);
-     $filereviewer = mysqli_fetch_assoc($resultreviewer);
-    //  echo $filereviewer;
-
-    $arrayusername = array();
-
-     foreach($resultreviewer as $filerev) {
-         array_push($arrayusername,$filerev['username']);
-     }
-
-    //  foreach($arrayusername as $arr) {
-    //      echo $arr;
-    //  }
-
-    $sqlpaper = "SELECT paperid,username FROM reviewertable";
-    $resultpaper = mysqli_query($link,$sqlpaper);
-    $filepaper = mysqli_fetch_assoc($resultpaper);
-
-    if(!empty($filepaper)) {
-    //    echo $filepaper['paperid'];
-    //    echo $filepaper['username'];
-            $selection = 0;
-            foreach($arrayusername as $arrname){
-                $sqlname = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
-                $resultname = mysqli_query($link,$sqlname);
-                $filename = mysqli_fetch_assoc($resultname);
-                $fullname =  $filename['title'].$filename['firstname'].' '.$filename['middlename'].' '.$filename['lastname'];
-
-                // $flag = 0;
-                // foreach($filepaper as $filepap) {
-                //     if($id==$filepap['paperid'] && $filepap['username']==$arrname)
-                //         $flag = 1;
-                //     else 
-                //         $flag=0;
-                //     echo $filepap['paperid'];
-                //     echo $filepap['username'];
-                // }
-              
-              
-                // echo $id;
-                // echo $flag;
-        
-
-                ?>
- <form  method="post">
-
-<div class="row">
-<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-<label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection ?>.<span><?php echo $fullname ?></b></span></label>
-  <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-
-</div>
-<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-  <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-reviewer"><b>Select</b></button>
-  </div>
-
-
+ <!-- DashBoard Section ends  -->
+ <div class="row">
+ <!-- Feedback Shown Section starts here  -->
+ <div style="border-right:3px solid #000b2073;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+ <h3 style="font-size:17px" class="text-dark "><b><i>Feedback Section</i></b></h3>
+  <hr class="bg-success">
  </div>
-  </form>
+ <!-- Feedback Shown Section ends Here  -->
+ <!-- Selecting Editor Reviewer Selection section starts here  -->
+ <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+  <div class="row">
+  <!-- Reviewer Selection starts Here  -->
+  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+  <h3 style="font-size:17px" class="text-dark "><b><i>Select Reviewer of this paper</i></b></h3>
+  <hr class="bg-success">
 
-  <?php 
-  $selection = $selection +1;
+  <?php
+  $sqlreviewer = "SELECT username FROM author";
+  $resultreviewer = mysqli_query($link,$sqlreviewer);
+  $filereviewer = mysqli_fetch_assoc($resultreviewer);
+
+   $arrayusernamebeginreviewer = array();
+
+  foreach($resultreviewer as $filerev) {
+      array_push($arrayusernamebeginreviewer,$filerev['username']);
+  }
+
+     function findMissingrev( $a, $b, $n, $m) 
+     { 
+       $arrayusernameeditors = array();
+         for ( $i = 0; $i < $n; $i++) 
+         { 
+             $j; 
+             for ($j = 0; $j < $m; $j++) 
+                 if ($a[$i] == $b[$j]) 
+                     break; 
+       
+             if ($j == $m){
+                array_push($arrayusernameeditors,$a[$i]);
+             }
+         }
+
+         $selection = 0;
+         $link = mysqli_connect("localhost", "root", "", "iubat");
+         foreach($arrayusernameeditors as $arrname){
+             $sqlnameeditor = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
+             $resultnameeditor = mysqli_query($link,$sqlnameeditor);
+             $filenameeditor = mysqli_fetch_assoc($resultnameeditor);
+             $fullname =  $filenameeditor['title'].$filenameeditor['firstname'].' '.$filenameeditor['middlename'].' '.$filename['lastname'];
      
-    }
-    }
-    else {
-        $selection = 0;
-        foreach($arrayusername as $arrname){
-            $sqlname = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
-            $resultname = mysqli_query($link,$sqlname);
-            $filename = mysqli_fetch_assoc($resultname);
-            $fullname =  $filename['title'].$filename['firstname'].' '.$filename['middlename'].' '.$filename['lastname'];
-        ?> 
-  <form  method="post">
-
-<div class="row">
-<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-<label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection ?>.<span><?php echo $fullname ?></b></span></label>
-  <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-
-</div>
-<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-  <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-reviewer"><b>Select</b></button>
+             ?>
+           <form  method="post">
+           <div class="row">
+           <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+           <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection+1 ?>.<span><?php echo $fullname ?></b></span></label>
+             <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
+           </div>
+           <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+             <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-reviewer"><b>Select</b></button>
+             </div>
+           </div>
+             </form>
+             <?php 
+             $selection = $selection +1;   
+             }
+           } 
+         $n = count($arrayusernamebeginreviewer); 
+         $m = count($arrayusernamereviewershowing); 
+         findMissingrev($arrayusernamebeginreviewer, $arrayusernamereviewershowing, $n, $m); 
+           ?>
   </div>
+  <!-- Reviewer Selection section ends here -->
 
+
+ <!-- Editor Selection starts Here  -->
+ <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+ <h3 style="font-size:17px" class="text-dark "><b><i>Select Editor of this paper</i></b></h3>
+  <hr class="bg-success">
+
+  <?php
+  $sqlreviewer = "SELECT username FROM author";
+  $resultreviewer = mysqli_query($link,$sqlreviewer);
+  $filereviewer = mysqli_fetch_assoc($resultreviewer);
+
+   $arrayusernamebegineditor = array();
+
+  foreach($resultreviewer as $filerev) {
+      array_push($arrayusernamebegineditor,$filerev['username']);
+  }
+
+     function findMissing( $a, $b, $n, $m) 
+     { 
+       $arrayusernameeditors = array();
+         for ( $i = 0; $i < $n; $i++) 
+         { 
+             $j; 
+             for ($j = 0; $j < $m; $j++) 
+                 if ($a[$i] == $b[$j]) 
+                     break; 
+       
+             if ($j == $m){
+                array_push($arrayusernameeditors,$a[$i]);
+             }
+         }
+
+         $selection = 0;
+         $link = mysqli_connect("localhost", "root", "", "iubat");
+         foreach($arrayusernameeditors as $arrname){
+           // echo $arrname;
+             $sqlnameeditor = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
+             $resultnameeditor = mysqli_query($link,$sqlnameeditor);
+             $filenameeditor = mysqli_fetch_assoc($resultnameeditor);
+             $fullname =  $filenameeditor['title'].$filenameeditor['firstname'].' '.$filenameeditor['middlename'].' '.$filename['lastname'];
+             // echo $fullname;
+             // echo $arrnamee;
+             ?>
+           <form  method="post">
+           <div class="row">
+           <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+           <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection+1 ?>.<span><?php echo $fullname ?></b></span></label>
+             <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
+           </div>
+           <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+             <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-editor"><b>Select</b></button>
+             </div>
+           </div>
+             </form>
+             <?php 
+             $selection = $selection +1;   
+             }
+           } 
+         $n = count($arrayusernamebegineditor); 
+         $m = count($arrayusernameeditorshowing); 
+         findMissing($arrayusernamebegineditor, $arrayusernameeditorshowing, $n, $m); 
+           ?>
+  </div>
+  <!-- Editor Selection section ends here -->
+  </div>
+</div>
+ <!-- Selecting Editor Reviewer Selection section ends here  -->
 
  </div>
-  </form>
-
-  <?php 
-  $selection = $selection +1;
-     }
-    }
-     ?>
-     </div>
-     <!-- Reviewer Selection section ends here -->
-    <!-- Editor Selection starts Here  -->
-    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-    <h3 style="font-size:17px" class="text-dark "><b><i>Select Editor of this paper</i></b></h3>
-     <hr class="bg-success">
-     <?php
-     $sqlreviewer = "SELECT username FROM author";
-     $resultreviewer = mysqli_query($link,$sqlreviewer);
-     $filereviewer = mysqli_fetch_assoc($resultreviewer);
-    //  echo $filereviewer;
-
-    $arrayusername = array();
-
-     foreach($resultreviewer as $filerev) {
-         array_push($arrayusername,$filerev['username']);
-     }
-
-    //  foreach($arrayusername as $arr) {
-    //      echo $arr;
-    //  }
-
-    $sqlpaper = "SELECT paperid,username FROM reviewertable";
-    $resultpaper = mysqli_query($link,$sqlpaper);
-    $filepaper = mysqli_fetch_assoc($resultpaper);
-
-    if(!empty($filepaper)) {
-    //    echo $filepaper['paperid'];
-    //    echo $filepaper['username'];
-            $selection = 0;
-            foreach($arrayusername as $arrname){
-                $sqlname = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
-                $resultname = mysqli_query($link,$sqlname);
-                $filename = mysqli_fetch_assoc($resultname);
-                $fullname =  $filename['title'].$filename['firstname'].' '.$filename['middlename'].' '.$filename['lastname'];
-
-                // $flag = 0;
-                // foreach($filepaper as $filepap) {
-                //     if($id==$filepap['paperid'] && $filepap['username']==$arrname)
-                //         $flag = 1;
-                //     else 
-                //         $flag=0;
-                //     echo $filepap['paperid'];
-                //     echo $filepap['username'];
-                // }
-              
-              
-                // echo $id;
-                // echo $flag;
-        
-
-                ?>
- <form  method="post">
-
-<div class="row">
-<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-<label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection ?>.<span><?php echo $fullname ?></b></span></label>
-  <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-
-</div>
-<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-  <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-editor"><b>Select</b></button>
-  </div>
-
-
  </div>
-  </form>
-
-  <?php 
-  $selection = $selection +1;
-     
-    }
-    }
-    else {
-        $selection = 0;
-        foreach($arrayusername as $arrname){
-            $sqlname = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
-            $resultname = mysqli_query($link,$sqlname);
-            $filename = mysqli_fetch_assoc($resultname);
-            $fullname =  $filename['title'].$filename['firstname'].' '.$filename['middlename'].' '.$filename['lastname'];
-        ?> 
-  <form  method="post">
-
-<div class="row">
-<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-<label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection ?>.<span><?php echo $fullname ?></b></span></label>
-  <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-
-</div>
-<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-  <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-reviewer"><b>Select</b></button>
-  </div>
-
-
  </div>
-  </form>
-
-  <?php 
-  $selection = $selection +1;
-     }
-    }
-     ?>
-     </div>
-     <!-- Editor Selection section ends here -->
-     </div>
-   </div>
-    <!-- Selecting Editor Reviewer Selection section ends here  -->
 
     </div>
     </div>
+    <div class="pb-5"></div>
+    <!-- Footer section starts here  -->
+    <?php
+    include 'footer.php'
+    ?>
+    <!-- Footer section ends here  -->
+
+
+
+  
 
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
@@ -556,7 +547,5 @@ else {
 }
 
 }
-    
-    
-    
+  
     ?>

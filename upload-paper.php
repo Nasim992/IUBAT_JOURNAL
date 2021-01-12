@@ -151,7 +151,7 @@ if(isset($_POST['submit']))
       header("refresh:0;url=upload-paper1.php");
 
   }   
-}
+} 
 
  
 // Paper Uploaded Section Ends Here 
@@ -163,7 +163,8 @@ if(isset($_POST['submit']))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Author Dashboard</title>
+    <title>Upload Paper</title>
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/heading.css">
     <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->

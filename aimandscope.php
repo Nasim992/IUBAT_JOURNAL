@@ -17,7 +17,7 @@
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top mr-1 ml-1 pb-3">
+<div class="sticky-top header-floating">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php'
@@ -26,7 +26,7 @@
     </div>
  
     <div class="container">
-    <div class="row">
+    <div class="row mt-3">
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
     </div>

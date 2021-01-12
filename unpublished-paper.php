@@ -38,42 +38,30 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top pb-3">
-    <!-- Heading Sections starts  -->
-    <?php 
-    include 'admin-header.php';
-    ?>
-    <!-- Heading Sections ends  --> 
-    </div>
- 
-    <div class="container">
-    <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left ">
-        <?php 
-        //  include 'header.php';
-        ?>
-    </div>
-    </div> 
-    </div>
- 
-    <div class="row">
-    <!-- Sidebar section starts here  -->
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-     <?php
-     include 'sidelinks.php';
-     ?> 
-    </div>
-    
-    <!-- Sidebar Section ends here  -->
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left">
-    
-    </div>
-    <h5 class="text-center"><b>UNPUBLISHED PAPER</b></h4>
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
+<?php
+include 'admin-header.php';
+?> 
+</div> 
+<!-- Author showing header sections ends   -->
+
+
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'admin-sidebar.php';
+  ?>
+
+</div> 
+
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+<h5>UNPUBLISHED PAPER</h5>
 <hr class="bg-secondary" >
     <table id="heading-table">
     <tbody>
@@ -92,10 +80,7 @@ if(strlen($_SESSION['alogin'])=="")
 <!-- Select User name section starts here  -->
 <?php  
 
-$link = mysqli_connect("localhost", "root", "", "iubat");
-
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
-  
+include 'link/linklocal.php';
 
 $authoremail = htmlentities($result->authoremail);
 
@@ -145,15 +130,11 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     <?php }} ?>
     </tbody>
     </table>
-    </div>
-    </div>
-    </div>
+    
+    <div class="mb-5"></div>
+</div>
+</div>
 
-    <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php';
-    ?>
-    <!-- Footer section ends here  -->
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>

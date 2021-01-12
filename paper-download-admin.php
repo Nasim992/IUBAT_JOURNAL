@@ -1,29 +1,40 @@
-<?php 
+<?php  
 session_start();
 error_reporting(0);
 
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
+include 'link/linklocal.php';
+   
 
-$link = mysqli_connect("localhost", "root", "", "iubat");
-  
+      // Check that the admin is logged in or not section starts here 
+      include 'link/config.php';
+      $adminemail = $_SESSION["email"];
+      $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+      $query = $dbh->prepare($sql); 
+      $query->execute(); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1;
+      if($query->rowCount() > 0) 
+      {
+      
+      // Check that the admin is logged in or not section ends here 
+
+
+
+
 
 if(strlen($_SESSION['alogin'])=="")
-    {    
-        $authoremail = "";
+    {     
+        header("Location: login.php");  
     }
     else
     {  
-      $authoremail = $_SESSION["email"];
-    }
+
 
 if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+    die("ERROR: Could not connect. " .mysqli_connect_error());
 }
 
-$idstr=strval($_GET['id']);
-
-$unpublished = $idstr[-1];
-
+// $id=intval($_GET['id']);
 
 if (!empty($_GET['id'])) {
 $id=intval($_GET['id']);
@@ -36,19 +47,24 @@ $file = mysqli_fetch_assoc($result);
 
 $filename = $file['name'];
 
-$title = $file['papername'];
+$papername = $file['papername'];
 $abstract = $file['abstract'];
 $authorname = $file['authoremail'];
 $filepath = 'documents/'.$file['name'];
 
 
-$sql = "SELECT * FROM author WHERE  email= '$authorname' ";
+$sql = "SELECT * FROM author WHERE  primaryemail= '$authorname' ";
 
-$result1 = mysqli_query($link,$sql);
+$result1 = mysqli_query($link,$sql); 
 
 $file1 = mysqli_fetch_assoc($result1);
 
-$name = $file1['name'];
+$title = $file1['title'];
+$fname= $file1['firstname'];
+$middlename= $file1['middlename'];
+$lastname= $file1['lastname'];
+
+$name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 ?>
 
@@ -65,41 +81,82 @@ $name = $file1['name'];
     <title>Document</title>
 </head> 
 <body>
-<div class="container">
+
+
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
+<?php
+include 'admin-header.php';
+?> 
+</div> 
+<!-- Author showing header sections ends   -->
+
+
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'admin-sidebar.php';
+  ?>
+
+</div> 
+
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+  <h4>DOWNLOAD THIS PAPER</h4>
+<hr class="bg-secondary" >
    <!-- Dashboard section starts  -->
-       <div class="jumbotron">
+   <div class="jumbotron "> 
      
-        <h5 class="display-4">Name : <?php echo $title ?></h5>
-        <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name ?></span></h6>
-        
-        <h6 class="display-5">Email:<span style='color:green;'> <?php echo $authorname ?></span></h6>
-        <p ><?php echo $abstract ?></p>
-        <hr class="my-4">
-
-    <?php if($unpublished == 'u') {
+     <h5 class="display-4">Name : <?php echo $papername ?></h5>
+     <?php 
+     if ($authoremail == "") {
+         ?>
+          <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
+       <?php 
+     }
+     else {
      ?>
-     <a href="unpublished-paper.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
-
-     <?php  
-    }
-    else {
+    <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
+     <?php 
+     }  
      ?>
-     <a href="admin-dashboard.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+     
+     <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
+     <hr class="my-4">
+   
 
-    <?php } ?>
+     <a style="font-size:14px;" class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
+     </div>
 
-     <a class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download as PDF</a>
-        </div>
-
-    <!-- DashBoard Section ends  -->
+ <!-- DashBoard Section ends  -->
 
     </div>
-
+    </div>
+</div>
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
+   <script> 
+        $(document).ready(function(){
+        $("#heading-input").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#heading-table tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+// Aim and scope readmore section starts here 
+        document.querySelector('#read-more').addEventListener('click', function() {
+        document.querySelector('#content').style.height= 'auto';
+       this.style.display= 'none';
+        });
+//   Aim and scope read more section ends here 
+  </script>
 </body>
 </html>
 
@@ -108,4 +165,14 @@ $name = $file1['name'];
 <?php } else  {
 
     echo " Id is empty";
-    } ?>
+    } 
+}
+}
+else {
+    echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
+    header("refresh:0;url=login.php");
+  }
+    
+
+    
+    ?>

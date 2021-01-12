@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="css/heading.css"> 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
-
+ 
  
 
 
 </head>
 <body>
 
-<nav class="navbar nav-class navbar-expand-lg navbar-light text-white">
+<nav class="navbar nav-class navbar-expand-lg navbar-light text-white pb-2">
   <a class="navbar-brand" href="index.php"><img src="images/Iubat-logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

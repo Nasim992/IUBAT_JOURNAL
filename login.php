@@ -298,6 +298,7 @@ if($_SESSION['alogin']!=''){
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/brands.css">
     <link rel="stylesheet" href="css/brands.min.css">
     <link rel="stylesheet" href="css/fontawesome.css">
@@ -315,7 +316,7 @@ if($_SESSION['alogin']!=''){
 </head>
 <body style="font-size:13px; font-weight:bold;">
 
-<div class="sticky-top mr-2 ml-2 pb-3">
+<div class="sticky-top  header-floating">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php';
@@ -324,7 +325,7 @@ if($_SESSION['alogin']!=''){
     </div>
 
     <div class="container form-control-login">
-       <div class="row">
+       <div class="row pt-2">
            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-section-login">
            <div id="logreg-forms">
         <form class="form-signin" method="post">

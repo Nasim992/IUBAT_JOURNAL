@@ -41,23 +41,36 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="css/fontawesome.v5.3.1.all.css">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
    <link rel="stylesheet" href="css/admin-dashboard.css">
-
+   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-<!-- Author showing header sections starts  -->
-<div class="sticky-top">
+
+
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
 <?php
 include 'admin-header.php';
-?>
-</div>
+?> 
+</div> 
 <!-- Author showing header sections ends   -->
 
-<div class="container">
 
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'admin-sidebar.php';
+  ?>
 
+</div> 
 
+<div id="main">  
 
-<div class="table-responsive p-4"> 
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+  <h4>Admin</h4>
+  <hr class="bg-secondary" >
+  <div class="table-responsive-lg table-responsive-sm p-4"> 
 <table id="dtBasicExample" class="table"  cellspacing="0">
 
 <thead>
@@ -104,7 +117,17 @@ foreach($results as $result)
 </table>
 </div>
 
-                </div>
+<div class="mb-5"></div>
+</div>
+</div>
+
+
+
+
+
+
+
+
 
 
 

@@ -24,12 +24,14 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Author Dashboard</title>
+    <title>Upload Paper</title>
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/heading.css">
+    <link rel="stylesheet" href="css/index.css">
     <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
 <style>
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 992px) { 
   form {
     margin-left:0px !important;
     margin-right:0px !important; 
@@ -47,7 +49,7 @@ form {
 </style>
 </head> 
 <body>
-<div class="sticky-top mr-2 ml-2 pb-3">
+<div class="sticky-top header-floating">
     <!-- Header section starts here  -->
     <?php 
     include 'author-header.php'; 
@@ -55,7 +57,7 @@ form {
     <!-- Header section ends here  --> 
     </div>
  
-  <div class="container ">
+  <div class="container mt-3">
 
  <!-- input file section starts here  -->
    <form class="author-form" action="upload-paper.php"  method = "post">

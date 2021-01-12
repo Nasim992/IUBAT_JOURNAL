@@ -7,7 +7,7 @@ include('link/config.php');
 if(strlen($_SESSION['alogin'])=="")
     {     
     header("Location: login.php"); 
-    }
+    } 
     else
     {  
         $authoremail = $_SESSION["email"];
@@ -42,7 +42,7 @@ if(strlen($_SESSION['alogin'])=="")
     }
     }    
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +50,9 @@ if(strlen($_SESSION['alogin'])=="")
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <title>Change password Author</title>
 
     <style>
@@ -76,12 +77,13 @@ form {
 </head>
 <body>
 <!-- Author showing header sections starts  -->
-
+<div class="sticky-top header-floating">
 <?php 
     include 'author-header.php';
 ?>
-
+</div>
 <!-- Author showing header sections ends   -->
+
     <div class="container">
 
 

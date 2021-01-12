@@ -82,21 +82,29 @@ else
     </style>
 </head>
 <body>
-<div class="container ">
 
-<div class="sticky-top">
-<!-- Author showing header sections starts  -->
 
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
 <?php
 include 'admin-header.php';
-?>
-
+?> 
+</div> 
 <!-- Author showing header sections ends   -->
-</div>
 
 
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'admin-sidebar.php';
+  ?>
 
+</div> 
 
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
 
 <!-- Admin Addition Section Starts here  -->
 
@@ -155,14 +163,11 @@ include 'admin-header.php';
                                                     
         </form>
 <!-- Admin Addition Section ends Here  -->
+
+
+<div class="mb-5"></div>
 </div>
-
-
-
-
-
-
-
+</div>
 
 
 <!-- Essential Js,jquery,section starts  -->

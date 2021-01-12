@@ -68,33 +68,60 @@ if(strlen($_SESSION['alogin'])=="")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/index.css">
 
     <title>Change password Admin</title>
 
-<style>
-.change-password-form {
-    margin-left:100px;
-    margin-right:100px;
-    margin-top:50px;
+    <style>
+@media only screen and (max-width: 992px) {
+  form {
+    margin-left:0px !important;
+    margin-right:0px !important; 
+  }
+}
+form {
+
+  padding:20px;
+  margin-top:20px;
+  margin-left:200px;
+  margin-right:200px;
+  border:2px solid #e3e3e3;
+  font-size:14px;
+  
 }
 </style>
 
 </head>
 <body>
 
-<div class="sticky-top">
-<!-- Author showing header sections starts  -->
 
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
 <?php
 include 'admin-header.php';
-?>
-
+?> 
+</div> 
 <!-- Author showing header sections ends   -->
-</div>
 
-    <div class="container">
 
-    <form  class="change-password-form" method="post">
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'admin-sidebar.php';
+  ?>
+
+</div> 
+
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+  <h6>CHANGE YOUR PASSWORD</h6>
+  <hr class="bg-secondary" >
+
+  <form  class="change-password-form" method="post">
          <div class="form-group has-success">
         <label for="success" class="control-label">Current Password</label>
         <div class="">
@@ -116,24 +143,23 @@ include 'admin-header.php';
                  </div>
                 <div class="form-group has-success">
 
-               <div class="d-flex justify-content-between mt-5">
-               <div>
-               <a href="admin-dashboard.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
-               </div>
-                <div >
-                <button type="submit" name="submit" class="btn btn-success btn-block float-right" >Change password</button>
-                </div>
-                 
-               </div>                                     
+
+     
+                <button type="submit" name="submit" class="btn btn-success btn-sm  " >Change password</button>
+   
+                                           
              </form>
-    </div>
+
+<div class="mb-5"></div>
+</div>
+</div>
 
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->  
-  
+   
 </body>
 </html>
 

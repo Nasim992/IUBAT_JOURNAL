@@ -13,7 +13,7 @@ if(strlen($_SESSION['alogin'])=="")
       // Check that the admin is logged in or not section starts here 
       $adminemail = $_SESSION["email"];
 
-       $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+      $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -38,59 +38,31 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top pb-3">
-    <!-- Heading Sections starts  -->
-    <?php 
-    include 'admin-header.php'
-    ?>
-    <!-- Heading Sections ends  --> 
-    </div>
- 
-    <div class="container">
-    <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
-        <?php 
-         include 'header.php';
-        ?>
-    </div>
-    </div> 
-    </div>
- 
-    <div class="row">
-    <!-- Sidebar section starts here  -->
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-     <?php
-     include 'sidelinks.php';
-     ?> 
-    </div>
-    
-    <!-- Sidebar Section ends here  -->
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
-    <p  id="content" class="pt-4">
-    <b>Aim and Scope: </b>Production and Hosting by Elsevier B.V. on behalf of Faculty of Engineering, Alexandria University Peer Review under the responsibility of Faculty of Engineering, Alexandria University Alexandria Engineering Journal is an international journal devoted to publishing high quality papers in the field of engineering and applied science. Alexandria Engineering Journal is cited in the Engineering Information Services (EIS) and the Chemical Abstracts (CA). The papers published in Alexandria Engineering Journal are grouped into five sections, according to the following classification:
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
+<?php
+include 'admin-header.php';
+?> 
+</div> 
+<!-- Author showing header sections ends   -->
 
-    • Mechanical, Production, Marine and Textile Engineering
 
-    • Electrical Engineering, Computer Science and Nuclear Engineering
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'admin-sidebar.php';
+  ?>
 
-    • Civil and Architecture Engineering
+</div> 
 
-    • Chemical Engineering and Applied Sciences
+<div id="main">  
 
-    • Environmental Engineering
-    Alexandria Engineering Journal publishes original papers, critical reviews, technical papers, technical data, short notes, and letters to the editor. Papers covering experimental, theoretical, and computational aspects which contribute to the understanding of engineering and applied sciences or give an insight into engineering practices and processes are welcome. Authors from all over the world are invited to submit manuscripts for possible publications in Alexandria Engineering Journal.
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
 
-    For queries related to the journal, please contact magdy@alexu.edu.eg
-    </p>
-    <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more">Read more...</span></a>
-    </div>
-
-<hr class="bg-secondary" >
+  <h5>PUBLISHED PAPER</h5>
+  <hr class="bg-secondary" >
     <table id="heading-table">
     <tbody>
     <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1 ";
@@ -107,11 +79,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <!-- Select User name section starts here  -->
 <?php  
-
-$link = mysqli_connect("localhost", "root", "", "iubat");
-
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
-  
+include 'link/linklocal.php';
 
 $authoremail = htmlentities($result->authoremail);
 
@@ -127,7 +95,7 @@ $middlename= $file1['middlename'];
 $lastname= $file1['lastname'];
 
 $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
-
+ 
 ?>
 <!-- Select user  name section ends here  -->
 
@@ -136,7 +104,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             <tr>
             <td>
             <div class="jumbotron  mb-0" >
-            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?></h5></a>
+            <a href="paper-download-admin.php?id=<?php echo htmlentities($result->id);?>"><h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?></h5></a>
             <h5 class="text-secondary" style="font-size:15px;"><?php echo $authorname;?></h5>
             <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
@@ -149,7 +117,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             </script>
       <!-- Individual Read More section ends here  -->
       <hr>
-            </td>
+            </td>  
            </div>
            </tr>
           
@@ -157,18 +125,12 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
        <!-- DashBoard Section ends  -->
 
-    <?php }} ?>
+    <?php }} ?> 
     </tbody>
     </table>
-    </div>
-    </div>
-    </div>
-
-    <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php'
-    ?>
-    <!-- Footer section ends here  -->
+<div class="mb-5"></div>
+</div>
+</div>
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>

@@ -2,10 +2,8 @@
 session_start();
 error_reporting(0);
 
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
+include 'link/linklocal.php';
 
-$link = mysqli_connect("localhost", "root", "", "iubat");
-   
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: login.php"); 
@@ -122,12 +120,12 @@ if(isset($_POST['select-reviewer']))
     $assignmonth = date('m');
     $assignyear = date('Y');
 
-    
-
-
     $sqlinsert="INSERT INTO reviewertable (paperid,username,primaryemail,assigndate,assignmonth,assignyear) VALUES('$id','$usernameauthor','$primaryemail','$assigndate','$assignmonth','$assignyear')";
 
-    if(mysqli_query($link, $sqlinsert))
+    $reviewerselection =1;
+    $sqlupdatereviewer = "update author set reviewerselection=$reviewerselection where username = '$usernameauthor' ";
+
+    if(mysqli_query($link, $sqlinsert) and (mysqli_query($link, $sqlupdatereviewer)))
     {
     echo "<script>alert('Reviewer Selected Successfully for this paper');</script>";
     //   header("refresh:0;url=unpublished-paper.php");
@@ -152,7 +150,7 @@ if(isset($_POST['select-editor']))
     $sqlauthorselect = "SELECT primaryemail FROM author WHERE username = '$usernameauthor'";
     $resultauthorselect = mysqli_query($link,$sqlauthorselect);
     $fileauthorselect = mysqli_fetch_assoc($resultauthorselect);
-    $primaryemail = $fileauthorselect['primaryemail'];
+    $primaryemail = $fileauthorselect['primaryemail']; 
 
     $assigndate = date('d');
     $assignmonth = date('m');
@@ -160,7 +158,11 @@ if(isset($_POST['select-editor']))
 
     $sqlinsert="INSERT INTO editortable (paperid,username,primaryemail,assigndate,assignmonth,assignyear) VALUES('$id','$usernameauthor','$primaryemail','$assigndate','$assignmonth','$assignyear')";
 
-    if(mysqli_query($link, $sqlinsert))
+    $editorselection =1;
+    $sqlupdateeditor = "update author set editorselection=$editorselection where username = '$usernameauthor' ";
+
+
+    if(mysqli_query($link, $sqlinsert) and (mysqli_query($link, $sqlupdateeditor)))
     {
     echo "<script>alert('Editor Selected Successfully for this paper');</script>";
     //   header("refresh:0;url=unpublished-paper.php");
@@ -196,45 +198,31 @@ if(isset($_POST['select-editor']))
     </style>
 </head> 
 <body>
-<div class="sticky-top pb-3">
-    <!-- Heading Sections starts  -->
-    <?php 
-    include 'admin-header.php';
-    ?>
-    <!-- Heading Sections ends  --> 
-    </div>
-<div class="container">
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
+<?php
+include 'admin-header.php';
+?> 
+</div> 
+<!-- Author showing header sections ends   -->
 
-<div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'admin-sidebar.php';
+  ?>
 
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left ">
-        <?php 
-        //  include 'header.php';
-        ?>
-    </div>
-    </div> 
-    </div>
- 
-    <div class="row">
-    <!-- Sidebar section starts here  -->
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-     <?php
-     include 'sidelinks.php';
-     ?> 
-    </div>
-    
-    <!-- Sidebar Section ends here  -->
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left">
-    
-    </div>
-    <h5 class="text-center"><b>UNPUBLISHED PAPER</b></h4>
-<hr class="bg-secondary" >
- <!-- Dashboard section starts  --> 
- <div class="jumbotron">
+</div> 
+
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+  <h4>UNPUBLISHED PAPER</h4>
+  <hr class="bg-secondary" >
+
+  <div class="jumbotron">
      
      <h5 style="font-size:18px" class="display-4">Name : <?php echo $papername ?></h5>
      <h6 style="font-size:15px;" class="display-5">Uploaded on:<span style='color:#122916;'> <small><?php echo $uploaddate ?></small></span></h6>
@@ -407,7 +395,7 @@ if(isset($_POST['select-editor']))
          }
 
          $selection = 0;
-         $link = mysqli_connect("localhost", "root", "", "iubat");
+         include 'link/linklocal.php';
          foreach($arrayusernameeditors as $arrname){
              $sqlnameeditor = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
              $resultnameeditor = mysqli_query($link,$sqlnameeditor);
@@ -471,7 +459,9 @@ if(isset($_POST['select-editor']))
          }
 
          $selection = 0;
-         $link = mysqli_connect("localhost", "root", "", "iubat");
+         
+         include 'link/linklocal.php';
+
          foreach($arrayusernameeditors as $arrname){
            // echo $arrname;
              $sqlnameeditor = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
@@ -507,21 +497,12 @@ if(isset($_POST['select-editor']))
  <!-- Selecting Editor Reviewer Selection section ends here  -->
 
  </div>
- </div>
- </div>
 
-    </div>
-    </div>
+
     <div class="pb-5"></div>
-    <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php'
-    ?>
-    <!-- Footer section ends here  -->
 
-
-
-  
+    </div>
+    </div>
 
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>

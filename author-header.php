@@ -9,9 +9,8 @@ if(strlen($_SESSION['alogin'])=="")
     }
     else
     { 
-
         $email =  $_SESSION['alogin'];
-        
+            
                  //  Number of Reviews   count section starts here 
 
                  $query = "SELECT COUNT(*) as total_rowsrev FROM reviews";
@@ -53,12 +52,8 @@ if(strlen($_SESSION['alogin'])=="")
                 // get total rows
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $total_paper = $row['total_paper'];
-                     
-                     
+                                  
             // Number of paper  count section ends here  
-
-            
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,8 +71,8 @@ if(strlen($_SESSION['alogin'])=="")
 </head> 
 <body> 
 
-<nav class="navbar nav-class navbar-expand-lg navbar-light ">
-  <a class="navbar-brand" href="all-paper-author.php"><img src="images/Iubat-logo.png"></a>
+<nav class="navbar nav-class navbar-expand-lg navbar-light pb-2">
+  <a class="navbar-brand" href="author-dashboard.php"><img src="images/Iubat-logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> 
@@ -126,11 +121,7 @@ if(strlen($_SESSION['alogin'])=="")
 <ul>
 
 <?php  
-
-$link = mysqli_connect("localhost", "root", "", "iubat");
-
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
-  
+include 'link/linklocal.php';
 
 $authoremail = $_SESSION["email"];
 

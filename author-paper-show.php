@@ -42,7 +42,7 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top mr-1 ml-1 pb-3">
+<div class="sticky-top header-floating">
     <!-- Heading Sections starts  -->
     <?php 
     include 'author-header.php'
@@ -51,7 +51,7 @@ if(strlen($_SESSION['alogin'])=="")
     </div>
  
     <div class="container">
-    <div class="row">
+    <div class="row mt-3">
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
     </div>
@@ -102,10 +102,6 @@ if(strlen($_SESSION['alogin'])=="")
 
 <?php  
 
-$link = mysqli_connect("localhost", "root", "", "iubat");
-
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
-  
 
 $authoremail = htmlentities($result->authoremail);
 

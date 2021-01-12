@@ -10,7 +10,7 @@
 <body>
 <!-- Footer section starts here  -->
   <!-- Site footer -->
-  <footer class="site-footer">
+  <footer class="site-footer header-floating">
       <div class="container">
         <div class="row">
           <div class="col-sm-12 col-md-6">

@@ -1,5 +1,4 @@
 <?php 
-
 include('link/config.php');
 
 ?>
@@ -15,7 +14,7 @@ include('link/config.php');
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top pb-3">
+<div class="sticky-top header-floating">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php'
@@ -24,7 +23,7 @@ include('link/config.php');
     </div>
  
     <div class="container">
-    <div class="row">
+    <div class="row pt-1">
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
     </div>
@@ -85,10 +84,7 @@ include('link/config.php');
 <!-- Select User name section starts here  -->
 <?php  
 
-$link = mysqli_connect("localhost", "root", "", "iubat");
-
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
-  
+include 'link/linklocal.php';
 
 $authoremail = htmlentities($result->authoremail);
 

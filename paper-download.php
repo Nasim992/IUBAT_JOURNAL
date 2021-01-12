@@ -2,9 +2,7 @@
 session_start();
 error_reporting(0);
 
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
-
-$link = mysqli_connect("localhost", "root", "", "iubat");
+include 'link/linklocal.php';
    
 
 if(strlen($_SESSION['alogin'])=="")
@@ -67,14 +65,29 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     <title>Document</title>
 </head> 
 <body>
+            <?php 
+                if ($authoremail == "") {
+            ?>
+            <div class="sticky-top pb-3">
+                <!-- Heading Sections starts  -->
+                <?php 
+                include 'heading.php'
+                ?>
+                <!-- Heading Sections ends  --> 
+                </div>
+            <?php 
+            }
+            else {
+            ?>
+                <div class="sticky-top pb-3">
+                <!-- Heading Sections starts  -->
+                <?php 
+                include 'author-header.php'
+                ?>
+                <!-- Heading Sections ends  --> 
+                </div>
+                <?php } ?>
 
-<div class="sticky-top pb-3">
-    <!-- Heading Sections starts  -->
-    <?php 
-    include 'heading.php'
-    ?>
-    <!-- Heading Sections ends  --> 
-    </div>
  
     <div class="container">
     <div class="row">
@@ -112,7 +125,7 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
      <?php 
      if ($authoremail == "") {
          ?>
-      
+          <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
        <?php 
      }
      else {
@@ -122,8 +135,7 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
      }  
      ?>
      
-     <h6 class="display-5">Email:<span style='color:green;'> <?php echo $authorname ?></span></h6>
-     <p style="font-size:14px;"><?php echo $abstract ?></p>
+     <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
      <hr class="my-4">
    
      <?php 
@@ -135,11 +147,11 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
      }
      else {
      ?>
-    <a href="author-paper-show.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+    <!-- <a href="author-paper-show.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a> -->
      <?php 
      }  
      ?>
-     <a style="font-size:14px;" class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download as PDF</a>
+     <a style="font-size:14px;" class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
      </div>
 
  <!-- DashBoard Section ends  -->

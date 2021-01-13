@@ -50,7 +50,7 @@
         
 <ul>
 <li class="nav-item active">
-        <a class="nav-link" href="archive.php">Archive</a>
+        <a class="nav-link" href="archive">Archive</a>
       </li>
 </ul> 
 

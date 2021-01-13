@@ -98,12 +98,12 @@ if($_SESSION['alogin']!=''){
     $query-> execute();  
 
     $results=$query->fetchAll(PDO::FETCH_OBJ);
-
+ 
     if($query->rowCount() > 0)
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'upload-paper1.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'reviewer-dashboard.php'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Reviewer');</script>";
@@ -138,7 +138,7 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'upload-paper1.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'editor-dashboard.php'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Editor');</script>";

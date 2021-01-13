@@ -109,8 +109,8 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             <tr>
             <td>
             <div class="jumbotron  mb-0" >
-            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?></h5></a>
-            <h5 class="text-secondary" style="font-size:15px;"><?php echo $authorname;?></h5>
+            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><h5 style="font-size:17px;"><?php echo htmlentities($result->papername);?></h5></a>
+            <h5 class="text-secondary" style="font-size:16px;"><?php echo $authorname;?></h5>
             <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
       <!--Individual Read More section starts here   -->
@@ -135,6 +135,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     </table>
     </div>
     </div>
+    <div class="pb-3"></div>
     </div>
 
     <!-- Footer section starts here  -->

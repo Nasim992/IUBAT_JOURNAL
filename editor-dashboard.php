@@ -101,7 +101,6 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/fontawesome.v5.3.1.all.css">
-    
  
 </head>
 <body>
@@ -109,13 +108,13 @@ if(strlen($_SESSION['alogin'])=="")
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
 <?php
-include 'author-header.php';
+include 'editor-header.php';
 ?> 
 </div>
 <!-- Author showing header sections ends   -->
 <div id="mySidebar" class="sidebar mt-3">
   <?php 
-  include 'author-sidebar.php';
+  include 'editor-sidebar.php';
   ?>
 </div> 
 
@@ -127,55 +126,35 @@ include 'author-header.php';
 
 <!-- Progress bar section starts here  -->
 <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="author-paper-show.php">
-             <div class="card card-statistic-1">
-                <div class="card-icon bg-warning">
-                  <i class="far fa-file"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>Accepted</h4>
-                  </div>
-                  <div class="card-body">
-                    <?php
-                    echo $total_published;
-                    ?>
-                  </div>
-                </div>
-              </div>
-             </a>
-            </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="author-paper-show.php">
+<div class="col-lg-3 col-md-6 col-sm-6 col-12">
+             <a href="#">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
                   <i class="far fa-file"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Reviewing</h4>
+                    <h4>Editored</h4>
                   </div>
                   <div class="card-body">
                     <?php
-                    echo $total_unpublished;
+                    echo 0;
                     ?>
                   </div>
                 </div>
               </div>
              </a>
-            </div>
-
+ </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="author-paper-show.php">
+             <a href="#">
              <div class="card card-statistic-1">
-                <div class="card-icon bg-danger">
+                <div class="card-icon bg-warning">
                   <i class="far fa-file"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Rejected</h4>
+                    <h4>Editoring</h4>
                   </div>
                   <div class="card-body">
                     <?php
@@ -187,37 +166,8 @@ include 'author-header.php';
              </a>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                  <i class="far fa-user"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>Reviewer</h4>
-                  </div>
-                  <div class="card-body">
-                    <?php echo 0  ?>
-                  </div>
-                </div>
-              </div>
-            </div>
+        
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                  <i class="far fa-user"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>Editor</h4>
-                  </div>
-                  <div class="card-body">
-                    0
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-secondary">
@@ -250,7 +200,7 @@ include 'author-header.php';
             $('.dataTables_length').addClass('bs-select');
             });
             // Datables section ends here 
-
+ 
    function openNav() {
   document.getElementById("mySidebar").style.width = "250px";
   document.getElementById("main").style.marginLeft = "250px";

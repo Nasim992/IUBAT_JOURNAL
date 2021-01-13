@@ -36,7 +36,7 @@ if(strlen($_SESSION['alogin'])=="")
     margin-left:0px !important;
     margin-right:0px !important; 
   }
-}
+} 
 form {
 
   padding:20px;
@@ -49,15 +49,24 @@ form {
 </style>
 </head> 
 <body>
+<!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
-    <!-- Header section starts here  -->
-    <?php 
-    include 'author-header.php'; 
-    ?>
-    <!-- Header section ends here  --> 
-    </div>
- 
-  <div class="container mt-3">
+<?php
+include 'author-header.php';
+?> 
+</div>
+<!-- Author showing header sections ends   -->
+<div id="mySidebar" class="sidebar mt-3">
+  <?php 
+  include 'author-sidebar.php';
+  ?>
+</div> 
+
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
 
  <!-- input file section starts here  -->
    <form class="author-form" action="upload-paper.php"  method = "post">
@@ -80,7 +89,7 @@ form {
  
 <hr>
 <div class="form-group">
-<button class="btn btn-success " name="submit-firsto" type="submit" >Next</button>
+<button class="btn btn-success  " name="submit-firsto" type="submit" >Next</button>
 </div>
 
   <!-- Form Section Ends Here  -->
@@ -90,7 +99,7 @@ form {
 
 
 </div> <!-- Container div -->
-
+</div>
 
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>

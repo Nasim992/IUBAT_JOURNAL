@@ -26,57 +26,27 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
+
+<!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
-    <!-- Heading Sections starts  -->
-    <?php 
-    include 'author-header.php';
-    ?>
-    <!-- Heading Sections ends  --> 
-    </div>
- 
-    <div class="container">
-    <div class="row mt-3">
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+<?php
+include 'author-header.php';
+?> 
+</div>
+<!-- Author showing header sections ends   -->
+<div id="mySidebar" class="sidebar mt-3">
+  <?php 
+  include 'author-sidebar.php';
+  ?>
+</div> 
 
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
-   <?php
-   include 'header.php';
-   ?>
-    </div>
-    </div> 
-    </div>
- 
-    <div class="row">
-    <!-- Sidebar section starts here  -->
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <?php
-        include 'sidelinks.php';
-        ?>
-    </div>
-    <!-- Sidebar Section ends here  -->
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
-    <p  id="content" class="pt-4">
-    <b>Aim and Scope: </b>Production and Hosting by Elsevier B.V. on behalf of Faculty of Engineering, Alexandria University Peer Review under the responsibility of Faculty of Engineering, Alexandria University Alexandria Engineering Journal is an international journal devoted to publishing high quality papers in the field of engineering and applied science. Alexandria Engineering Journal is cited in the Engineering Information Services (EIS) and the Chemical Abstracts (CA). The papers published in Alexandria Engineering Journal are grouped into five sections, according to the following classification:
+<div id="main">  
 
-    • Mechanical, Production, Marine and Textile Engineering
-
-    • Electrical Engineering, Computer Science and Nuclear Engineering
-
-    • Civil and Architecture Engineering
-
-    • Chemical Engineering and Applied Sciences
-
-    • Environmental Engineering
-    Alexandria Engineering Journal publishes original papers, critical reviews, technical papers, technical data, short notes, and letters to the editor. Papers covering experimental, theoretical, and computational aspects which contribute to the understanding of engineering and applied sciences or give an insight into engineering practices and processes are welcome. Authors from all over the world are invited to submit manuscripts for possible publications in Alexandria Engineering Journal.
-
-    For queries related to the journal, please contact magdy@alexu.edu.eg
-    </p>
-    <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more">Read more...</span></a>
-    </div>
-
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+    
+<h5>ALL PUBLISHED PAPER</h5>
 <hr class="bg-secondary" >
     <table id="heading-table">
     <tbody>
@@ -142,15 +112,10 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     <?php }} ?>
     </tbody>
     </table>
-    </div>
-    </div>
+    <div class="pb-3"></div>
+</div>
     </div>
 
-    <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php'
-    ?>
-    <!-- Footer section ends here  -->
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>

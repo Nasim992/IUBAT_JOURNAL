@@ -1,8 +1,8 @@
 .navbar-brand img {
     height:50px !important;
-    width:80px !important;
+    width:70px !important;
 }
-ul li {
+ul li { 
     list-style: none;
 } 
 .ul-nav li a { 
@@ -11,14 +11,15 @@ ul li {
     /* display: block; */
     /* margin-top:10px;
     padding:10px; */
-    border-radius:30px;
+    /* border-radius:30px; */
 
     transition: 0.4s;
  
 } 
  .ul-nav li a:hover { 
-    background-color:rgb(28, 119, 5) !important;
-    border-radius:30px;
+    background-color:rgba(28, 119, 5, 0.815) !important;
+    /* border-bottom: 1px solid rgb(231, 8, 8); */
+    border-radius:10px;
     color:white !important;
     /* border:0.5px solid green; */
 } 

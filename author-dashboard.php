@@ -261,7 +261,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 
 </style>
-
+ 
 </head>
 <body>
 
@@ -272,17 +272,10 @@ include 'author-header.php';
 ?> 
 </div>
 <!-- Author showing header sections ends   -->
-
-
 <div id="mySidebar" class="sidebar mt-3">
-  
-  <a href="upload-paper1.php">Upload Paper</a>
-  <a href="all-paper-author.php">Published Paper</a>
-  <a href="author-paper-show.php">Paper Status</a>
-  <a href="change-password-author.php">Change password</a>
-  <a href="change-password-author.php">Reviewer Status</a>
-  <a href="change-password-author.php">Editor Status</a>
-  <a href="#"></a>
+  <?php 
+  include 'author-sidebar.php';
+  ?>
 </div> 
 
 <div id="main">  
@@ -431,7 +424,7 @@ function closeNav() {
   document.getElementById("closesignof").style.display= "none";
   
 }
-
+ 
 </script>
 <!-- Essential Js,Jquery  section ends  -->    
 </body>

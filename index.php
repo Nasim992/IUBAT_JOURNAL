@@ -12,8 +12,8 @@ include('link/config.php');
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css"> 
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
-</head> 
-<body> 
+</head>  
+<body>  
 <div class="sticky-top header-floating">
     <!-- Heading Sections starts  -->
     <?php 

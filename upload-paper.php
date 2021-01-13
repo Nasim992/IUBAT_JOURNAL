@@ -167,6 +167,7 @@ if(isset($_POST['submit']))
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/heading.css">
+    <link rel="stylesheet" href="css/index.css">
     <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
 <style>
 @media only screen and (max-width: 992px) {
@@ -194,15 +195,24 @@ form {
 </style>
 </head> 
 <body>
-<div class="sticky-top mr-2 ml-2 pb-3">
-    <!-- Header section starts here  --> 
-    <?php 
-    include 'author-header.php'; 
-    ?>
-    <!-- Header section ends here  -->
-    </div>
- 
-  <div class="container ">
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
+<?php
+include 'author-header.php';
+?> 
+</div>
+<!-- Author showing header sections ends   -->
+<div id="mySidebar" class="sidebar mt-3">
+  <?php 
+  include 'author-sidebar.php';
+  ?>
+</div> 
+
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
 
 
 <div>
@@ -304,7 +314,7 @@ form {
 <div class="form-group">
 <div class="d-flex justify-content-between">
 <div>
-<a href="upload-paper1.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
+<!-- <a href="upload-paper1.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a> -->
 </div>
 <div>
 <button class="btn btn-sm btn-success " name = "submit" type="submit" >Submit</button>
@@ -321,6 +331,7 @@ form {
 
 
 </div> <!-- Container div -->
+</div>
 
 
     <!-- Essential Js,jquery,section starts  -->

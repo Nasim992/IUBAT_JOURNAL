@@ -66,27 +66,18 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 </head> 
 <body>
             <?php 
-                if ($authoremail == "") {
+         if( $authoremail=='') {
+
             ?>
-            <div class="sticky-top pb-3">
+            <div class="sticky-top header-floating">
                 <!-- Heading Sections starts  -->
                 <?php 
                 include 'heading.php'
                 ?>
                 <!-- Heading Sections ends  --> 
                 </div>
-            <?php 
-            }
-            else {
-            ?>
-                <div class="sticky-top pb-3">
-                <!-- Heading Sections starts  -->
-                <?php 
-                include 'author-header.php'
-                ?>
-                <!-- Heading Sections ends  --> 
-                </div>
-                <?php } ?>
+
+  
 
  
     <div class="container">
@@ -162,9 +153,73 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
     <!-- Footer section starts here  -->
     <?php
-    include 'footer.php'
+    include 'footer.php';
+         }
+         else {
     ?>
     <!-- Footer section ends here  -->
+
+<!-- Author Paper Download Section Starts Here -->
+
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
+<?php
+include 'author-header.php';
+?> 
+</div> 
+<!-- Author showing header sections ends   -->
+
+
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'author-sidebar.php';
+  ?>
+
+</div> 
+
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+  <h5>DOWNLOAD THIS PAPER</h5>
+<hr class="bg-secondary" >
+   <!-- Dashboard section starts  -->
+   <div class="jumbotron "> 
+     
+     <h5 style="font-size:17px;" class="display-4">Name : <?php echo $papername ?></h5>
+     <?php 
+     if ($authoremail == "") {
+         ?>
+          <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
+       <?php 
+     }
+     else {
+     ?>
+    <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
+     <?php 
+     }  
+     ?>
+     
+     <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
+     <hr class="my-4">
+   
+
+     <a style="font-size:14px;" class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
+     </div>
+
+ <!-- DashBoard Section ends  -->
+
+    </div>
+    </div>
+</div>
+
+
+<!-- Author Paper Download Section Ends Here  -->
+
+
+    <?php } ?>
 
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>

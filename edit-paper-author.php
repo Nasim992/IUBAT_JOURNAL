@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 error_reporting(0);
@@ -85,50 +84,45 @@ if(strlen($_SESSION['alogin'])=="")
     .fontSize13px {
         font-size:13px !important;
     }
-    
+    @media only screen and (max-width: 992px) {
+  form {
+    margin-left:0px !important;
+    margin-right:0px !important; 
+  }
+}
+form {
+
+  padding:20px;
+  margin-left:120px;
+  margin-right:120px;
+  border:2px solid #e3e3e3;
+  font-size:14px;
+}
     </style>
 
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top mr-1 ml-1 pb-3">
-    <!-- Heading Sections starts  -->
-    <?php 
-    include 'author-header.php'
-    ?>
-    <!-- Heading Sections ends  --> 
-    </div>
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
+<?php
+include 'author-header.php';
+?> 
+</div>
+<!-- Author showing header sections ends   -->
+<div id="mySidebar" class="sidebar mt-3">
+  <?php 
+  include 'author-sidebar.php';
+  ?>
+</div> 
  
-    <div class="container">
-    <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+<div id="main">  
 
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
-   <?php
-   include 'header.php';
-   ?>
-    </div>
-    </div> 
-    </div>
- 
-    <div class="row">
-    <!-- Sidebar section starts here  -->
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-     
-    <?php 
-    include 'sidelinks.php';
-    ?> 
-     
-    </div>
-    <!-- Sidebar Section ends here  -->
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
-  
-    </div>
-        <!-- input file section starts here  -->
-        <h4 class="text-center">UPDATE YOUR PAPER</h4>
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+        <h5>UPDATE YOUR PAPER</h5>
         <hr class="bg-secondary">
 
 <form class = "author-form" method = "post" enctype = "multipart/form-data">
@@ -163,7 +157,7 @@ if(strlen($_SESSION['alogin'])=="")
 </div>
 <!-- accept = "application/pdf" -->
 <hr>
-
+ 
 <?php }} ?>   
 
 <button class="btn btn-success btn-sm  btn-block" name = "submit" type="submit" >Update</button>
@@ -173,11 +167,6 @@ if(strlen($_SESSION['alogin'])=="")
     </div>
     </div>
     </div>
-    <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php'
-    ?>
-    <!-- Footer section ends here  -->
  <!-- Essential Js,jquery,section starts  -->
  <script src="js/bootstrap.min.js"></script>
     <script src="js/popper.min.js"></script>

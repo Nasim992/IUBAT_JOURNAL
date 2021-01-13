@@ -76,15 +76,24 @@ form {
 
 </head>
 <body>
-<!-- Author showing header sections starts  -->
 <div class="sticky-top header-floating">
-<?php 
-    include 'author-header.php';
-?>
+<?php
+include 'author-header.php';
+?> 
 </div>
 <!-- Author showing header sections ends   -->
+<div id="mySidebar" class="sidebar mt-3">
+  <?php 
+  include 'author-sidebar.php';
+  ?>
+</div> 
 
-    <div class="container">
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
 
 
     <form  class="change-password-form" method="post">
@@ -119,6 +128,7 @@ form {
                   
                </div>                                     
              </form>
+    </div>
     </div>
 
         <!-- Essential Js,jquery,section starts  -->

@@ -42,43 +42,27 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
+<!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
-    <!-- Heading Sections starts  -->
-    <?php 
-    include 'author-header.php'
-    ?>
-    <!-- Heading Sections ends  --> 
-    </div>
- 
-    <div class="container">
-    <div class="row mt-3">
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+<?php
+include 'author-header.php';
+?> 
+</div>
+<!-- Author showing header sections ends   -->
+<div id="mySidebar" class="sidebar mt-3">
+  <?php 
+  include 'author-sidebar.php';
+  ?>
+</div> 
 
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
-   <?php
-   include 'header.php';
-   ?>
-    </div>
-    </div> 
-    </div>
- 
-    <div class="row">
-    <!-- Sidebar section starts here  -->
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-     
-    <?php 
-    include 'sidelinks.php';
-    ?> 
-     
-    </div>
-    <!-- Sidebar Section ends here  -->
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
- 
-    </div>
+<div id="main">  
 
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+<h5>PAPER STATUS</h5>
+<hr class="bg-secondary">
 
 <div  class="table-responsive">
 <table   id="dtBasicExample"  cellspacing="0">
@@ -217,16 +201,10 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 <!-- Authors paper showing section ends (jumbotron section) -->
 
-
+<div class="pb-4"></div>
 </div>
     </div>
     </div>
-    </div>
-    <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php'
-    ?>
-    <!-- Footer section ends here  -->
  <!-- Essential Js,jquery,section starts  -->
  <script src="js/bootstrap.min.js"></script>
     <script src="js/popper.min.js"></script>

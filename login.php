@@ -65,11 +65,11 @@ if($_SESSION['alogin']!=''){
 
     $results=$query->fetchAll(PDO::FETCH_OBJ);
 
-    if($query->rowCount() > 0)
+    if($query->rowCount() > 0) 
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'upload-paper1.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'author-dashboard.php'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
@@ -295,26 +295,27 @@ if($_SESSION['alogin']!=''){
     <script src="js/login.js"></script>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css"> 
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/brands.css">
-    <link rel="stylesheet" href="css/brands.min.css">
+    <link rel="stylesheet" href="css/heading.css">
+    <!-- <link rel="stylesheet" href="css/brands.css">
+    <link rel="stylesheet" href="css/brands.min.css"> -->
     <link rel="stylesheet" href="css/fontawesome.css">
     <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/regular.css">
+    <!-- <link rel="stylesheet" href="css/regular.css">
     <link rel="stylesheet" href="css/regular.min.css">
     <link rel="stylesheet" href="css/solid.css">
     <link rel="stylesheet" href="css/solid.min.css">
     <link rel="stylesheet" href="css/svg-with-js.css">
     <link rel="stylesheet" href="css/svg-with-js.min.css">
     <link rel="stylesheet" href="css/v4-shims.css">
-    <link rel="stylesheet" href="css/v4-shims.min.css">
+    <link rel="stylesheet" href="css/v4-shims.min.css"> -->
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
-<body style="font-size:13px; font-weight:bold;">
+<body>
 
 <div class="sticky-top  header-floating">
     <!-- Heading Sections starts  -->
@@ -324,13 +325,13 @@ if($_SESSION['alogin']!=''){
     <!-- Heading Sections ends  --> 
     </div>
 
-    <div class="container form-control-login">
+    <div style="font-size:14px; font-weight:bold;" class="container form-control-login">
        <div class="row pt-2">
            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-section-login">
            <div id="logreg-forms">
         <form class="form-signin" method="post">
        <div class="logo-container">
-                <i class="fas fa-users logo"></i>
+                <i style="font-size:35px;" class="fas fa-users logo"></i>
             </div>
             <h3 class="h3 mb-3 font-weight-normal" style="text-align: center;font-size:18px; padding:5px;"><b> SIGN IN</b></h3>
             <div class="social-login">
@@ -413,7 +414,7 @@ if($_SESSION['alogin']!=''){
                 </div> -->
 
                 <div class="logo-container">
-                    <i class="fas fa-user-plus logo"></i>
+                    <i style="font-size:35px;" class="fas fa-user-plus logo"></i>
                 </div>
                  
                 <h2 style="text-align:center;font-size:18px;padding:5px;"><b>REGISTRATION FORM</b></h2>

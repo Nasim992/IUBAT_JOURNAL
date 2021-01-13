@@ -72,7 +72,7 @@ if(strlen($_SESSION['alogin'])=="")
 <body> 
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light pb-2">
-  <a class="navbar-brand" href="author-dashboard.php"><img src="images/Iubat-logo.png"></a>
+  <a class="navbar-brand" href="author-dashboard.php"><img src="images/Iubat-logo.png">JOURNAL</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> 
@@ -97,7 +97,7 @@ if(strlen($_SESSION['alogin'])=="")
    <li class="nav-item active" title="total paper">
             <a class="nav-link" href="change-password-author.php">Change Password</a>
         </li>
-   </ul>
+   </ul> 
     
 
       <ul>

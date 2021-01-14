@@ -6,7 +6,7 @@
     <title>Sidebar</title>
 </head>
 <body>
-<a href="editor-dashboard.php">Dashboard</a>
+<a href="editor-dashboard">Dashboard</a>
 
   <a href="#">Editored paper</a>
   <a href="#">As Editor</a>

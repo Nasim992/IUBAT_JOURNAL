@@ -12,7 +12,7 @@
 <body>
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light pb-2"> 
-  <a class="navbar-brand" href="index.php"><img src="images/Iubat-logo.png">JOURNAL</a>
+  <a class="navbar-brand" href="index"><img src="images/Iubat-logo.png">JOURNAL</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> 
@@ -23,20 +23,20 @@
 
    <ul>
    <li class="nav-item active">
-        <a class="nav-link" href="aimandscope.php">Aim_and_Scope</a>
+        <a class="nav-link" href="aimandscope">Aim_and_Scope</a>
       </li>
    </ul>
 
    <ul>
    <li class="nav-item active">
-        <a class="nav-link" href="instructionforauthors.php">Instruction_for_Author</a>
+        <a class="nav-link" href="instructionforauthors">Instruction_for_Author</a>
       </li>
    
    </ul>
 
    <ul>
    <li class="nav-item active">
-        <a class="nav-link" href="journalinfo.php">Journal_Info</a>
+        <a class="nav-link" href="journalinfo">Journal_Info</a>
       </li>
 
    </ul> 
@@ -44,7 +44,7 @@
 
       <ul>
       <li class="nav-item active">
-        <a class="nav-link" href="editorialboard.php">Editorial_Board</a>
+        <a class="nav-link" href="editorialboard">Editorial_Board</a>
       </li>
       </ul>
         
@@ -56,7 +56,7 @@
 
 <ul>
 <li class="nav-item active">
-        <a class="nav-link" href="upload-paper1.php">Submit_an_Article</a>
+        <a class="nav-link" href="upload-paper1">Submit_an_Article</a>
       </li>
 
 </ul>
@@ -71,7 +71,7 @@
 
 <ul>
 <li class="nav-item active mr-5">
-  <a class="nav-link" href="login.php">Login</a>
+  <a class="nav-link" href="login">Login</a>
   </li>
 </ul>
  

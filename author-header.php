@@ -72,7 +72,7 @@ if(strlen($_SESSION['alogin'])=="")
 <body> 
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light pb-2">
-  <a class="navbar-brand" href="author-dashboard.php"><img src="images/Iubat-logo.png">JOURNAL</a>
+  <a class="navbar-brand" href="author-dashboard"><img src="images/Iubat-logo.png">JOURNAL</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> 
@@ -83,26 +83,26 @@ if(strlen($_SESSION['alogin'])=="")
 
    <ul>
    <li class="nav-item active" title="total paper">
-    <a class="nav-link" href="upload-paper1.php">Upload paper</a>
+    <a class="nav-link" href="upload-paper1">Upload paper</a>
     </li>
    </ul>
 
    <ul>
    <li class="nav-item active" title="total paper">
-        <a class="nav-link" href="all-paper-author.php">All Paper</a>
+        <a class="nav-link" href="all-paper-author">All Paper</a>
     </li>
    </ul>
 
    <ul>
    <li class="nav-item active" title="total paper">
-            <a class="nav-link" href="change-password-author.php">Change Password</a>
+            <a class="nav-link" href="change-password-author">Change Password</a>
         </li>
    </ul> 
     
 
       <ul>
       <li class="nav-item active" title="total paper">
-            <a class="nav-link" href="author-paper-show.php">Your Paper &nbsp<b><sup><?php echo $total_paper; ?></sup></b></a>
+            <a class="nav-link" href="author-paper-show">Your Paper &nbsp<b><sup><?php echo $total_paper; ?></sup></b></a>
         </li>
       </ul>
         
@@ -145,7 +145,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 
 <li class="nav-item active" >
-       <a class="nav-link " href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $username; ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link " href="logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $username; ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>
 </ul>
 

@@ -33,11 +33,11 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'admin-dashboard.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'admin-dashboard'; </script>";
     } else{
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
-        header("refresh:0;url=login.php");
+        header("refresh:0;url=login");
     
     }
 }
@@ -69,11 +69,11 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'author-dashboard.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'author-dashboard'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
-        header("refresh:0;url=login.php");
+        header("refresh:0;url=login");
     
     }
     }
@@ -103,11 +103,11 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'reviewer-dashboard.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'reviewer-dashboard'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Reviewer');</script>";
-        header("refresh:0;url=login.php");
+        header("refresh:0;url=login");
     
     }
     } 
@@ -138,11 +138,11 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'editor-dashboard.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'editor-dashboard'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Editor');</script>";
-        header("refresh:0;url=login.php");
+        header("refresh:0;url=login");
     
     }
     }

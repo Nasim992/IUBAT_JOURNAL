@@ -6,10 +6,10 @@
     <title>Sidebar</title>
 </head>
 <body>
-<a href="reviewer-dashboard.php">Dashboard</a>
+<a href="reviewer-dashboard">Dashboard</a>
 
-  <a href="#">Reviewed paper</a>
-  <a href="#">As Reviewer</a>
+  <a href="reviewed-paper">Reviewed paper</a>
+  <a href="reviewer-paper">As Reviewer</a>
 
   <a href="#"></a>
     

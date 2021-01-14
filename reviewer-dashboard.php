@@ -12,78 +12,51 @@ if(strlen($_SESSION['alogin'])=="")
            $authoremail = $_SESSION["email"];
            //  New Paper count section starts here 
 
-           $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 0 || action=null";
-           $stmt = $dbh->prepare($query);
+        //    $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 0 || action=null";
+        //    $stmt = $dbh->prepare($query);
            
-           // execute query
-           $stmt->execute();
+        //    // execute query
+        //    $stmt->execute();
            
-           // get total rows
-           $row = $stmt->fetch(PDO::FETCH_ASSOC);
-           $total_rows = $row['total_rows'];
+        //    // get total rows
+        //    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        //    $total_rows = $row['total_rows'];
    
    
-        // New Paper count section ends here 
+        // // New Paper count section ends here 
 
-          //  Number of Published paper  count section starts here 
 
-                  $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 1 and authoremail = '$authoremail'"; 
-                  $stmt = $dbh->prepare($query);
-                  
-                  // execute query
-                  $stmt->execute();
-                  
-                  // get total rows
-                  $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                  $total_published = $row['total_rows'];
-          
-          
-        // Number of Published paper  count section ends here 
 
-        //  Number of Unublished paper  count section starts here 
+                    //  Number of Reviews   count section starts here 
 
-                  $queryu = "SELECT COUNT(*) as total_rowsu FROM paper WHERE action = 0 and authoremail = '$authoremail'"; 
-                  $stmtu = $dbh->prepare($queryu);
-                  
-                  // execute query
-                  $stmtu->execute();
-                  
-                  // get total rows
-                  $rowu = $stmtu->fetch(PDO::FETCH_ASSOC);
-                  $total_unpublished = $rowu['total_rowsu'];
-          
-          
-        // Number of Unublished paper  count section ends here 
+                    $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail' and feedbackdate !=NULL";
+                    $stmt = $dbh->prepare($query);
+                     
+                    // execute query
+                    $stmt->execute();
+                    
+                    // get total rows
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $total_reviewed = $row['total_rowsrev'];
+               // Number of Reviews  count section ends here 
 
-              //  Number of Authors  count section starts here 
+              //  Assigned Paper Section Starts Here 
+    
 
-                 $query = "SELECT COUNT(*) as total_rows FROM author";
-                 $stmt = $dbh->prepare($query);
-                 
-                 // execute query
-                 $stmt->execute();
-                 
-                 // get total rows
-                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                 $total_authors = $row['total_rows'];
-         
-         
-              // Number of Authors count section ends here 
+                    $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail'";
+                    $stmt = $dbh->prepare($query);
+                     
+                    // execute query
+                    $stmt->execute();
+                    
+                    // get total rows
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $total_reviewing = $row['total_rowsrev'];
+     
+               
+              // Assigned Paper Section Ends Here 
+   
 
-                      //  Number of Admins  count section starts here 
-
-                      $query = "SELECT COUNT(*) as total_rows FROM admin";
-                      $stmt = $dbh->prepare($query);
-                       
-                      // execute query
-                      $stmt->execute();
-                      
-                      // get total rows
-                      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                      $total_admin = $row['total_rows'];
-              
-              
-                 // Number of Admins count section ends here 
 
 
 ?>  
@@ -93,7 +66,8 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Author Dashboard</title>
+    <title>Reviewer Dashboard</title>
+    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -138,13 +112,14 @@ include 'reviewer-header.php';
                     <h4>Reviewed</h4>
                   </div>
                   <div class="card-body">
-                    <?php
-                    echo 0;
+                  <?php
+                       echo $total_reviewed;
                     ?>
                   </div>
                 </div>
               </div>
              </a>
+   
  </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
              <a href="#">
@@ -158,7 +133,7 @@ include 'reviewer-header.php';
                   </div>
                   <div class="card-body">
                     <?php
-                    echo 0;
+                    echo $total_reviewing;
                     ?>
                   </div>
                 </div>
@@ -222,8 +197,6 @@ function closeNav() {
 </html> 
 
 <?php 
-
 }
 
-    
 ?>

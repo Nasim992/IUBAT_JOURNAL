@@ -13,7 +13,7 @@ if(strlen($_SESSION['alogin'])=="")
             
                  //  Number of Reviews   count section starts here 
 
-                 $query = "SELECT COUNT(*) as total_rowsrev FROM reviews";
+                 $query = "SELECT COUNT(*) as total_rowsrev FROM reviews where primaryemail = '$email' and feedbackdate!= NULL";
                  $stmt = $dbh->prepare($query);
                   
                  // execute query
@@ -26,34 +26,21 @@ if(strlen($_SESSION['alogin'])=="")
          
             // Number of Reviews  count section ends here 
 
-            //  Number of comments   count section starts here 
-
-                 $query = "SELECT COUNT(*) as total_rowscom FROM comments";
-                 $stmt = $dbh->prepare($query);
-                 
-                 // execute query
-                 $stmt->execute();
-                 
-                 // get total rows
-                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                 $total_comments = $row['total_rowscom'];
-         
-         
-            // Number of comments  count section ends here  
+            // New Paper Assigned Section Starts Here 
+            $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail'";
+            $stmt = $dbh->prepare($query);
+             
+            // execute query
+            $stmt->execute();
             
-            //  Number of paper  count section starts here 
+            // get total rows
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $total_revieweds = $row['total_rowsrev'];
+            
 
-                $query = "SELECT COUNT(*) as total_paper FROM paper where authoremail='$email'";
-                $stmt = $dbh->prepare($query);
-                             
-                // execute query
-                $stmt->execute();
-                             
-                // get total rows
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                $total_paper = $row['total_paper'];
-                                  
-            // Number of paper  count section ends here  
+            // New Paper Assigned Section Ends Here 
+
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +59,7 @@ if(strlen($_SESSION['alogin'])=="")
 <body> 
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light pb-2">
-  <a class="navbar-brand" href="reviewer-dashboard.php"><img src="images/Iubat-logo.png">JOURNAL</a>
+  <a class="navbar-brand" href="reviewer-dashboard"><img src="images/Iubat-logo.png">JOURNAL</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> 
@@ -83,13 +70,13 @@ if(strlen($_SESSION['alogin'])=="")
 
    <ul>
    <li class="nav-item active" title="total paper">
-    <a class="nav-link" href="#">Reviewed Paper</a>
+    <a class="nav-link" href="reviewed-paper">Reviewed Paper</a>
     </li>
    </ul>
 
    <ul>
    <li class="nav-item active" title="total paper">
-            <a class="nav-link" href="#">Assigned Paper</a>
+            <a class="nav-link" href="reviewer-paper">Assigned Paper</a>
         </li>
    </ul> 
 
@@ -102,7 +89,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <ul>
 <li class="nav-item active" title="New Paper">
-<a class="nav-link" title="New paper assigned" href="#"><i class="fas fa-bell"></i>&nbsp<b><sup></b></a>
+<a class="nav-link" title="New paper assigned" href="reviewer-paper"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_revieweds; ?></sup></b></a>
        
 </ul>
 
@@ -133,7 +120,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 
 <li class="nav-item active" >
-       <a class="nav-link " href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $username; ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link " href="logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $username; ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>
 </ul>
 

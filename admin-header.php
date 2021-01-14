@@ -110,7 +110,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light text-white pb-2">
-  <a class="navbar-brand" href="admin-dashboard.php"><img src="images/Iubat-logo.png">JOURNAL</a>
+  <a class="navbar-brand" href="admin-dashboard"><img src="images/Iubat-logo.png">JOURNAL</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -124,22 +124,22 @@ if(strlen($_SESSION['alogin'])=="")
         <i class="fas fa-user-cog" ></i> 
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="change-password-admin.php">Change password</a>
-          <a class="dropdown-item" href="add-admin.php">Add Another Admin</a>
+          <a class="dropdown-item" href="change-password-admin">Change password</a>
+          <a class="dropdown-item" href="add-admin">Add Another Admin</a>
     </li>
 
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="published-paper-admin.php">Published Paper &nbsp<b><sup><?php echo $total_published; ?></sup></b></a>
+            <a class="nav-link" href="published-paper-admin">Published Paper &nbsp<b><sup><?php echo $total_published; ?></sup></b></a>
         </li>
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="admin-number.php">Admin &nbsp<b><sup><?php echo $total_admin; ?></sup></b></a>
+            <a class="nav-link" href="admin-number">Admin &nbsp<b><sup><?php echo $total_admin; ?></sup></b></a>
         </li>
 
 
         <li class="nav-item" title="total paper">
-            <a class="nav-link" href="admin-show-authors.php">Author &nbsp<b><sup><?php echo $total_authors; ?></sup></b></a>
+            <a class="nav-link" href="admin-show-authors">Author &nbsp<b><sup><?php echo $total_authors; ?></sup></b></a>
         </li>
 
         <li class="nav-item" title="New Paper">
@@ -149,10 +149,10 @@ if(strlen($_SESSION['alogin'])=="")
 
         ?> 
 
-            <a class="nav-link" href="unpublished-paper.php"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_rows; ?></sup></b></a>
+            <a class="nav-link" href="unpublished-paper"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_rows; ?></sup></b></a>
        
         <li class="nav-item active" >
-       <a class="nav-link" href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link" href="logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>
 
 

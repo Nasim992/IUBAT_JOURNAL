@@ -200,7 +200,7 @@ include 'author-header.php';
     <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
      <?php 
      }  
-     ?>
+     ?> 
      
      <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
      <hr class="my-4">

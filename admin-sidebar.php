@@ -6,16 +6,16 @@
     <title>Sidebar</title>
 </head>
 <body>
-<a href="admin-dashboard.php">Dashboard</a>
-<a href="published-paper-admin.php">Published Paper</a>
-  <a href="unpublished-paper.php">Unpublished Paper</a>
-  <a href="admin-number.php">Admin</a>
-  <a href="add-admin.php">Add New Admin</a>
-  <a href="change-password-admin.php">Change password</a>
-  <a href="admin-show-authors.php">Author States</a>
-  <a href="reviewerdetails.php">Reviewer</a>
-  <a href="editordetails.php">Editor</a>
-  <a href="feedback.php">Feedback</a>
+<a href="admin-dashboard">Dashboard</a>
+<a href="published-paper-admin">Published Paper</a>
+  <a href="unpublished-paper">Unpublished Paper</a>
+  <a href="admin-number">Admin</a>
+  <a href="add-admin">Add New Admin</a>
+  <a href="change-password-admin">Change password</a>
+  <a href="admin-show-authors">Author States</a>
+  <a href="reviewerdetails">Reviewer</a>
+  <a href="editordetails">Editor</a>
+  <a href="feedback">Feedback</a>
   <a href="#">Sidelinks</a>
   <a href="#">Aim and Scope</a>
   <a href="#">Editorial Board</a>

@@ -54,8 +54,23 @@ if(strlen($_SESSION['alogin'])=="")
                 $total_paper = $row['total_paper'];
                                   
             // Number of paper  count section ends here  
+
+                        // New Paper Assigned Section Starts Here 
+                        $query = "SELECT COUNT(*) as total_rowsrev FROM editortable where primaryemail = '$authoremail'";
+                        $stmt = $dbh->prepare($query);
+                         
+                        // execute query
+                        $stmt->execute();
+                        
+                        // get total rows
+                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $total_revieweded = $row['total_rowsrev'];
+                        
+            
+                        // New Paper Assigned Section Ends Here 
+
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -89,7 +104,7 @@ if(strlen($_SESSION['alogin'])=="")
 
    <ul>
    <li class="nav-item active" title="total paper">
-            <a class="nav-link" href="#">Assigned Paper</a>
+            <a class="nav-link" href="editor-paper">Assigned Paper</a>
         </li>
    </ul> 
 
@@ -102,7 +117,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <ul>
 <li class="nav-item active" title="New Paper">
-<a class="nav-link" title="New paper assigned" href="#"><i class="fas fa-bell"></i>&nbsp<b><sup></b></a>
+<a class="nav-link" title="New paper assigned" href="editor-paper"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_revieweded; ?></sup></b></a>
        
 </ul>
 
@@ -133,7 +148,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 
 <li class="nav-item active" >
-       <a class="nav-link " href="admin-logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $username; ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link " href="logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $username; ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>
 </ul>
 

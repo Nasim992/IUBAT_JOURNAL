@@ -12,10 +12,10 @@ if(strlen($_SESSION['alogin'])=="")
     {  
         $authoremail = $_SESSION["email"];
 
-
+       
         // Select paper id from reviewertable section starts here
 
-        $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username from reviewertable Where primaryemail='$authoremail'";
+        $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback from reviewertable Where primaryemail='$authoremail' and feedback IS NULL";
         $query = $dbh->prepare($sql); 
         $query->execute(); 
         $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -150,8 +150,6 @@ $resultfeedback = mysqli_query($link,$sqlfeedback);
 
 $filefeedback = mysqli_fetch_assoc($resultfeedback);
 
-if ($filefeedback['feedback']==NULL) {
-
 
 ?>
 <!-- Select user  name section ends here  -->
@@ -214,7 +212,11 @@ if ($filefeedback['feedback']==NULL) {
             <p><?php echo $type;?></p>
             </div>
             <div >
-            <a style="font-size:15px;" class="" href="#"><b class="text-danger">Write a Feedback</b></a>
+       <form action='reviewer-feedback' method='post'>
+       <input type="hidden" name="paperid" value="<?php echo $id;?>">
+       
+       <input class="text-danger" style="font-size:15px;border:none;font-weight:600;background-color:white;" type="submit" name="reviewer-feedbacks" value="Write a Feedback">
+       </form>
             </div>
            
             </div>
@@ -231,7 +233,7 @@ if ($filefeedback['feedback']==NULL) {
 
        <!-- DashBoard Section ends  -->
 
-    <?php } }?>
+    <?php  }?>
     </tbody>
         </table>
 

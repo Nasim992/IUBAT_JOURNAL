@@ -13,7 +13,7 @@ if(strlen($_SESSION['alogin'])=="")
             
                  //  Number of Reviews   count section starts here 
 
-                 $query = "SELECT COUNT(*) as total_rowsrev FROM reviews where primaryemail = '$email' and feedbackdate!= NULL";
+                 $query = "SELECT COUNT(*) as total_rowsrev FROM reviews where primaryemail = '$email' and feedbackdate IS NOT NULL";
                  $stmt = $dbh->prepare($query);
                   
                  // execute query

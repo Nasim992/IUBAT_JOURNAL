@@ -29,7 +29,7 @@ if(strlen($_SESSION['alogin'])=="")
 
                     //  Number of Reviews   count section starts here 
 
-                    $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail' and feedbackdate !=NULL";
+                    $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail' and feedback IS NOT NULL";
                     $stmt = $dbh->prepare($query);
                      
                     // execute query
@@ -43,7 +43,7 @@ if(strlen($_SESSION['alogin'])=="")
               //  Assigned Paper Section Starts Here 
     
 
-                    $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail'";
+                    $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail' and feedback IS NULL";
                     $stmt = $dbh->prepare($query);
                      
                     // execute query

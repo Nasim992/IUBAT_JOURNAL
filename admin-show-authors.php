@@ -42,6 +42,7 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script>
    <link rel="stylesheet" href="css/admin-dashboard.css"> -->
 
+
 </head>
 <body>
 
@@ -62,7 +63,7 @@ include 'admin-header.php';
 
 </div> 
 
-<div id="main">  
+<div id="main">   
 
 <a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
@@ -72,7 +73,7 @@ include 'admin-header.php';
   <hr class="bg-secondary" >
   <div class="table-responsive p-4"> 
 
-<table id="dtBasicExample" class="table"  cellspacing="0">
+<table  id="dtBasicExample" class="table table-striped table-bordered table-hover"  cellspacing="0">
 
 <thead>
         <tr>

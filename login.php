@@ -295,7 +295,7 @@ if($_SESSION['alogin']!=''){
     <script src="js/login.js"></script>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css"> 
+    <!-- <link rel="stylesheet" href="css/index.css">  -->
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/all.css">
@@ -329,7 +329,7 @@ if($_SESSION['alogin']!=''){
        <div class="row pt-2">
            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-section-login">
            <div id="logreg-forms">
-        <form class="form-signin" method="post">
+        <form class="form-signin marginbtm" method="post">
        <div class="logo-container">
                 <i style="font-size:35px;" class="fas fa-users logo"></i>
             </div>
@@ -381,7 +381,7 @@ if($_SESSION['alogin']!=''){
 
            <!-- Reset section starts here  -->
 
-            <form  class="form-reset" method="post">
+            <form  class="form-reset marginbtm" method="post">
             <div class="logo-container">
                     <img src="images/forgotpass.png" alt="">
             </div>
@@ -405,7 +405,7 @@ if($_SESSION['alogin']!=''){
             
             <!-- Sign up section starts here  -->
 
-            <form  class="form-signup" method="post">
+            <form  class="form-signup marginbtm" method="post">
                 <!-- <div class="social-login">
                     <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
                 </div> -->

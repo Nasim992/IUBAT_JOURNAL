@@ -19,10 +19,36 @@ if(strlen($_SESSION['alogin'])=="")
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
      $cnt=1;
      if($query->rowCount() > 0) 
-     {
+     { 
      
      // Check that the admin is logged in or not section ends here 
 
+    //  Remove as a Reviewer section starts Here 
+    if(isset($_POST['reviewer-remove'])) {
+      $paperid = $_POST['paperid'];
+      $username = $_POST['username'];
+      // echo $paperid;
+      // echo $username;
+
+      $action = 1;
+      include 'link/linklocal.php';
+      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
+
+      if(mysqli_query($link, $sqlremovereview))
+      {
+
+        
+
+
+      echo "<script>alert('Reviewer Removed Successfully for this paper.');</script>";
+        header("refresh:0;url=reviewerdetails");
+      }
+      else {
+          echo "<script>alert('Something went wrong');</script>";
+          header("refresh:0;url=reviewerdetails");
+      }
+    }
+    // Remove as  a Reviewer Section Ends Here 
 
 
 ?>
@@ -32,7 +58,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Total Admin</title>
+    <title>Reviewer Details</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -68,7 +94,7 @@ include 'admin-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-  <h4>ADMIN</h4>
+  <h5>REVIEWER DETAILS</h5>
   <hr class="bg-secondary" >
   <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
@@ -76,17 +102,16 @@ include 'admin-header.php';
 <thead>
         <tr>
             <th >#</th>
-            <th >id</th> 
-            <th >Admin Name</th>
-            <th >Full Name</th>
+            <th >Paper id</th> 
+            <th >Reviewer Name</th>
             <th >Email</th>
-            <th >Contact Address</th>
+            <th >Assign Date</th>
             <th >Actions</th>
         </tr>
-</thead>
+</thead> 
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT admin.id,admin.username,admin.fullname,admin.email,admin.contact  from admin";
+<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.assignmonth,reviewertable.assignyear,reviewertable.action from reviewertable where action IS NULL";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -96,15 +121,43 @@ if($query->rowCount() > 0)
 foreach($results as $result) 
 {   ?>
 <tr>
-<td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->id);?></td>
-            <td ><?php echo htmlentities($result->username);?></td>
-            <td ><?php echo htmlentities($result->fullname);?></td>
-            <td ><?php echo htmlentities($result->email);?></td>
-            <td ><?php echo htmlentities($result->contact);?></td>
+<td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
+<?php 
+      $username = htmlentities($result->username);
+      include 'link/linklocal.php';
+      $sql1 = "SELECT * FROM author WHERE  username='$username' ";
+
+      $result1 = mysqli_query($link,$sql1); 
+
+      $file1 = mysqli_fetch_assoc($result1);
+      
+      $title = $file1['title'];
+      $fname= $file1['firstname'];
+      $middlename= $file1['middlename'];
+      $lastname= $file1['lastname'];
+
+      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+
+      $assigndate = htmlentities($result->assigndate);
+      $assignmonth = htmlentities($result->assignmonth);
+      $assignyear = htmlentities($result->assignyear);
+
+      $date = $assigndate.'-'.$assignmonth.'-'.$assignyear;
+
+?>
+
+            <td ><?php echo $authorname;?></td>
+            <td ><?php echo htmlentities($result->primaryemail);?></td>
+            <td ><?php echo $date?></td>
+ 
 <td>
-<a href="edit_admin.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a>
-<a class="text-danger" href="delete-admin.php?id=<?php echo htmlentities($result->id);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+
+<form method="post">
+<input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
+<input type="hidden" name="username" value="<?php echo $username?>">
+<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="reviewer-remove" value="x">
+</form>
 
 </td>
 </tr>

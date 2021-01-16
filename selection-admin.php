@@ -95,11 +95,11 @@ if(isset($_POST['accept-paper']))
     if(mysqli_query($link, $sql))
     {
     echo "<script>alert('Paper accepted...');</script>";
-      header("refresh:0;url=unpublished-paper.php");
+      header("refresh:0;url=unpublished-paper");
     }
     else {
         echo "<script>alert('Paper is already Accepted!');</script>";
-        header("refresh:0;url=unpublished-paper.php");
+        header("refresh:0;url=unpublished-paper");
 
     }
 }
@@ -304,19 +304,7 @@ include 'admin-header.php';
      <hr >
 
 <div class="row">
-<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-<?php if($unpublished == 'u') {
-  ?>
-  <a style="font-size:13px;" href="unpublished-paper.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
 
-  <?php  
- }
- else {
-  ?>
-  <a style="font-size:13px;" href="admin-dashboard.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
-
- <?php } ?>
-</div>
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:0</a>
 </div>
@@ -358,6 +346,52 @@ include 'admin-header.php';
  <div style="border-right:3px solid #000b2073;" class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
  <h3 style="font-size:17px" class="text-dark "><b><i>Feedback Section</i></b></h3>
   <hr class="bg-success">
+
+  <?php
+  include('link/config.php');
+     $sqlreviewertable = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback from reviewertable Where paperid='$id'";
+     $querytable = $dbh->prepare($sqlreviewertable); 
+     $querytable->execute(); 
+     $resultreviewertable=$querytable->fetchAll(PDO::FETCH_OBJ); 
+     $cnt=1;
+     if( $querytable->rowCount() > 0) 
+     {
+     foreach($resultreviewertable as $result) 
+     { 
+
+        $feedback =   htmlentities($result->feedback);
+        $feedbackauthor =   htmlentities($result->username);
+
+
+      $authoremail = htmlentities($result->authoremail);
+      $sql1 = "SELECT * FROM author WHERE  username= '$feedbackauthor' ";
+
+      $result1 = mysqli_query($link,$sql1); 
+
+      $file1 = mysqli_fetch_assoc($result1);
+      
+      $title = $file1['title'];
+      $fname= $file1['firstname'];
+      $middlename= $file1['middlename'];
+      $lastname= $file1['lastname'];
+
+      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+  ?>
+  <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+  <p><?php echo $feedback ?></p>
+  <div class="d-flex justify-content-between">
+<div>
+
+        </div>
+        <div>
+        <p><small><b> - &nbsp<?php echo $authorname; ?></b></small></p>
+        </div>
+          </div>
+       
+          </div>
+
+<?php   }}  ?>
+
  </div>
  <!-- Feedback Shown Section ends Here  -->
  <!-- Selecting Editor Reviewer Selection section starts here  -->

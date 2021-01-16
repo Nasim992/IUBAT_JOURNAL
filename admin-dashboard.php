@@ -33,12 +33,12 @@ if(strlen($_SESSION['alogin'])=="")
            
            // get total rows
            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-           $total_rows = $row['total_rows'];
+           $total_published = $row['total_rows'];
    
    
         // New Paper count section ends here 
 
-                  //  Number of Published paper  count section starts here 
+          //  Number of Published paper  count section starts here 
 
                   $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 1";
                   $stmt = $dbh->prepare($query);
@@ -48,7 +48,7 @@ if(strlen($_SESSION['alogin'])=="")
                   
                   // get total rows
                   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                  $total_published = $row['total_rows'];
+                  $total_unpublished = $row['total_rows'];
           
           
         // Number of Published paper  count section ends here 
@@ -65,22 +65,68 @@ if(strlen($_SESSION['alogin'])=="")
                  $total_authors = $row['total_rows'];
          
          
-              // Number of Authors count section ends here 
+         // Number of Authors count section ends here 
 
-                      //  Number of Admins  count section starts here 
+              //  Number of Admins  count section starts here 
 
-                      $query = "SELECT COUNT(*) as total_rows FROM admin";
-                      $stmt = $dbh->prepare($query);
+              $query = "SELECT COUNT(*) as total_rows FROM admin";
+              $stmt = $dbh->prepare($query);
                        
-                      // execute query
-                      $stmt->execute();
+              // execute query
+              $stmt->execute();
                       
-                      // get total rows
-                      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                      $total_admin = $row['total_rows'];
+              // get total rows
+              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+              $total_admin = $row['total_rows'];
               
               
-                 // Number of Admins count section ends here 
+          // Number of Admins count section ends here 
+
+        //  Number of Editor  count section starts here 
+
+        $query = "SELECT COUNT(*) as total_rows FROM author where editorselection=1";
+       $stmt = $dbh->prepare($query);
+                               
+        // execute query
+        $stmt->execute();
+                               
+        // get total rows
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $total_editors = $row['total_rows'];
+                       
+                       
+    // Number of Editor count section ends here 
+
+    //  Number of Editor  count section starts here 
+
+       $query = "SELECT COUNT(*) as total_rows FROM author where reviewerselection=1";
+       $stmt = $dbh->prepare($query);
+                               
+        // execute query
+        $stmt->execute();
+                               
+        // get total rows
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $total_reviewered = $row['total_rows'];
+                       
+                       
+    // Number of Editor count section ends here 
+
+        //  Number of Reviewer Feedback  count section starts here 
+
+        $query = "SELECT COUNT(*) as total_rows FROM reviewertable where feedback IS NOT NULL";
+        $stmt = $dbh->prepare($query);
+                                
+         // execute query
+         $stmt->execute();
+                                
+         // get total rows
+         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+         $total_feedback = $row['total_rows'];
+                        
+                        
+     // Number of Reviewer Feedback count section ends here 
+
 
 
 ?>  
@@ -141,23 +187,10 @@ include 'admin-header.php';
                 </div>
               </div></a>
             </div>
+   
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                  <i class="far fa-user"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>Editor</h4>
-                  </div>
-                  <div class="card-body">
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
+             <a href="admin-show-authors">
+             <div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
                   <i class="far fa-user"></i>
                 </div>
@@ -170,9 +203,28 @@ include 'admin-header.php';
                   </div>
                 </div>
               </div>
+             </a>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <a href="editordetails">
               <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="far fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Editor</h4>
+                  </div>
+                  <div class="card-body">
+                    <?php  echo $total_editors; ?>
+                  </div>
+                </div>
+              </div>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+             <a href="reviewerdetails">
+             <div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
                   <i class="far fa-user"></i>
                 </div>
@@ -181,10 +233,11 @@ include 'admin-header.php';
                     <h4>Reviewer</h4>
                   </div>
                   <div class="card-body">
-                    9
+                    <?php  echo $total_reviewered; ?>
                   </div>
                 </div>
               </div>
+             </a>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
@@ -196,14 +249,35 @@ include 'admin-header.php';
                     <h4>Feedback</h4>
                   </div>
                   <div class="card-body">
-                    42
+                    <?php echo  $total_feedback; ?>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
+             <a href="published-paper-admin">
+             <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="far fa-file"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Published</h4>
+                  </div>
+                  <div class="card-body">
+                    <?php
+                    echo $total_published;
+                    ?>
+                  </div>
+                </div>
+              </div>
+             </a>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <a href="unpublished-paper">
+            <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
                   <i class="far fa-file"></i>
                 </div>
@@ -213,14 +287,15 @@ include 'admin-header.php';
                   </div>
                   <div class="card-body">
                     <?php
-                    echo $total_published;
+                    echo $total_unpublished;
                     ?>
                   </div>
                 </div>
               </div>
+            </a>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
                   <i class="fas fa-circle"></i>
@@ -235,7 +310,7 @@ include 'admin-header.php';
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 <!-- Progress bar section ends here  -->
 
 </div>

@@ -12,10 +12,9 @@ if(strlen($_SESSION['alogin'])=="")
     {  
         $authoremail = $_SESSION["email"];
 
-
         // Select paper id from reviewertable section starts here
 
-        $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username from reviewertable Where primaryemail='$authoremail'";
+        $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback from reviewertable Where primaryemail='$authoremail' and feedback IS NOT NULL";
         $query = $dbh->prepare($sql); 
         $query->execute(); 
         $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -140,7 +139,7 @@ $title = $file1['title'];
 $fname= $file1['firstname'];
 $middlename= $file1['middlename'];
 $lastname= $file1['lastname'];
-
+ 
 $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
  
 
@@ -150,8 +149,8 @@ $resultfeedback = mysqli_query($link,$sqlfeedback);
 
 $filefeedback = mysqli_fetch_assoc($resultfeedback);
 
-if ($filefeedback['feedback']!=NULL) {
 
+echo $filefeedback['feedback'];
 
 ?>
 <!-- Select user  name section ends here  -->
@@ -165,7 +164,7 @@ if ($filefeedback['feedback']!=NULL) {
             <td>
             <div class="jumbotron" > 
 
-            <div class="d-flex justify-content-between col-sm-12">
+            <div class="d-flex justify-content-between">
             <div>
             <p class="fontSize14px">Paper ID : <?php echo $id;?></p>
             </div>
@@ -206,7 +205,7 @@ if ($filefeedback['feedback']!=NULL) {
 
             <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
 
-            <div class=" d-flex justify-content-between col-sm-12">
+            <div class=" d-flex justify-content-between">
             <div >
             <a style="font-size:14px;" class="" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
             </div>
@@ -231,7 +230,7 @@ if ($filefeedback['feedback']!=NULL) {
 
        <!-- DashBoard Section ends  -->
 
-    <?php } }?>
+    <?php } ?>
     </tbody>
         </table>
 

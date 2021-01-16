@@ -23,20 +23,20 @@
 
    <ul>
    <li class="nav-item active">
-        <a class="nav-link" href="aimandscope">Aim_and_Scope</a>
+        <a class="nav-link" href="aimandscope">Aim&Scope</a>
       </li>
    </ul>
 
    <ul>
    <li class="nav-item active">
-        <a class="nav-link" href="instructionforauthors">Instruction_for_Author</a>
+        <a class="nav-link" href="instructionforauthors">Instruction</a>
       </li>
    
    </ul>
 
    <ul>
    <li class="nav-item active">
-        <a class="nav-link" href="journalinfo">Journal_Info</a>
+        <a class="nav-link" href="journalinfo">JournalInfo</a>
       </li>
 
    </ul> 
@@ -44,7 +44,7 @@
 
       <ul>
       <li class="nav-item active">
-        <a class="nav-link" href="editorialboard">Editorial_Board</a>
+        <a class="nav-link" href="editorialboard">EditorialBoard</a>
       </li>
       </ul>
         
@@ -56,7 +56,7 @@
 
 <ul>
 <li class="nav-item active">
-        <a class="nav-link" href="upload-paper1">Submit_an_Article</a>
+        <a class="nav-link" href="upload-paper1">SubmitArticle</a>
       </li>
 
 </ul>

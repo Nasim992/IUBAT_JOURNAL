@@ -61,7 +61,7 @@ $cauname5 = $file['cauname5'];
 
 $cauname = $cauname1.' '.$cauname2.' '.$cauname3.' '.$cauname4.' '.$cauname5;
 
-
+ 
 
 $sql1 = "SELECT * FROM author WHERE  primaryemail= '$authormail' ";
 
@@ -349,7 +349,7 @@ include 'admin-header.php';
 
   <?php
   include('link/config.php');
-     $sqlreviewertable = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback from reviewertable Where paperid='$id'";
+     $sqlreviewertable = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback,reviewertable.action from reviewertable Where paperid='$id' and action IS NULL and feedback IS NOT NULL";
      $querytable = $dbh->prepare($sqlreviewertable); 
      $querytable->execute(); 
      $resultreviewertable=$querytable->fetchAll(PDO::FETCH_OBJ); 
@@ -370,7 +370,7 @@ include 'admin-header.php';
 
       $file1 = mysqli_fetch_assoc($result1);
       
-      $title = $file1['title'];
+      $title = $file1['title']; 
       $fname= $file1['firstname'];
       $middlename= $file1['middlename'];
       $lastname= $file1['lastname'];

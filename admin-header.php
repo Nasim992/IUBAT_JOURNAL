@@ -119,7 +119,7 @@ if(strlen($_SESSION['alogin'])=="")
 
     <ul class="navbar-nav ml-auto ul-nav">
 
-    <li class="nav-item dropdown" title="Operation">
+    <!-- <li class="nav-item dropdown" title="Operation">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-user-cog" ></i> 
         </a>
@@ -140,9 +140,9 @@ if(strlen($_SESSION['alogin'])=="")
 
         <li class="nav-item" title="total paper">
             <a class="nav-link" href="admin-show-authors">Author &nbsp<b><sup><?php echo $total_authors; ?></sup></b></a>
-        </li>
+        </li> -->
 
-        <li class="nav-item" title="New Paper">
+        <!-- <li class="nav-item" title="New Paper">
 
         <?php   
 
@@ -150,7 +150,7 @@ if(strlen($_SESSION['alogin'])=="")
         ?> 
 
             <a class="nav-link" href="unpublished-paper"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_rows; ?></sup></b></a>
-       
+       </li> -->
         <li class="nav-item active" >
        <a class="nav-link" href="logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>

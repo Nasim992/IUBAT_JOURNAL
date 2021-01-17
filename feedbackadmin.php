@@ -25,28 +25,19 @@ if(strlen($_SESSION['alogin'])=="")
 
     //  Remove as a Reviewer section starts Here 
 
-    if(isset($_POST['reviewer-remove'])) {
+    if(isset($_POST['reviewer-remove-feedback'])) {
       $paperid = $_POST['paperid'];
       $username = $_POST['username'];
 
-      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  username='$username' and action IS  NULL";
-      $stmt = $dbh->prepare($query);
-                              
-       // execute query
-       $stmt->execute();
-                              
-       // get total rows
-       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-       $total_re = $row['total_rows'];
-
       $action = 1;
       $action0=0;
+      $feedback = NULL;
       include 'link/linklocal.php';
-      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
+      $sqlremovereview="update reviewertable set feedback='$feedback' where paperid='$paperid' and username='$username'";
 
       if(mysqli_query($link, $sqlremovereview))
       {
-      echo "<script>alert('Reviewer Removed Successfully for this paper.');</script>";
+      echo "<script>alert('Feedback Removed Successfully for this paper.');</script>";
         // header("refresh:0;url=reviewerdetails");
       }
       else {
@@ -54,15 +45,31 @@ if(strlen($_SESSION['alogin'])=="")
           // header("refresh:0;url=reviewerdetails");
       }
    
-                    
-        
-        if ($total_re-1==0) {
-          include 'link/linklocal.php';
-              $sqlremovereviewauthor="update author set reviewerselection=$action0 where username='$username'";
-              mysqli_query($link,$sqlremovereviewauthor);
-        }
 
         }
+
+        if(isset($_POST['editor-remove-feedback'])) {
+            $paperid = $_POST['paperid'];
+            $username = $_POST['username'];
+      
+            $action = 1;
+            $action0=0;
+            $feedback = NULL;
+            include 'link/linklocal.php';
+            $sqlremoveedit="update editortable set feedback='$feedback' where paperid='$paperid' and username='$username'";
+      
+            if(mysqli_query($link, $sqlremoveedit))
+            {
+            echo "<script>alert('Feedback Removed Successfully for this paper.');</script>";
+              // header("refresh:0;url=reviewerdetails");
+            }
+            else {
+                echo "<script>alert('Something went wrong');</script>";
+                // header("refresh:0;url=reviewerdetails");
+            }
+         
+      
+              }
          // Remove as  a Reviewer Section Ends Here 
 
     
@@ -73,7 +80,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviewer Details</title>
+    <title>Feedback</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -109,7 +116,7 @@ include 'admin-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-  <h5>REVIEWER DETAILS</h5>
+  <h6>REVIEWER FEEDBACK</h6>
   <hr class="bg-secondary" >
   <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
@@ -119,14 +126,14 @@ include 'admin-header.php';
             <th >#</th>
             <th >Paper id</th> 
             <th >Reviewer Name</th>
-            <th >Email</th>
-            <th >Assign Date</th>
+            <th >Feedback</th>
+            <th >Date</th>
             <th >Actions</th>
         </tr>
 </thead> 
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.assignmonth,reviewertable.assignyear,reviewertable.action from reviewertable where action IS NULL";
+<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.assignmonth,reviewertable.assignyear,reviewertable.action,reviewertable.feedback,reviewertable.feedbackdate,reviewertable.feedbackmonth,reviewertable.feedbackyear from reviewertable where action IS NULL";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -154,24 +161,103 @@ foreach($results as $result)
 
       $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
-      $assigndate = htmlentities($result->assigndate);
-      $assignmonth = htmlentities($result->assignmonth);
-      $assignyear = htmlentities($result->assignyear);
+      $fdate = htmlentities($result->feedbackdate);
+      $fmonth = htmlentities($result->feedbackmonth);
+      $fyear = htmlentities($result->feedbackyear);
 
-      $date = $assigndate.'-'.$assignmonth.'-'.$assignyear;
+      $fddate = $fdate.'-'.$fmonth.'-'.$fyear;
 
 ?>
 
             <td ><?php echo $authorname;?></td>
-            <td ><?php echo htmlentities($result->primaryemail);?></td>
-            <td ><?php echo $date?></td>
+            <td ><?php echo htmlentities($result->feedback);?></td>
+            <td ><?php echo $fddate;?></td>
  
 <td>
 
 <form method="post">
 <input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
 <input type="hidden" name="username" value="<?php echo $username?>">
-<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="reviewer-remove" value="x">
+<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="reviewer-remove-feedback" value="x">
+</form>
+
+</td>
+</tr>
+<?php $cnt=$cnt+1;}} ?>
+       
+    
+    </tbody>
+
+
+</table>
+
+</div>
+
+
+
+<h6>EDITOR FEEDBACK</h6>
+  <hr class="bg-secondary" >
+  <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
+<table id="dtBasicExample2" class="table table-striped table-bordered table-hover">
+
+<thead>
+        <tr>
+            <th >#</th>
+            <th >Paper id</th> 
+            <th >Editor Name</th>
+            <th >Feedback</th>
+            <th >Date</th>
+            <th >Actions</th>
+        </tr>
+</thead> 
+
+<tbody id="myTable-admin">
+<?php $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.primaryemail,editortable.assigndate,editortable.assignmonth,editortable.assignyear,editortable.action,editortable.feedback,editortable.feedbackdate,editortable.feedbackmonth,editortable.feedbackyear from editortable where action IS NULL";
+$query = $dbh->prepare($sql); 
+$query->execute(); 
+$results=$query->fetchAll(PDO::FETCH_OBJ); 
+$cnt=1;
+if($query->rowCount() > 0) 
+{
+foreach($results as $result) 
+{   ?>
+<tr>
+<td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
+
+<?php 
+      $username = htmlentities($result->username);
+      include 'link/linklocal.php';
+      $sql1 = "SELECT * FROM author WHERE  username='$username' ";
+
+      $result1 = mysqli_query($link,$sql1); 
+
+      $file1 = mysqli_fetch_assoc($result1);
+      
+      $title = $file1['title'];
+      $fname= $file1['firstname'];
+      $middlename= $file1['middlename'];
+      $lastname= $file1['lastname'];
+
+      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+
+      $fdate = htmlentities($result->feedbackdate);
+      $fmonth = htmlentities($result->feedbackmonth);
+      $fyear = htmlentities($result->feedbackyear);
+
+      $fddate = $fdate.'-'.$fmonth.'-'.$fyear;
+
+?>
+
+            <td ><?php echo $authorname;?></td>
+            <td ><?php echo htmlentities($result->feedback);?></td>
+            <td ><?php echo $fddate;?></td>
+ 
+<td>
+
+<form method="post">
+<input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
+<input type="hidden" name="username" value="<?php echo $username?>">
+<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="editor-remove-feedback" value="x">
 </form>
 
 </td>
@@ -185,22 +271,16 @@ foreach($results as $result)
 </table>
 </div>
 
+
+
+
+
+
+
+
 <div class="mb-5"></div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
- 
-
 <!-- Authors showing section ends here  -->
 
 
@@ -226,6 +306,11 @@ foreach($results as $result)
 
             $(document).ready(function () {
             $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+            });
+
+            $(document).ready(function () {
+            $('#dtBasicExample2').DataTable();
             $('.dataTables_length').addClass('bs-select');
             });
             </script>

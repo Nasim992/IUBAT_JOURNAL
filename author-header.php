@@ -10,7 +10,9 @@ if(strlen($_SESSION['alogin'])=="")
     else
     { 
         $email =  $_SESSION['alogin'];
-            
+
+
+
                  //  Number of Reviews   count section starts here 
 
                  $query = "SELECT COUNT(*) as total_rowsrev FROM reviews";
@@ -81,7 +83,7 @@ if(strlen($_SESSION['alogin'])=="")
 
     <ul class="navbar-nav ml-auto ul-nav">
 
-   <ul>
+   <!-- <ul>
    <li class="nav-item active" title="total paper">
     <a class="nav-link" href="upload-paper1">Upload paper</a>
     </li>
@@ -116,7 +118,7 @@ if(strlen($_SESSION['alogin'])=="")
 <li class="nav-item active" title="New Paper">
             <a class="nav-link" href="#"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_comments; ?></sup></b></a>
        
-</ul>
+</ul> -->
 
 <ul>
 

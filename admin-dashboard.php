@@ -240,7 +240,8 @@ include 'admin-header.php';
              </a>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
+            <a href="feedbackadmin">
+            <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
                   <i class="far fa-newspaper"></i>
                 </div>
@@ -253,6 +254,7 @@ include 'admin-header.php';
                   </div>
                 </div>
               </div>
+            </a>
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">

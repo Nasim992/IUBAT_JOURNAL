@@ -19,11 +19,53 @@ if(strlen($_SESSION['alogin'])=="")
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
      $cnt=1;
      if($query->rowCount() > 0) 
-     {
+     { 
      
      // Check that the admin is logged in or not section ends here 
 
+    //  Remove as a Reviewer section starts Here 
 
+    if(isset($_POST['editor-remove'])) {
+      $paperid = $_POST['paperid'];
+      $username = $_POST['username'];
+
+      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  username='$username' and action IS  NULL";
+      $stmt = $dbh->prepare($query);
+                              
+       // execute query
+       $stmt->execute();
+                              
+       // get total rows
+       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+       $total_ed = $row['total_rows'];
+
+      $action = 1;
+      $action0=0;
+      include 'link/linklocal.php';
+      $sqlremoveeditor="update editortable set action=$action where paperid='$paperid' and username='$username'";
+
+      if(mysqli_query($link, $sqlremoveeditor))
+      {
+      echo "<script>alert('Editor Removed Successfully for this paper.');</script>";
+        // header("refresh:0;url=reviewerdetails");
+      }
+      else {
+          echo "<script>alert('Something went wrong');</script>";
+          // header("refresh:0;url=reviewerdetails");
+      }
+   
+                    
+        
+        if ($total_ed-1==0) {
+          include 'link/linklocal.php';
+              $sqlremoveeditorauthor="update author set editorselection=$action0 where username='$username'";
+              mysqli_query($link, $sqlremoveeditorauthor);
+        }
+
+        }
+         // Remove as  a Reviewer Section Ends Here 
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +73,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviewer Details</title>
+    <title>Editor Details</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -80,11 +122,11 @@ include 'admin-header.php';
             <th >Email</th>
             <th >Assign Date</th>
             <th >Actions</th>
-        </tr> 
+        </tr>
 </thead> 
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.primaryemail,editortable.assigndate,editortable.assignmonth,editortable.assignyear from editortable";
+<?php $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.primaryemail,editortable.assigndate,editortable.assignmonth,editortable.assignyear,editortable.action from editortable where action IS NULL";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -123,10 +165,14 @@ foreach($results as $result)
             <td ><?php echo $authorname;?></td>
             <td ><?php echo htmlentities($result->primaryemail);?></td>
             <td ><?php echo $date?></td>
-
+ 
 <td>
-<!-- <a href="edit_admin.php?stid=<?php echo htmlentities($result->id);?>"><i class="far fa-edit" title="Edit"></i></a> -->
-<a class="text-danger" href="delete-admin.php?id=<?php echo htmlentities($result->id);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+
+<form method="post">
+<input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
+<input type="hidden" name="username" value="<?php echo $username?>">
+<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="editor-remove" value="x">
+</form>
 
 </td>
 </tr>

@@ -17,7 +17,7 @@ if(strlen($_SESSION['alogin'])=="")
         $paperid = $_POST['paperid'];
       }
 
-      if(isset($_POST['reviewer-submit'])) {
+      if(isset($_POST['reviewer-edit'])) {
         $paperid = $_POST['paperid'];
         $email = $_POST['authoremail'];
         $feedback = $_POST['reviewer-review'];
@@ -179,9 +179,6 @@ else {
 <div >
 <p><?php echo $type;?></p>
 </div>
-<div > 
-<a style="font-size:15px;" class="" href="#"><b class="text-danger">Edit your Feedback</b></a>
-</div>
 
 </div>
 </div>
@@ -195,6 +192,13 @@ else {
   </div>
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
      <!-- input file section starts here  --> 
+
+<?php 
+
+
+
+?>
+
    <form method = "post">
    <div class="">
    <h1 class="text-center" style="font-size:18px;"><b>Give Review</b></h1>
@@ -204,9 +208,9 @@ else {
 <input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
  
 <div class="input-group">
-<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Write Review:</b></label>
+<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Edit your Review:</b></label>
 <div class="col-sm-10">
-<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="3" placeholder ="Write a review of this paper" required></textarea>
+<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5"  required></textarea>
 </div>
 </> 
 <br>

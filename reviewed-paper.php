@@ -213,7 +213,11 @@ echo $filefeedback['feedback'];
             <p><?php echo $type;?></p>
             </div>
             <div > 
-            <a style="font-size:15px;" class="" href="#"><b class="text-danger">Edit your Feedback</b></a>
+        <form action='reviewereditor' method='post'>
+       <input type="hidden" name="paperid" value="<?php echo $id;?>">
+       
+       <input class="text-danger" style="font-size:15px;border:none;font-weight:600;background-color:white;" type="submit" name="reviewer-feedbacks" value="Edit your Feedback">
+       </form>
             </div>
            
             </div>

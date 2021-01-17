@@ -12,7 +12,7 @@ if(strlen($_SESSION['alogin'])=="")
            $authoremail = $_SESSION["email"];
            //  New Paper count section starts here 
 
-           $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 0 || action=null";
+           $query = "SELECT COUNT(*) as total_rows FROM paper WHERE authoremail = '$authoremail'";
            $stmt = $dbh->prepare($query);
            
            // execute query
@@ -20,7 +20,7 @@ if(strlen($_SESSION['alogin'])=="")
            
            // get total rows
            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-           $total_rows = $row['total_rows'];
+           $total_paper = $row['total_rows'];
    
    
         // New Paper count section ends here 
@@ -128,13 +128,13 @@ include 'author-header.php';
 <!-- Progress bar section starts here  -->
 <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="author-paper-show.php">
+             <a href="author-paper-show">
              <div class="card card-statistic-1">
-                <div class="card-icon bg-warning">
+                <div class="card-icon bg-success">
                   <i class="far fa-file"></i>
                 </div>
                 <div class="card-wrap">
-                  <div class="card-header">
+                  <div class="card-header"> 
                     <h4>Accepted</h4>
                   </div>
                   <div class="card-body">
@@ -148,9 +148,9 @@ include 'author-header.php';
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="author-paper-show.php">
+             <a href="author-paper-show">
              <div class="card card-statistic-1">
-                <div class="card-icon bg-success">
+                <div class="card-icon bg-warning">
                   <i class="far fa-file"></i>
                 </div>
                 <div class="card-wrap">
@@ -168,7 +168,7 @@ include 'author-header.php';
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="author-paper-show.php">
+             <a href="author-paper-show">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
                   <i class="far fa-file"></i>
@@ -186,6 +186,27 @@ include 'author-header.php';
               </div>
              </a>
             </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+             <a href="author-paper-show">
+             <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="far fa-file"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Total</h4>
+                  </div>
+                  <div class="card-body">
+                    <?php
+                    echo $total_paper;
+                    ?>
+                  </div>
+                </div>
+              </div>
+             </a>
+            </div>
+
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">

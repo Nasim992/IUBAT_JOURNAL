@@ -11,59 +11,59 @@ if(strlen($_SESSION['alogin'])=="")
     { 
 
      // Check that the admin is logged in or not section starts here 
-     $adminemail = $_SESSION["email"];
+     $useremails = $_SESSION["email"];
 
-     $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     { 
+    //  $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+    //  $query = $dbh->prepare($sql); 
+    //  $query->execute(); 
+    //  $results=$query->fetchAll(PDO::FETCH_OBJ); 
+    //  $cnt=1;
+    //  if($query->rowCount() > 0) 
+    //  { 
      
      // Check that the admin is logged in or not section ends here 
 
     //  Remove as a Reviewer section starts Here 
 
-    if(isset($_POST['reviewer-remove'])) {
-      $paperid = $_POST['paperid'];
-      $username = $_POST['username'];
+    // if(isset($_POST['reviewer-remove'])) {
+    //   $paperid = $_POST['paperid'];
+    //   $username = $_POST['username'];
 
-      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  username='$username' and action IS  NULL";
-      $stmt = $dbh->prepare($query);
+    //   $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  username='$username' and action IS  NULL";
+    //   $stmt = $dbh->prepare($query);
                               
-       // execute query
-       $stmt->execute();
+    //    // execute query
+    //    $stmt->execute();
                               
-       // get total rows
-       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-       $total_re = $row['total_rows'];
+    //    // get total rows
+    //    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    //    $total_re = $row['total_rows'];
 
-      $action = 1;
-      $action0=0;
-      include 'link/linklocal.php';
-      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
+    //   $action = 1;
+    //   $action0=0;
+    //   include 'link/linklocal.php';
+    //   $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
 
-      if(mysqli_query($link, $sqlremovereview))
-      {
-      echo "<script>alert('Reviewer Removed Successfully for this paper.');</script>";
-        // header("refresh:0;url=reviewerdetails");
-      }
-      else {
-          echo "<script>alert('Something went wrong');</script>";
-          // header("refresh:0;url=reviewerdetails");
-      }
+    //   if(mysqli_query($link, $sqlremovereview))
+    //   {
+    //   echo "<script>alert('Reviewer Removed Successfully for this paper.');</script>";
+    //     // header("refresh:0;url=reviewerdetails");
+    //   }
+    //   else {
+    //       echo "<script>alert('Something went wrong');</script>";
+    //       // header("refresh:0;url=reviewerdetails");
+    //   }
    
                     
         
-        if ($total_re-1==0) {
-          include 'link/linklocal.php';
-              $sqlremovereviewauthor="update author set reviewerselection=$action0 where username='$username'";
-              mysqli_query($link,$sqlremovereviewauthor);
-        }
+    //     if ($total_re-1==0) {
+    //       include 'link/linklocal.php';
+    //           $sqlremovereviewauthor="update author set reviewerselection=$action0 where username='$username'";
+    //           mysqli_query($link,$sqlremovereviewauthor);
+    //     }
 
-        }
-         // Remove as  a Reviewer Section Ends Here 
+    //     }
+    //      // Remove as  a Reviewer Section Ends Here 
 
     
 ?>
@@ -73,7 +73,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviewer Details</title>
+    <title>Reviewer Status</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -90,7 +90,7 @@ if(strlen($_SESSION['alogin'])=="")
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
 <?php
-include 'admin-header.php';
+include 'author-header.php';
 ?> 
 </div> 
 <!-- Author showing header sections ends   -->
@@ -98,7 +98,7 @@ include 'admin-header.php';
 
 <div id="mySidebar" class="sidebar mt-3">
   <?php
-  include 'admin-sidebar.php';
+  include 'author-sidebar.php';
   ?>
 
 </div> 
@@ -109,7 +109,7 @@ include 'admin-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-  <h5>REVIEWER DETAILS</h5>
+  <h5>REVIEWED PAPER</h5>
   <hr class="bg-secondary" >
   <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
@@ -121,12 +121,11 @@ include 'admin-header.php';
             <th >Reviewer Name</th>
             <th >Email</th>
             <th >Assign Date</th>
-            <th >Actions</th>
         </tr>
 </thead> 
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.assignmonth,reviewertable.assignyear,reviewertable.action from reviewertable where action IS NULL";
+<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.assignmonth,reviewertable.assignyear,reviewertable.action from reviewertable where feedback IS NOT NULL and primaryemail='$useremails'";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -165,16 +164,6 @@ foreach($results as $result)
             <td ><?php echo $authorname;?></td>
             <td ><?php echo htmlentities($result->primaryemail);?></td>
             <td ><?php echo $date?></td>
- 
-<td>
-
-<form method="post">
-<input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
-<input type="hidden" name="username" value="<?php echo $username?>">
-<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="reviewer-remove" value="x">
-</form>
-
-</td>
 </tr>
 <?php $cnt=$cnt+1;}} ?>
        
@@ -244,12 +233,12 @@ foreach($results as $result)
 <?php 
 
 }
-else {
-  echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
-  header("refresh:0;url=login.php");
-}
+// else {
+//   echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
+//   header("refresh:0;url=login.php");
+// }
 
-}
+// }
     
     
 

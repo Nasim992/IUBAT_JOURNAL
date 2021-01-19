@@ -12,10 +12,9 @@ if(strlen($_SESSION['alogin'])=="")
     {  
         $authoremail = $_SESSION["email"];
 
-       
         // Select paper id from reviewertable section starts here
 
-        $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.feedback from editortable Where primaryemail='$authoremail' and feedback IS NULL";
+        $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.feedback from editortable Where primaryemail='$authoremail' and feedback IS NOT NULL";
         $query = $dbh->prepare($sql); 
         $query->execute(); 
         $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -40,7 +39,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>As Editor</title>
+    <title>Editored Paper</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery.dataTables.min.css"> 
@@ -84,7 +83,7 @@ include 'editor-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-<h5>ASSIGNED PAPER</h5>
+<h5>EDITORED PAPER</h5>
 <hr class="bg-secondary">
 
 <div  class="table-responsive">
@@ -99,7 +98,7 @@ include 'editor-header.php';
     <?php 
     // include 'link/linklocal.php';
     foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.cauname1,paper.cauname2,paper.cauname3,paper.cauname4,paper.cauname5,paper.uploaddate from paper WHERE  action=0 and id='$pid'";
+        $sqlreviewerselection = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.cauname1,paper.cauname2,paper.cauname3,paper.cauname4,paper.cauname5,paper.uploaddate from paper WHERE  id='$pid'";
 
         $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
         
@@ -140,16 +139,18 @@ $title = $file1['title'];
 $fname= $file1['firstname'];
 $middlename= $file1['middlename'];
 $lastname= $file1['lastname'];
-
+ 
 $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
  
 
-$sqlfeedback = "SELECT feedback FROM editortable WHERE  primaryemail= '$authoremailpaper' and paperid = '$id ";
+$sqlfeedback = "SELECT feedback FROM reviewertable WHERE  primaryemail= '$authoremailpaper' and paperid = '$id ";
 
 $resultfeedback = mysqli_query($link,$sqlfeedback); 
 
 $filefeedback = mysqli_fetch_assoc($resultfeedback);
 
+
+echo $filefeedback['feedback'];
 
 ?>
 <!-- Select user  name section ends here  -->
@@ -204,18 +205,18 @@ $filefeedback = mysqli_fetch_assoc($resultfeedback);
 
             <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
 
-            <div class=" d-flex justify-content-between col-sm-12">
+            <div class=" d-flex justify-content-between">
             <div >
             <a style="font-size:14px;" class="" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
             </div>
             <div >
             <p><?php echo $type;?></p>
             </div>
-            <div >
-       <form action='editor-feedback' method='post'>
+            <div > 
+        <form action='editoredit' method='post'>
        <input type="hidden" name="paperid" value="<?php echo $id;?>">
        
-       <input class="text-danger" style="font-size:15px;border:none;font-weight:600;background-color:white;" type="submit" name="editor-feedbacks" value="Write a Feedback">
+       <input class="text-danger" style="font-size:15px;border:none;font-weight:600;background-color:white;" type="submit" name="editor-feedbacks" value="Edit your Feedback">
        </form>
             </div>
            
@@ -233,7 +234,7 @@ $filefeedback = mysqli_fetch_assoc($resultfeedback);
 
        <!-- DashBoard Section ends  -->
 
-    <?php  }?>
+    <?php } ?>
     </tbody>
         </table>
 

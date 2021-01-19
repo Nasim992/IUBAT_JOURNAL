@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+error_reporting(0); 
 include('link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
@@ -24,6 +24,63 @@ if(strlen($_SESSION['alogin'])=="")
    
    
         // New Paper count section ends here 
+
+      //  Number of Editor  count section starts here 
+
+       $query = "SELECT COUNT(*) as total_rows FROM author where primaryemail='$authoremail' and reviewerselection=1";
+       $stmt = $dbh->prepare($query);
+                               
+        // execute query
+        $stmt->execute();
+                               
+        // get total rows
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $reviewered = $row['total_rows'];
+                       
+                       
+    // Number of Editor count section ends here 
+
+          //  Number of Editor  count section starts here 
+
+          $query = "SELECT COUNT(*) as total_rows FROM reviewertable where primaryemail='$authoremail' and feedback IS NOT NULL";
+          $stmt = $dbh->prepare($query);
+                                  
+           // execute query
+           $stmt->execute();
+                                  
+           // get total rows
+           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+           $feedbackr = $row['total_rows'];
+            
+
+           $query = "SELECT COUNT(*) as total_rows FROM editortable where primaryemail='$authoremail' and feedback IS NOT NULL";
+           $stmt = $dbh->prepare($query);
+                                   
+            // execute query
+            $stmt->execute();
+                                   
+            // get total rows
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $feedbacke = $row['total_rows'];
+             
+                          
+       // Number of Editor count section ends here 
+
+          //  Number of Editor  count section starts here 
+
+          $query = "SELECT COUNT(*) as total_rows FROM author where primaryemail='$authoremail' and editorselection=1";
+          $stmt = $dbh->prepare($query);
+                                  
+           // execute query
+           $stmt->execute();
+                                  
+           // get total rows
+           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+           $editored = $row['total_rows'];
+                          
+                          
+       // Number of Editor count section ends here 
+
 
           //  Number of Published paper  count section starts here 
 
@@ -217,8 +274,21 @@ include 'author-header.php';
                   <div class="card-header">
                     <h4>Reviewer</h4>
                   </div>
-                  <div class="card-body">
-                    <?php echo 0  ?>
+                  <div class="">
+                    <?php 
+                    
+                    if( $reviewered == 0) {
+                     ?>
+  <p style="font-size:16px;" class="text-danger"><i class="fas fa-times-circle"></i>  <?php  echo "Not Selected"; ?></p>
+                     <?php
+                    }
+                    else {
+                      ?>
+  <p style="font-size:16px;" class="text-success"><i class="fas fa-check-circle"></i> <?php  echo "Selected"; ?></p>
+                      <?php
+                    }
+                    
+                    ?>
                   </div>
                 </div>
               </div>
@@ -233,8 +303,21 @@ include 'author-header.php';
                   <div class="card-header">
                     <h4>Editor</h4>
                   </div>
-                  <div class="card-body">
-                    0
+                  <div class="">
+                  <?php 
+                    
+                    if( $editored  == 0) {
+                     ?>
+  <p style="font-size:16px;" class="text-danger"><i class="fas fa-times-circle"></i>  <?php  echo "Not Selected"; ?></p>
+                     <?php
+                    }
+                    else {
+                      ?>
+  <p style="font-size:16px;" class="text-success"><i class="fas fa-check-circle"></i> <?php  echo "Selected"; ?></p>
+                      <?php
+                    }
+                    
+                    ?>
                   </div>
                 </div>
               </div>
@@ -249,7 +332,7 @@ include 'author-header.php';
                     <h4>Feedback</h4>
                   </div>
                   <div class="card-body">
-                    0
+                    <?php echo $feedbackr+$feedbacke; ?>
                   </div>
                 </div>
               </div>

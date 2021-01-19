@@ -17,7 +17,7 @@ if(strlen($_SESSION['alogin'])=="")
         $paperid = $_POST['paperid'];
       }
 
-      if(isset($_POST['reviewer-edit'])) {
+      if(isset($_POST['reviewer-update'])) {
         $paperid = $_POST['paperid'];
         $email = $_POST['authoremail'];
         $feedback = $_POST['reviewer-review'];
@@ -31,7 +31,7 @@ if(strlen($_SESSION['alogin'])=="")
 
         if(mysqli_query($link, $sqlreviewer))
         {
-          echo "<script>alert('Feedback Sent Successfully');</script>";
+          echo "<script>alert('Feedback Updated Successfully');</script>";
           // header("refresh:0;url=reviewer-feedback");
         }
         else {
@@ -185,23 +185,36 @@ else {
 <!-- Paper Showing Section Ends Here  -->
 
 <hr class="bg-success">
-
-<div class="row">
-  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-
-  </div>
-  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-     <!-- input file section starts here  --> 
-
 <?php 
+
+$sqlreviewerupdate = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.feedback from reviewertable WHERE  paperid='$id' and primaryemail='$email'";
+
+$resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
+
+$filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 
 
 
 ?>
 
+<div class="row">
+
+<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" >
+<div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+<p><?php echo $filereviewerupdate['feedback']; ?></p>
+</div>
+
+
+ </div>
+
+  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+     <!-- input file section starts here  --> 
+
+
+
    <form method = "post">
    <div class="">
-   <h1 class="text-center" style="font-size:18px;"><b>Give Review</b></h1>
+   <h1 class="text-center" style="font-size:18px;"><b>Edit your response</b></h1> 
    <br>
 
 <input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>"> 
@@ -210,7 +223,7 @@ else {
 <div class="input-group">
 <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Edit your Review:</b></label>
 <div class="col-sm-10">
-<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5"  required></textarea>
+<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5"  required><?php echo  $filereviewerupdate['feedback']; ?></textarea>
 </div>
 </> 
 <br>
@@ -226,7 +239,7 @@ else {
 <!-- <a href="upload-paper1.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a> -->
 </div>
 <div>
-<button class="btn btn-sm btn-success " name = "reviewer-submit" type="submit" >Submit</button>
+<button class="btn btn-sm btn-success " name = "reviewer-update" type="submit" >Update</button>
 </div>
 </div>
 

@@ -13,11 +13,11 @@ if(strlen($_SESSION['alogin'])=="")
 
       $email =  $_SESSION['alogin'];
       // Reviewer Paper Section Starts Here
-      if(isset($_POST['reviewer-feedbacks'])) {
+      if(isset($_POST['editor-feedbacks'])) {
         $paperid = $_POST['paperid'];
       }
 
-      if(isset($_POST['reviewer-submit'])) {
+      if(isset($_POST['editor-update'])) {
         $paperid = $_POST['paperid'];
         $email = $_POST['authoremail'];
         $feedback = $_POST['reviewer-review'];
@@ -27,11 +27,11 @@ if(strlen($_SESSION['alogin'])=="")
  
         include 'link/linklocal.php'; 
 
-        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate',feedbackmonth='$feedbackmonth',feedbackyear='$feedbackyear' where paperid='$paperid' and primaryemail='$email'";
+        $sqlreviewer="update editortable set feedback='$feedback',feedbackdate='$feedbackdate',feedbackmonth='$feedbackmonth',feedbackyear='$feedbackyear' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
         {
-          echo "<script>alert('Feedback Sent Successfully');</script>";
+          echo "<script>alert('Feedback Updated Successfully');</script>";
           // header("refresh:0;url=reviewer-feedback");
         }
         else {
@@ -49,7 +49,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviewer Feedback</title>
+    <title>Editor Feedback</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/heading.css">
@@ -60,13 +60,13 @@ if(strlen($_SESSION['alogin'])=="")
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
 <?php
-include 'reviewer-header.php';
+include 'editor-header.php';
 ?> 
 </div>
 <!-- Author showing header sections ends   -->
 <div id="mySidebar" class="sidebar mt-3">
   <?php 
-  include 'reviewer-sidebar.php';
+  include 'editor-sidebar.php';
   ?>
 </div> 
 
@@ -172,7 +172,7 @@ else {
 
 <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
 
-<div class=" d-flex justify-content-between ">
+<div class=" d-flex justify-content-between col-sm-12">
 <div >
 <a style="font-size:14px;" class="" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
 </div>
@@ -180,29 +180,50 @@ else {
 <p><?php echo $type;?></p>
 </div>
 
-
 </div>
 </div>
 <!-- Paper Showing Section Ends Here  -->
 
 <hr class="bg-success">
+<?php 
+
+$sqlreviewerupdate = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.primaryemail,editortable.feedback from editortable WHERE  paperid='$id' and primaryemail='$email'";
+
+$resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
+
+$filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
+
+
+
+?>
 
 <div class="row">
 
+<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" >
+<div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+<p><?php echo $filereviewerupdate['feedback']; ?></p>
+</div>
+
+
+ </div>
+
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
      <!-- input file section starts here  --> 
+
+
+
    <form method = "post">
    <div class="">
-   <h1 class="text-center" style="font-size:18px;"><b>Give Review</b></h1>
+   <h1 class="text-center" style="font-size:18px;"><b>Edit your response</b></h1> 
    <br>
 
 <input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>"> 
 <input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
  
 <div class="input-group">
-<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Write Review:</b></label>
+<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Edit your Review:</b></label>
 <div class="col-sm-10">
-<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="3" placeholder ="Write a review of this paper" required></textarea>
+<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5"  required><?php echo  $filereviewerupdate['feedback']; ?></textarea>
 </div>
 </> 
 <br>
@@ -218,7 +239,7 @@ else {
 <!-- <a href="upload-paper1.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a> -->
 </div>
 <div>
-<button class="btn btn-sm btn-success " name = "reviewer-submit" type="submit" >Submit</button>
+<button class="btn btn-sm btn-success " name = "editor-update" type="submit" >Update</button>
 </div>
 </div>
 

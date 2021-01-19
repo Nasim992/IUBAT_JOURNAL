@@ -300,6 +300,7 @@ if($_SESSION['alogin']!=''){
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/heading.css">
+    <link rel="stylesheet" href="css/index.css">
     <!-- <link rel="stylesheet" href="css/brands.css">
     <link rel="stylesheet" href="css/brands.min.css"> -->
     <link rel="stylesheet" href="css/fontawesome.css">

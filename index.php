@@ -22,7 +22,7 @@ include('link/config.php');
     <!-- Heading Sections ends  --> 
     </div>
  
-    <div class="container">
+    <div class="container text-dark">
     <div class="row pt-1">
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
@@ -34,11 +34,11 @@ include('link/config.php');
         ?>
     </div>
     </div> 
-    </div>
+    </div> 
  
     <div class="row">
     <!-- Sidebar section starts here  -->
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
+    <div  class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
      <?php
      include 'sidelinks.php';
      ?> 
@@ -66,7 +66,7 @@ include('link/config.php');
     <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more">Read more...</span></a>
     </div>
 
-<hr class="bg-secondary" >
+     <hr class="bg-secondary" >
     <table id="heading-table">
     <tbody>
     <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1 ";
@@ -108,9 +108,9 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
       
             <tr>
             <td>
-            <div class="jumbotron  mb-0" >
+            <div class="jumbotron  mb-0 bg-transparent" >
             <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><h5 style="font-size:17px;"><?php echo htmlentities($result->papername);?></h5></a>
-            <h5 class="text-secondary" style="font-size:16px;"><?php echo $authorname;?></h5>
+            <h5 class="text-dark" style="font-size:16px;"><?php echo $authorname;?></h5>
             <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
       <!--Individual Read More section starts here   -->

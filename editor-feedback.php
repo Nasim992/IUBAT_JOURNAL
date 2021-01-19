@@ -13,11 +13,11 @@ if(strlen($_SESSION['alogin'])=="")
 
       $email =  $_SESSION['alogin'];
       // Reviewer Paper Section Starts Here
-      if(isset($_POST['reviewer-feedbacks'])) {
+      if(isset($_POST['editor-feedbacks'])) {
         $paperid = $_POST['paperid'];
       }
 
-      if(isset($_POST['reviewer-submit'])) {
+      if(isset($_POST['editor-submit'])) {
         $paperid = $_POST['paperid'];
         $email = $_POST['authoremail'];
         $feedback = $_POST['reviewer-review'];
@@ -27,7 +27,7 @@ if(strlen($_SESSION['alogin'])=="")
  
         include 'link/linklocal.php'; 
 
-        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate',feedbackmonth='$feedbackmonth',feedbackyear='$feedbackyear' where paperid='$paperid' and primaryemail='$email'";
+        $sqlreviewer="update editortable set feedback='$feedback',feedbackdate='$feedbackdate',feedbackmonth='$feedbackmonth',feedbackyear='$feedbackyear' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
         {
@@ -49,7 +49,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviewer Feedback</title>
+    <title>Editor Feedback</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/heading.css">
@@ -60,13 +60,13 @@ if(strlen($_SESSION['alogin'])=="")
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
 <?php
-include 'reviewer-header.php';
+include 'editor-header.php';
 ?> 
 </div>
 <!-- Author showing header sections ends   -->
 <div id="mySidebar" class="sidebar mt-3">
   <?php 
-  include 'reviewer-sidebar.php';
+  include 'editor-sidebar.php';
   ?>
 </div> 
 
@@ -218,7 +218,7 @@ else {
 <!-- <a href="upload-paper1.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a> -->
 </div>
 <div>
-<button class="btn btn-sm btn-success " name = "reviewer-submit" type="submit" >Submit</button>
+<button class="btn btn-sm btn-success " name = "editor-submit" type="submit" >Submit</button>
 </div>
 </div>
 

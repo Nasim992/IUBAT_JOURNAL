@@ -55,19 +55,19 @@ if(strlen($_SESSION['alogin'])=="")
                                   
             // Number of paper  count section ends here  
 
-                        // New Paper Assigned Section Starts Here 
-                        $query = "SELECT COUNT(*) as total_rowsrev FROM editortable where primaryemail = '$authoremail'";
-                        $stmt = $dbh->prepare($query);
+            // New Paper Assigned Section Starts Here 
+            $query = "SELECT COUNT(*) as total_rowsrev FROM editortable where primaryemail = '$authoremail'";
+            $stmt = $dbh->prepare($query);
                          
-                        // execute query
-                        $stmt->execute();
+            // execute query
+            $stmt->execute();
                         
-                        // get total rows
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $total_revieweded = $row['total_rowsrev'];
+            // get total rows
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $total_revieweded = $row['total_rowsrev'];
                         
             
-                        // New Paper Assigned Section Ends Here 
+            // New Paper Assigned Section Ends Here 
 
 ?>
 <!DOCTYPE html> 
@@ -75,7 +75,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Author Header</title>
+    <title>Editor Header</title>
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/heading.css">
@@ -98,7 +98,7 @@ if(strlen($_SESSION['alogin'])=="")
 
    <ul>
    <li class="nav-item active" title="total paper">
-    <a class="nav-link" href="#">Editored Paper</a>
+    <a class="nav-link" href="editored-paper">Editored Paper</a>
     </li>
    </ul>
 
@@ -109,7 +109,7 @@ if(strlen($_SESSION['alogin'])=="")
    </ul> 
 
         
-<ul>
+<!-- <ul>
 <li class="nav-item active" title="Messages">
 <a class="nav-link" href="#"><i class="fas fa-envelope-square"></i>&nbsp<b><sup></b></a>
 
@@ -119,7 +119,7 @@ if(strlen($_SESSION['alogin'])=="")
 <li class="nav-item active" title="New Paper">
 <a class="nav-link" title="New paper assigned" href="editor-paper"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_revieweded; ?></sup></b></a>
        
-</ul>
+</ul> -->
 
 <ul>
 

@@ -69,7 +69,7 @@ include 'author-header.php';
 <div class="container"> 
 
  <!-- input file section starts here  -->
-   <form class="author-form" action="upload-paper.php"  method = "post">
+   <form class="author-form" action="upload-paper"  method = "post">
    <h1 class="text-center" style="font-size:18px;"><b>UPLOAD PAPER</b></h1>
    <br>
 <div class="input-group">

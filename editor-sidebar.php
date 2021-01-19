@@ -14,8 +14,8 @@
 <body>
 <a href="editor-dashboard" class="sidebars"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a>
 
-  <a href="#" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Editored paper</a>
-  <a href="#" class="sidebars"><i class="far fa-newspaper" ></i>&nbsp As Editor</a>
+  <a href="editored-paper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Editored paper</a>
+  <a href="editor-paper" class="sidebars"><i class="far fa-newspaper" ></i>&nbsp As Editor</a>
 
   <a href="#"></a>
     

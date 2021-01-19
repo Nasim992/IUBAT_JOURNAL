@@ -81,17 +81,17 @@ if(strlen($_SESSION['alogin'])=="")
    </ul> 
 
         
-<ul>
+<!-- <ul>
 <li class="nav-item active" title="Messages">
 <a class="nav-link" href="#"><i class="fas fa-envelope-square"></i>&nbsp<b><sup></b></a>
 
-</ul> 
+</ul>  -->
 
-<ul>
+<!-- <ul>
 <li class="nav-item active" title="New Paper">
 <a class="nav-link" title="New paper assigned" href="reviewer-paper"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_revieweds; ?></sup></b></a>
        
-</ul>
+</ul> -->
 
 <ul>
 

@@ -9,7 +9,7 @@
 </head>
 <body> 
 
-<footer style="background-color:#1f4706;" class=" header-floating">
+<footer style="background-color:#1f4706;" >
 <div class="container p-4 text-white text-center">
 <a class="navbar-brand" href="#"><img src="images/Iubat-logo.png"></a>
 <h6 >IUBAT— International University of Business Agriculture and Technology</h6><br>

@@ -18,7 +18,7 @@
   <a href="author-paper-show" class="sidebars"><i class="fas fa-exclamation-circle"></i>&nbsp Paper Status</a>
   <a href="change-password-author" class="sidebars"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a>
   <a href="reviewerstatus" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Reviewed paper</a>
-  <a href="change-password-author" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Editor Status</a>
+  <a href="editorstatus" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Editor Status</a>
   <a href="#"></a>
     
 </body>

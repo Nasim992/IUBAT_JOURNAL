@@ -25,20 +25,18 @@ if(strlen($_SESSION['alogin'])=="")
    
         // New Paper count section ends here 
 
-          //  Number of Published paper  count section starts here 
+             //  Number of Editored count section starts here 
 
-                  $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 1 and authoremail = '$authoremail'"; 
-                  $stmt = $dbh->prepare($query);
-                  
-                  // execute query
-                  $stmt->execute();
-                  
-                  // get total rows
-                  $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                  $total_published = $row['total_rows'];
-          
-          
-        // Number of Published paper  count section ends here 
+             $query = "SELECT COUNT(*) as total_rowsrev FROM editortable where primaryemail = '$authoremail' and feedback IS NOT NULL";
+             $stmt = $dbh->prepare($query);
+              
+             // execute query
+             $stmt->execute();
+             
+             // get total rows
+             $row = $stmt->fetch(PDO::FETCH_ASSOC);
+             $total_editored = $row['total_rowsrev'];
+        // Number of Editored count section ends here 
 
         //  Number of Unublished paper  count section starts here 
 
@@ -54,6 +52,21 @@ if(strlen($_SESSION['alogin'])=="")
           
           
         // Number of Unublished paper  count section ends here 
+          //  Assigned Paper Section Starts Here 
+    
+
+          $query = "SELECT COUNT(*) as total_rowsrev FROM editortable where primaryemail = '$authoremail' and feedback IS NULL";
+           $stmt = $dbh->prepare($query);
+                       
+                      // execute query
+          $stmt->execute();
+                      
+                      // get total rows
+          $row = $stmt->fetch(PDO::FETCH_ASSOC);
+          $total_editoring = $row['total_rowsrev'];
+       
+                 
+                // Assigned Paper Section Ends Here 
 
               //  Number of Authors  count section starts here 
 
@@ -93,7 +106,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Author Dashboard</title>
+    <title>Editor Dashboard</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -128,18 +141,18 @@ include 'editor-header.php';
 <div class="row">
 
 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="#">
+             <a href="editored-paper">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
                   <i class="far fa-file"></i>
                 </div>
                 <div class="card-wrap">
-                  <div class="card-header">
+                  <div class="card-header"> 
                     <h4>Editored</h4>
                   </div>
                   <div class="card-body">
                     <?php
-                    echo 0;
+                    echo $total_editored ;
                     ?>
                   </div>
                 </div>
@@ -147,7 +160,7 @@ include 'editor-header.php';
              </a>
  </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="#">
+             <a href="editor-paper">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
                   <i class="far fa-file"></i>
@@ -158,7 +171,7 @@ include 'editor-header.php';
                   </div>
                   <div class="card-body">
                     <?php
-                    echo 0;
+                    echo $total_editoring;
                     ?>
                   </div>
                 </div>
@@ -168,7 +181,7 @@ include 'editor-header.php';
 
         
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-secondary">
                   <i class="far fa-newspaper"></i>
@@ -182,7 +195,7 @@ include 'editor-header.php';
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
            
 <!-- Progress bar section ends here  -->
 

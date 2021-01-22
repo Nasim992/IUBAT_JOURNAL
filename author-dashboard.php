@@ -3,13 +3,27 @@ session_start();
 error_reporting(0); 
 include('link/config.php');
 
-if(strlen($_SESSION['alogin'])=="")
+if(strlen($_SESSION['alogin'])=="") 
     {    
     header("Location: login.php"); 
     } 
-    else 
+    else  
     {  
            $authoremail = $_SESSION["email"];
+
+          //  Check that the author is logged in to the section or not starts here 
+
+
+            $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
+            $query = $dbh->prepare($sql); 
+            $query->execute(); 
+            $results=$query->fetchAll(PDO::FETCH_OBJ); 
+            $cnt=1;
+            if($query->rowCount() > 0) 
+            {
+    
+          // Check that the author is logged in to the section or not ends here 
+
            //  New Paper count section starts here 
 
            $query = "SELECT COUNT(*) as total_rows FROM paper WHERE authoremail = '$authoremail'";
@@ -185,7 +199,7 @@ include 'author-header.php';
 <!-- Progress bar section starts here  -->
 <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="author-paper-show">
+             <a href="authoracceptedpaper">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
                   <i class="far fa-file"></i>
@@ -376,6 +390,11 @@ function closeNav() {
 </html> 
 
 <?php 
+            }
+else {
+  echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
+  header("refresh:0;url=login.php");
+}
 
 }
 

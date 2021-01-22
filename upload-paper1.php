@@ -12,6 +12,18 @@ if(strlen($_SESSION['alogin'])=="")
     { 
        $authoremail = $_SESSION["email"];
 
+                 //  Check that the author is logged in to the section or not starts here 
+
+
+                 $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
+                 $query = $dbh->prepare($sql); 
+                 $query->execute(); 
+                 $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                 $cnt=1;
+                 if($query->rowCount() > 0) 
+                 {
+         
+               // Check that the author is logged in to the section or not ends here 
     
 
  
@@ -110,4 +122,12 @@ include 'author-header.php';
 </body>
 </html>
 
-    <?php } ?>
+    <?php
+     }
+     else {
+       echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
+       header("refresh:0;url=login.php");
+     }
+  
+
+  } ?>

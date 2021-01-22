@@ -91,7 +91,7 @@ $result1 = mysqli_query($link,$sql1);
 $file1 = mysqli_fetch_assoc($result1);
 
 $title = $file1['title'];
-$fname= $file1['firstname'];
+$fname= $file1['firstname']; 
 $middlename= $file1['middlename'];
 $lastname= $file1['lastname'];
 $uploaddate= $file1['uploaddate'];

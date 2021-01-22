@@ -11,7 +11,17 @@ if(strlen($_SESSION['alogin'])=="")
     { 
         $email =  $_SESSION['alogin'];
 
+               // Check that the admin is logged in or not section starts here 
 
+               $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
+               $query = $dbh->prepare($sql); 
+               $query->execute(); 
+               $results=$query->fetchAll(PDO::FETCH_OBJ); 
+               $cnt=1;
+               if($query->rowCount() > 0) 
+               {
+        
+        // Check that the admin is logged in or not section ends here 
 
                  //  Number of Reviews   count section starts here 
 
@@ -168,4 +178,15 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 </body>
 </html>
 
-    <?php } ?>
+    <?php
+                }
+                else {
+                  echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
+                  header("refresh:0;url=login.php");
+                }
+  
+  
+  }
+    
+    
+    ?>

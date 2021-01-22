@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 
-include('link/config.php');
+include('link/config.php'); 
 
 if(strlen($_SESSION['alogin'])=="") 
     {    
@@ -11,6 +11,19 @@ if(strlen($_SESSION['alogin'])=="")
     else
     {  
         $authoremail = $_SESSION["email"];
+
+                       // Check that the admin is logged in or not section starts here 
+
+                       $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
+                       $query = $dbh->prepare($sql); 
+                       $query->execute(); 
+                       $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                       $cnt=1;
+                       if($query->rowCount() > 0) 
+                       {
+                
+                // Check that the admin is logged in or not section ends here 
+
 
 ?>
 <!DOCTYPE html>
@@ -114,7 +127,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             <td>
             <div class="jumbotron" > 
 
-            <div class="d-flex justify-content-between col-sm-12">
+            <div class="d-flex justify-content-between">
             <div>
             <p class="fontSize14px">Paper ID : <?php echo htmlentities($result->id);?></p>
             </div>
@@ -171,7 +184,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
             <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
 
-            <div class=" d-flex justify-content-between col-sm-12">
+            <div class=" d-flex justify-content-between">
             <div >
             <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
             </div>
@@ -224,4 +237,11 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 </body>
 </html>
 
-<?php } ?>
+<?php
+            }
+            else {
+              echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
+              header("refresh:0;url=login.php");
+            }
+
+} ?>

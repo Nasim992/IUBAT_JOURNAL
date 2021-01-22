@@ -8,7 +8,7 @@ if(strlen($_SESSION['alogin'])=="")
     header("Location: login.php"); 
     } 
     else 
-    {  
+    { 
 
      // Check that the admin is logged in or not section starts here 
      $adminemail = $_SESSION["email"];

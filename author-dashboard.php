@@ -226,7 +226,7 @@ include 'author-header.php';
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Reviewing</h4>
+                    <h4>Under Review</h4>
                   </div>
                   <div class="card-body">
                     <?php
@@ -259,7 +259,7 @@ include 'author-header.php';
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="author-paper-show">
+             <a href="authorpaperstatus">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
                   <i class="far fa-file"></i>

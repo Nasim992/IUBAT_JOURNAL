@@ -11,7 +11,7 @@ if(strlen($_SESSION['alogin'])=="")
         $authoremail = $_SESSION["email"];
 
      //  Check that the author is logged in to the section or not starts here 
- 
+
 
      $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
      $query = $dbh->prepare($sql); 
@@ -22,13 +22,15 @@ if(strlen($_SESSION['alogin'])=="")
      {
 
    // Check that the author is logged in to the section or not ends here 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accepted Paper</title>
+    <title>Uploaded Paper</title>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css"> 
@@ -58,11 +60,11 @@ include 'author-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a> 
 <div class="container"> 
 
-  <h5>ACCEPTED PAPER</h5>
+  <h5>UNDER REVIEW</h5>
   <hr class="bg-secondary" >
     <table id="heading-table">
     <tbody>
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.cauname1,paper.cauname2,paper.cauname3,paper.cauname4,paper.cauname5,paper.uploaddate from paper WHERE action=1 and authoremail='$authoremail'";
+    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=0 and authoremail='$authoremail'";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -93,7 +95,7 @@ $lastname= $file1['lastname'];
 
 $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
  
-?> 
+?>
 <!-- Select user  name section ends here  -->
 
           <!-- Dashboard section starts  -->
@@ -101,39 +103,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             <tr>
             <td>
             <div class="jumbotron  mb-0" >
-            <div class="d-flex justify-content-between">
-
-            <div>
             <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?></h5></a>
-            </div>
-
-            <div>
-           
-            <p class="fontSize14px"><b> Status: <?php
-            //  echo htmlentities($result->action);
-            $test = htmlentities($result->action);
-            $pdate = htmlentities($result->pdate);
-            $pmonth = htmlentities($result->pmonth);
-            $pyear = htmlentities($result->pyear);
-
-          
-            if ($test!=1) {
-                ?>
-                <span style="color:goldenrod;">
-               <?php  echo "Under Review";
-            }
-            else {
-                ?>
-                </span>
-                <span style="color:green;">
-                <?php
-                echo "Accepted on ".$pdate.'-'.$pmonth.'-'.$pyear;
-            } 
-            ?>
-            </span></b></p>
-            </div>
-
-            </div>
             <h5 class="text-secondary" style="font-size:15px;"><?php echo $authorname;?></h5>
             <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
@@ -189,4 +159,6 @@ else {
   echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
   header("refresh:0;url=login.php");
 }
+
+
    }?>

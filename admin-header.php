@@ -5,7 +5,7 @@ include('link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: login.php");  
+    header("Location: adminlogin");  
     } else {
 
 
@@ -152,7 +152,7 @@ if(strlen($_SESSION['alogin'])=="")
             <a class="nav-link" href="unpublished-paper"><i class="fas fa-bell"></i>&nbsp<b><sup><?php echo $total_rows; ?></sup></b></a>
        </li> -->
         <li class="nav-item active" >
-       <a class="nav-link" href="logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link" href="adminlogout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $_SESSION["email"] ?>) <i class="fas fa-sign-out-alt"></i></a>
         </li>
 
 

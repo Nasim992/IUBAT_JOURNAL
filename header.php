@@ -11,8 +11,8 @@
     <p class="text-secondary"><b>Editor-in-Chief : </b>Magdy Abd-Alazim Ahmed</p>
     <a class="text-secondary" href="editorialboard.php" title="Journal Editorial Board">> View Editorial Board</a>
     <div class="d-flex justify-content-start">
-    <a class="pr-3 text-secondary" href="#" title="Cite Score"><b>> Cite score : 0.00</b></a>
-    <a class="text-secondary" href="#" title="Impact Factor"><b>Impact Factor : 0.00</b></a>
+    <!-- <a class="pr-3 text-secondary" href="#" title="Cite Score"><b>> Cite score : 0.00</b></a>
+    <a class="text-secondary" href="#" title="Impact Factor"><b>Impact Factor : 0.00</b></a> -->
     </div>
     
 </body>

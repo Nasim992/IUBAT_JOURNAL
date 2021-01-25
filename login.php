@@ -352,10 +352,20 @@ if($_SESSION['alogin']!=''){
 
             <input style="font-size:13px;" type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
             
-            <button class="btn btn-success btn-sm" name = "admin-login" type="submit" > Admin Login</button>
-            <button class="btn btn-success btn-sm " name = "reviewer-login" type="submit" > Reviewer Login</button>
-            <button class="btn btn-success btn-sm" name = "editor-login" type="submit" > Editor Login</button>
-            <button class="btn btn-success btn-sm" name = "publisher-login" type="submit" > Publisher Login</button>
+            <!-- <button class="btn btn-success btn-sm" name = "admin-login" type="submit" > Admin Login</button> -->
+           <div class="d-flex justify-content-between">
+           <div>
+           <button class="btn btn-success btn-sm ml-1" name = "publisher-login" type="submit" > Author</button>
+           </div>
+           <div>
+            <button class="btn btn-success btn-sm ml-1" name = "reviewer-login" type="submit" > Reviewer</button>
+            </div>
+            <div>
+            <button class="btn btn-success btn-sm ml-1" name = "editor-login" type="submit" > Editor</button>
+            </div>
+            
+           </div>
+           
 
             <div class="login-details ">
            <ul class="d-flex justify-content-center">

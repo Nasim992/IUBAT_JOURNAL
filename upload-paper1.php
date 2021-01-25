@@ -94,7 +94,7 @@ include 'author-header.php';
 <div class="input-group">
 <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>CoAuthors:</b></label>
 <div class="col-sm-10">
-<input type="number" class="form-control" id="formGroupExampleInput" name = "co-authors-number" placeholder="Enter the number of Co-Authors" min=0 max=5 required>
+<input type="number" class="form-control" id="formGroupExampleInput" name = "co-authors-number" placeholder="Enter the number of Co-Authors" min=0 max=50 required>
 </div>
 </div>
 <br>

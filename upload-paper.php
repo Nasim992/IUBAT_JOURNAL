@@ -247,10 +247,30 @@ include 'author-header.php';
 </div>
 </div>
 <br>
+<div class="row">
+<div class="col-sm-12 col-lg-12 col-md-12">
 <div class="input-group">
-<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>UploadPdf:</b></label>
-<div class="col-sm-10">
+<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>1.Upload Title and Abstract as Pdf Format:</b></label>
+<div class="col-sm-4">
 <input type="file" class="form-control-file" name="file"id="exampleFormControlFile1" accept = "application/pdf"  required>
+</div>
+</div>
+</div>
+<div class="col-sm-12 col-lg-12 col-md-12">
+<div class="input-group">
+<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>2.Upload only Paper description as Pdf format:</b></label>
+<div class="col-sm-4">
+<input type="file" class="form-control-file" name="file"id="exampleFormControlFile1" accept = "application/pdf"  required>
+</div>
+</div>
+</div>
+<div class="col-sm-12 col-lg-12 col-md-12">
+<div class="input-group">
+<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>3.Upload the full paper with all Nessary Information as Pdf format:</b></label>
+<div class="col-sm-4">
+<input type="file" class="form-control-file" name="file"id="exampleFormControlFile1" accept = "application/pdf"  required>
+</div>
+</div>
 </div>
 </div>
 <br>

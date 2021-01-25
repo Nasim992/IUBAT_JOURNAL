@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<nav class="navbar nav-class navbar-expand-lg navbar-light pb-2"> 
+<nav class="navbar nav-class navbar-expand-xl  navbar-light pb-2"> 
   <a class="navbar-brand" href="index"><img src="images/Iubat-logo.png">JOURNAL</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -23,7 +23,7 @@
 
    <ul>
    <li class="nav-item active">
-        <a class="nav-link" href="aimandscope">Aim&Scope</a>
+        <a class="nav-link" href="aimandscope">Aim and Scope</a>
       </li>
    </ul>
 
@@ -36,7 +36,7 @@
 
    <ul>
    <li class="nav-item active">
-        <a class="nav-link" href="journalinfo">JournalInfo</a>
+        <a class="nav-link" href="journalinfo">Journal Info</a>
       </li>
 
    </ul> 
@@ -44,7 +44,7 @@
 
       <ul>
       <li class="nav-item active">
-        <a class="nav-link" href="editorialboard">EditorialBoard</a>
+        <a class="nav-link" href="editorialboard">Editorial Board</a>
       </li>
       </ul>
         
@@ -56,7 +56,7 @@
 
 <ul>
 <li class="nav-item active">
-        <a class="nav-link" href="upload-paper1">SubmitArticle</a>
+        <a class="nav-link" href="upload-paper1">Submit an Article</a>
       </li>
 
 </ul>

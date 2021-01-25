@@ -153,14 +153,14 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             if ($test!=1) {
                 ?>
                 <span style="color:goldenrod;">
-               <?php  echo "Pending";
+               <?php  echo "Under Review";
             }
             else {
                 ?>
                 </span>
                 <span style="color:green;">
                 <?php
-                echo "Published on ".$pdate.'-'.$pmonth.'-'.$pyear;
+                echo "Accepted on ".$pdate.'-'.$pmonth.'-'.$pyear;
             }
             
             ?>

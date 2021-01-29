@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 
-include 'link/linklocal.php';
+include '../link/linklocal.php';
    
 
 if(strlen($_SESSION['alogin'])=="")
@@ -34,7 +34,7 @@ $filename = $file['name'];
 $papername = $file['papername'];
 $abstract = $file['abstract'];
 $authorname = $file['authoremail'];
-$filepath = 'documents/'.$file['name'];
+$filepath = '../documents/'.$file['name'];
 
 
 $sql = "SELECT * FROM author WHERE  primaryemail= '$authorname' ";
@@ -57,11 +57,11 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="../css/index.css">
     <title>Paper Download</title>
 </head> 
 <body>
@@ -69,7 +69,7 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
          if( $authoremail=='') {
 
             ?>
-            <div class="sticky-top">
+            <div class="sticky-top header-floating">
                 <!-- Heading Sections starts  -->
                 <?php 
                 include 'heading.php'
@@ -170,7 +170,7 @@ include 'author-header.php';
 <!-- Author showing header sections ends   -->
 
 
-<div id="mySidebar" class="sidebar mt-3">
+<div id="mySidebar" class="sidebar">
   <?php
   include 'author-sidebar.php';
   ?>
@@ -222,9 +222,9 @@ include 'author-header.php';
     <?php } ?>
 
 <!-- Essential Js,jquery,section starts  -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery-3.5.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.slim.min.js"></script>
+<script src="../js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
    <script> 
         $(document).ready(function(){

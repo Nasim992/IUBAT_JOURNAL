@@ -1,50 +1,16 @@
- 
 <?php 
 session_start();
 error_reporting(0);
 include('link/config.php');
+include('link/linklocal.php');
+include('link/functionsql.php');
+include('functions.php');
+
 if($_SESSION['alogin']!=''){
     $_SESSION['alogin']=''; 
     }
-
-
-    if(isset($_POST['admin-login']))  
-    {
-    // Admin Login Section starts 
-
-    $email = $_POST['input-email'];
-    $password = md5($_POST['input-password']);
-
-    $_SESSION["email"]=$_POST['input-email']; // push to the session
-
-    // echo $email;
-    // echo $select;
-    // echo $password;
-    // $password=md5($_POST['pass']);
-    $sql ="SELECT email,password FROM admin WHERE email=:email and password=:password";
-    $query= $dbh -> prepare($sql);
-    $query-> bindParam(':email', $email, PDO::PARAM_STR);
-    $query-> bindParam(':password', $password, PDO::PARAM_STR);
-    $query-> execute(); 
-
-    $results=$query->fetchAll(PDO::FETCH_OBJ);
-
-    if($query->rowCount() > 0)
-    {
-    $_SESSION['alogin']=$_POST['input-email'];
-    echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'admin-dashboard'; </script>";
-    } else{
-        
-        echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
-        header("refresh:0;url=login");
     
-    }
-}
-
-    // Admin Login Section ends 
-    
-    //  publisher log in option starts here
+    //  Author log in option starts here
 
     if(isset($_POST['publisher-login']))  
     {
@@ -69,7 +35,7 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'author-dashboard'; </script>";
+    echo "<script type='text/javascript'> document.location = 'author/author-dashboard'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
@@ -78,7 +44,7 @@ if($_SESSION['alogin']!=''){
     }
     }
      
-//  Publisher sign in Option ends here
+//  Reviewer sign in Option ends here
 
     //  Reviewer login in option starts here
     if(isset($_POST['reviewer-login']))  
@@ -103,7 +69,7 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'reviewer-dashboard'; </script>";
+    echo "<script type='text/javascript'> document.location = 'reviewer/reviewer-dashboard'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Reviewer');</script>";
@@ -138,7 +104,7 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'editor-dashboard'; </script>";
+    echo "<script type='text/javascript'> document.location = 'editor/editor-dashboard'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Editor');</script>";
@@ -170,31 +136,13 @@ if($_SESSION['alogin']!=''){
         $contact=$_POST['user-contact'];
         $address=$_POST['user-address'];
 
-        // echo $username;
-        // echo $title;
-        // echo $firstname;
-        // echo $middlename;
-        // echo $lastname;
-        // echo $pemail;
-        // echo $pemailAgain;
-        // echo $pemailcc;
-        // echo $semail;
-        // echo  $secmailcc;
-        // echo $userpassword;
-        // echo $repeatPassword;
-        // echo $contact;
-        // echo $address;
+        $validation_code = md5($username . microtime());  
 
-        // echo $username;
-        // echo $email;
-        // echo $password;
-        // echo $repeatPassword;
-        // echo $contact;
-        // echo $address;
+
      if ($pemail==$pemailAgain || $userpassword==$repeatPassword)
      {
     
-        $sql="INSERT INTO  author(username,title,firstname,middlename,lastname,primaryemail,primaryemailcc,secondaryemail,secondaryemailcc,password,contact,address) VALUES(:username,:title,:firstname,:middlename,:lastname,:pemail,:pemailcc,:semail,:semailcc,:userpassword,:contact,:address)";
+        $sql="INSERT INTO  author(username,title,firstname,middlename,lastname,primaryemail,primaryemailcc,secondaryemail,secondaryemailcc,password,contact,address,validation_code) VALUES(:username,:title,:firstname,:middlename,:lastname,:pemail,:pemailcc,:semail,:semailcc,:userpassword,:contact,:address,:validation_code)";
 
         $query = $dbh->prepare($sql);
 
@@ -211,6 +159,7 @@ if($_SESSION['alogin']!=''){
         $query->bindParam(':userpassword',$userpassword,PDO::PARAM_STR);
         $query->bindParam(':contact',$contact,PDO::PARAM_STR);
         $query->bindParam(':address',$address,PDO::PARAM_STR);
+        $query->bindParam(':validation_code',$validation_code,PDO::PARAM_STR);
       
         $query->execute();
 
@@ -218,7 +167,17 @@ if($_SESSION['alogin']!=''){
         if($query->rowCount() > 0)
         {
 
-        echo "<script>alert('Signed Up Success');</script>";
+            $subject = "IUBAT JOURNAL Account Activation Link";
+            $msg = "Please Click the link below to activate your account
+            http://localhost/IUBAT_JOURNAL/activate.php?email=$pemail&code=$validation_code";
+    
+            $headers = "From: journal.iubat@gmail.com";
+    
+    
+            send_email($pemail, $subject, $msg, $headers);
+    
+    
+        echo "<script>alert('Activation Link is sent to this $pemail.Log in to your gmail Account and Activate your Account.');</script>";
         echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
         } else{
             
@@ -236,46 +195,46 @@ if($_SESSION['alogin']!=''){
 
     // Sign Up form section ends here 
 
-        $name = $_POST['rname'];
-        $email = $_POST['remail'];
-        $password = md5($_POST['rpassword']);
-        $contact = $_POST['rconatct'];
-
-
-
     // Reset-Password section starts here 
     
     if(isset($_POST['rsubmit']))  
     {
-        $name = $_POST['rname'];
-        $email = $_POST['remail'];
-        $password = md5($_POST['rpassword']);
-        $contact = $_POST['rconatct'];
+        // $name = $_POST['rname'];
+        $pemail = $_POST['remail'];
+        // $password = md5($_POST['rpassword']);
+        // $contact = $_POST['rconatct'];
 
 
-        $sql="update author set password=:password  where email=:email and contact=:contact ";
+        $subject = "RESET YOUR PASSWORD";
+        $msg = "Please Click the link below for resetting your password
+        http://localhost/IUBAT_JOURNAL/resetpassword.php?email=$pemail";
 
-        $query = $dbh->prepare($sql);
-        // $query->bindParam(':name',$name,PDO::PARAM_STR);
-        $query->bindParam(':email',$email,PDO::PARAM_STR);
-        $query->bindParam(':password',$password,PDO::PARAM_STR); 
-        $query->bindParam(':contact',$contact,PDO::PARAM_STR); 
-  
-        $query->execute();
-  
-        $results=$query->fetchAll(PDO::FETCH_OBJ);
-  
-        if($query->rowCount() > 0)
-        {
-  
-            echo "<script>alert('Password Changed Successfully');</script>";
+        $headers = "From: journal.iubat@gmail.com";
+
+        
+     //  Check that the email is available or not in the database
+
+
+     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$pemail'"; 
+     $query = $dbh->prepare($sql); 
+     $query->execute(); 
+     $results=$query->fetchAll(PDO::FETCH_OBJ); 
+     $cnt=1;
+     if($query->rowCount() > 0) 
+     {
+
+   // Check that the email is available or not in the database
+
+    if(send_email($pemail, $subject, $msg, $headers)) {
+        echo "<script>alert('Reset password link is given to your gmail.');</script>";
+    }
+    else {
+            echo "<script>alert('Something went wrong!');</script>";
         }
-        else {
-            echo "<script>alert('Contact Information is wrong');</script>";
-        }
-
- 
-
+    }else
+    {
+        echo "<script>alert('Email is not available on the database!');</script>";
+    }
     }
 
 
@@ -290,7 +249,7 @@ if($_SESSION['alogin']!=''){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IUBAT</title>
+    <title>IUBAT JOURNAL</title>
     <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/login.js"></script>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
@@ -318,7 +277,7 @@ if($_SESSION['alogin']!=''){
 </head>
 <body>
 
-<div class="sticky-top  header-floating">
+<div class="sticky-top ">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php';
@@ -344,8 +303,13 @@ if($_SESSION['alogin']!=''){
                 <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> -->
 
             </div>
+           
+             <?php  
+               
+               display_message();
 
-
+             ?>
+              
         <!-- Sign in Section starts Here -->
 
             <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="" autofocus="">
@@ -397,13 +361,13 @@ if($_SESSION['alogin']!=''){
                     <img src="images/forgotpass.png" alt="">
             </div>
 
-                <input type="text" name="rname" id="resetEmail" class="form-control" placeholder="Enter your Name" required="" autofocus="">
+                <!-- <input type="text" name="rname" id="resetEmail" class="form-control" placeholder="Enter your Name" required="" autofocus=""> -->
 
-                <input type="email" name="remail" id="resetEmail" class="form-control" placeholder="Email address" required="" >
+                <input type="email" name="remail" id="resetEmail" class="form-control" placeholder="Write Your Primary Email Address" required="" >
 
-                <input type="text" name="rcontact" id="resetEmail" class="form-control" placeholder="Enter your contact" required="">
+                <!-- <input type="text" name="rcontact" id="resetEmail" class="form-control" placeholder="Enter your contact" required=""> -->
 
-                <input type="password" name="rpassword" id="resetEmail" class="form-control" placeholder="Enter New Password" required="">
+                <!-- <input type="password" name="rpassword" id="resetEmail" class="form-control" placeholder="Enter New Password" required=""> -->
 
                 <button class="btn btn-primary btn-block" type="submit" name="rsubmit">Reset Password</button>
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>

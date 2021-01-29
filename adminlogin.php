@@ -32,11 +32,11 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'admin-dashboard'; </script>";
+    echo "<script type='text/javascript'> document.location = 'admin/admin-dashboard'; </script>";
     } else{
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
-        header("refresh:0;url=adminlogin");
+        header("refresh:0;url=admin/admin-dashboard");
     
     }
 }

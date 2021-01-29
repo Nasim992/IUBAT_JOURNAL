@@ -233,7 +233,7 @@ img{
 
 /* Sidebar and Card Section css starts here */
 
-/* @media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) { 
   .sidebar {
     height: 100%;
     width: 0px !important;
@@ -253,10 +253,13 @@ img{
   #main {
     margin-left:0px !important;
   }
-
-  } */
-
-
+  .closebtn {
+    display:none;
+  }
+   .openbtn {
+     display:none;
+   }
+  }
 .sidebar {
   height: 100%;
   width: 250px;

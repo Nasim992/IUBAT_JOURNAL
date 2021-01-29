@@ -2,17 +2,33 @@
 session_start();
 error_reporting(0);
 
-include 'link/linklocal.php';
+include '../link/linklocal.php';
    
 
+      // Check that the admin is logged in or not section starts here 
+      include '../link/config.php';
+      $adminemail = $_SESSION["email"];
+      $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+      $query = $dbh->prepare($sql); 
+      $query->execute(); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1;
+      if($query->rowCount() > 0) 
+      {
+      
+      // Check that the admin is logged in or not section ends here 
+
+
+
+
+
 if(strlen($_SESSION['alogin'])=="")
-    {    
-        $authoremail = "";
+    {     
+        header("Location:../adminlogin");  
     }
     else
     {  
-      $authoremail = $_SESSION["email"];
-    }
+
 
 if($link === false){
     die("ERROR: Could not connect. " .mysqli_connect_error());
@@ -34,7 +50,7 @@ $filename = $file['name'];
 $papername = $file['papername'];
 $abstract = $file['abstract'];
 $authorname = $file['authoremail'];
-$filepath = 'documents/'.$file['name'];
+$filepath = '../documents/'.$file['name'];
 
 
 $sql = "SELECT * FROM author WHERE  primaryemail= '$authorname' ";
@@ -57,57 +73,39 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="css/index.css">
-    <title>Paper Download</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <title>Download paper</title>
 </head> 
 <body>
-            <?php 
-         if( $authoremail=='') {
 
-            ?>
-            <div class="sticky-top">
-                <!-- Heading Sections starts  -->
-                <?php 
-                include 'heading.php'
-                ?>
-                <!-- Heading Sections ends  --> 
-                </div>
 
-  
+<!-- Author showing header sections starts  --> 
+<div class="sticky-top header-floating">
+<?php
+include 'admin-header.php';
+?> 
+</div> 
+<!-- Author showing header sections ends   -->
 
- 
-    <div class="container">
-    <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
-        <?php 
-         include 'header.php';
-        ?>
-    </div>
-    </div> 
-    </div>
- 
-    <div class="row">
-    <!-- Sidebar section starts here  -->
-    <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-     <?php
-     include 'sidelinks.php';
-     ?> 
-    </div>
-    
-    <!-- Sidebar Section ends here  -->
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left">
+<div id="mySidebar" class="sidebar mt-3">
+  <?php
+  include 'admin-sidebar.php';
+  ?>
 
-    </div>
+</div> 
 
+<div id="main">  
+
+<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+<div class="container"> 
+
+  <h4>DOWNLOAD THIS PAPER</h4>
 <hr class="bg-secondary" >
    <!-- Dashboard section starts  -->
    <div class="jumbotron "> 
@@ -129,82 +127,6 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
      <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
      <hr class="my-4">
    
-     <?php 
-     if ($authoremail == "") {
-         ?>
-       <a href="index.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a>
-      
-       <?php 
-     }
-     else {
-     ?>
-    <!-- <a href="author-paper-show.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a> -->
-     <?php 
-     }  
-     ?>
-     <a style="font-size:14px;" class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
-     </div>
-
- <!-- DashBoard Section ends  -->
-
-    </div>
-    </div>
-    </div>
-
-    <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php';
-         }
-         else {
-    ?>
-    <!-- Footer section ends here  -->
-
-<!-- Author Paper Download Section Starts Here -->
-
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating">
-<?php
-include 'author-header.php';
-?> 
-</div> 
-<!-- Author showing header sections ends   -->
-
-
-<div id="mySidebar" class="sidebar mt-3">
-  <?php
-  include 'author-sidebar.php';
-  ?>
-
-</div> 
-
-<div id="main">  
-
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
-
-  <h5>DOWNLOAD THIS PAPER</h5>
-<hr class="bg-secondary" >
-   <!-- Dashboard section starts  -->
-   <div class="jumbotron "> 
-     
-     <h5 style="font-size:17px;" class="display-4">Name : <?php echo $papername ?></h5>
-     <?php 
-     if ($authoremail == "") {
-         ?>
-          <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
-       <?php 
-     }
-     else {
-     ?>
-    <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
-     <?php 
-     }  
-     ?> 
-     
-     <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
-     <hr class="my-4">
-   
 
      <a style="font-size:14px;" class="btn btn-success btn-sm float-right" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
      </div>
@@ -214,17 +136,10 @@ include 'author-header.php';
     </div>
     </div>
 </div>
-
-
-<!-- Author Paper Download Section Ends Here  -->
-
-
-    <?php } ?>
-
 <!-- Essential Js,jquery,section starts  -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery-3.5.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.slim.min.js"></script>
+<script src="../js/popper.min.js"></script>
 <!-- Essential Js,Jquery  section ends  -->
    <script> 
         $(document).ready(function(){
@@ -250,4 +165,14 @@ include 'author-header.php';
 <?php } else  {
 
     echo " Id is empty";
-    } ?>
+    } 
+}
+}
+else {
+    echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
+    header("refresh:0;url=login.php");
+  }
+    
+
+    
+    ?>

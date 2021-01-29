@@ -17,7 +17,7 @@
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top header-floating">
+<div class="sticky-top">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php'

@@ -121,20 +121,20 @@ if(isset($_POST['select-reviewer']))
 
     $reviewerselection =1;
     $sqlupdatereviewer = "update author set reviewerselection=$reviewerselection where username = '$usernameauthor' ";
-     
+
     if(mysqli_query($link, $sqlinsert) and (mysqli_query($link, $sqlupdatereviewer)))
     {
 
       // Sending Messages that selected as a reviewer section starts here.
-    //   $subject = "Reviwer Request";
-    //   $msg = "You have been requested as a reviewer for $papername.Here is the link for this paper.
-    //   http://localhost/IUBAT_JOURNAL/$filepath .For Review this paper please log in as a Reviewer of this paper
-    //   http://localhost/IUBAT_JOURNAL/login";
+      $subject = "Reviwer Request";
+      $msg = "You have been requested as a reviewer for $papername.Here is the link for this paper.
+      http://localhost/IUBAT_JOURNAL/$filepath .For Review this paper please log in as a Reviewer of this paper
+      http://localhost/IUBAT_JOURNAL/login";
 
-    //   $headers = "From: journal.iubat@gmail.com";
+      $headers = "From: journal.iubat@gmail.com";
 
       // Sending Messages that selected as a reviewer section ends 
-    //   send_email($pemail, $subject, $msg, $headers);
+      send_email($pemail, $subject, $msg, $headers);
      echo "<script>alert('Review Requested sent Successfully for this paper');</script>";
     //   header("refresh:0;url=unpublished-paper.php");
     }
@@ -227,7 +227,7 @@ include 'admin-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-  <h5>UNPUBLISHED PAPER</h5>
+  <h4>UNPUBLISHED PAPER</h4>
   <hr class="bg-secondary" >
 
   <div class="jumbotron">
@@ -248,8 +248,7 @@ include 'admin-header.php';
 
          <div>
          <h6 style="font-size:15px;" class="display-5">Reviewer:<span style='color:#122916;'> <small>
-
-         <!-- Show Reviewer Selection section starts Here  -->
+         <!-- Number of Reviewer Showing section starts here  -->
          <?php
      include('../link/config.php');
      $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.action from reviewertable Where paperid='$id' and action IS NULL";
@@ -275,14 +274,12 @@ include 'admin-header.php';
                      echo $fullname.' ';
                    }
      ?>
-     <!-- Show Reviewer Selection Section ends here -->
-
-         
+         <!-- Number of Reviewer Showing Section starts Here -->
          </small></span></h6>
          </div>
          <div>
          <h6 style="font-size:15px;" class="display-5">Editor:<span style='color:#122916;'> <small>
-    <!-- Showing Selected editor Section Starts Here  -->
+          <!-- Number of editor Showing Section starts Here -->
          <?php
      include('../link/config.php');
      $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action from editortable Where paperid='$id' and action IS NULL";
@@ -307,7 +304,7 @@ include 'admin-header.php';
                echo $fullname.' ';
              }
      ?>
-    <!-- Showing Selected editor section ends here -->
+         <!-- Number of editor Showing Section ends Here  -->
          </small></span></h6>
          </div>
 
@@ -360,10 +357,9 @@ include 'admin-header.php';
  <h3 style="font-size:17px" class="text-dark "><b><i>Feedback Section</i></b></h3>
   <hr class="bg-success">
 
-<!-- Showing Reviewer Feedback Section starts here  -->
-<?php
+  <?php
   include('../link/config.php');
-     $sqlreviewertable = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback,reviewertable.action from reviewertable Where paperid='$id' and feedback IS NOT NULL";
+     $sqlreviewertable = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback,reviewertable.action from reviewertable Where paperid='$id' and action IS NULL and feedback IS NOT NULL";
      $querytable = $dbh->prepare($sqlreviewertable); 
      $querytable->execute(); 
      $resultreviewertable=$querytable->fetchAll(PDO::FETCH_OBJ); 
@@ -406,19 +402,16 @@ include 'admin-header.php';
           </div>
 
 <?php   }}  ?>
-<!-- Showing Reviewer Feedback section Ends Here  -->
 
  </div>
  <!-- Feedback Shown Section ends Here  -->
-
  <!-- Selecting Editor Reviewer Selection section starts here  -->
  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
   <div class="row">
-
   <!-- Reviewer Selection starts Here  -->
-
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
 
+  <!-- Selecting Reviewer selection starts here -->
   <h3 style="font-size:17px" class="text-dark "><b><i>Select Reviewer of this paper</i></b></h3>
   <hr class="bg-success">
 
@@ -450,26 +443,26 @@ include 'admin-header.php';
       $selection = 0;
       include '../link/linklocal.php';
       foreach($arrayusernameeditors as $arrname){
-          $sqlnameeditor = "SELECT title,firstname,middlename,lastname,primaryemail FROM author WHERE username='$arrname'";
-          $resultnameeditor = mysqli_query($link,$sqlnameeditor);
-          $filenameeditor = mysqli_fetch_assoc($resultnameeditor);
-          $fullname =  $filenameeditor['title'].$filenameeditor['firstname'].' '.$filenameeditor['middlename'].' '.$filename['lastname'];
-          $primaryemail = $filenameeditor['primaryemail'];
+        $sqlnamenibo = "SELECT title,firstname,middlename,lastname,primaryemail FROM author WHERE username='$arrname'";
+        $resultnamenibo = mysqli_query($link,$sqlnamenibo);
+        $filenamenibo = mysqli_fetch_assoc($resultnamenibo);
+        $fullname =  $filenamenibo['title'].$filenamenibo['firstname'].' '.$filenamenibo['middlename'].' '.$filenamenibo['lastname'];
+        $primaryemail = $filenamenibo['primaryemail'];
   
           ?>
-         <form  method="post">
-         <div class="row">
-         <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-         <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection+1 ?>.<span><?php echo $fullname ?></b></span></label>
-           <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-           <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
-         </div>
-         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <form  method="post">
+        <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection+1 ?>.<span><?php echo $fullname ?></b></span></label>
+          <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
+          <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
           <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-reviewer"><b>Select</b></button>
-           </div>
-         </div>
+          </div>
+        </div>
           </form>
-           <?php 
+          <?php 
           $selection = $selection +1;   
           }
 
@@ -526,12 +519,11 @@ include 'admin-header.php';
 
          foreach($arrayusernameeditors as $arrname){
            // echo $arrname;
-             $sqlnameeditor = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrname'";
-             $resultnameeditor = mysqli_query($link,$sqlnameeditor);
-             $filenameeditor = mysqli_fetch_assoc($resultnameeditor);
-             $fullname =  $filenameeditor['title'].$filenameeditor['firstname'].' '.$filenameeditor['middlename'].' '.$filename['lastname'];
-             // echo $fullname;
-             // echo $arrnamee;
+           $sqlnamenibo = "SELECT title,firstname,middlename,lastname,primaryemail FROM author WHERE username='$arrname'";
+           $resultnamenibo = mysqli_query($link,$sqlnamenibo);
+           $filenamenibo = mysqli_fetch_assoc($resultnamenibo);
+           $fullname =  $filenamenibo['title'].$filenamenibo['firstname'].' '.$filenamenibo['middlename'].' '.$filenamenibo['lastname'];
+           $primaryemail = $filenamenibo['primaryemail'];
              ?>
            <form  method="post">
            <div class="row">

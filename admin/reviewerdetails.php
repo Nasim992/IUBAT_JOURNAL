@@ -36,8 +36,8 @@ if(strlen($_SESSION['alogin'])=="")
        $row = $stmt->fetch(PDO::FETCH_ASSOC);
        $total_re = $row['total_rows'];
       $action = 1;
-      $action0=0;
-      include 'link/linklocal.php';
+      $actionz= 0;
+      include '../link/linklocal.php';
       $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
 
       if(mysqli_query($link, $sqlremovereview))
@@ -52,7 +52,7 @@ if(strlen($_SESSION['alogin'])=="")
 
         if ($total_re-1==0) {
           include '../link/linklocal.php';
-              $sqlremovereviewauthor="update author set reviewerselection=$action0 where username='$username'";
+              $sqlremovereviewauthor="update author set reviewerselection=$actionz where username='$username'";
               mysqli_query($link,$sqlremovereviewauthor);
         }
 

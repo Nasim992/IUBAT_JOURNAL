@@ -15,7 +15,7 @@ if(strlen($_SESSION['alogin'])=="")
        
         // Select paper id from reviewertable section starts here
 
-        $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback from reviewertable Where primaryemail='$authoremail' and feedback IS NULL";
+        $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback from reviewertable Where primaryemail='$authoremail' and feedback IS NULL and accepted IS NOT NULL";
         $query = $dbh->prepare($sql); 
         $query->execute(); 
         $results=$query->fetchAll(PDO::FETCH_OBJ); 

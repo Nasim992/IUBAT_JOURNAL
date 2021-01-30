@@ -1,17 +1,17 @@
 <?php 
 session_start();
 error_reporting(0);
-include('link/config.php');
 
+include('./link/linklocal.php');
+include('link/functionsql.php');
     $email = $_GET['email'];
     // Reset-Password section starts here 
-    
     if(isset($_POST['change-submit']))  
     {
         $pemail = $_POST['remail'];
         $password = md5($_POST['rpassword']);
         $passwordconf = md5($_POST['rpasswordconf']);
-
+ 
         if($password !== $passwordconf) {
             echo "<script>alert('Password does not match properly.);</script>";
         }
@@ -32,10 +32,7 @@ include('link/config.php');
         }
     }
 
-    
     // Reset-Password section ends here 
-
-
 ?>
 
 

@@ -89,9 +89,165 @@
                     
                 }
             }
-        
+         
         }
         // Activate User Function Ends Here 
+
+        // Accept Reviewer Request function starts here 
+        function accept_requestreviewer(){
+
+            if($_SERVER['REQUEST_METHOD'] == "GET") {
+        
+                if(isset($_GET['paperid']) and isset($_GET['email'])){
+        
+        
+                    echo $paperid = clean($_GET['paperid']);
+                    echo $email = clean($_GET['email']);
+                    $sql = "SELECT * FROM reviewertable WHERE primaryemail = '".escape($_GET['email'])."' AND paperid ='".escape($_GET['paperid'])."' ";
+                    $result = query($sql); 
+                    confirm($result);
+        
+                    if(row_count($result) ==1) {
+        
+                    $sql2 = "UPDATE reviewertable SET accepted =1 WHERE primaryemail ='".escape($email)."' AND paperid ='" .escape($paperid) ."' ";
+                    $result2 = query($sql2);
+                    confirm($result2);
+        
+                    set_message("<p class='bg-success text-white p-2 text-center'>Your are Accepted the Reviewer Invitation.Now Logged in as a Reviewer and Give your Valuable Feedback.</p>");
+
+                    redirect("login"); 
+        
+        
+                  } else {
+        
+        
+                      set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
+
+                      redirect("login");
+                  }  
+        
+                    
+                }
+            }
+        
+        }
+        // Accept Reviewer Request Function Ends Here 
+
+              // Reject Reviewer Request function starts here 
+              function reject_requestreviewer(){
+
+                if($_SERVER['REQUEST_METHOD'] == "GET") {
+            
+                    if(isset($_GET['paperid']) and isset($_GET['email'])){
+            
+            
+                        echo $paperid = clean($_GET['paperid']);
+                        echo $email = clean($_GET['email']);
+                        $sql = "SELECT * FROM reviewertable WHERE primaryemail = '".escape($_GET['email'])."' AND paperid ='".escape($_GET['paperid'])."' ";
+                        $result = query($sql); 
+                        confirm($result);
+            
+                        if(row_count($result) ==1) {
+            
+                        $sql2 = "DELETE FROM reviewertable WHERE primaryemail ='".escape($email)."' AND paperid ='" .escape($paperid) ."' ";
+                        $result2 = query($sql2);
+                        confirm($result2);
+            
+                        set_message("<p class='bg-danger text-white p-2 text-center'>Your are Reject the Invitation.For giving feedback ask admin</p>");
+    
+                        redirect("login"); 
+            
+            
+                      } else {
+            
+            
+                          set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
+    
+                          redirect("login");
+                      }  
+            
+                        
+                    }
+                }
+            
+            }
+            // Reject Reviewer Request Function Ends Here 
+
+        // Accept Editor Request function starts here 
+        function accept_requesteditor(){
+
+            if($_SERVER['REQUEST_METHOD'] == "GET") {
+        
+                if(isset($_GET['paperid']) and isset($_GET['email'])){
+        
+        
+                    echo $paperid = clean($_GET['paperid']);
+                    echo $email = clean($_GET['email']);
+                    $sql = "SELECT * FROM editortable WHERE primaryemail = '".escape($_GET['email'])."' AND paperid ='".escape($_GET['paperid'])."' ";
+                    $result = query($sql); 
+                    confirm($result);
+        
+                    if(row_count($result) ==1) {
+        
+                    $sql2 = "UPDATE editortable SET accepted =1 WHERE primaryemail ='".escape($email)."' AND paperid ='" .escape($paperid) ."' ";
+                    $result2 = query($sql2);
+                    confirm($result2);
+        
+                    set_message("<p class='bg-success text-white p-2 text-center'>Your are Accepted the Editor Invitation.Now Logged in as a Editor and Give your Valuable Feedback.</p>");
+
+                    redirect("login"); 
+        
+        
+                  } else {
+        
+        
+                      set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
+
+                      redirect("login");
+                  }  
+        
+                    
+                }
+            }
+        
+        }
+        // Accept Editor Request Function Ends Here 
+
+            // Reject Editor Request function starts here 
+                    function reject_requesteditor(){
+
+                        if($_SERVER['REQUEST_METHOD'] == "GET") {
+                    
+                            if(isset($_GET['paperid']) and isset($_GET['email'])){
+                    
+                    
+                                echo $paperid = clean($_GET['paperid']);
+                                echo $email = clean($_GET['email']);
+                                $sql = "SELECT * FROM editortable WHERE primaryemail = '".escape($_GET['email'])."' AND paperid ='".escape($_GET['paperid'])."' ";
+                                $result = query($sql); 
+                                confirm($result);
+                    
+                                if(row_count($result) ==1) {
+                                $sql2 = "DELETE FROM editortable WHERE primaryemail ='".escape($email)."' AND paperid ='" .escape($paperid) ."' ";
+                                $result2 = query($sql2);
+                                confirm($result2);
+                                set_message("<p class='bg-danger text-white p-2 text-center'>Your are Reject the Invitation.For giving feedback ask admin</p>");
+
+                                redirect("login"); 
+                    
+                              } else {
+                    
+                                  set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
+            
+                                  redirect("login");
+                              }                       
+                            }
+                        }
+                    
+                    }
+                    // Reject Editor Request Function Ends Here 
+
+
             
 
 ?>

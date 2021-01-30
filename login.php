@@ -10,7 +10,7 @@ if($_SESSION['alogin']!=''){
     $_SESSION['alogin']=''; 
     }
     
-    //  Author log in option starts here
+    //  Author log in section starts here
 
     if(isset($_POST['publisher-login']))  
     {
@@ -19,11 +19,7 @@ if($_SESSION['alogin']!=''){
     $password=md5($_POST["input-password"]); 
     $_SESSION["email"]=$_POST['input-email']; // push to the session
 
-    // echo $email;
-    // echo $select;
-    // echo $password;
-    // $password=md5($_POST['pass']);
-    $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password";
+    $sql ="SELECT primaryemail,password,activation FROM author WHERE primaryemail=:email and password=:password and activation IS NOT NULL";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> bindParam(':password', $password, PDO::PARAM_STR);
@@ -53,18 +49,16 @@ if($_SESSION['alogin']!=''){
     $email = $_POST['input-email'];
     $password=md5($_POST["input-password"]); 
     $_SESSION["email"]=$_POST['input-email']; // push to the session
-    // echo $email;
-    // echo $select;
-    // echo $password;
-    // $password=md5($_POST['pass']);
+
+    // Author Checking that reviewer is selected or not section
     $sql ="SELECT primaryemail,password,reviewerselection FROM author WHERE primaryemail=:email and password=:password and reviewerselection=1";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> bindParam(':password', $password, PDO::PARAM_STR);
-    $query-> execute();  
-
+    $query-> execute();   
     $results=$query->fetchAll(PDO::FETCH_OBJ);
- 
+    // Author Checking that reviewer is selected or not section
+
     if($query->rowCount() > 0)
     {
     $_SESSION['alogin']=$_POST['input-email'];
@@ -88,10 +82,6 @@ if($_SESSION['alogin']!=''){
     $password=md5($_POST["input-password"]); 
     $_SESSION["email"]=$_POST['input-email']; // push to the session
 
-    // echo $email;
-    // echo $select;
-    // echo $password;
-    // $password=md5($_POST['pass']);
     $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password and editorselection=1";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
@@ -115,7 +105,6 @@ if($_SESSION['alogin']!=''){
      
 //  Editor Log in Option ends here
 
-
     // Sign Up form section starts here 
 
         if(isset($_POST['sign-up']))
@@ -137,7 +126,6 @@ if($_SESSION['alogin']!=''){
         $address=$_POST['user-address'];
 
         $validation_code = md5($username . microtime());  
-
 
      if ($pemail==$pemailAgain || $userpassword==$repeatPassword)
      {
@@ -166,32 +154,24 @@ if($_SESSION['alogin']!=''){
         $results=$query->fetchAll(PDO::FETCH_OBJ);
         if($query->rowCount() > 0)
         {
-
-            $subject = "IUBAT JOURNAL Account Activation Link";
-            $msg = "Please Click the link below to activate your account
-            http://localhost/IUBAT_JOURNAL/activate.php?email=$pemail&code=$validation_code";
-    
-            $headers = "From: journal.iubat@gmail.com";
-    
-    
-            send_email($pemail, $subject, $msg, $headers);
-    
-    
+            // Activation Link sending Messages starts here
+            include './mailmessage/accountactivation.php'; 
+            // Activation Link sending Messages section ends here
+            
         echo "<script>alert('Activation Link is sent to this $pemail.Log in to your gmail Account and Activate your Account.');</script>";
-        echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
+        echo "<script type='text/javascript'> document.location = 'login'; </script>";
         } else{
             
             echo "<script>alert('Invalid Details !UserName or Email address already is in use');</script>";
             header("refresh:0;url=login.php");
-
         }
      }
      else {
-        echo "<script>alert('Email or password doesen't matched with previous');</script>";
+        echo "<script>alert('Email or password doesn't matched with previous');</script>";
         header("refresh:0;url=login.php");
      }
 
-        }
+        } 
 
     // Sign Up form section ends here 
 
@@ -199,21 +179,14 @@ if($_SESSION['alogin']!=''){
     
     if(isset($_POST['rsubmit']))  
     {
-        // $name = $_POST['rname'];
+
         $pemail = $_POST['remail'];
-        // $password = md5($_POST['rpassword']);
-        // $contact = $_POST['rconatct'];
 
+        // Reseting link sending mail section starts here.
+        include './mailmessage/resetpasswordmessage.php';
+        // Reseting link sending mail section ends here 
 
-        $subject = "RESET YOUR PASSWORD";
-        $msg = "Please Click the link below for resetting your password
-        http://localhost/IUBAT_JOURNAL/resetpassword.php?email=$pemail";
-
-        $headers = "From: journal.iubat@gmail.com";
-
-        
      //  Check that the email is available or not in the database
-
 
      $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$pemail'"; 
      $query = $dbh->prepare($sql); 
@@ -222,7 +195,6 @@ if($_SESSION['alogin']!=''){
      $cnt=1;
      if($query->rowCount() > 0) 
      {
-
    // Check that the email is available or not in the database
 
     if(send_email($pemail, $subject, $msg, $headers)) {

@@ -114,6 +114,36 @@ if(isset($_POST['accept-paper']))
 }
 // Accept Paper section ends here
 
+// Sending Review to the author section starts here 
+if(isset($_POST['send-review']))
+{
+    $id = $_POST['paperidrev'];
+    $primaryemail = $_POST['primaryemailrev'];
+    $authornamsender = $_POST['authorenamsender'];
+    $authoremailsender = $_POST['authoremailrev'];
+    $action = 1;
+
+    // Send Review Message Section Starts Here 
+    include '../mailmessage/sendreview.php';
+    // Send Review Message Section Ends Here 
+    $sql="update reviewertable set permits=$action where paperid='$id' and primaryemail='$primaryemail' ";
+
+    if(mysqli_query($link, $sql))
+    {
+
+    send_email($authoremailsender, $subject, $msg, $headers);
+    echo "<script>alert('Send this Review to the author Successfully.');</script>";
+      // header("refresh:0;url=unpublished-paper");
+    }
+    else {
+        echo "<script>alert('Already sent!');</script>";
+        // header("refresh:0;url=unpublished-paper");
+
+    }
+}
+// Sending Review to the author section ends here 
+
+
 
 // Reviewer Selection Section starts here 
 if(isset($_POST['select-reviewer']))
@@ -413,7 +443,7 @@ include 'admin-header.php';
 
 <!-- Showing Reviewer Feedback Section starts here  -->
 <?php
-     $sqlreviewertable = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback,reviewertable.action from reviewertable Where paperid='$id' and feedback IS NOT NULL";
+     $sqlreviewertable = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.feedback,reviewertable.action,reviewertable.permits from reviewertable Where paperid='$id' and feedback IS NOT NULL";
      $querytable = $dbh->prepare($sqlreviewertable); 
      $querytable->execute(); 
      $resultreviewertable=$querytable->fetchAll(PDO::FETCH_OBJ); 
@@ -424,9 +454,9 @@ include 'admin-header.php';
      { 
 
         $feedback =   htmlentities($result->feedback);
-        $feedbackauthor =   htmlentities($result->username);
+        $feedbackauthor = htmlentities($result->username);
 
-      $authoremail = htmlentities($result->authoremail);
+      $authoremailreviewer = htmlentities($result->authoremail);
       $sql1 = "SELECT * FROM author WHERE  username= '$feedbackauthor' ";
 
       $result1 = mysqli_query($link,$sql1); 
@@ -438,17 +468,38 @@ include 'admin-header.php';
       $middlename= $file1['middlename'];
       $lastname= $file1['lastname'];
 
-      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
-
+      $authornamerev = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+      $permits = htmlentities($result->permits);
   ?>
   <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
-  <p><?php echo $feedback ?></p>
+ <div class="row">
+ <p class="col-sm-10 col-lg-10 col-xl-10"><?php echo $feedback ?></p>
+
+<div class="float-right">
+ <!-- Accept Review Section starts here  -->
+ <form method="post">
+<input type="hidden" name="paperidrev" value="<?php echo $id;?>">
+<input type="hidden" name="primaryemailrev" value="<?php echo htmlentities($result->primaryemail);?>">
+<input type="hidden" name="authorenamsender" value="<?php echo $authornamerev;?>">
+<input type="hidden" name="authoremailrev" value="<?php echo $authormail;?>">
+
+<?php if($permits==1) {
+  
+  echo "<b style='font-size:13px;' class='text-danger'>Already sent</b>";
+} else {
+  ?>
+<input class="text-success" onclick="return confirm('Sending the review to the author?');" style="font-size:14px;border:none;font-weight:600;" type="submit" name="send-review" value="Send">
+<?php  } ?>
+</form>
+ <!-- Accept Review Section Ends Here  -->
+</div>
+ </div>
   <div class="d-flex justify-content-between">
 <div>
 
         </div>
         <div>
-        <p><small><b> - &nbsp<?php echo $authorname; ?></b></small></p>
+        <p><small><b> - &nbsp<?php echo $authornamerev; ?></b></small></p>
         </div>
           </div>
        

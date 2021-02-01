@@ -16,8 +16,8 @@
 <a href="upload-paper1" class="sidebars"><i class="fas fa-upload"></i>&nbsp Upload Paper</a>
   <a href="all-paper-author" class="sidebars"><i class="far fa-newspaper" class="sidebars"></i>&nbsp Published Paper</a>
   <a href="authorpaperstatus" class="sidebars"><i class="fas fa-exclamation-circle"></i>&nbsp Paper Status</a>
-  <a href="authoracceptedpaper" class="sidebars"><i class="fas fa-exclamation-circle"></i>&nbsp Accepted Paper</a>
-  <a href="authoruploadedpaper" class="sidebars"><i class="fas fa-exclamation-circle"></i>&nbsp Under Review</a>
+  <!-- <a href="authoracceptedpaper" class="sidebars"><i class="fas fa-exclamation-circle"></i>&nbsp Accepted Paper</a>
+  <a href="authoruploadedpaper" class="sidebars"><i class="fas fa-exclamation-circle"></i>&nbsp Under Review</a> -->
   <a href="change-password-author" class="sidebars"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a>
   <a href="reviewerstatus" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Reviewed paper</a>
   <a href="editorstatus" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Editor Status</a>

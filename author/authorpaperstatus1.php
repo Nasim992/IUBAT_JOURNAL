@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 
 include('../link/config.php'); 
-include('../functions.php');
+
 if(strlen($_SESSION['alogin'])=="") 
     {    
     header("Location: ../login"); 
@@ -23,8 +23,6 @@ if(strlen($_SESSION['alogin'])=="")
                        {
                 
                 // Check that the admin is logged in or not section ends here 
-
-
 
 
 ?>
@@ -76,135 +74,140 @@ include 'author-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-<h6>PAPER STATUS</h6>
-  <hr class="bg-secondary" >
-  <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
-<table id="dtBasicExample" class="table table-striped table-bordered table-hover">
+<h5>PAPER STATUS</h5>
+<hr class="bg-secondary">
 
-<thead>
-        <tr class="bg-secondary text-white">
-            <th >Paper Status</th> 
-            <th >Paper Id</th>
-            <th >Paper Title</th>
-            <th >Submitted</th>
-        </tr> 
-</thead> 
-<tbody id="myTable-admin">
-<!-- Selecting paper section starts here  -->
-        <?php $sql = "SELECT paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.uploadmonth,paper.uploadyear,paper.coauthorname from paper WHERE authoremail='$authoremail' ORDER BY uploadyear DESC";
-            $query = $dbh->prepare($sql); 
-            $query->execute(); 
-            $results=$query->fetchAll(PDO::FETCH_OBJ); 
-            $cnt=1; 
-            if($query->rowCount() > 0)  
-            {
-            foreach($results as $result) 
-            {  
-                $paperid = htmlentities($result->paperid);
-                ?>
-<!-- Selecting paper section ends here  -->
-<tr>
-<td class="text-dark">
-<small>
-  <!-- Paper Status Section starts here  -->
-  <!-- Reviewer section starts here  -->
- <?php 
+<div  class="table-responsive">
+<table   id="dtBasicExample"  cellspacing="0">
 
-// Selecting Primary email from the reviewertable section starts here 
-$primaryemailarray = array();
+<thead>  
+    <tr><th></th></tr>
+</thead>
 
-$sqlreviewer = "SELECT primaryemail FROM reviewertable WHERE paperid = '$paperid'";
-$resultreviewer = mysqli_query($link,$sqlreviewer );
-$file = mysqli_fetch_assoc($resultreviewer);
-foreach($resultreviewer as $filerev) {
-    array_push($primaryemailarray,$filerev['primaryemail']);
-}
- ?>
-  <!-- Reviewer section ends here -->
-  <?php 
-  $accepted = htmlentities($result->action);
-  $pdate = htmlentities($result->pdate);
-  $pmonth = htmlentities($result->pmonth);
-  $pyear = htmlentities($result->pyear);
-  $mainpdate =$pdate.' '.$arraymonth[$pmonth].' '.$pyear;
-  if($accepted == 1 ) {
+<!-- Author paper showing section starts (Jumbotron section) -->
 
-      echo "<p class='text-success'><b>Accepted on:<br></b> ".$mainpdate.'</p>';
-  }
-  else  {
-      
-     echo "<b><span class='text-warning'>Under Review</span> <br>Reviewer:</b>".'<br>';
-      if(empty($primaryemailarray)) {
-          echo "Not Selected Yet";
-      }
-      else {
-          $cnt = 1;
-    foreach ($primaryemailarray as $es) {
-        $sqlauthorname = "SELECT * FROM author WHERE  primaryemail= '$es' ";
-        $resultauthorname = mysqli_query($link,$sqlauthorname); 
-        $fileauthorname = mysqli_fetch_assoc($resultauthorname);
-        
-            $title = $fileauthorname['title'];
-            $fname= $fileauthorname['firstname'];
-            $middlename= $fileauthorname['middlename'];
-            $lastname= $fileauthorname['lastname'];
-        
-            $authorname =  $title.' '.$fname.' '.$middlename.' '.$lastname;
+<tbody id="myTable">
+    <?php $sql = "SELECT paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.uploadmonth,paper.uploadyear,paper.coauthorname from paper WHERE authoremail='$authoremail'";
+      $query = $dbh->prepare($sql); 
+      $query->execute(); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1; 
+      if($query->rowCount() > 0)  
+      {
+      foreach($results as $result) 
+      {   ?>
 
-         echo $cnt.'.'.$authorname.'<br>';
-         $cnt = $cnt + 1;
-    //   Reviewing paper selection section ends here 
-}
-  }
-}
+<?php  
 
 
-  ?> 
-  <!-- Paper status section starts here  -->
-  </small>
-</td>
-<td>
-<?php  echo htmlentities($result->paperid); ?>
-</td>
+$authoremail = htmlentities($result->authoremail);
 
-<td>
-<!-- <form action="paperdetails" method="post">
-<input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
-<input onclick="return" class="bg-success;" style="font-size:13px;border:none;font-weight:600;background-color:transparent" type="submit" name="paperDetailsAuthor" value="<?php  echo htmlentities($result->papername); ?>">
-</form> -->
+$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
 
-<a href="paperdetails.php?paperid=<?php echo htmlentities($result->paperid);?>"><?php  echo htmlentities($result->papername); ?></a>
-</td>
-<td class="text-dark">
-<small>
-<b>Uploaded On :</b><br>
-<?php
-  // Selecting Date section starts here
+$result1 = mysqli_query($link,$sql1); 
 
-  $uploaddate = htmlentities($result->uploaddate);
-  $uploadmonth = htmlentities($result->uploadmonth);
-  $uploadyear = htmlentities($result->uploadyear);
-  $maindate =$uploaddate.' '.month($uploadmonth).' '.$uploadyear;
+$file1 = mysqli_fetch_assoc($result1);
 
+$title = $file1['title'];
+$fname= $file1['firstname'];
+$middlename= $file1['middlename'];
+$lastname= $file1['lastname'];
 
-  echo $maindate;
+$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
-  // Selecting Date section ends here 
 ?>
-</small>
-</td>
+<!-- Select user  name section ends here  -->
 
-</tr>
-<?php }} ?>
-       
-</tbody>
 
-</table>
 
-</div>
 
+          <!-- Dashboard section starts  -->
+      
+            <tr>
+            <td>
+            <div class="jumbotron" > 
+
+            <div class="d-flex justify-content-between">
+            <div>
+            <p class="fontSize14px">Paper ID : <?php echo htmlentities($result->id);?></p>
+            </div>
+            <div>
+            <p class="fontSize14px"><b> Status: <?php
+            //  echo htmlentities($result->action);
+            $test = htmlentities($result->action);
+            $pdate = htmlentities($result->pdate);
+            $pmonth = htmlentities($result->pmonth);
+            $pyear = htmlentities($result->pyear);
+
+            $uploaddate = htmlentities($result->uploaddate);
+
+
+            if ($test!=1) {
+                ?>
+                <span style="color:goldenrod;">
+               <?php  echo "Under Review";
+            }
+            else {
+                ?>
+                </span>
+                <span style="color:green;">
+                <?php
+                echo "Accepted on ".$pdate.'-'.$pmonth.'-'.$pyear;
+            }
+            
+            ?>
+            </span></b></p>
+            </div>
+            </div>
+
+            <h5 class="display-4 fontSize16px"><?php echo htmlentities($result->papername);?></h5>
+            <p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate; ?></p>
+
+            <div class="d-flex justify-content-between">
+            <p class="fontSize14px"><b>Author:</b> <?php echo $authorname ?></p>
+         <a href="#"><p class="fontSize14px">Number of Co-Author: <?php echo htmlentities($result->numberofcoauthor);?></p></a>
+            </div>
+
+            <div class="d-flex justify-content-between">
+            <p class="fontSize14px"><b>Email:</b> <?php echo htmlentities($result->authoremail);?></p>
+            <p class="fontSize14px"><b>Co-Authors:</b>[<?php echo htmlentities($result->coauthorname); ?>]</p>
+
+            </div>
+
+            <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+
+            <div class=" d-flex justify-content-between">
+            <div >
+            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->name);?></a>
+            </div>
+            <div >
+            <p><?php echo htmlentities($result->type);?></p>
+            </div>
+            <a href="edit-paper-author.php?id=<?php echo htmlentities($result->id);?>&nameprevious=../documents/<?php echo htmlentities($result->name);?>"><i class="far fa-edit" title="Edit"></i></a>
+            <a href="delete-paper.php?id=<?php echo htmlentities($result->id);?>&name=documents/<?php echo htmlentities($result->name);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+            </div>
+
+           
+
+           </div>
+           <hr>
+            </td>
+           </div>
+           </tr>
+          
+      
+
+       <!-- DashBoard Section ends  -->
+
+    <?php }} ?>
+    </tbody>
+        </table>
+
+
+<!-- Authors paper showing section ends (jumbotron section) -->
 
 <div class="pb-4"></div>
+</div>
     </div>
     </div>
  <!-- Essential Js,jquery,section starts  -->

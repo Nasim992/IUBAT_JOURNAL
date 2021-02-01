@@ -96,12 +96,12 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     <li class="nav-item hidden active" title="Published paper">
     <a href="all-paper-author" class="sidebars nav-link"><i class="far fa-newspaper" class="sidebars"></i>&nbsp Published Paper</a>
     </li>
-    <li class="nav-item hidden active" title="Paper Status">
+    <!-- <li class="nav-item hidden active" title="Paper Status">
     <a href="authorpaperstatus" class="sidebars nav-link"><i class="fas fa-exclamation-circle"></i>&nbsp Paper Status</a>
     </li>
     <li class="nav-item hidden active" title="Under Review">
     <a href="authoruploadedpaper" class="sidebars nav-link"><i class="fas fa-exclamation-circle"></i>&nbsp Under Review</a>
-    </li>
+    </li> -->
     <li class="nav-item hidden active" title="Under Review">
     <a href="reviewerstatus" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Reviewed paper</a>
     </li>

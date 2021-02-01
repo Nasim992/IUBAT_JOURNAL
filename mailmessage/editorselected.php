@@ -24,6 +24,8 @@ For Rejecting the Review Request of this paper Please Click on the Following lin
 
 
 $headers = "From: journal.iubat@gmail.com";
-send_email($pemail, $subject, $msg, $headers);
+
+// send_email($pemail, $subject, $msg, $headers);
+
 
 ?>

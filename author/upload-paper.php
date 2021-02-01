@@ -1,8 +1,8 @@
 <?php
 session_start();
 error_reporting(0);
-
 include('../link/config.php');
+include('../link/functionsql.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../login"); 
@@ -19,12 +19,34 @@ if(isset($_POST['submit-firsto']))
 }
 // Co- Authors Selection Section Ends Here 
 
-// echo $numberOfCoAuthor;
-// echo $papername;
-
 // Paper Uploaded Section Starts Here 
 if(isset($_POST['submit']))
 { 
+
+  // Generate paper id section starts here 
+    //  Maximum paper id section starts here
+    $query = "SELECT MAX(id) as total_rows FROM paper";
+    $stmt = $dbh->prepare($query);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $maximumpaperid = $row['total_rows'];
+  // Maximum paper id section ends here 
+     $maximumpaperid = $maximumpaperid + 1;
+      $year = date('Y');
+      $paperid = 'I'.$year.$maximumpaperid;
+      if(strlen($maximumpaperid)===2){
+        $paperid = 'I'.$year.'0'.$maximumpaperid;
+      }
+      else if(strlen($maximumpaperid)===1){
+        $paperid = 'I'.$year.'00'.$maximumpaperid;
+      }
+      else if(strlen($maximumpaperid)===0){
+        $paperid = 'I'.$year.'000'.$maximumpaperid;
+      }
+      else {
+        $paperid = 'I'.$year.$maximumpaperid;
+      }
+  // Generate paper id section ends here 
 
   $authoremailmain = $_POST['author-email'];
   $papername = $_POST['paper-title'];
@@ -45,17 +67,19 @@ if(isset($_POST['submit']))
   $type2 = $_FILES['file2']['type'];
   // pdf only description part section ends here 
 
-  // Full pdf  file section starts Here 
+  // Full pdf if necessary info file section starts Here 
   $file = $_FILES['file'];
   $name = $_FILES['file']['name'];
   $filetmp = $_FILES['file']['tmp_name'];
   $type = $_FILES['file']['type'];
-   // Full pdf File section ends here
+   // Full pdf if necessary info  File section ends here
+
+   $uploaddate = date('d');
+   $uploadmonth = date('m');
+   $uploadyear = date('Y');
+
 
     $action = 0 ;
-
-    // echo $numberOfCoAuthor;
-
 // Co-author name section starts here
   $cauname1 = $_POST['caufullname1'];
   $cauname2 = $_POST['caufullname2'];
@@ -88,7 +112,9 @@ if(isset($_POST['submit']))
   $cauname29 = $_POST['caufullname29'];
   $cauname30= $_POST['caufullname30'];
 
-  $coauthorname = $cauname1.' '.$cauname2.' '.$cauname3.' '.$cauname4.' '.$cauname5.' '.$cauname6.' '.$cauname7.' '.$cauname8.' '.$cauname9.' '.$cauname10.' '.$cauname11.' '.$cauname12.' '.$cauname13.' '.$cauname14.' '.$cauname15.' '.$cauname16.' '.$cauname17.' '.$cauname18.' '.$cauname19.' '.$cauname20.' '.$cauname21.' '.$cauname22.' '.$cauname23.' '.$cauname24.' '.$cauname25.' '.$cauname26.' '.$cauname27.' '.$cauname28.' '.$cauname29.' '.$cauname30;
+  $coauthorname = serialize(array($cauname1,$cauname2,$cauname3,$cauname4,$cauname5,$cauname6,$cauname7,$cauname8,$cauname9,$cauname10,$cauname11,$cauname12,$cauname13,$cauname14,$cauname15,$cauname16,$cauname17,$cauname18,$cauname19,$cauname20,$cauname21,$cauname22,$cauname23,$cauname24,$cauname25,$cauname26,$cauname27,$cauname28,$cauname29,$cauname30));
+
+
 // Co-Author name section ends here
 
 // Co-Author email section starts here 
@@ -124,7 +150,9 @@ $cauemail28= $_POST['cauemail28'];
 $cauemail29 = $_POST['cauemail29'];
 $cauemail30= $_POST['cauemail30'];
 
-$coauthoremail = $cauemail1.' '.$cauemail2.' '.$cauemail3.' '.$cauemail4.' '.$cauemail5.' '.$cauemail6.' '.$cauemail7.' '.$cauemail8.' '.$cauemail9.' '.$cauemail10.' '.$cauemail11.' '.$cauemail12.' '.$cauemail13.' '.$cauemail14.' '.$cauemail15.' '.$cauemail16.' '.$cauemail17.' '.$cauemail18.' '.$cauemail19.' '.$cauemail20.' '.$cauemail21.' '.$cauemail22.' '.$cauemail23.' '.$cauemail24.' '.$cauemail25.' '.$cauemail26.' '.$cauemail27.' '.$cauemail28.' '.$cauemail29.' '.$cauemail30;
+
+$coauthoremail = serialize(array($cauemail1,$cauemail2,$cauemail3,$cauemail4,$cauemail5,$cauemail6,$cauemail7,$cauemail8,$cauemail9,$cauemail10,$cauemail11,$cauemail12,$cauemail13,$cauemail14,$cauemail15,$cauemail16,$cauemail17,$cauemail18,$cauemail19,$cauemail20,$cauemail21,$cauemail22,$cauemail23,$cauemail24,$cauemail25,$cauemail26,$cauemail27,$cauemail28,$cauemail29,$cauemail30));
+
 
 // Co-Author Email section ends here 
 
@@ -160,7 +188,11 @@ $caudept28= $_POST['caudept28'];
 $caudept29 = $_POST['caudept29'];
 $caudept30= $_POST['caudept30'];
 
-$coauthordept = $caudept1.' '.$caudept2.' '.$caudept3.' '.$caudept4.' '.$caudept5.' '.$caudept6.' '.$caudept7.' '.$caudept8.' '.$caudept9.' '.$caudept10.' '.$caudept11.' '.$caudept12.' '.$caudept13.' '.$caudept14.' '.$caudept15.' '.$caudept16.' '.$caudept17.' '.$caudept18.' '.$caudept19.' '.$caudept20.' '.$caudepte21.' '.$caudept22.' '.$caudept23.' '.$caudept24.' '.$caudept25.' '.$caudept26.' '.$caudept27.' '.$caudept28.' '.$caudept29.' '.$caudept30;
+
+$coauthordept = serialize(array($caudept1,$caudept2,$caudept3,$caudept4,$caudept5,$caudept6,$caudept7,$caudept8,$caudept9,$caudept10,$caudept11,$caudept12,$caudept13,$caudept14,$caudept15,$caudept16,$caudept17,$caudept18,$caudept19,$caudept20,$caudepte21,$caudept22,$caudept23,$caudept24,$caudept25,$caudept26,$caudept27,$caudept28,$caudept29,$caudept30));
+
+
+
 // Co-Author department section ends here
 
 // Co-author institute section starts here
@@ -195,7 +227,11 @@ $cauinstitute28= $_POST['cauinstitute28'];
 $cauinstitute29 = $_POST['cauinstitute29'];
 $cauinstitute30= $_POST['cauinstitute30'];
 
-$coauthorinstitute = $cauinstitute1.' '.$cauinstitute2.' '.$cauinstitute3.' '.$cauinstitute4.' '.$cauinstitute5.' '.$cauinstitute6.' '.$cauinstitute7.' '.$cauinstitute8.' '.$cauinstitute9.' '.$cauinstitute10.' '.$cauinstitute11.' '.$cauinstitute12.' '.$cauinstitute13.' '.$cauinstitute14.' '.$cauinstitute15.' '.$cauinstitute16.' '.$cauinstitute17.' '.$cauinstitute18.' '.$cauinstitute19.' '.$cauinstitute20.' '.$ccauinstitute21.' '.$cauinstitute22.' '.$cauinstitute23.' '.$cauinstitute24.' '.$cauinstitute25.' '.$cauinstitute26.' '.$cauinstitute27.' '.$cauinstitute28.' '.$cauinstitute29.' '.$cauinstitute30;
+
+$coauthorinstitute = serialize(array($cauinstitute1,$cauinstitute2,$cauinstitute3,$cauinstitute4,$cauinstitute5,$cauinstitute6,$cauinstitute7,$cauinstitute8,$cauinstitute9,$cauinstitute10,$cauinstitute11,$cauinstitute12,$cauinstitute13,$cauinstitute14,$cauinstitute15,$cauinstitute16,$cauinstitute17,$cauinstitute18,$cauinstitute19,$cauinstitute20,$ccauinstitute21,$cauinstitute22,$cauinstitute23,$cauinstitute24,$cauinstitute25,$cauinstitute26,$cauinstitute27,$cauinstitute28,$cauinstitute29,$cauinstitute30));
+
+
+
 // Co-Author institute section ends here
 
 // Co-author address section starts here
@@ -230,12 +266,15 @@ $cauaddress28= $_POST['cauaddress28'];
 $cauaddress29 = $_POST['cauaddress29'];
 $cauaddress30= $_POST['cauaddress30'];
 
-$coauthoraddress = $cauaddress1.' '.$cauaddress2.' '.$cauaddress3.' '.$cauaddress4.' '.$cauaddress5.' '.$cauaddress6.' '.$cauaddress7.' '.$cauaddress8.' '.$cauaddress9.' '.$cauaddress10.' '.$cauaddress11.' '.$ccauaddress2.' '.$cauaddress13.' '.$cauaddress14.' '.$cauaddress15.' '.$cauaddress16.' '.$cauaddress17.' '.$cauaddress18.' '.$cauaddress19.' '.$cauaddress20.' '.$ccauaddress21.' '.$cauaddress22.' '.$cauaddress23.' '.$cauaddress24.' '.$cauaddress25.' '.$cauaddress26.' '.$cauaddress27.' '.$cauaddress28.' '.$cauaddress29.' '.$cauaddress30;
+
+$coauthoraddress = serialize(array($cauaddress1,$cauaddress2,$cauaddress3,$cauaddress4,$cauaddress5,$cauaddress6,$cauaddress7,$cauaddress8,$cauaddress9,$cauaddress10,$cauaddress11,$ccauaddress2,$cauaddress13,$cauaddress14,$cauaddress15,$cauaddress16,$cauaddress17,$cauaddress18,$cauaddress19,$cauaddress20,$ccauaddress21,$cauaddress22,$cauaddress23,$cauaddress24,$cauaddress25,$cauaddress26,$cauaddress27,$cauaddress28,$cauaddress29,$cauaddress30));
+
 // Co-Author Address section ends here
 
-  $sql="INSERT INTO  paper(authoremail,papername,numberofcoauthor,abstract,name,name1,name2,type,type1,type2,action,coauthorname,coauthoremail,coauthordept,coauthorinstitute,coauthoraddress) VALUES(:authoremailmain,:papername,:numberOfCoAuthorp,:abstract,:name,:name1,:name2,:type,:type1,:type2,:action,:coauthorname,:coauthoremail,:coauthordept,:coauthorinstitute,:coauthoraddress)";
+  $sql="INSERT INTO  paper(paperid,authoremail,papername,numberofcoauthor,abstract,name,name1,name2,type,type1,type2,action,uploaddate,uploadmonth,uploadyear,coauthorname,coauthoremail,coauthordept,coauthorinstitute,coauthoraddress) VALUES(:paperid,:authoremailmain,:papername,:numberOfCoAuthorp,:abstract,:name,:name1,:name2,:type,:type1,:type2,:action,:uploaddate,:uploadmonth,:uploadyear,:coauthorname,:coauthoremail,:coauthordept,:coauthorinstitute,:coauthoraddress)";
 
   $query = $dbh->prepare($sql);
+  $query->bindParam(':paperid',$paperid,PDO::PARAM_STR);
   $query->bindParam(':authoremailmain',$authoremailmain,PDO::PARAM_STR);
   $query->bindParam(':papername',$papername,PDO::PARAM_STR);
   $query->bindParam(':abstract',$abstract,PDO::PARAM_STR);
@@ -247,6 +286,9 @@ $coauthoraddress = $cauaddress1.' '.$cauaddress2.' '.$cauaddress3.' '.$cauaddres
   $query->bindParam(':type1',$type1,PDO::PARAM_STR);
   $query->bindParam(':type2',$type2,PDO::PARAM_STR);
   $query->bindParam(':action',$action,PDO::PARAM_STR);
+  $query->bindParam(':uploaddate',$uploaddate,PDO::PARAM_STR);
+  $query->bindParam(':uploadmonth',$uploadmonth,PDO::PARAM_STR);
+  $query->bindParam(':uploadyear',$uploadyear,PDO::PARAM_STR);
 
   $query->bindParam(':coauthorname',$coauthorname,PDO::PARAM_STR);
   $query->bindParam(':coauthoremail',$coauthoremail,PDO::PARAM_STR);
@@ -265,7 +307,7 @@ $coauthoraddress = $cauaddress1.' '.$cauaddress2.' '.$cauaddress3.' '.$cauaddres
     move_uploaded_file($filetmp1,"../documents/file1/".$name1);
     move_uploaded_file($filetmp2,"../documents/file2/".$name2);
   echo "<script>alert('Paper Uploaded Successfully.');</script>";
-  echo "<script type='text/javascript'> document.location = 'upload-paper1'; </script>";
+  echo "<script type='text/javascript'> document.location = 'under-review'; </script>";
   } else{
       
       echo "<script>alert('Invalid Details !This paper has already Uploaded');</script>";
@@ -379,7 +421,7 @@ include 'author-header.php';
 </div>
 <div class="col-sm-12 col-lg-12 col-md-12">
 <div class="input-group">
-<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>2.Upload only Paper description as Pdf format:</b></label>
+<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>2.Upload full manuscript as Pdf format:</b></label>
 <div class="col-sm-4">
 <input type="file" class="form-control-file" name="file2"id="exampleFormControlFile1" accept = "application/pdf"  required>
 </div>
@@ -387,9 +429,9 @@ include 'author-header.php';
 </div>
 <div class="col-sm-12 col-lg-12 col-md-12">
 <div class="input-group">
-<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>3.Upload the full paper with all Nessary Information as Pdf format:</b></label>
+<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>3.Upload Necessary information as Pdf format:(If Necessary)</b></label>
 <div class="col-sm-4">
-<input type="file" class="form-control-file" name="file"id="exampleFormControlFile1" accept = "application/pdf"  required>
+<input type="file" class="form-control-file" name="file"id="exampleFormControlFile1" accept = "application/pdf">
 </div>
 </div>
 </div>

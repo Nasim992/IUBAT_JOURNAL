@@ -80,14 +80,14 @@ include 'author-header.php';
 <div  class="table-responsive">
 <table   id="dtBasicExample"  cellspacing="0">
 
-<thead> 
+<thead>  
     <tr><th></th></tr>
 </thead>
 
 <!-- Author paper showing section starts (Jumbotron section) -->
 
 <tbody id="myTable">
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE authoremail='$authoremail'";
+    <?php $sql = "SELECT paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.uploadmonth,paper.uploadyear,paper.coauthorname from paper WHERE authoremail='$authoremail'";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 

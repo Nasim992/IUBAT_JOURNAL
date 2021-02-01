@@ -11,6 +11,6 @@ http://localhost/IUBAT_JOURNAL/activate.php?email=$pemail&code=$validation_code"
 
 $headers = "From: journal.iubat@gmail.com";
  
-send_email($pemail, $subject, $msg, $headers);
+// send_email($pemail, $subject, $msg, $headers);
 
 ?>

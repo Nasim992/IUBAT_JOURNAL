@@ -154,10 +154,11 @@ if($_SESSION['alogin']!=''){
         $results=$query->fetchAll(PDO::FETCH_OBJ);
         if($query->rowCount() > 0)
         {
-            // Activation Link sending Messages starts here
-            include './mailmessage/accountactivation.php'; 
-            // Activation Link sending Messages section ends here
-            
+                    // Activation Link sending Messages starts here
+                    include './mailmessage/accountactivation.php'; 
+                    // Activation Link sending Messages section ends here
+                    
+                    send_email($pemail, $subject, $msg, $headers);
         echo "<script>alert('Activation Link is sent to this $pemail.Log in to your gmail Account and Activate your Account.');</script>";
         echo "<script type='text/javascript'> document.location = 'login'; </script>";
         } else{

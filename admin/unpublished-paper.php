@@ -3,6 +3,7 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
+include('../functions.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
@@ -23,7 +24,6 @@ if(strlen($_SESSION['alogin'])=="")
      {
      
      // Check that the admin is logged in or not section ends here 
-
 
 ?>
 <!DOCTYPE html>
@@ -60,12 +60,11 @@ include 'admin-header.php';
 <a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
-
-<h5>UNPUBLISHED PAPER</h5>
+<h6>UNPUBLISHED PAPER</h6>
 <hr class="bg-secondary" >
     <table id="heading-table">
     <tbody> 
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE action=0 ORDER BY uploaddate DESC"; 
+    <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.uploadmonth,paper.uploadyear,paper.coauthorname from paper WHERE action=0 ORDER BY uploadyear DESC"; 
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -74,9 +73,19 @@ include 'admin-header.php';
       if($query->rowCount() > 0) 
       {
       foreach($results as $result) 
+{ 
+  
+  // Selecting Date section starts here
 
-{   ?>
+  $uploaddate = htmlentities($result->uploaddate);
+  $uploadmonth = htmlentities($result->uploadmonth);
+  $uploadyear = htmlentities($result->uploadyear);
 
+
+  $maindate = $uploaddate.' '.month($uploadmonth).' '.$uploadyear;
+
+  // Selecting Date section ends here 
+  ?>
 <!-- Select User name section starts here  -->
 <?php  
 
@@ -98,6 +107,8 @@ $uploaddate= $file1['uploaddate'];
 
 $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
+
+
 ?>
 <!-- Select user  name section ends here  -->
 
@@ -106,7 +117,8 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             <tr>
             <td>
             <div class="jumbotron  mb-0" >
-            <a href="selection-admin.php?id=<?php echo htmlentities($result->id);?>u"><h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?> <i class="text-dark">uploaded on :<?php echo htmlentities($result->uploaddate);?></i></h5></a>
+            <a href="selection-admin.php?id=<?php echo htmlentities($result->paperid);?>u"><h5 style="font-size:16px;"><?php echo htmlentities($result->papername);?> <i class="text-dark">uploaded on :<?php echo $maindate;?></i></h5></a>
+            <h5 class="text-secondary" style="font-size:15px;">Paper ID: <?php echo htmlentities($result->paperid);?></h5>
             <h5 class="text-secondary" style="font-size:15px;"><?php echo $authorname;?></h5>
             <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
             <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>

@@ -110,13 +110,8 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     </li>
     
 <li class="nav-item active" >
-       <a class="nav-link " href="../logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $fname; ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link " href="../logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"><small>(Sign Out)</small> <i class="fas fa-sign-out-alt"></i></a>
   </li>
-
-
- 
-
-   
         </ul>
   
   </div>

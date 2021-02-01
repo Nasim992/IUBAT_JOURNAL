@@ -95,14 +95,12 @@ include 'reviewer-header.php';
 </thead>
 
 <!-- Author paper showing section starts (Jumbotron section) -->
-<tbody id="myTable">
+<tbody id="myTable"> 
     <?php 
     // include 'link/linklocal.php';
     foreach ($arraypaperidreviewer  as $pid) {
         $sqlreviewerselection = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE  action=0 and id='$pid'";
-
         $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
-        
         $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
         $id =  $filereviewerselection['id'];

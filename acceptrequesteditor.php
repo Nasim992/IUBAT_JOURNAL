@@ -1,15 +1,10 @@
 <?php
- 
- ob_start();
-
+ob_start();
 session_start();
- 
  include("link/linklocal.php");   
  include('link/functionsql.php');
  ?>
-
  <?php include("functions.php"); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +13,8 @@ session_start();
     <title>Accepted</title>
 </head>
 <body>
-
 <div class="jumbotron">
 		<h1 class="text-center">Accept Request <?php accept_requesteditor() ?> </h1>
-</div>
-    
+</div>   
 </body>
 </html>

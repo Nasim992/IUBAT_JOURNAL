@@ -92,18 +92,18 @@ include 'reviewer-header.php';
 
 <thead> 
     <tr><th></th></tr>
-</thead>
+</thead> 
 
 <!-- Author paper showing section starts (Jumbotron section) -->
 <tbody id="myTable"> 
     <?php 
     // include 'link/linklocal.php';
     foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE  action=0 and id='$pid'";
+        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE  action=0 and paperid='$pid'";
         $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
         $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
-        $id =  $filereviewerselection['id'];
+        $id =  $filereviewerselection['paperid'];
         $papername = $filereviewerselection['papername'];
         $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
         $abstract = $filereviewerselection['abstract'];
@@ -119,32 +119,6 @@ include 'reviewer-header.php';
         $pyear = $filereviewerselection['pyear'];
         $cauname = $filereviewerselection['coauthorname'];
           ?>
-
-<?php  
-
-
-$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremailpaper' ";
-
-$result1 = mysqli_query($link,$sql1); 
-
-$file1 = mysqli_fetch_assoc($result1);
-
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
-
-$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
- 
-
-// $sqlfeedback = "SELECT feedback FROM reviewertable WHERE  primaryemail= '$authoremailpaper' and paperid = '$id ";
-
-// $resultfeedback = mysqli_query($link,$sqlfeedback); 
-
-// $filefeedback = mysqli_fetch_assoc($resultfeedback);
-
-
-?>
 <!-- Select user  name section ends here  -->
 
 
@@ -184,16 +158,6 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             <h5 class="display-4 fontSize16px"><?php echo $papername;?></h5>
             <p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate; ?></p>
 
-            <div class="d-flex justify-content-between">
-            <p class="fontSize14px"><b>Author:</b> <?php echo $authorname ?></p>
-         <a href="#"><p class="fontSize14px">Number of Co-Author: <?php echo $numberofcoauthor;?></p></a>
-            </div>
-
-            <div class="d-flex justify-content-between">
-            <p class="fontSize14px"><b>Email:</b> <?php echo $authoremail;?></p>
-            <p class="fontSize14px"><b>Co-Authors:</b>[<?php echo $cauname; ?>]</p>
-
-            </div>
 
             <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
 

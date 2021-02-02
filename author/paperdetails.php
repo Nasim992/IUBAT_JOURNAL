@@ -23,16 +23,30 @@ if(strlen($_SESSION['alogin'])=="")
         { 
     // Check that the Author is logged in or not section ends here 
 
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
+ 
+
+// if($link === false){
+//     die("ERROR: Could not connect. " . mysqli_connect_error());
+// }
 
 // Paper description showing section starts here 
 
-$id=strval($_GET['paperid']);
+          //  Number of Feedback  count section starts here 
+
+          $queryreviewerpermits = "SELECT COUNT(*) as total_rows FROM reviewertable where paperid='$id' and permits=1";
+          $stmtpermits = $dbh->prepare($queryreviewerpermits);
+                                  
+           // execute query
+           $stmtpermits->execute();
+                                  
+           // get total rows 
+           $rowpermits = $stmtpermits->fetch(PDO::FETCH_ASSOC);
+           $reviewed = $rowpermits['total_rows'];                         
+                          
+       // Number of Feedback count section ends here
 
 if (!empty($_GET['paperid'])) {
-    $id=strval($_GET['paperid']);
+    $id=$_GET['paperid'];
 
 $sql = "SELECT * FROM paper WHERE paperid = '$id'";
 $result = mysqli_query($link,$sql);
@@ -58,6 +72,12 @@ $filepathmessage = 'documents/'.$file['name'];
 $filename = $file['name'];
 $type = $file['type']; 
 // Main File Uploaded Section Ends Here 
+
+// Resubmit file path section
+$filepathresubmit ='../documents/resubmit/'.$file['resubmitpaper'];
+$filepathresubmitname = $file['resubmitpaper'];
+$fileresubmitdate = $file['resubmitdate'];
+// Resubmit file path section
 
 
 $papername = $file['papername'];
@@ -140,6 +160,36 @@ $resulteditorshown=array_diff($arrayallusername,$arrayusernameeditorshowing,$emp
 
 // Selecting Remaining Reviewer and Editor of the section ends here
 
+// Resubmit paper section starts here 
+if(isset($_POST['resubmit']))
+{ 
+  $paperidresubmit = $_POST['resubmit-paperid'];
+    // Full pdf if necessary info file section starts Here 
+    $fileresubmit = $_FILES['fileresubmit'];
+    $nameresubmit = $_FILES['fileresubmit']['name'];
+    $filetmpresubmit = $_FILES['fileresubmit']['tmp_name']; 
+    $typeresubmit = $_FILES['fileresubmit']['type'];
+    $resubmitdate = date('d');
+    $resubmitmonth = date('m');
+    $resubmityear = date('Y');
+     // Full pdf if necessary info  File section ends here
+ 
+     $sqlresubmit="update paper set resubmitpaper='$nameresubmit',resubmitdate=$resubmitdate,resubmitmonth=$resubmitmonth,resubmityear=$resubmityear where paperid='$paperidresubmit'";
+     
+     if(mysqli_query($link, $sqlresubmit))
+     {
+        move_uploaded_file($filetmpresubmit,"../documents/resubmit/".$nameresubmit);
+     echo "<script>alert('Paper Resubmitted Successfully.');</script>";
+    //    header("refresh:0;url=unpublished-paper");
+     }
+     else {
+         echo "<script>alert('Paper is already Resubmitted!');</script>";
+        //  header("refresh:0;url=unpublished-paper");
+ 
+     }   
+}
+// Resubmit paper section ends here
+
 ?>
 
 <!DOCTYPE html>
@@ -147,6 +197,7 @@ $resulteditorshown=array_diff($arrayallusername,$arrayusernameeditorshowing,$emp
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css"> 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -168,7 +219,7 @@ include 'author-header.php';
 </div> 
 <!-- Author showing header sections ends   -->
 
-<div id="mySidebar" class="sidebar mt-3">
+<div id="mySidebar" class="sidebar">
   <?php
   include 'author-sidebar.php';
   ?>
@@ -249,31 +300,79 @@ include 'author-header.php';
 <div class="row">
 
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-<a style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:0</a>
+<a style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:<?php echo $reviewed;?></a>
 </div>
-<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Status:<span class="text-success">Satisfactory</span></a>
-</div>
+</div> -->
 
+
+ 
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-<a href="delete-paper.php?id=<?php echo $id; ?>&name=<?php echo $filepath; ?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
+
+<form action="delete-paper" method="post">
+<input type="hidden" name="paperiddelete" value="<?php echo $id; ?>">
+<input type="hidden" name="filepathtitle" value="<?php echo $filepathtitle; ?>">
+<input type="hidden" name="filepathsecond" value="<?php echo $filepathsecond; ?>">
+<input type="hidden" name="filepath" value="<?php echo $filepath; ?>">
+<input type="hidden" name="filepathresubmit" value="<?php echo $filepathresubmit; ?>">
+
+<button  type="submit" title="Delete"  class="bg-light" name="deletepaper" onclick="return confirm('Are you sure you want Delete this paper?');" style="border:none;color:red;margin-top:0px;"><i class="fas fa-trash-alt" title="Delete"></i></button>
+</form>
+
+
 </div> 
 </div>
+
+
 <!-- File Section starts here  -->
+<hr>
+
+<!-- Resubmit paper section starts here  -->
+<form class="author-form"  method = "post" enctype = "multipart/form-data">
+<div class="col-sm-12 col-lg-12 col-md-12">
+<div class="input-group">
+<label class="col-sm-6 col-form-label" for="formGroupExampleInput"><b>Resubmit paper :</b></label>
+<div class="col-sm-6">
+<input type="hidden" name="resubmit-paperid" value="<?php echo $id;?>">
+<input type="file" class="form-control-file" name="fileresubmit"id="exampleFormControlFile1" accept = "application/pdf" required>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6 col-lg-6 col-xl-6">
+</div>
+<?php if(empty($fileresubmitdate )) { ?>
+<div class="col-sm-2 col-lg-2 col-xl-2">
+<button class="btn btn-sm btn-info" name = "resubmit" type="submit">Submit</button>
+</div>
+<?php } else {?>
+    <div class="col-sm-2 col-lg-2 col-xl-2">
+<button class="btn btn-sm btn-info" name = "resubmit" type="submit" disabled>Submit</button>
+</div>
+<?php } ?>
+</div>
+</form>
+<!-- Resubmit paper section ends here  -->
+
 <hr class="bg-success">
 <h6><small><b>Uploaded Files:</b></small></h6>
 <div class="row">
 
-<div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 1.Title and Abstract: <a style="font-size:13px;" title="Title and Abstract" class="" href="<?php echo $filepathtitle;?> "target ="_blank" role="button"><?php echo $filename1;  ?></a>
 </div>
-<div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 2.Full Manuscript: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathsecond;?> "target ="_blank" role="button"><?php echo $filename2; ?></a>
 </div>
-<div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 3.Necessary Info: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepath ?> "target ="_blank" role="button"><?php echo $filename;  ?></a>
 </div>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+3.Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathresubmit ?> "target ="_blank" role="button"><?php echo $filepathresubmitname;  ?></a>
 </div>
+
+
+</div> 
 <!-- File Section Ends Here  -->
 </div> 
 <hr class="bg-success">

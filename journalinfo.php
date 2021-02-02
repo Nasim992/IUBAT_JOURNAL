@@ -1,19 +1,15 @@
-
 <?php 
- 
  include('link/config.php'); 
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal Information</title>
-    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css"> 
+    <!-- Css links -->
+    <?php include 'link/csslinks.php'; ?>
+    <!-- Css links -->
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
@@ -28,7 +24,6 @@
     <div class="container">
     <div class="row mt-3">
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-
     </div>
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
     <div class="text-left pb-4">

@@ -11,7 +11,7 @@ if(strlen($_SESSION['alogin'])=="")
     { 
         $email =  $_SESSION['alogin'];
 
-               // Check that the admin is logged in or not section starts here 
+        // Check that the admin is logged in or not section starts here 
 
                $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
                $query = $dbh->prepare($sql); 
@@ -96,9 +96,10 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     <li class="nav-item hidden active" title="Published paper">
     <a href="all-paper-author" class="sidebars nav-link"><i class="far fa-newspaper" class="sidebars"></i>&nbsp Published Paper</a>
     </li>
-    <!-- <li class="nav-item hidden active" title="Paper Status">
+    <li class="nav-item hidden active" title="Paper Status">
     <a href="authorpaperstatus" class="sidebars nav-link"><i class="fas fa-exclamation-circle"></i>&nbsp Paper Status</a>
     </li>
+    <!-- 
     <li class="nav-item hidden active" title="Under Review">
     <a href="authoruploadedpaper" class="sidebars nav-link"><i class="fas fa-exclamation-circle"></i>&nbsp Under Review</a>
     </li> -->

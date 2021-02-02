@@ -1,10 +1,7 @@
 <?php  
 session_start();
 error_reporting(0);
-
 include '../link/linklocal.php';
-   
-
 if(strlen($_SESSION['alogin'])=="")
     {    
         $authoremail = "";

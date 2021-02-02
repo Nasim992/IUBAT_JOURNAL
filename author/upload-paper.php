@@ -268,7 +268,7 @@ $cauaddress30= $_POST['cauaddress30'];
 
 
 $coauthoraddress = serialize(array($cauaddress1,$cauaddress2,$cauaddress3,$cauaddress4,$cauaddress5,$cauaddress6,$cauaddress7,$cauaddress8,$cauaddress9,$cauaddress10,$cauaddress11,$ccauaddress2,$cauaddress13,$cauaddress14,$cauaddress15,$cauaddress16,$cauaddress17,$cauaddress18,$cauaddress19,$cauaddress20,$ccauaddress21,$cauaddress22,$cauaddress23,$cauaddress24,$cauaddress25,$cauaddress26,$cauaddress27,$cauaddress28,$cauaddress29,$cauaddress30));
-
+ 
 // Co-Author Address section ends here
 
   $sql="INSERT INTO  paper(paperid,authoremail,papername,numberofcoauthor,abstract,name,name1,name2,type,type1,type2,action,uploaddate,uploadmonth,uploadyear,coauthorname,coauthoremail,coauthordept,coauthorinstitute,coauthoraddress) VALUES(:paperid,:authoremailmain,:papername,:numberOfCoAuthorp,:abstract,:name,:name1,:name2,:type,:type1,:type2,:action,:uploaddate,:uploadmonth,:uploadyear,:coauthorname,:coauthoremail,:coauthordept,:coauthorinstitute,:coauthoraddress)";

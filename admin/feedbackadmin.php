@@ -128,7 +128,7 @@ include 'admin-header.php';
             <th >Feedback</th>
             <th >Date</th>
             <th >Actions</th>
-        </tr>
+        </tr> 
 </thead> 
 
 <tbody id="myTable-admin">

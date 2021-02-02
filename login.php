@@ -209,13 +209,8 @@ if($_SESSION['alogin']!=''){
         echo "<script>alert('Email is not available on the database!');</script>";
     }
     }
-
-
     // Reset-Password section ends here 
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -226,31 +221,13 @@ if($_SESSION['alogin']!=''){
     <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/login.js"></script>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="css/index.css">  -->
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/heading.css">
-    <link rel="stylesheet" href="css/index.css">
-    <!-- <link rel="stylesheet" href="css/brands.css">
-    <link rel="stylesheet" href="css/brands.min.css"> -->
-    <link rel="stylesheet" href="css/fontawesome.css">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <!-- <link rel="stylesheet" href="css/regular.css">
-    <link rel="stylesheet" href="css/regular.min.css">
-    <link rel="stylesheet" href="css/solid.css">
-    <link rel="stylesheet" href="css/solid.min.css">
-    <link rel="stylesheet" href="css/svg-with-js.css">
-    <link rel="stylesheet" href="css/svg-with-js.min.css">
-    <link rel="stylesheet" href="css/v4-shims.css">
-    <link rel="stylesheet" href="css/v4-shims.min.css"> -->
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <!-- Css links -->
+        <?php include 'link/csslinks.php'; ?>
+    <!-- Css links -->
 </head>
 <body>
 
-<div class="sticky-top ">
+    <div class="sticky-top ">
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php';
@@ -554,11 +531,9 @@ function handlefocus() {
 // Checking previous Email is matched or not ends here
 
 // Checking that the reapeat pass is matched or not section starts here 
-
 function handlepasschange() {
 
 $(document).ready(function(){
-
     var userpassword = document.getElementById('user-pass').value;
     console.log(userpassword);
  $("#user-repeatpass").keyup(function(){
@@ -580,17 +555,12 @@ var userrepeatpass = $(this).val().trim();
 }else{
   $("#user-reapeatpass-response").html("");
 }
-
 });
 
 });
 }
-
 // Checking that the repeat pass is matched or not section ends here  section is ends here 
 
-
 </script>
-
 <!-- Check that the username is availavle on the database or not  -->
-
 </html>

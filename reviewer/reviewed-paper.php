@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 
 include('../link/config.php');
-
+include('../functions.php');
 if(strlen($_SESSION['alogin'])=="") 
     {    
     header("Location: ../login"); 
@@ -83,7 +83,7 @@ include 'reviewer-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-<h5>REVIEWED PAPER</h5>
+<h6>REVIEWED PAPER</h6>
 <hr class="bg-secondary">
 
 <div  class="table-responsive">
@@ -98,13 +98,13 @@ include 'reviewer-header.php';
     <?php 
     include '../link/linklocal.php'; 
     foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE  id='$pid'";
+        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.uploadmonth,paper.uploadyear,paper.coauthorname from paper WHERE  paperid='$pid'";
 
         $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
         
         $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
-        $id =  $filereviewerselection['id'];
+        $id =  $filereviewerselection['paperid'];
         $papername = $filereviewerselection['papername'];
         $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
         $abstract = $filereviewerselection['abstract'];
@@ -113,7 +113,13 @@ include 'reviewer-header.php';
         $filepath = '../documents/'.$filereviewerselection['name']; 
         $type = $filereviewerselection['type'];
         $action = $filereviewerselection['action'];
-        $uploaddate = $filereviewerselection['uploaddate'];
+
+        $mainuploaddate = $filereviewerselection['uploaddate'];
+        $uploadmonth = $filereviewerselection['uploadmonth'];
+        $uploadyear = $filereviewerselection['uploadyear'];
+
+        $uploaddate =  $mainuploaddate.' '.$arraymonth[intval($uploadmonth)-1].' '.$uploadyear;
+
         $type = $filereviewerselection['type'];
         $pdate = $filereviewerselection['pdate'];
         $pmonth = $filereviewerselection['pmonth'];
@@ -122,22 +128,6 @@ include 'reviewer-header.php';
         $cauname = $filereviewerselection['coauthorname'];
 
           ?>
-
-<?php  
-$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremailpaper' ";
-
-$result1 = mysqli_query($link,$sql1); 
-
-$file1 = mysqli_fetch_assoc($result1);
-
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
- 
-$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
-
-?>
 
 <?php 
 
@@ -186,15 +176,6 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             <h5 class="display-4 fontSize16px"><?php echo $papername;?></h5>
             <p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate; ?></p>
 
-            <div class="d-flex justify-content-between">
-            <p class="fontSize14px"><b>Author:</b> <?php echo $authorname ?></p>
-         <a href="#"><p class="fontSize14px">Number of Co-Author: <?php echo $numberofcoauthor;?></p></a>
-            </div>
-
-            <div class="d-flex justify-content-between">
-            <p class="fontSize14px"><b>Email:</b> <?php echo $authoremail;?></p>
-            <p class="fontSize14px"><b>Co-Authors:</b>[<?php echo $cauname; ?>]</p>
-
             </div>
 
             <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
@@ -205,7 +186,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             </div>
             <div >
             <p><?php echo $type;?></p>
-            </div>
+            </div> 
             <div > 
         <form action='reviewereditor' method='post'>
        <input type="hidden" name="paperid" value="<?php echo $id;?>">

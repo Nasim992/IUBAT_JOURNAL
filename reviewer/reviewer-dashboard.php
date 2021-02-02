@@ -82,8 +82,8 @@ if(strlen($_SESSION['alogin'])=="")
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
 <?php
-include 'reviewer-header.php';
-?> 
+include 'reviewer-header.php'; 
+?>  
 </div>
 <!-- Author showing header sections ends   -->
 <div id="mySidebar" class="sidebar">

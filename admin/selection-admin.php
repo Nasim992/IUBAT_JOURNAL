@@ -92,17 +92,20 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
  
 if(isset($_POST['accept-paper']))
 {
-    $id = $_POST['id'];
+    $id = $_POST['acceptid'];
     $action = 1;
 
     $pdate = date('d');
     $pmonth = date('m');
     $pyear = date('Y');
-
-    $sql="update paper set action=$action,pdate=$pdate,pmonth=$pmonth,pyear=$pyear where id=$id ";
+    $sql="update paper set action=$action,pdate=$pdate,pmonth=$pmonth,pyear=$pyear,reject=NULL,rejectdate=NULL,rejectmonth=NULL,rejectyear=NULL where paperid='$id' ";
 
     if(mysqli_query($link, $sql))
     {
+    //Accepted paper  Starts Here 
+    include '../mailmessage/acceptpaper.php';
+    // Accepted paper Section Ends Here 
+      send_email($authormail, $subject, $msg, $headers);
     echo "<script>alert('Paper accepted...');</script>";
       header("refresh:0;url=unpublished-paper");
     }
@@ -113,6 +116,36 @@ if(isset($_POST['accept-paper']))
     }
 }
 // Accept Paper section ends here
+// Reject paper section starts here 
+
+if(isset($_POST['reject-paper']))
+{
+    $id = $_POST['rejectid'];
+    $action = 1;
+
+    $rejectdate = date('d');
+    $rejectmonth = date('m');
+    $rejectyear = date('Y');
+
+    $sql="update paper set action=0,pdate=NULL,pmonth=NULL,pyear=NULL,reject=$action,rejectdate=$rejectdate,rejectmonth=$rejectmonth,rejectyear=$rejectyear  where paperid='$id' ";
+
+    if(mysqli_query($link, $sql))
+    {
+    //Accepted paper  Starts Here 
+    include '../mailmessage/rejectpaper.php';
+    // Accepted paper Section Ends Here 
+      send_email($authormail, $subject, $msg, $headers);
+    echo "<script>alert('Paper Rejected');</script>";
+      header("refresh:0;url=unpublished-paper");
+    }
+    else {
+        echo "<script>alert('Something went wrong');</script>";
+        header("refresh:0;url=unpublished-paper");
+
+    }
+} 
+
+// Reject paper section ends here 
 
 // Sending Review to the author section starts here 
 if(isset($_POST['send-review']))
@@ -127,10 +160,8 @@ if(isset($_POST['send-review']))
     include '../mailmessage/sendreview.php';
     // Send Review Message Section Ends Here 
     $sql="update reviewertable set permits=$action where paperid='$id' and primaryemail='$primaryemail' ";
-
     if(mysqli_query($link, $sql))
     {
-
     send_email($authoremailsender, $subject, $msg, $headers);
     echo "<script>alert('Send this Review to the author Successfully.');</script>";
       // header("refresh:0;url=unpublished-paper");
@@ -167,7 +198,7 @@ if(isset($_POST['select-reviewer']))
      
     if(mysqli_query($link, $sqlinsert) and (mysqli_query($link, $sqlupdatereviewer)))
     {
-
+ 
       // Sending Messages that selected as a reviewer section starts here.
       include '../mailmessage/reviewerselected.php';
       // Sending Messages that selected as a reviewer section ends 
@@ -398,14 +429,13 @@ include 'admin-header.php';
 
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <form method="post">
-<input type="hidden" name="id" value="<?php echo $id; ?>">
-
+<input type="hidden" name="acceptid" value="<?php echo $id; ?>">
 <button  type="submit"  class="bg-light" name="accept-paper" onclick="return confirm('Are you sure you want accept this paper?');" style="border:none;color:green;margin-top:0px;"> Accept <i class="fas fa-check"></i></button>
 </form>
 </div>
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <form method="post">
-<input type="hidden" name="id" value="<?php echo $id; ?>">
+<input type="hidden" name="rejectid" value="<?php echo $id; ?>">
 
 <button  type="submit"  class="bg-light" name="reject-paper" onclick="return confirm('Are you sure you want Reject this paper?');" style="border:none;color:red;margin-top:0px;"> Reject <i class="fas fa-ban"></i></button>
 </form>

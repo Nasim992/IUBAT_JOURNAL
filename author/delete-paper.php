@@ -1,33 +1,45 @@
 <?php
 
-include 'link/linklocal.php';
+include '../link/linklocal.php';
  
 if($link === false){ 
     die("ERROR: Could not connect. " . mysqli_connect_error());
 } 
 
-$id=intval($_GET['id']);
-$name = $_GET['name'];
+if(isset($_POST['deletepaper'])) {
+    $id=($_POST['paperiddelete']);
+    $file1 = $_POST['filepathtitle'];
+    $file2 = $_POST['filepathsecond'];
+    $file = $_POST['filepath'];
+    $fileresubmit = $_POST['filepathresubmit'];
 
-// echo $id;
-// echo $name;
-
-// Built-in PHP function to delete file
-unlink($_GET["name"]);
+    unlink($file1);
+    unlink($file2 );
+    unlink($file);
+    unlink($fileresubmit);
  
-// Redirecting back
-header("Location: " . $_SERVER["HTTP_REFERER"]);
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
 
+    $sql="DELETE FROM paper WHERE paperid='$id' ";
 
-$sql="DELETE FROM paper WHERE id=$id ";
+    if(mysqli_query($link, $sql)){
+        echo "Selected paper were deleted successfully.";
 
-if(mysqli_query($link, $sql)){
-    echo "Selected paper were deleted successfully.";
+        header("refresh:0;url=authorpaperstatus"); 
+    } else{
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+    }
 
-    header("refresh:0;url=unpublished-paper"); 
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
+
+// // Built-in PHP function to delete file
+// unlink($_GET["name"]);
+ 
+// // Redirecting back
+// header("Location: " . $_SERVER["HTTP_REFERER"]);
+
+
+
  
 // Close connection
 mysqli_close($link);

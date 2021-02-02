@@ -23,49 +23,6 @@ if(strlen($_SESSION['alogin'])=="")
         
         // // Check that the admin is logged in or not section ends here 
 
-                 //  Number of Reviews   count section starts here 
-
-                 $query = "SELECT COUNT(*) as total_rowsrev FROM reviews";
-                 $stmt = $dbh->prepare($query);
-                  
-                 // execute query
-                 $stmt->execute();
-                 
-                 // get total rows
-                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                 $total_reviews = $row['total_rowsrev'];
-         
-         
-            // Number of Reviews  count section ends here 
-
-            //  Number of comments   count section starts here 
-
-                 $query = "SELECT COUNT(*) as total_rowscom FROM comments";
-                 $stmt = $dbh->prepare($query);
-                 
-                 // execute query
-                 $stmt->execute();
-                 
-                 // get total rows
-                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                 $total_comments = $row['total_rowscom'];
-         
-         
-            // Number of comments  count section ends here  
-            
-            //  Number of paper  count section starts here 
-
-                $query = "SELECT COUNT(*) as total_paper FROM paper where authoremail='$email'";
-                $stmt = $dbh->prepare($query);
-                             
-                // execute query
-                $stmt->execute();
-                             
-                // get total rows
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                $total_paper = $row['total_paper'];
-                                  
-            // Number of paper  count section ends here  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -158,6 +115,5 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
                 
             
   }
-    
     
     ?>

@@ -1,23 +1,21 @@
 <?php 
 include('link/config.php');
-
 ?>
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IUBAT JOURNAL</title>
-    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css"> 
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+    <!-- Css links -->
+    <?php include 'link/csslinks.php'; ?>
+    <!-- Css links -->
 </head>  
 <body>  
 <div class="sticky-top">
     <!-- Heading Sections starts  -->
     <?php 
-    include 'heading.php'
+    include 'heading.php';
     ?>
     <!-- Heading Sections ends  --> 
     </div>
@@ -28,11 +26,13 @@ include('link/config.php');
 
     </div>
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
+    <!-- Top Heading section starts here -->
     <div class="text-left pb-4">
         <?php 
          include 'header.php';
         ?>
     </div>
+    <!-- Top Heading Section ends here  -->
     </div> 
     </div> 
  
@@ -43,7 +43,6 @@ include('link/config.php');
      include 'sidelinks.php';
      ?> 
     </div>
-    
     <!-- Sidebar Section ends here  -->
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
     <div class="text-left pb-4">
@@ -69,7 +68,7 @@ include('link/config.php');
      <hr class="bg-secondary" >
     <table id="heading-table">
     <tbody>
-    <?php $sql = "SELECT paper.id,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1 ";
+    <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1 ";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -77,46 +76,28 @@ include('link/config.php');
  
       if($query->rowCount() > 0) 
       {
-      foreach($results as $result) 
+      foreach($results as $result)  
+      { 
+    $authoremail = htmlentities($result->authoremail); 
+     ?> 
+    <!-- Select User name section starts here  -->
+    <?php include 'link/selectauthorname.php'; ?>
+    <!-- Select user  name section ends here  -->
 
-{   ?>
+    <!-- Dashboard section starts  --> 
+    <tr>
+    <td>
+    <div class="jumbotron  mb-0 bg-transparent">
 
-<!-- Select User name section starts here  -->
-<?php  
+    <a href="paper-download.php?id=<?php echo htmlentities($result->paperid);?>"><h5 style="font-size:17px;"><?php echo htmlentities($result->papername);?></h5></a>
 
-include 'link/linklocal.php';
-
-$authoremail = htmlentities($result->authoremail);
-
-$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
-
-$result1 = mysqli_query($link,$sql1); 
-
-$file1 = mysqli_fetch_assoc($result1);
- 
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
-
-$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
-
-?>
-<!-- Select user  name section ends here  -->
-
-          <!-- Dashboard section starts  -->
-      
-            <tr>
-            <td>
-            <div class="jumbotron  mb-0 bg-transparent" >
-            <a href="paper-download.php?id=<?php echo htmlentities($result->id);?>"><h5 style="font-size:17px;"><?php echo htmlentities($result->papername);?></h5></a>
-            <h5 class="text-dark" style="font-size:16px;"><?php echo $authorname;?></h5>
-            <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
-            <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
-      <!--Individual Read More section starts here   -->
-        <script>
-        document.querySelector('#read-more-abstract<?php echo htmlentities($result->id);?>').addEventListener('click', function() {
-        document.querySelector('#paper-abstract<?php echo htmlentities($result->id);?>').style.height= 'auto';
+    <h5 class="text-dark" style="font-size:16px;"><?php echo $authorname;?></h5>
+    <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+    <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
+   <!--Individual Read More section starts here   -->
+    <script>
+    document.querySelector('#read-more-abstract<?php echo htmlentities($result->id);?>').addEventListener('click', function() {
+    document.querySelector('#paper-abstract<?php echo htmlentities($result->id);?>').style.height= 'auto';
         this.style.display= 'none';
         });
             </script>
@@ -125,9 +106,6 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             </td>
            </div>
            </tr>
-          
-      
-
        <!-- DashBoard Section ends  -->
 
     <?php }} ?>
@@ -143,11 +121,12 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     include 'footer.php';
     ?>
     <!-- Footer section ends here  -->
-<!-- Essential Js,jquery,section starts  -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery-3.5.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
-<!-- Essential Js,Jquery  section ends  -->
+
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <!-- Essential Js,Jquery  section ends  -->
    <script> 
         $(document).ready(function(){
         $("#heading-input").on("keyup", function() {
@@ -157,12 +136,12 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
             });
         });
         });
-// Aim and scope readmore section starts here 
+    // Aim and scope readmore section starts here 
         document.querySelector('#read-more').addEventListener('click', function() {
         document.querySelector('#content').style.height= 'auto';
        this.style.display= 'none';
         });
-//   Aim and scope read more section ends here 
-  </script>
-</body>
-</html>
+    //   Aim and scope read more section ends here 
+    </script>
+  </body>
+  </html>

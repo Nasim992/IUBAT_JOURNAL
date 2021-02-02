@@ -2,7 +2,7 @@
 
 $subject = "Editor Request in IUBAT JOURNAL";
 $msg = "You have been requested as a Editor for $papername. Here, is the link for this paper title and Abstract:
-    http://localhost/IUBAT_JOURNAL/$filepathmessage
+    http://localhost/IUBAT_JOURNAL/$filepathmessagetitle
 
 If you want to accept this Request as a Editor for this paper please click the following acceptation link:
     http://localhost/IUBAT_JOURNAL/acceptrequesteditor.php?paperid=$id&email=$pemail

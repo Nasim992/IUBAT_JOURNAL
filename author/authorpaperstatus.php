@@ -33,6 +33,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Current Paper Status</title>
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -91,7 +92,7 @@ include 'author-header.php';
 </thead> 
 <tbody id="myTable-admin">
 <!-- Selecting paper section starts here  -->
-        <?php $sql = "SELECT paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.uploadmonth,paper.uploadyear,paper.coauthorname from paper WHERE authoremail='$authoremail' ORDER BY uploadyear DESC";
+        <?php $sql = "SELECT paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.uploadmonth,paper.uploadyear,paper.coauthorname,paper.resubmitpaper,paper.resubmitdate,paper.resubmitmonth,paper.resubmityear,paper.reject,paper.rejectdate,paper.rejectmonth,paper.rejectyear from paper WHERE authoremail='$authoremail' ORDER BY uploadyear DESC";
             $query = $dbh->prepare($sql); 
             $query->execute(); 
             $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -121,17 +122,47 @@ foreach($resultreviewer as $filerev) {
 }
  ?>
   <!-- Reviewer section ends here -->
-  <?php 
+   <?php 
+
+  $rejected = htmlentities($result->reject);
+  $rejectdate = htmlentities($result->rejectdate);
+  $rejectmonth = htmlentities($result->rejectmonth);
+  $rejectyear = htmlentities($result->rejectyear);
+  $rejectmaindate = $rejectdate.' '.$arraymonth[intval($rejectmonth)-1].' '.$rejectyear;
+
   $accepted = htmlentities($result->action);
   $pdate = htmlentities($result->pdate);
   $pmonth = htmlentities($result->pmonth);
   $pyear = htmlentities($result->pyear);
-  $mainpdate =$pdate.' '.$arraymonth[$pmonth].' '.$pyear;
+  $mainpdate =$pdate.' '.$arraymonth[intval($pmonth)-1].' '.$pyear;
   if($accepted == 1 ) {
 
       echo "<p class='text-success'><b>Accepted on:<br></b> ".$mainpdate.'</p>';
+      // Reviewer showing section
+      echo "<b><span class='text-success'>Reviewed by:</span></b>".'<br>';
+      $cnt1 =1; 
+      foreach ($primaryemailarray as $err) {
+        $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
+        $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
+        $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
+        
+            $title = $fileauthorname1['title'];
+            $fname= $fileauthorname1['firstname'];
+            $middlename= $fileauthorname1['middlename'];
+            $lastname= $fileauthorname1['lastname'];
+        
+            $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
+
+         echo $cnt1 .'.'.$authorname23.'<br>';
+         $cnt1 = $cnt1 + 1;
+    //   Reviewing paper selection section ends here 
+}
+      // Reviewer Showing Section Ends Here
   }
-  else  {
+  else if ($rejected==1) {
+    echo "<p class='text-danger'><b>Reject on:<br></b> ".$rejectmaindate.'</p>';
+  }
+  else  { 
       
      echo "<b><span class='text-warning'>Under Review</span> <br>Reviewer:</b>".'<br>';
       if(empty($primaryemailarray)) {
@@ -168,14 +199,9 @@ foreach($resultreviewer as $filerev) {
 </td>
 
 <td>
-<!-- <form action="paperdetails" method="post">
-<input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
-<input onclick="return" class="bg-success;" style="font-size:13px;border:none;font-weight:600;background-color:transparent" type="submit" name="paperDetailsAuthor" value="<?php  echo htmlentities($result->papername); ?>">
-</form> -->
-
 <a href="paperdetails.php?paperid=<?php echo htmlentities($result->paperid);?>"><?php  echo htmlentities($result->papername); ?></a>
 </td>
-<td class="text-dark">
+<td class="text-dark"> 
 <small>
 <b>Uploaded On :</b><br>
 <?php
@@ -185,11 +211,18 @@ foreach($resultreviewer as $filerev) {
   $uploadmonth = htmlentities($result->uploadmonth);
   $uploadyear = htmlentities($result->uploadyear);
   $maindate =$uploaddate.' '.month($uploadmonth).' '.$uploadyear;
-
-
-  echo $maindate;
-
+  echo $maindate.'<br>';
   // Selecting Date section ends here 
+
+ $resubmitdate = htmlentities($result->resubmitdate);
+ if(!empty($resubmitdate)){
+   echo '<b class="text-info">Resubmit on :</b><br>';
+  $resubmitmonth = htmlentities($result->resubmitmonth);
+  $resubmityear = htmlentities($result->resubmityear);
+  $mainresubmitdate = $resubmitdate.' '.$arraymonth[$resubmitmonth-1].' '.$resubmityear;
+  echo $mainresubmitdate;
+ }
+
 ?>
 </small>
 </td>

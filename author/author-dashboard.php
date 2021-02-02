@@ -13,7 +13,6 @@ if(strlen($_SESSION['alogin'])=="")
 
           //  Check that the author is logged in to the section or not starts here 
 
-
             $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
             $query = $dbh->prepare($sql); 
             $query->execute(); 
@@ -39,6 +38,21 @@ if(strlen($_SESSION['alogin'])=="")
    
         // New Paper count section ends here 
 
+              //  Rejected paper count section starts here 
+
+              $query = "SELECT COUNT(*) as total_rows FROM paper WHERE authoremail = '$authoremail' and reject=1";
+              $stmt = $dbh->prepare($query);
+              
+              // execute query
+              $stmt->execute();
+              
+              // get total rows
+              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+              $total_reject = $row['total_rows'];
+      
+      
+           //Rejected paper count section ends here 
+
       //  Number of Editor  count section starts here 
 
        $query = "SELECT COUNT(*) as total_rows FROM author where primaryemail='$authoremail' and reviewerselection=1";
@@ -54,7 +68,7 @@ if(strlen($_SESSION['alogin'])=="")
                        
     // Number of Editor count section ends here 
 
-          //  Number of Editor  count section starts here 
+          //  Number of Feedback  count section starts here 
 
           $query = "SELECT COUNT(*) as total_rows FROM reviewertable where primaryemail='$authoremail' and feedback IS NOT NULL";
           $stmt = $dbh->prepare($query);
@@ -78,7 +92,7 @@ if(strlen($_SESSION['alogin'])=="")
             $feedbacke = $row['total_rows'];
              
                           
-       // Number of Editor count section ends here 
+       // Number of Feedback count section ends here 
 
           //  Number of Editor  count section starts here 
 
@@ -163,8 +177,11 @@ if(strlen($_SESSION['alogin'])=="")
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="widt
+    h=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Author Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -199,7 +216,7 @@ include 'author-header.php';
 <!-- Progress bar section starts here  -->
 <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="authoracceptedpaper">
+             <a href="authorpaperstatus">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
                   <i class="far fa-file"></i>
@@ -219,7 +236,7 @@ include 'author-header.php';
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-             <a href="authoruploadedpaper">
+             <a href="authorpaperstatus">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
                   <i class="far fa-file"></i>
@@ -250,7 +267,7 @@ include 'author-header.php';
                   </div>
                   <div class="card-body">
                     <?php
-                    echo 0;
+                    echo $total_reject ;
                     ?>
                   </div>
                 </div>
@@ -280,7 +297,7 @@ include 'author-header.php';
 
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-       <a href="reviewerstatus">
+       <a href="#">
        <div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
                   <i class="far fa-user"></i>
@@ -339,7 +356,8 @@ include 'author-header.php';
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
+             <a href="authorpaperstatus">
+             <div class="card card-statistic-1">
                 <div class="card-icon bg-secondary">
                   <i class="far fa-newspaper"></i>
                 </div>
@@ -352,6 +370,7 @@ include 'author-header.php';
                   </div>
                 </div>
               </div>
+             </a>
             </div>
            
 <!-- Progress bar section ends here  -->

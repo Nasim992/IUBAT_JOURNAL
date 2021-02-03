@@ -87,7 +87,7 @@ margin: 10px 0px;
 
 @media screen and (max-width:500px){
     #logreg-forms{
-        width:300px;
+        width:400px;
     }
     
     #logreg-forms  .social-login{

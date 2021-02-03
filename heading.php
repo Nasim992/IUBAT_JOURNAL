@@ -11,7 +11,7 @@
 </style>
 </head>
 <body> 
-<nav class="navbar nav-class navbar-expand-xl  navbar-light "> 
+<nav id="navbar_top" class="navbar nav-class navbar-expand-xl  navbar-light "> 
   <a class="navbar-brand" href="index"><img src="images/Iubat-logo.png">JOURNAL</a>
   <button style="margin-top:0px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -38,7 +38,7 @@
 <span class="navbar-text"><a class="nav-link" href="archive">Archive</a></span>
       </li>
 <li class="nav-item active">
-<span class="navbar-text"><a class="nav-link" href="author/upload-paper1">Submit an Article</a></span>
+<span class="navbar-text"><a class="nav-link" href="login">Submit an Article</a></span>
       </li>
 <li class="nav-item active">
 <span class="navbar-text"><form class="form-inline  my-lg-0">
@@ -57,6 +57,23 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
+
+<script>
+///////////////// fixed menu on scroll for desktop
+
+  $(window).scroll(function(){  
+     if ($(this).scrollTop() > 40) {
+        $('#navbar_top').addClass("fixed-top");
+        // add padding top to show content behind navbar
+        $('body').css('padding-top', $('.navbar').outerHeight() + 'px');
+      }else{
+        $('#navbar_top').removeClass("fixed-top");
+         // remove padding top from body
+        $('body').css('padding-top', '0');
+      }   
+  });
+
+</script>
 <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>

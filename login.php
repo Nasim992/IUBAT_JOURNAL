@@ -1,17 +1,14 @@
 <?php 
 session_start();
 error_reporting(0);
-include('link/config.php');
-include('link/linklocal.php');
+include('link/config.php'); 
 include('link/functionsql.php');
 include('functions.php');
 
 if($_SESSION['alogin']!=''){
     $_SESSION['alogin']=''; 
     }
-    
     //  Author log in section starts here
-
     if(isset($_POST['publisher-login']))  
     {
 
@@ -73,37 +70,63 @@ if($_SESSION['alogin']!=''){
     } 
      
 //  Reviewer Log in Option ends here
-
+ 
     //  Editor login in option starts here
     if(isset($_POST['editor-login']))  
     {
-
     $email = $_POST['input-email'];
     $password=md5($_POST["input-password"]); 
     $_SESSION["email"]=$_POST['input-email']; // push to the session
 
-    $sql ="SELECT primaryemail,password FROM author WHERE primaryemail=:email and password=:password and editorselection=1";
+    $sql ="SELECT author.id,author.primaryemail,author.password,author.associateeditor,author.academiceditor FROM author WHERE primaryemail=:email and password=:password";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
-    $query-> bindParam(':password', $password, PDO::PARAM_STR);
+    $query-> bindParam(':password', $password, PDO::PARAM_STR); 
     $query-> execute();  
-
     $results=$query->fetchAll(PDO::FETCH_OBJ);
-
     if($query->rowCount() > 0)
     {
-    $_SESSION['alogin']=$_POST['input-email'];
-    echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'editor/editor-dashboard'; </script>";
+        // Selecting Associate Editor and Academic Editor Section Starts Here 
+        foreach($results as $result) {
+            $associateeditor = htmlentities($result->associateeditor);
+            $academiceditor = htmlentities($result->academiceditor);
+            if($associateeditor==1) {
+                $_SESSION['alogin']=$_POST['input-email'];
+                echo "<script>alert('Logged in Success');</script>";
+                echo "<script type='text/javascript'> document.location = 'associateeditor/editor-dashboard'; </script>";
+            }
+            else if($academiceditor==1) {
+                $_SESSION['alogin']=$_POST['input-email'];
+                echo "<script>alert('Logged in Success');</script>";
+                echo "<script type='text/javascript'> document.location = 'academiceditor/editor-dashboard'; </script>";
+            }
+            else {
+                echo "<script>alert('You are not selected as an editor.');</script>";
+                header("refresh:0;url=login");
+            }
+        }
+     // Selecting Associate Editor and Academic Editor Section Starts here 
     } else{ 
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Editor');</script>";
         header("refresh:0;url=login");
-    
     }
     }
      
 //  Editor Log in Option ends here
+
+// Chief editor section starts here 
+
+if(isset($_POST['editor-login']))  
+{
+
+ 
+    
+}
+
+
+// Chief editor section ends here 
+
 
     // Sign Up form section starts here 
 
@@ -152,7 +175,7 @@ if($_SESSION['alogin']!=''){
         $query->execute();
 
         $results=$query->fetchAll(PDO::FETCH_OBJ);
-        if($query->rowCount() > 0)
+        if($query->rowCount() > 0) 
         {
                     // Activation Link sending Messages starts here
                     include './mailmessage/accountactivation.php'; 
@@ -227,7 +250,8 @@ if($_SESSION['alogin']!=''){
 </head>
 <body>
 
-    <div class="sticky-top ">
+<div class="content"> 
+<div>
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php';
@@ -250,7 +274,7 @@ if($_SESSION['alogin']!=''){
 
                
                 <!-- <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
-                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> -->
+                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> --> 
 
             </div>
            
@@ -262,7 +286,7 @@ if($_SESSION['alogin']!=''){
               
         <!-- Sign in Section starts Here -->
 
-            <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="" autofocus="">
+            <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="">
 
             <input style="font-size:13px;" type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
             
@@ -274,8 +298,12 @@ if($_SESSION['alogin']!=''){
            <div>
             <button class="btn btn-success btn-sm ml-1" name = "reviewer-login" type="submit" > Reviewer</button>
             </div>
+
             <div>
             <button class="btn btn-success btn-sm ml-1" name = "editor-login" type="submit" > Editor</button>
+            </div>
+            <div>
+            <button class="btn btn-info btn-sm ml-1" name = "chief-editor-login" type="submit" >Chief Editor</button>
             </div>
             
            </div>
@@ -411,30 +439,17 @@ if($_SESSION['alogin']!=''){
 
        </div>
     </div>
+    <div class="mb-4"></div>
+        <!-- Footer section starts here  -->
+        <?php include 'footer.php'; ?>
+    <!-- Footer section ends here  -->
+</div>
 
-
- 
-    <p style="text-align:center">
-        <a href="http://bit.ly/2RjWFMfunction toggleResetPswd(e){
-    e.preventDefault();
-    $('#logreg-forms .form-signin').toggle() // display:block or none
-    $('#logreg-forms .form-reset').toggle() // display:block or none
-}
-
-function toggleSignUp(e){
-    e.preventDefault();
-    $('#logreg-forms .form-signin').toggle(); // display:block or none
-    $('#logreg-forms .form-signup').toggle(); // display:block or none
-}
-
-$(()=>{
-    // Login Register Form
-    $('#logreg-forms #forgot_pswd').click(toggleResetPswd);
-    $('#logreg-forms #cancel_reset').click(toggleResetPswd);
-    $('#logreg-forms #btn-signup').click(toggleSignUp);
-    $('#logreg-forms #cancel_signup').click(toggleSignUp);
-})g" target="_blank" style="color:black"> <a href="index.php" id="cancel_signup"><i class="fas fa-angle-left"></i> Back to the main page</a></a>
-    </p>
+    <!-- Loader image section starts here  -->
+    <div class="loader-wrapper">
+      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
+    </div>
+    <!-- Loader image section ends here  -->
 
 </body>
 

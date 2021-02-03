@@ -11,63 +11,7 @@ if(strlen($_SESSION['alogin'])=="")
     { 
         $email =  $_SESSION['alogin'];
             
-                 //  Number of Reviews   count section starts here 
 
-                 $query = "SELECT COUNT(*) as total_rowsrev FROM reviews";
-                 $stmt = $dbh->prepare($query);
-                  
-                 // execute query
-                 $stmt->execute();
-                 
-                 // get total rows
-                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                 $total_reviews = $row['total_rowsrev'];
-         
-         
-            // Number of Reviews  count section ends here 
-
-            //  Number of comments   count section starts here 
-
-                 $query = "SELECT COUNT(*) as total_rowscom FROM comments";
-                 $stmt = $dbh->prepare($query);
-                 
-                 // execute query
-                 $stmt->execute();
-                 
-                 // get total rows
-                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                 $total_comments = $row['total_rowscom'];
-         
-         
-            // Number of comments  count section ends here  
-            
-            //  Number of paper  count section starts here 
-
-                $query = "SELECT COUNT(*) as total_paper FROM paper where authoremail='$email'";
-                $stmt = $dbh->prepare($query);
-                             
-                // execute query
-                $stmt->execute();
-                             
-                // get total rows
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                $total_paper = $row['total_paper'];
-                                  
-            // Number of paper  count section ends here  
-
-            // New Paper Assigned Section Starts Here 
-            $query = "SELECT COUNT(*) as total_rowsrev FROM editortable where primaryemail = '$authoremail'";
-            $stmt = $dbh->prepare($query);
-                         
-            // execute query
-            $stmt->execute();
-                        
-            // get total rows
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $total_revieweded = $row['total_rowsrev'];
-                        
-            
-            // New Paper Assigned Section Ends Here 
 
 ?>
 <!DOCTYPE html> 
@@ -85,7 +29,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 </head> 
 <body> 
-
+ 
 <nav class="navbar nav-class navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="editor-dashboard.php"><img src="../images/Iubat-logo.png">JOURNAL</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

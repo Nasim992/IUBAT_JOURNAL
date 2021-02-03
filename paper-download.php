@@ -1,16 +1,13 @@
 <?php  
 session_start();
 error_reporting(0);
-include 'link/linklocal.php';
+include 'link/config.php';
 if($link === false){
     die("ERROR: Could not connect. " .mysqli_connect_error());
 }
 
-// $id=intval($_GET['id']); 
-
-if (!empty($_GET['id'])) {
-$id=($_GET['id']);
-
+// $id=($_GET['paperidpublic']);
+$id=($_POST['paperidpublic']);
 $sql = "SELECT * FROM paper WHERE paperid = '$id' ";
 
 $result = mysqli_query($link,$sql);
@@ -51,13 +48,14 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     <title>Paper Download</title>
 </head> 
 <body>
-            <div class="sticky-top">
-                <!-- Heading Sections starts  -->
-                <?php 
-                include 'heading.php'
-                ?>
-                <!-- Heading Sections ends  --> 
-                </div>
+<div class="content">
+<div>
+     <!-- Heading Sections starts  -->
+     <?php 
+     include 'heading.php'
+     ?>
+     <!-- Heading Sections ends  --> 
+     </div>
     <div class="container">
     <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -91,7 +89,7 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
    <div class="jumbotron "> 
      
      <h5 class="display-4">Name : <?php echo $papername ?></h5>
-    <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
+    <h6 class="display-5 ">Author:<span class="text-info"> <?php echo $name; ?></span></h6>
      <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
      <hr class="my-4">
    
@@ -108,7 +106,12 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     include 'footer.php';
     ?>
     <!-- Footer section ends here  -->
-
+</div>
+    <!-- Loader image section starts here  -->
+    <div class="loader-wrapper">
+      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
+    </div>
+    <!-- Loader image section ends here  -->
 
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
@@ -133,10 +136,3 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
   </script>
 </body>
 </html>
-
-
-
-<?php } else  {
-
-    echo " Id is empty";
-    } ?>

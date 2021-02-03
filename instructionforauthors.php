@@ -13,7 +13,8 @@
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
-<div class="sticky-top">
+   <div class="content">
+   <div>
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php'
@@ -326,6 +327,12 @@ TIFF (or JPEG): Combinations bitmapped line/half-tone (color or grayscale), keep
     include 'footer.php'
     ?>
     <!-- Footer section ends here  -->
+   </div>
+       <!-- Loader image section starts here  -->
+       <div class="loader-wrapper">
+      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
+    </div>
+    <!-- Loader image section ends here  -->
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>

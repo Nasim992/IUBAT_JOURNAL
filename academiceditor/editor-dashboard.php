@@ -17,7 +17,7 @@ if(strlen($_SESSION['alogin'])=="")
            
            // execute query
            $stmt->execute();
-           
+            
            // get total rows
            $row = $stmt->fetch(PDO::FETCH_ASSOC);
            $total_rows = $row['total_rows'];
@@ -179,24 +179,6 @@ include 'editor-header.php';
              </a>
             </div>
 
-        
-
-            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-secondary">
-                  <i class="far fa-newspaper"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>Feedback</h4>
-                  </div>
-                  <div class="card-body">
-                    0
-                  </div>
-                </div>
-              </div>
-            </div> -->
-           
 <!-- Progress bar section ends here  -->
 
 </div>

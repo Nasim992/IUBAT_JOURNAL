@@ -1,7 +1,5 @@
 <?php 
+include 'dbname.php';
+$link = mysqli_connect(DB_HOST, DB_USER, DB_PASS,DB_NAME);
 
-$link = mysqli_connect("localhost", "root", "", "iubat");
-
-// $link = mysqli_connect("sql103.epizy.com", "epiz_27210191", "d1cMVcXvOSxtu6q", "epiz_27210191_iubat");
-  
 ?>

@@ -9,17 +9,27 @@ include('link/config.php');
     <title>IUBAT JOURNAL</title>
     <!-- Css links -->
     <?php include 'link/csslinks.php'; ?>
+
     <!-- Css links -->
+    <style>
+          .indexform button{
+           padding:0 !important;
+           margin:0 !important;
+        }
+        .indexform button:hover{
+            color:#0b4953 !important;
+        }
+    </style>
 </head>  
 <body>  
-<div class="sticky-top">
+   <div class="content"> 
+   <div>
     <!-- Heading Sections starts  -->
     <?php 
     include 'heading.php';
     ?>
     <!-- Heading Sections ends  --> 
     </div>
- 
     <div class="container text-dark">
     <div class="row pt-1">
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -31,7 +41,7 @@ include('link/config.php');
         <?php 
          include 'header.php';
         ?>
-    </div>
+    </div> 
     <!-- Top Heading Section ends here  -->
     </div> 
     </div> 
@@ -85,11 +95,16 @@ include('link/config.php');
     <!-- Select user  name section ends here  -->
 
     <!-- Dashboard section starts  --> 
-    <tr>
+    <tr> 
     <td>
     <div class="jumbotron  mb-0 bg-transparent">
+  
+    <form action="paper-download" class="indexform" method="post">
+    <input type="hidden" name="paperidpublic" value="<?php echo htmlentities($result->paperid);?>">
+    <button class="bg-transparent" style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;" type="submit" name="paperdownload"><?php echo htmlentities($result->papername);?></button>
+    </form>
 
-    <a href="paper-download.php?id=<?php echo htmlentities($result->paperid);?>"><h5 style="font-size:17px;"><?php echo htmlentities($result->papername);?></h5></a>
+    <!-- <a href="paper-download.php?id=<?php echo htmlentities($result->paperid);?>"><h5 style="font-size:17px;"><?php echo htmlentities($result->papername);?></h5></a> -->
 
     <h5 class="text-dark" style="font-size:16px;"><?php echo $authorname;?></h5>
     <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
@@ -119,9 +134,15 @@ include('link/config.php');
     <!-- Footer section starts here  -->
     <?php
     include 'footer.php';
-    ?>
+    ?> 
     <!-- Footer section ends here  -->
-
+   </div>
+   </div>
+    <!-- Loader image section starts here  -->
+    <div class="loader-wrapper">
+      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
+    </div>
+    <!-- Loader image section ends here  -->
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.5.1.slim.min.js"></script>

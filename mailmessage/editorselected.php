@@ -1,15 +1,18 @@
 <?php 
 
 $subject = "Editor Request in IUBAT JOURNAL";
+
+include 'url.php';
+
 $msg = "You have been requested as a Editor for $papername. Here, is the link for this paper title and Abstract:
-    http://localhost/IUBAT_JOURNAL/$filepathmessagetitle
+    $url/$filepathmessagetitle
 
 If you want to accept this Request as a Editor for this paper please click the following acceptation link:
-    http://localhost/IUBAT_JOURNAL/acceptrequesteditor.php?paperid=$id&email=$pemail
+    $url/acceptrequesteditor.php?paperid=$id&email=$pemail
 
 ---------------------------------------------------------------------------------------------------------------
 For Rejecting the Review Request of this paper Please Click on the Following link:
-    http://localhost/IUBAT_JOURNAL/rejectrequesteditor.php?paperid=$id&email=$pemail";
+    $url/rejectrequesteditor.php?paperid=$id&email=$pemail";
 
 
 // $msg = "You have been requested as a Editor for $papername. Here, is the link for this paper title and Abstract:

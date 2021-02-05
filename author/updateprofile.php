@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); 
 error_reporting(0); 
 include('../link/config.php');
 
@@ -27,7 +27,7 @@ if(strlen($_SESSION['alogin'])=="")
             if(isset($_POST['updateauthor']))
             { 
     
-            $username=$_POST['userName'];
+            // $username=$_POST['userName'];
             $title=$_POST['title'];
             $firstname=$_POST['firstName'];
             $middlename=$_POST['middleName'];
@@ -38,53 +38,19 @@ if(strlen($_SESSION['alogin'])=="")
             $semailcc=$_POST['semailcc'];
             $contact=$_POST['user-contact'];
             $address=$_POST['user-address']; 
-    
-         if ($pemail==$pemailAgain || $userpassword==$repeatPassword)
-         {
-        
-            $sql="INSERT INTO  author(username,title,firstname,middlename,lastname,primaryemail,primaryemailcc,secondaryemail,secondaryemailcc,password,contact,address,validation_code) VALUES(:username,:title,:firstname,:middlename,:lastname,:pemail,:pemailcc,:semail,:semailcc,:userpassword,:contact,:address,:validation_code)";
-    
-            $query = $dbh->prepare($sql);
-    
-            $query->bindParam(':username',$username,PDO::PARAM_STR);
-            $query->bindParam(':title',$title,PDO::PARAM_STR);
-            $query->bindParam(':firstname',$firstname,PDO::PARAM_STR);
-            $query->bindParam(':middlename',$middlename,PDO::PARAM_STR);
-            $query->bindParam(':lastname',$lastname,PDO::PARAM_STR);
-            $query->bindParam(':pemail',$pemail,PDO::PARAM_STR);
-            $query->bindParam(':pemailcc',$pemailcc,PDO::PARAM_STR);
-            $query->bindParam(':semail',$semail,PDO::PARAM_STR);
-            $query->bindParam(':semailcc',$semailcc,PDO::PARAM_STR);
-    
-            $query->bindParam(':userpassword',$userpassword,PDO::PARAM_STR);
-            $query->bindParam(':contact',$contact,PDO::PARAM_STR);
-            $query->bindParam(':address',$address,PDO::PARAM_STR);
-            $query->bindParam(':validation_code',$validation_code,PDO::PARAM_STR);
-          
-            $query->execute();
-    
-            $results=$query->fetchAll(PDO::FETCH_OBJ);
-            if($query->rowCount() > 0) 
-            {
-                        // Activation Link sending Messages starts here
-                        include './mailmessage/accountactivation.php'; 
-                        // Activation Link sending Messages section ends here
-                        
-                        send_email($pemail, $subject, $msg, $headers);
-            echo "<script>alert('Activation Link is sent to this $pemail.Log in to your gmail Account and Activate your Account.');</script>";
-            echo "<script type='text/javascript'> document.location = 'login'; </script>";
-            } else{
-                
-                echo "<script>alert('Invalid Details !UserName or Email address already is in use');</script>";
-                header("refresh:0;url=login.php");
-            }
-         }
-         else {
-            echo "<script>alert('Email or password doesn't matched with previous');</script>";
-            header("refresh:0;url=login.php");
-         }
-    
-            } 
+
+            $sqlauthorupdate = "update author set title='$title',firstname='$firstname',middlename='$middlename',lastname='$lastname',primaryemailcc='$pemailcc',secondaryemail='$semail',secondaryemailcc='$semailcc',contact='$contact',address='$address' where primaryemail='$pemail'";
+
+            if(mysqli_query($link,$sqlauthorupdate)) {
+
+              echo "<script>alert('Profile Updated Successfully');</script>";
+              header("refresh:0;url=updateprofile");
+          } 
+          else {
+            echo "<script>alert('Something went Wrong !');</script>";
+            header("refresh:0;url=updateprofile");
+          }
+          }
     
         // Update Author Profile Section ends here 
 
@@ -139,7 +105,7 @@ include 'author-header.php';
 <hr class="bg-success">
 
 <!-- Update Profile section starts here  -->
-          <?php  foreach($resultsauthor as $result) {   ?>
+          <?php  foreach($resultsauthor as $result) {   ?> 
              <form  class="form-signup marginbtm" method="post">
                 <input style="font-size:11px;" type="text" id="txt_username" class="form-control" name = "userName" placeholder=" User Name" value="<?php echo htmlentities($result->username);?>" disabled>
                    <span><b id="uname_response"></b></span>
@@ -156,7 +122,7 @@ include 'author-header.php';
 
                 </div>
 
-                <input style="font-size:11px;" type="email" id="pemail" class="form-control" onfocusout = "handlefocus()" name = "pemail" placeholder="Primary Email Address" required="" value="<?php echo htmlentities($result->primaryemail);?>">
+                <input style="font-size:11px;" type="hidden" id="pemail" class="form-control" name = "pemail" placeholder="Primary Email Address" required="" value="<?php echo htmlentities($result->primaryemail);?>">
                 <span><b id="pemail-text"></b></span>
 
                 <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemailcc" placeholder="Primary CC Email Address" required="" value="<?php echo htmlentities($result->primaryemailcc);?>">

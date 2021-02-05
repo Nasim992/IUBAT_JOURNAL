@@ -10,21 +10,16 @@ if(strlen($_SESSION['alogin'])=="")
     else 
     {  
            $authoremail = $_SESSION["email"];
-           //  New Paper count section starts here 
+        // Check that the Reviewer is logged in or not section starts here 
 
-        //    $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 0 || action=null";
-        //    $stmt = $dbh->prepare($query);
-           
-        //    // execute query
-        //    $stmt->execute();
-           
-        //    // get total rows
-        //    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        //    $total_rows = $row['total_rows'];
-   
-   
-        // // New Paper count section ends here 
-
+        $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail' and reviewerselection IS NOT NULL"; 
+        $query = $dbh->prepare($sql); 
+        $query->execute(); 
+        $results=$query->fetchAll(PDO::FETCH_OBJ); 
+        $cnt=1;
+        if($query->rowCount() > 0) 
+        {
+      // Check that the Reviewer is logged in or not section ends here 
 
 
                     //  Number of Reviews   count section starts here 
@@ -197,6 +192,12 @@ function closeNav() {
 </html> 
 
 <?php 
-}
+ }
+ else {
+   echo "<script>alert('You are not selected as a Reviewer.');</script>";
+   header("refresh:0;url=../login");
+ }
 
+
+}
 ?>

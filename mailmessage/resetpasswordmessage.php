@@ -2,8 +2,10 @@
 
 $subject = "RESET YOUR PASSWORD";
 
+include 'url.php';
+
 $msg = "Please Click the link below for resetting your password
-http://localhost/IUBAT_JOURNAL/resetpassword.php?email=$pemail";
+       $url/resetpassword.php?email=$pemail";
 
 // $msg = "Please Click the link below for resetting your password
 // http://nasim992.epizy.com/resetpassword.php?email=$pemail";

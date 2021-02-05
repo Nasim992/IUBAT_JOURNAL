@@ -1,15 +1,15 @@
 <?php  
 
-$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
+$sqlauthorernam = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
 
-$result1 = mysqli_query($link,$sql1); 
+$resultauthorernam = mysqli_query($link,$sqlauthorernam); 
  
-$file1 = mysqli_fetch_assoc($result1);
+$fileauthorername = mysqli_fetch_assoc($resultauthorernam);
  
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
+$title = $fileauthorername['title'];
+$fname= $fileauthorername['firstname'];
+$middlename= $fileauthorername['middlename'];
+$lastname= $fileauthorername['lastname'];
 
 $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 

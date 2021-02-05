@@ -12,6 +12,19 @@ if(strlen($_SESSION['alogin'])=="")
     {  
         $authoremail = $_SESSION["email"];
 
+                // Check that the Author is logged in or not section starts here 
+
+                $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail' and reviewerselection IS NOT NULL"; 
+                $query = $dbh->prepare($sql); 
+                $query->execute(); 
+                $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                $cnt=1;
+                if($query->rowCount() > 0) 
+                {
+              // Check that the Author is logged in or not section ends here 
+
+
+
        
         // Select paper id from reviewertable section starts here
 
@@ -99,7 +112,7 @@ include 'reviewer-header.php';
     <?php 
     // include 'link/linklocal.php';
     foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE  action=0 and paperid='$pid'";
+        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname from paper WHERE  action=0 and paperid='$pid'"; 
         $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
         $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
@@ -109,20 +122,17 @@ include 'reviewer-header.php';
         $abstract = $filereviewerselection['abstract'];
         $authoremailpaper = $filereviewerselection['authoremail'];
         $name = $filereviewerselection['name'];
-        $filepath = '../documents/'.$filereviewerselection['name']; 
+        $filepath = '../documents/file2/'.$filereviewerselection['name']; 
         $type = $filereviewerselection['type'];
         $action = $filereviewerselection['action'];
-        $uploaddate = $filereviewerselection['uploaddate'];
+        $uploaddatestring = $filereviewerselection['uploaddate'];
+        $uploaddate = date("d-M-Y",strtotime($uploaddatestring));
         $type = $filereviewerselection['type'];
         $pdate = $filereviewerselection['pdate'];
-        $pmonth = $filereviewerselection['pmonth'];
-        $pyear = $filereviewerselection['pyear'];
+
         $cauname = $filereviewerselection['coauthorname'];
           ?>
 <!-- Select user  name section ends here  -->
-
-
-
 
           <!-- Dashboard section starts  -->
       
@@ -220,4 +230,14 @@ include 'reviewer-header.php';
 </body>
 </html>
 
-<?php } ?>
+<?php 
+ }
+ else {
+   echo "<script>alert('You are not selected as a Reviewer.');</script>";
+   header("refresh:0;url=../login");
+ }
+
+
+}
+
+?>

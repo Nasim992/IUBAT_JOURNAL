@@ -5,22 +5,24 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../adminlogin"); 
+    header("Location: ../chiefeditorlogin"); 
     }
     else  
     { 
 
-     // Check that the admin is logged in or not section starts here 
-     $adminemail = $_SESSION["email"];
+     // Check that the Editor is logged in or not section starts here  
+     $editoremail = $_SESSION["email"];
 
-     $sql = "SELECT admin.id,admin.username,admin.fullname,admin.password,admin.email,admin.contact from admin where email='$adminemail'"; 
+     $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.contact FROM chiefeditor WHERE email='$editoremail'"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
      $cnt=1;
      if($query->rowCount() > 0) 
-     {  
-     // Check that the admin is logged in or not section ends here 
+     {
+     
+     // Check that the Editor is logged in or not section ends here 
+
     //  Remove as a Reviewer section starts Here 
     if(isset($_POST['reviewer-remove'])) {
       $paperid = $_POST['paperid'];
@@ -83,15 +85,15 @@ if(strlen($_SESSION['alogin'])=="")
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
 <?php
-include 'admin-header.php';
+include 'header.php';
 ?> 
 </div> 
 <!-- Author showing header sections ends   -->
 
 
-<div id="mySidebar" class="sidebar mt-3">
+<div id="mySidebar" class="sidebar">
   <?php
-  include 'admin-sidebar.php';
+  include 'sidebar.php';
   ?>
 
 </div> 
@@ -101,7 +103,7 @@ include 'admin-header.php';
 <a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
-
+ 
   <h5>REVIEWER DETAILS</h5>
   <hr class="bg-secondary" >
   <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
@@ -114,12 +116,13 @@ include 'admin-header.php';
             <th >Reviewer Name</th>
             <th >Email</th>
             <th >Assign Date</th>
+            <th >Ending Date</th>
             <th >Actions</th>
         </tr>
 </thead> 
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.assignmonth,reviewertable.assignyear,reviewertable.action from reviewertable where action IS NULL";
+<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.endingdate,reviewertable.action from reviewertable where action IS NULL";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -148,16 +151,16 @@ foreach($results as $result)
       $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
       $assigndate = htmlentities($result->assigndate);
-      $assignmonth = htmlentities($result->assignmonth);
-      $assignyear = htmlentities($result->assignyear);
-
-      $date = $assigndate.'-'.$assignmonth.'-'.$assignyear;
+      $endingdatestring = htmlentities($result->endingdate);
+      $date = date("d-M-Y",strtotime($assigndate));
+      $endingdate = date("d-M-Y",strtotime($endingdatestring));
 
 ?>
 
             <td ><?php echo $authorname;?></td>
             <td ><?php echo htmlentities($result->primaryemail);?></td>
             <td ><?php echo $date?></td>
+            <td ><?php echo $endingdate?></td>
  
 <td>
 
@@ -223,12 +226,10 @@ foreach($results as $result)
 
 }
 else {
-  echo "<script>alert('You are not an Admin.Try to log in as an Admin');</script>";
-  header("refresh:0;url=../adminlogin");
+  echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
+  header("refresh:0;url=../chiefeditorlogin");
 }
 
 }
     
-    
-
 ?>

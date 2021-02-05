@@ -1,7 +1,6 @@
 <?php
 session_start();
 error_reporting(0);
-
 include('../link/config.php');
 include('../functions.php');
 if(strlen($_SESSION['alogin'])=="") 
@@ -11,6 +10,17 @@ if(strlen($_SESSION['alogin'])=="")
     else
     {  
         $authoremail = $_SESSION["email"];
+
+        // Check that the Author is logged in or not section starts here 
+        
+        $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail' and reviewerselection IS NOT NULL"; 
+        $query = $dbh->prepare($sql); 
+        $query->execute(); 
+        $results=$query->fetchAll(PDO::FETCH_OBJ); 
+        $cnt=1;
+        if($query->rowCount() > 0) 
+        {
+     //   Check that the Author is logged in or not section ends here 
 
         // Select paper id from reviewertable section starts here
 
@@ -29,8 +39,6 @@ if(strlen($_SESSION['alogin'])=="")
         }
     }
   
-
-
         // Select Paper id From reviewertable section ends here
 
 ?>
@@ -60,7 +68,6 @@ if(strlen($_SESSION['alogin'])=="")
     
     </style>
 
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
 
@@ -96,9 +103,8 @@ include 'reviewer-header.php';
 <!-- Author paper showing section starts (Jumbotron section) -->
 <tbody id="myTable">
     <?php 
-    include '../link/linklocal.php'; 
     foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.uploadmonth,paper.uploadyear,paper.coauthorname from paper WHERE  paperid='$pid'";
+        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname from paper WHERE  paperid='$pid'";
 
         $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
         
@@ -110,35 +116,23 @@ include 'reviewer-header.php';
         $abstract = $filereviewerselection['abstract'];
         $authoremailpaper = $filereviewerselection['authoremail'];
         $name = $filereviewerselection['name'];
-        $filepath = '../documents/'.$filereviewerselection['name']; 
+        $filepath = '../documents/file2/'.$filereviewerselection['name']; 
         $type = $filereviewerselection['type'];
-        $action = $filereviewerselection['action'];
+        $action = $filereviewerselection['action']; 
 
         $mainuploaddate = $filereviewerselection['uploaddate'];
-        $uploadmonth = $filereviewerselection['uploadmonth'];
-        $uploadyear = $filereviewerselection['uploadyear'];
 
-        $uploaddate =  $mainuploaddate.' '.$arraymonth[intval($uploadmonth)-1].' '.$uploadyear;
+        $uploaddate =  date("d-M-Y",strtotime($mainuploaddate));
 
         $type = $filereviewerselection['type'];
-        $pdate = $filereviewerselection['pdate'];
-        $pmonth = $filereviewerselection['pmonth'];
-        $pyear = $filereviewerselection['pyear'];
-
-        $cauname = $filereviewerselection['coauthorname'];
+        
+        $pdatestring = $filereviewerselection['pdate'];
+        $pdate = date("d-M-Y",strtotime( $pdatestring));
 
           ?>
 
 <?php 
 
-// $sqlfeedback = "SELECT feedback FROM reviewertable WHERE  primaryemail= '$authoremailpaper' and paperid = '$id ";
-
-// $resultfeedback = mysqli_query($link,$sqlfeedback); 
-
-// $filefeedback = mysqli_fetch_assoc($resultfeedback);
-
-
-// echo $filefeedback;
 
 ?>
 <!-- Select user  name section ends here  -->
@@ -165,7 +159,7 @@ include 'reviewer-header.php';
                 </span>
                 <span style="color:green;">
                 <?php
-                echo "Published on ".$pdate.'-'.$pmonth.'-'.$pyear;
+                echo "Published on ".$pdate;
             }
             
             ?>
@@ -193,20 +187,14 @@ include 'reviewer-header.php';
        
        <input class="text-danger" style="font-size:15px;border:none;font-weight:600;background-color:white;" type="submit" name="reviewer-feedbacks" value="Edit your Feedback">
        </form>
+            </div>      
             </div>
-           
-            </div>
-
-           
-
            </div>
            <hr>
             </td>
            </div>
            </tr>
           
-      
-
        <!-- DashBoard Section ends  -->
 
     <?php } ?>
@@ -239,4 +227,11 @@ include 'reviewer-header.php';
 </body>
 </html>
 
-<?php } ?>
+<?php 
+}
+else {
+  echo "<script>alert('You are not selected as a Reviewer.');</script>";
+  header("refresh:0;url=../login");
+}
+}
+?>

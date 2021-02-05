@@ -32,11 +32,11 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'admin/admin-dashboard'; </script>";
+    echo "<script type='text/javascript'> document.location = 'admin/dashboard'; </script>";
     } else{
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
-        header("refresh:0;url=admin/admin-dashboard");
+        header("refresh:0;url=adminlogin");
     
     }
 }
@@ -63,18 +63,9 @@ if($_SESSION['alogin']!=''){
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/heading.css">
     <link rel="stylesheet" href="css/index.css">
-    <!-- <link rel="stylesheet" href="css/brands.css">
-    <link rel="stylesheet" href="css/brands.min.css"> -->
+
     <link rel="stylesheet" href="css/fontawesome.css">
     <link rel="stylesheet" href="css/fontawesome.min.css">
-    <!-- <link rel="stylesheet" href="css/regular.css">
-    <link rel="stylesheet" href="css/regular.min.css">
-    <link rel="stylesheet" href="css/solid.css">
-    <link rel="stylesheet" href="css/solid.min.css">
-    <link rel="stylesheet" href="css/svg-with-js.css">
-    <link rel="stylesheet" href="css/svg-with-js.min.css">
-    <link rel="stylesheet" href="css/v4-shims.css">
-    <link rel="stylesheet" href="css/v4-shims.min.css"> -->
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
@@ -98,7 +89,7 @@ if($_SESSION['alogin']!=''){
 
             <input style="font-size:13px;" type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
             
-            <button class="btn btn-success btn-sm btn-block" name = "admin-login" type="submit" > Admin Login</button>
+            <button class="btn btn-info btn-sm btn-block" name = "admin-login" type="submit" > Admin Login</button>
 
             <div class="pb-5"></div>
             

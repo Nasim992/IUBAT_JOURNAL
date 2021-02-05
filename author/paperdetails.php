@@ -2,7 +2,6 @@
 session_start();
 error_reporting(0);
 include '../link/config.php';
-include '../link/linklocal.php';
 include('../functions.php');
 if(strlen($_SESSION['alogin'])=="") 
     {    
@@ -22,18 +21,12 @@ if(strlen($_SESSION['alogin'])=="")
         if($query->rowCount() > 0) 
         { 
     // Check that the Author is logged in or not section ends here 
-
  
-
-// if($link === false){
-//     die("ERROR: Could not connect. " . mysqli_connect_error());
-// }
-
 // Paper description showing section starts here 
 
           //  Number of Feedback  count section starts here 
 
-          $queryreviewerpermits = "SELECT COUNT(*) as total_rows FROM reviewertable where paperid='$id' and permits=1";
+          $queryreviewerpermits = "SELECT COUNT(*) as total_rows FROM reviewertable where paperid='$id' and permits IS NOT NULL";
           $stmtpermits = $dbh->prepare($queryreviewerpermits);
                                   
            // execute query
@@ -67,7 +60,7 @@ $type2 = $file['type2'];
 // Title Second Section Ends Here 
 
 // Main File Uploaded Section starts here 
-$filepath = '../documents/'.$file['name'];
+$filepath = '../documents/'.$file['name']; 
 $filepathmessage = 'documents/'.$file['name'];
 $filename = $file['name'];
 $type = $file['type']; 
@@ -77,21 +70,20 @@ $type = $file['type'];
 $filepathresubmit ='../documents/resubmit/'.$file['resubmitpaper'];
 $filepathresubmitname = $file['resubmitpaper'];
 $fileresubmitdate = $file['resubmitdate'];
-// Resubmit file path section
-
+// Resubmit file path section 
 
 $papername = $file['papername'];
 $authormail = $file['authoremail'];
 $abstract = $file['abstract'];
 $numberofcoauthor = $file['numberofcoauthor'];
-$uploaddate = $file['uploaddate'];
-$uploadmonth = $file['uploadmonth'];
-$uploadyear = $file['uploadyear'];
 
-$maindate = $uploaddate.' '.month($uploadmonth).' '.$uploadyear;
+$uploaddate = $file['uploaddate'];
+
+$maindate = date("d-M-Y",strtotime($uploaddate));
 
 $cauname = unserialize($file['coauthorname']);
 
+// Authorname selection starts here 
 $sql1 = "SELECT * FROM author WHERE  primaryemail= '$authormail' ";
 
 $result1 = mysqli_query($link,$sql1); 
@@ -104,6 +96,7 @@ $middlename= $file1['middlename'];
 $lastname= $file1['lastname'];
 
 $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+// Authorname selection section ends here 
 
 // Paper description showing section ends here 
 
@@ -142,6 +135,41 @@ array_push($arrayusernameeditorshowing,$usernameeditor);
 }}
 // Editor showing section ends here
 
+
+$associateeditorshowing = array();
+// Associate Editor showing section starts here
+$sqlassociateeditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.associateeditor from editortable Where paperid='$id' and action IS NULL and associateeditor IS NOT NULL";
+$queryassociateeditor = $dbh->prepare($sqlassociateeditor); 
+$queryassociateeditor ->execute(); 
+$resultassociateeditor=$queryassociateeditor ->fetchAll(PDO::FETCH_OBJ); 
+$cnt=1;
+
+if($queryassociateeditor->rowCount() > 0) 
+{
+foreach($resultassociateeditor as $result) 
+{ 
+$usernameeditor = htmlentities($result->username);
+array_push($associateeditorshowing,$usernameeditor);
+}}
+// Associate  Editor showing section ends here
+
+$academiceditorshowing = array();
+// Academic Editor showing section starts here
+$sqlacademiceditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.academiceditor from editortable Where paperid='$id' and action IS NULL  and academiceditor IS NOT NULL";
+$queryacademiceditor = $dbh->prepare($sqlacademiceditor); 
+$queryacademiceditor ->execute(); 
+$resultacademiceditor=$queryacademiceditor ->fetchAll(PDO::FETCH_OBJ); 
+$cnt=1;
+
+if($queryacademiceditor->rowCount() > 0) 
+{
+foreach($resultacademiceditor as $result) 
+{ 
+$usernameeditor = htmlentities($result->username);
+array_push($academiceditorshowing,$usernameeditor);
+}}
+// Academic Editor section ends here 
+
 $arrayallusername = array();
 // Selecting All the username from the autor section starts here 
 $sqlreviewer = "SELECT username FROM author";
@@ -152,39 +180,30 @@ $filereviewer = mysqli_fetch_assoc($resultreviewer);
    }
 // Selecting All the username from the author section ends here
 
-// Selecting Remaining Reviewer and Editor of the section starts here 
-$emptyarray = array();
-$resultreviewershown=array_diff($arrayallusername,$arrayusernamereviewershowing,$emptyarray);
-
-$resulteditorshown=array_diff($arrayallusername,$arrayusernameeditorshowing,$emptyarray);
-
-// Selecting Remaining Reviewer and Editor of the section ends here
-
 // Resubmit paper section starts here 
-if(isset($_POST['resubmit']))
-{ 
+  if(isset($_POST['resubmit']))
+  { 
   $paperidresubmit = $_POST['resubmit-paperid'];
     // Full pdf if necessary info file section starts Here 
     $fileresubmit = $_FILES['fileresubmit'];
     $nameresubmit = $_FILES['fileresubmit']['name'];
     $filetmpresubmit = $_FILES['fileresubmit']['tmp_name']; 
     $typeresubmit = $_FILES['fileresubmit']['type'];
-    $resubmitdate = date('d');
-    $resubmitmonth = date('m');
-    $resubmityear = date('Y');
+    $resubmitdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
+
      // Full pdf if necessary info  File section ends here
  
-     $sqlresubmit="update paper set resubmitpaper='$nameresubmit',resubmitdate=$resubmitdate,resubmitmonth=$resubmitmonth,resubmityear=$resubmityear where paperid='$paperidresubmit'";
+     $sqlresubmit="update paper set resubmitpaper='$nameresubmit',resubmitdate='$resubmitdate' where paperid='$paperidresubmit'";
      
      if(mysqli_query($link, $sqlresubmit))
      {
         move_uploaded_file($filetmpresubmit,"../documents/resubmit/".$nameresubmit);
      echo "<script>alert('Paper Resubmitted Successfully.');</script>";
-    //    header("refresh:0;url=unpublished-paper");
+       header("refresh:0;url=paperstatus");
      }
      else {
          echo "<script>alert('Paper is already Resubmitted!');</script>";
-        //  header("refresh:0;url=unpublished-paper");
+         header("refresh:0;url=paperstatus");
  
      }   
 }
@@ -232,7 +251,7 @@ include 'author-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-  <h5>PAPER DETAILS</h5>
+  <h6>PAPER DETAILS</h6>
   <hr class="bg-secondary" >
 
   <div class="jumbotron">
@@ -277,17 +296,26 @@ include 'author-header.php';
          </small></span></h6>
          </div>
          <div>
-         <h6 style="font-size:15px;" class="display-5">Editor:<span style='color:#122916;'> <small>
+         <h6 style="font-size:15px;">Associate Editor:<span style='color:#122916;'> <small>
     <!-- Showing Selected editor Section Starts Here  -->
          <?php
-             foreach( $arrayusernameeditorshowing  as $arrpap){
+             foreach( $associateeditorshowing  as $arrpap){
                $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
                $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
                $filenameeditorp = mysqli_fetch_assoc($resultnameeditorp);
                $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
                echo $fullname.' ';
              }
+             echo "</small><h6 style='font-size:15px;'>Associate Editor:<span style='color:#122916;'> <small>";
+             foreach( $academiceditorshowing  as $arrpap){
+              $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
+              $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
+              $filenameeditorp = mysqli_fetch_assoc($resultnameeditorp);
+              $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
+              echo $fullname.' ';
+            }
      ?>
+    
     <!-- Showing Selected editor section ends here -->
          </small></span></h6>
          </div>
@@ -357,20 +385,29 @@ include 'author-header.php';
 <hr class="bg-success">
 <h6><small><b>Uploaded Files:</b></small></h6>
 <div class="row">
+<?php if(!empty($filename1)) { ?>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+Title and Abstract: <a style="font-size:13px;" title="Title and Abstract" class="" href="<?php echo $filepathtitle;?> "target ="_blank" role="button"><?php echo $filename1;  ?></a>
+</div>
+<?php } ?>
 
+<?php if(!empty($filename2)) { ?>
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-1.Title and Abstract: <a style="font-size:13px;" title="Title and Abstract" class="" href="<?php echo $filepathtitle;?> "target ="_blank" role="button"><?php echo $filename1;  ?></a>
+Full Manuscript: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathsecond;?> "target ="_blank" role="button"><?php echo $filename2; ?></a>
 </div>
-<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-2.Full Manuscript: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathsecond;?> "target ="_blank" role="button"><?php echo $filename2; ?></a>
-</div>
-<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-3.Necessary Info: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepath ?> "target ="_blank" role="button"><?php echo $filename;  ?></a>
-</div>
-<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-3.Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathresubmit ?> "target ="_blank" role="button"><?php echo $filepathresubmitname;  ?></a>
-</div>
+<?php } ?>
 
+<?php if(!empty($filename)) { ?>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+Necessary Info: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepath ?> "target ="_blank" role="button"><?php echo $filename;  ?></a>
+</div>
+<?php } ?>
+
+<?php if(!empty($filepathresubmitname)) { ?>
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathresubmit ?> "target ="_blank" role="button"><?php echo $filepathresubmitname;  ?></a>
+</div>
+<?php } ?>
 
 </div> 
 <!-- File Section Ends Here  -->

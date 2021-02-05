@@ -28,7 +28,7 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'author/author-dashboard'; </script>";
+    echo "<script type='text/javascript'> document.location = 'author/dashboard'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
@@ -93,12 +93,12 @@ if($_SESSION['alogin']!=''){
             if($associateeditor==1) {
                 $_SESSION['alogin']=$_POST['input-email'];
                 echo "<script>alert('Logged in Success');</script>";
-                echo "<script type='text/javascript'> document.location = 'associateeditor/editor-dashboard'; </script>";
+                echo "<script type='text/javascript'> document.location = 'associateeditor/dashboard'; </script>";
             }
             else if($academiceditor==1) {
-                $_SESSION['alogin']=$_POST['input-email'];
+                $_SESSION['alogin']=$_POST['input-email']; 
                 echo "<script>alert('Logged in Success');</script>";
-                echo "<script type='text/javascript'> document.location = 'academiceditor/editor-dashboard'; </script>";
+                echo "<script type='text/javascript'> document.location = 'academiceditor/dashboard'; </script>";
             }
             else {
                 echo "<script>alert('You are not selected as an editor.');</script>";
@@ -114,18 +114,6 @@ if($_SESSION['alogin']!=''){
     }
      
 //  Editor Log in Option ends here
-
-// Chief editor section starts here 
-
-if(isset($_POST['editor-login']))  
-{
-
- 
-    
-}
-
-
-// Chief editor section ends here 
 
 
     // Sign Up form section starts here 
@@ -301,11 +289,7 @@ if(isset($_POST['editor-login']))
 
             <div>
             <button class="btn btn-success btn-sm ml-1" name = "editor-login" type="submit" > Editor</button>
-            </div>
-            <div>
-            <button class="btn btn-info btn-sm ml-1" name = "chief-editor-login" type="submit" >Chief Editor</button>
-            </div>
-            
+            </div>   
            </div>
            
 
@@ -347,7 +331,7 @@ if(isset($_POST['editor-login']))
 
                 <!-- <input type="password" name="rpassword" id="resetEmail" class="form-control" placeholder="Enter New Password" required=""> -->
 
-                <button class="btn btn-primary btn-block" type="submit" name="rsubmit">Reset Password</button>
+                <button class="btn btn-sm btn-info btn-block" type="submit" name="rsubmit">Reset Password</button>
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
             </form>
 

@@ -1,6 +1,6 @@
 <?php
 
-include 'link/linklocal.php';
+include '../link/linklocal.php';
 
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
@@ -37,7 +37,7 @@ if(mysqli_query($link, $sql)){
 
     echo "Selected Authors were deleted successfully.";
 
-    header("refresh:1;url=admin-show-authors.php");
+    header("refresh:1;url=authors");
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('../link/config.php');
+include('../link/config.php'); 
 
 if(strlen($_SESSION['alogin'])=="")
     {    
@@ -11,17 +11,16 @@ if(strlen($_SESSION['alogin'])=="")
     { 
         $email =  $_SESSION['alogin'];
 
-        //        // Check that the admin is logged in or not section starts here 
+        // Check that the Author is logged in or not section starts here 
 
-        //        $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
-        //        $query = $dbh->prepare($sql); 
-        //        $query->execute(); 
-        //        $results=$query->fetchAll(PDO::FETCH_OBJ); 
-        //        $cnt=1;
-        //        if($query->rowCount() > 0) 
-        //        {
-        
-        // // Check that the admin is logged in or not section ends here 
+        $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$email' and reviewerselection IS NOT NULL"; 
+        $query = $dbh->prepare($sql); 
+        $query->execute(); 
+        $results=$query->fetchAll(PDO::FETCH_OBJ); 
+        $cnt=1;
+        if($query->rowCount() > 0) 
+        {
+      // Check that the Author is logged in or not section ends here 
 
 ?>
 <!DOCTYPE html>
@@ -39,9 +38,32 @@ if(strlen($_SESSION['alogin'])=="")
 
 </head> 
 <body> 
+<!-- Select User Name tile section starts Here  -->
+<?php  
+
+$authoremail = $_SESSION["email"];
+
+$sql1 = "SELECT * FROM author WHERE  primaryemail= '$email' ";
+
+$result1 = mysqli_query($link,$sql1); 
+
+$file1 = mysqli_fetch_assoc($result1);
+
+$username = $file1['username'];
+
+$title = $file1['title'];
+$fname= $file1['firstname'];
+$middlename= $file1['middlename'];
+$lastname= $file1['lastname'];
+
+$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+
+?>
+<!-- Select User Name title section ends here -->
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="reviewer-dashboard"><img src="../images/Iubat-logo.png">JOURNAL</a>
+  <h6 style="font-size:12px;">Welcome Back,<?php  echo $authorname; ?></h6>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> 
@@ -89,7 +111,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 
 <li class="nav-item active" >
-       <a class="nav-link " href="../logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> (<?php echo $username; ?>) <i class="fas fa-sign-out-alt"></i></a>
+       <a class="nav-link " href="../logout.php" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"> <small>(Sign Out)</small> <i class="fas fa-sign-out-alt"></i></a>
         </li>
 </ul>
 
@@ -98,7 +120,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
    
         </ul>
   
-  </div>
+  </div> 
 </nav>
 
 
@@ -112,8 +134,14 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 </html>
 
     <?php
-                
-            
-  }
+ }
+ else {
+   echo "<script>alert('You are not selected as a Reviewer.');</script>";
+   header("refresh:0;url=../login");
+ }
+
+
+}
+
     
     ?>

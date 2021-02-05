@@ -12,6 +12,18 @@ if(strlen($_SESSION['alogin'])=="")
     {  
 
       $email =  $_SESSION['alogin'];
+
+              // Check that the Author is logged in or not section starts here 
+
+              $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$email' and reviewerselection IS NOT NULL"; 
+              $query = $dbh->prepare($sql); 
+              $query->execute(); 
+              $results=$query->fetchAll(PDO::FETCH_OBJ); 
+              $cnt=1;
+              if($query->rowCount() > 0) 
+              {
+            // Check that the Author is logged in or not section ends here 
+
       // Reviewer Paper Section Starts Here
       if(isset($_POST['reviewer-feedbacks'])) {
         $paperid = $_POST['paperid'];
@@ -25,9 +37,8 @@ if(strlen($_SESSION['alogin'])=="")
         $feedbackmonth = date('m');
         $feedbackyear = date('Y'); 
  
-        include '../link/linklocal.php'; 
 
-        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate',feedbackmonth='$feedbackmonth',feedbackyear='$feedbackyear' where paperid='$paperid' and primaryemail='$email'";
+        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
         {
@@ -83,34 +94,32 @@ include 'reviewer-header.php';
  
 include '../link/linklocal.php';
 // Selecting Paper section starts Here
-$sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE  paperid='$paperid'";
+$sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname from paper WHERE  paperid='$paperid'";
 
 $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
 
 $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
-$id =  $filereviewerselection['id'];
+$id =  $filereviewerselection['paperid'];
 $papername = $filereviewerselection['papername'];
 $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
 $abstract = $filereviewerselection['abstract'];
 $authoremailpaper = $filereviewerselection['authoremail'];
 $name = $filereviewerselection['name'];
-$filepath = '../documents/'.$filereviewerselection['name']; 
+$filepath = '../documents/file2/'.$filereviewerselection['name']; 
 $type = $filereviewerselection['type'];
 $action = $filereviewerselection['action'];
-$uploaddate = $filereviewerselection['uploaddate'];
+$uploaddatestring = $filereviewerselection['uploaddate'];
+$uploaddate =date("d-M-Y",strtotime($date));
+
 $type = $filereviewerselection['type'];
 $pdate = $filereviewerselection['pdate'];
-$pmonth = $filereviewerselection['pmonth'];
-$pyear = $filereviewerselection['pyear'];
 $cauname = $filereviewerselection['coauthorname'];
 
 // Selecting Paper Section Ends Here 
         
 ?>
-
 <div class="jumbotron mt-0" > 
-
 <div class="d-flex justify-content-between">
 <div>
 <p class="fontSize14px">Paper ID : <?php echo $id;?></p>
@@ -215,4 +224,15 @@ else {
 </body>
 </html>
 
-    <?php } ?>
+    <?php 
+     }
+     else {
+       echo "<script>alert('You are not selected as a Reviewer.');</script>";
+       header("refresh:0;url=../login");
+     }
+    
+    
+    }
+    
+    
+    ?>

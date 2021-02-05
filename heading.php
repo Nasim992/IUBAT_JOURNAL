@@ -23,7 +23,7 @@
      <span class="navbar-text"><a class="nav-link" href="aimandscope">Aim and Scope</a></span>
      </li>
    <li class="nav-item active">
-   <span class="navbar-text"><a class="nav-link" href="instructionforauthors">Instruction</a></span>
+   <span class="navbar-text"><a class="nav-link" href="guideline">Guid Lines</a></span>
       </li>
    
    <li class="nav-item active">

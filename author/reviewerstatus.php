@@ -90,7 +90,7 @@ include 'author-header.php';
 </thead> 
 <tbody id="myTable-admin">
 <!-- Selecting paper section starts here  -->
-        <?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.assignmonth,reviewertable.assignyear,reviewertable.action,reviewertable.feedback,reviewertable.feedbackdate,reviewertable.feedbackmonth,reviewertable.feedbackyear from reviewertable WHERE primaryemail='$authoremail'";
+        <?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.action,reviewertable.feedback,reviewertable.feedbackdate from reviewertable WHERE primaryemail='$authoremail' and feedback IS NOT NULL";
             $query = $dbh->prepare($sql); 
             $query->execute(); 
             $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -107,7 +107,7 @@ include 'author-header.php';
 <td class="text-dark">
 <?php  echo htmlentities($result->paperid); ?>
 </td>
-
+ 
 <td>
 <?php echo htmlentities($result->feedback);   ?>
 </td>
@@ -118,11 +118,13 @@ include 'author-header.php';
 <?php 
 // Selecting Date section starts here
 
-$feedbackdate = htmlentities($result->feedbackdate);
-$feedbackmonth = htmlentities($result->feedbackmonth);
-$feedbackyear= htmlentities($result->feedbackyear);
-$maindate =$feedbackdate.' '.month(intval($feedbackmonth)).' '.$feedbackyear;
-echo $maindate.'<br>';
+if (!empty(htmlentities($result->feedback)))
+{
+    $feedbackdatestring = htmlentities($result->feedbackdate);
+    $maindate = date("d-M-Y",strtotime($feedbackdatestring));
+    echo $maindate.'<br>';
+}
+
 // Selecting Date section ends here 
 ?>
 

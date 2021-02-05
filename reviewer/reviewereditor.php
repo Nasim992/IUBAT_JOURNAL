@@ -6,12 +6,24 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {     
-    header("Location: ../login"); 
+    header("Location: ../login");  
     }
     else
     {  
-
       $email =  $_SESSION['alogin'];
+
+              // Check that the Author is logged in or not section starts here 
+
+              $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$email' and reviewerselection IS NOT NULL"; 
+              $query = $dbh->prepare($sql); 
+              $query->execute(); 
+              $results=$query->fetchAll(PDO::FETCH_OBJ); 
+              $cnt=1;
+              if($query->rowCount() > 0) 
+              {
+            // Check that the Author is logged in or not section ends here 
+
+
       // Reviewer Paper Section Starts Here
       if(isset($_POST['reviewer-feedbacks'])) {
         $paperid = $_POST['paperid'];
@@ -21,13 +33,11 @@ if(strlen($_SESSION['alogin'])=="")
         $paperid = $_POST['paperid'];
         $email = $_POST['authoremail'];
         $feedback = $_POST['reviewer-review'];
-        $feedbackdate = date('d');
-        $feedbackmonth = date('m');
-        $feedbackyear = date('Y'); 
- 
-        include '../link/linklocal.php'; 
 
-        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate',feedbackmonth='$feedbackmonth',feedbackyear='$feedbackyear' where paperid='$paperid' and primaryemail='$email'";
+        $feedbackdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
+
+ 
+        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
         {
@@ -83,7 +93,7 @@ include 'reviewer-header.php';
  
 include '../link/linklocal.php';
 // Selecting Paper section starts Here
-$sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.pmonth,paper.pyear,paper.uploaddate,paper.coauthorname from paper WHERE  paperid='$paperid'";
+$sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname from paper WHERE  paperid='$paperid'";
 
 $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
 
@@ -95,14 +105,16 @@ $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
 $abstract = $filereviewerselection['abstract'];
 $authoremailpaper = $filereviewerselection['authoremail'];
 $name = $filereviewerselection['name'];
-$filepath = '../documents/'.$filereviewerselection['name']; 
+$filepath = '../documents/file2/'.$filereviewerselection['name']; 
 $type = $filereviewerselection['type'];
 $action = $filereviewerselection['action'];
-$uploaddate = $filereviewerselection['uploaddate'];
+
+$uploaddatestring = $filereviewerselection['uploaddate'];
+$uploaddate = date("d-M-Y",strtotime($date));
+
 $type = $filereviewerselection['type'];
 $pdate = $filereviewerselection['pdate'];
-$pmonth = $filereviewerselection['pmonth'];
-$pyear = $filereviewerselection['pyear'];
+
 $cauname = $filereviewerselection['coauthorname'];;
         
 ?>
@@ -160,8 +172,6 @@ $resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
 
 $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 
-
-
 ?>
 
 <div class="row">
@@ -171,14 +181,10 @@ $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 <p><?php echo $filereviewerupdate['feedback']; ?></p>
 </div>
 
-
  </div>
 
   <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
      <!-- input file section starts here  --> 
-
-
-
    <form method = "post">
    <div class="">
    <h1 class="text-center" style="font-size:18px;"><b>Edit your response</b></h1> 
@@ -197,7 +203,6 @@ $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 
 <br>
 <br>
-
    </div>
 <hr>
 <div class="form-group">
@@ -211,19 +216,14 @@ $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 </div>
 
 </div>
-
   <!-- Form Section Ends Here  -->
   </form>
  <!-- Input file section ends here  -->
   </div>
-
 </div>
-
 
 </div> <!-- Container div -->
 </div>
-
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
@@ -232,5 +232,11 @@ $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
     <!-- Essential Js,Jquery  section ends  -->    
 </body>
 </html>
-
-    <?php } ?>
+  <?php    
+  }
+  else {
+    echo "<script>alert('You are not selected as a Reviewer.');</script>";
+    header("refresh:0;url=../login");
+  }
+ }
+    ?>

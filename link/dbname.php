@@ -6,7 +6,6 @@ define('DB_PASS','');
 define('DB_NAME','iubat');
 // Establish database connection.
 
-
 // DB credentials.
 // define('DB_HOST','sql103.epizy.com');
 // define('DB_USER','epiz_27210191'); 

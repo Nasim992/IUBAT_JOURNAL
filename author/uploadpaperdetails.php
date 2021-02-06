@@ -31,7 +31,7 @@ if(isset($_POST['submit']))
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $maximumpaperid = $row['total_rows'];
   // Maximum paper id section ends here 
-     $maximumpaperid = $maximumpaperid + 1;
+     $maximumpaperid = $maximumpaperid + 1; 
       $year = date('Y');
       $paperid = 'I'.$year.$maximumpaperid;
       if(strlen($maximumpaperid)===2){

@@ -33,15 +33,21 @@ if(strlen($_SESSION['alogin'])=="")
         $paperid = $_POST['paperid'];
         $email = $_POST['authoremail'];
         $feedback = $_POST['reviewer-review'];
-        $feedbackdate = date('d');
-        $feedbackmonth = date('m');
-        $feedbackyear = date('Y'); 
+        $feedbackdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
+
+          // Full pdf if necessary info file section starts Here 
+          $filereviewer = $_FILES['reviewerfile'];
+          $namereviewer = $_FILES['reviewerfile']['name'];
+          $filetmpreviewer = $_FILES['reviewerfile']['tmp_name'];
+          $typereviewer = $_FILES['reviewerfile']['type'];
+          // Full pdf if necessary info  File section ends here
  
 
-        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate' where paperid='$paperid' and primaryemail='$email'";
+        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackfile='$namereviewer',feedbackdate='$feedbackdate' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
         {
+          move_uploaded_file($filetmpreviewer,"../documents/review/".$namereviewer);
           echo "<script>alert('Feedback Sent Successfully');</script>";
           // header("refresh:0;url=reviewer-feedback");
         }
@@ -168,9 +174,9 @@ else {
 
 <div class="row">
 
-  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+  <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
      <!-- input file section starts here  --> 
-   <form method = "post">
+     <form class="author-form"  method = "post" enctype = "multipart/form-data">
    <div class="">
    <h1 class="text-center" style="font-size:18px;"><b>Give Review</b></h1>
    <br>
@@ -181,9 +187,18 @@ else {
 <div class="input-group">
 <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Write Review:</b></label>
 <div class="col-sm-10">
-<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="3" placeholder ="Write a review of this paper" required></textarea>
+<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="8" placeholder ="Write a review of this paper" required></textarea>
 </div>
-</> 
+</div> 
+
+
+<div class="input-group">
+<label class="col-sm-12 col-form-label" for="formGroupExampleInput"><b>Attach Review(If Required):</b></label><br>
+<div class="col-sm-12">
+<input type="file" class="form-control-file" name="reviewerfile"id="exampleFormControlFile1" accept = "application/pdf"  required>
+</div>
+
+
 <br>
 
 <br>

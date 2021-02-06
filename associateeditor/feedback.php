@@ -22,25 +22,59 @@ if(strlen($_SESSION['alogin'])=="")
  
 // Check that the Associate Editor  is logged in or not section ends here 
 
+   
+     // Sending Review to the author section starts here 
+if(isset($_POST['send-review']))
+{
+    $paperid = $_POST['paperid']; 
+    $username = $_POST['username'];
+    $primaryemailauthor = $_POST['primaryemailauthor'];
+    
+    $action = 1;
+    $sql="update reviewertable set permits=$action where paperid='$paperid' and username='$username'";
+    if(mysqli_query($link, $sql))
+    {
+              // Send Review Message Section Starts Here 
+              include '../mailmessage/sendreview.php';
+              // Send Review Message Section Ends Here 
+    send_email($primaryemailauthor, $subject, $msg, $headers);
+    echo "<script>alert('Send this Review to the author Successfully.');</script>";
+      header("refresh:0;url=feedback");
+    }
+    else {
+        echo "<script>alert('Already sent!');</script>";
+        header("refresh:0;url=feedback");
+
+    }
+}
+// Sending Review to the author section ends here 
+
+
+
     //  Remove as a Reviewer section starts Here 
 
     if(isset($_POST['reviewer-remove-feedback'])) {
       $paperid = $_POST['paperid'];
       $username = $_POST['username'];
+      $filepathreviewer = $_POST['reviewpaperpath'];
 
       $action = 1;
       $action0=0;
       $feedback = NULL;
-      $sqlremovereview="update reviewertable set feedback='$feedback' where paperid='$paperid' and username='$username'";
+      $feedbackdate = NULL;
+      $feedbackfile = NULL;
+      $permits = NULL;
+      $sqlremovereview="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate',feedbackfile='$feedbackfile',permits='$permits' where paperid='$paperid' and username='$username'";
 
       if(mysqli_query($link, $sqlremovereview))
       {
+        unlink($filepathreviewer);
       echo "<script>alert('Feedback Removed Successfully for this paper.');</script>";
-        // header("refresh:0;url=reviewerdetails");
+        header("refresh:0;url=feedback");
       }
       else {
           echo "<script>alert('Something went wrong');</script>";
-          // header("refresh:0;url=reviewerdetails");
+          header("refresh:0;url=feedback");
       }
    
 
@@ -130,15 +164,26 @@ include 'header.php';
 </thead> 
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.action,reviewertable.feedback,reviewertable.feedbackdate from reviewertable where action IS NULL";
+<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.action,reviewertable.feedback,reviewertable.feedbackfile,reviewertable.feedbackdate,reviewertable.permits from reviewertable where action IS NULL";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
 $cnt=1;
 if($query->rowCount() > 0) 
 {
-foreach($results as $result) 
-{   ?>
+foreach($results as $result)  
+{  
+  
+  $feedbackfilename = htmlentities($result->feedbackfile);
+
+  $feedbackfilepath = '../documents/review/'.$feedbackfilename;
+
+  $paperid = htmlentities($result->paperid);
+  $permits = htmlentities($result->permits);
+  $feedbackdate = htmlentities($result->feedbackdate);
+  ?>
+
+
 <tr>
 <td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
@@ -152,7 +197,7 @@ foreach($results as $result)
       
       $title = $file1['title'];
       $fname= $file1['firstname'];
-      $middlename= $file1['middlename'];
+      $middlename= $file1['middlename']; 
       $lastname= $file1['lastname'];
 
       $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
@@ -161,10 +206,28 @@ foreach($results as $result)
 
       $fddate = date("d-M-Y",strtotime($fdate ));
 
+       
+      // Selecting paperauthor email section starts here 
+      $sqlpaper = "SELECT * FROM paper WHERE  paperid='$paperid' ";
+
+      $resultpaper = mysqli_query($link,$sqlpaper ); 
+
+      $filepaper = mysqli_fetch_assoc($resultpaper );
+
+      $primaryemailauthor = $filepaper['authoremail'];
+
+      
+      // Selecting paperauthor email section ends here 
+
+
 ?>
 
             <td ><?php echo $authorname;?></td>
-            <td ><?php echo htmlentities($result->feedback);?></td>
+            <td ><?php echo htmlentities($result->feedback);  ?><br>
+            <a style="font-size:13px;" title="Reviewer Feedback File" class="" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button"><?php echo $feedbackfilename;  ?></a>
+            
+            </td>
+
             <td ><?php 
             
             if(!empty(htmlentities($result->feedback))) {
@@ -172,12 +235,28 @@ foreach($results as $result)
             }
             ?></td>
  
-<td>
+<td> 
 
 <form method="post">
-<input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
+<input type="hidden" name="paperid" value="<?php echo $paperid;?>">
 <input type="hidden" name="username" value="<?php echo $username?>">
-<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="reviewer-remove-feedback" value="x">
+<input type="hidden" name="primaryemailauthor" value="<?php echo $primaryemailauthor;?>">
+<input type="hidden" name="reviewpaperpath" value="<?php echo $feedbackfilepath;?>">
+
+<?php if($permits==1)  { 
+  ?>
+  <input class=" btn btn-sm btn-info" title="send this review" onclick="return confirm('Are you sure you want to send this review to the author?');" style="font-size:15px;border:none;font-weight:600;" type="submit" name="send-review" value="Already Send" disabled>
+  <?php  
+} else {
+  if(!empty($feedbackdate)) {
+  ?>
+<input class=" btn btn-sm btn-info" title="send this review" onclick="return confirm('Are you sure you want to send this review to the author?');" style="font-size:15px;border:none;font-weight:600;" type="submit" name="send-review" value="send">
+<?php 
+  }}?>
+
+
+<input class="btn btn-sm btn-danger" title="remove this review" onclick="return confirm('Are you sure you want to remove review for this paper?');" style="border:none;font-weight:600;" type="submit" name="reviewer-remove-feedback" value="x">
+
 </form>
 
 </td>

@@ -507,9 +507,9 @@ include 'header.php';
 
 <div class="row">
 
-<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a href="reviewerdetails"  style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:0</a>
-</div>
+</div> -->
 <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Editor Feedback:0</a>
 </div> -->

@@ -1,9 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-
 include('../link/config.php');
-
 if(strlen($_SESSION['alogin'])=="")
     {     
     header("Location: ../login");  
@@ -36,7 +34,6 @@ if(strlen($_SESSION['alogin'])=="")
 
         $feedbackdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
 
- 
         $sqlreviewer="update reviewertable set feedback='$feedback',feedbackdate='$feedbackdate' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
@@ -99,7 +96,7 @@ $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
 
 $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
-$id =  $filereviewerselection['paperid'];
+$id =  $filereviewerselection['paperid']; 
 $papername = $filereviewerselection['papername'];
 $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
 $abstract = $filereviewerselection['abstract'];
@@ -110,7 +107,7 @@ $type = $filereviewerselection['type'];
 $action = $filereviewerselection['action'];
 
 $uploaddatestring = $filereviewerselection['uploaddate'];
-$uploaddate = date("d-M-Y",strtotime($date));
+$uploaddate = date("d-M-Y",strtotime($uploaddatestring));
 
 $type = $filereviewerselection['type'];
 $pdate = $filereviewerselection['pdate'];
@@ -172,6 +169,11 @@ $resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
 
 $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 
+$feedbackfile = $filereviewerupdate['feedbackfile'];
+
+$feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
+
+
 ?>
 
 <div class="row">
@@ -179,6 +181,7 @@ $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" >
 <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
 <p><?php echo $filereviewerupdate['feedback']; ?></p>
+<a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button">Your Reviewed file</a>
 </div>
 
  </div>

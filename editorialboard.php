@@ -42,12 +42,221 @@ include('link/config.php');
     <!-- Sidebar Section ends here  -->
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
     <div class="text-left pb-4">
-        <h4 class="text-center">EDITORIAL BOARD</h4>
+        <h5 class="text-center">EDITORIAL BOARD</h5>
         <hr class="bg-secondary">
-        <p>EDITORIAL Board will be available soon.</p>
-    </p>
-    </div>
 
+
+        <!-- Editors section -->
+        <div class="row">
+
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
+        <div class="card h-75">
+        <div class="card-body">
+        <h6><b>EDITORS</b></h6>
+         <p><b>Dr.Md. Monirul Islam</b></p>
+         <p>Chair and Professor</p>
+         <p>College of Engineering and Technology, IUBAT</p>
+         </div>
+         </div>
+        </div>
+        <div  class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
+        <div class="card h-75">
+         <div class="card-body">
+          <h6><b>ADVISORY BOARD</b></h6>
+         <p><b>Professor Dr. M Alimullah Miyan</b></p>
+         <p>Founder Vice-Chancellor, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        </div>
+        <!-- Editors section -->
+
+        <!--  Main Associate Editors and Academic Editors Section starts here -->
+        <div class ="row ">
+        <div  class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <!-- Associate Editors -->
+        <h6 class="text-center"><b>ASSOCIATE EDITORS</b></h6>
+        <div class="row">
+        <div  class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Md. Mahbubur Rahman</b></p>
+         <p>Associate Professor
+            Department of Physics, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        <div  class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Mozaffar Alam Chowdhury</b></p>
+         <p>Assistant Professor
+          College of Business Administration, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        </div>
+        <!-- Associate Editors -->
+        <h6 class="text-center"><b>EDITORIAL BOARD MEMBERS</b></h6>
+        <!-- editorial Board Members -->
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Professor Dr. Abul Khair</b></p>
+         <p>Dept.of Chemistry, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Professor Dr. Karen Lund</b></p>
+         <p>Canadian Nurse Teaching Specialist
+          HRH Project in Bangladesh</p>
+         </div>
+          </div>
+        </div>
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Professor Selina Nargis</b></p>
+         <p>Dept. of Psychology, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Professor Dr. AZA Saifullah</b></p>
+         <p>Dept. of Mechanical Engineering, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Utpal Kanti Das</b></p>
+         <p>Associate Professor</p>
+         <p>Dept. Computer Science and Engineering, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Biswajit Saha</b></p>
+         <p>Associate Professor</p>
+         <p>Dept. of Electrical and Electronic Engineering, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Md. Momtazur Rahman</b></p>
+         <p>Associate Professor</p>
+         <p>Dept. English Language, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Farzana Sultana</b></p>
+         <p>College of Agricultural Science, IUBAT</p>
+         </div>
+          </div>
+        </div>
+        <!-- Editorial Board Members -->
+        </div>
+
+        <div  class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <h6 class="text-center"><b>ADVISORS</b></h6>
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Rezaul Karim</b></p>
+         <p>University of Technology, Sydney, Australia</p>
+         </div>
+          </div>
+        </div>
+
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Nazmul Ahsan Kalimullah</b></p>
+         <p>Professor, Dhaka University, Bangladesh</p>
+         </div>
+          </div>
+        </div>
+ 
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. John Richards</b></p>
+         <p>Professor, Simon Fraser University, Canada</p>
+         </div>
+          </div>
+        </div>
+
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Venkat</b></p>
+         <p>Associate, India</p>
+         </div>
+          </div>
+        </div>
+
+        <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Venkat</b></p>
+         <p>Associate, India</p>
+         </div>
+          </div>
+          </div>
+          <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Koji Matsuoka</b></p>
+         <p>Professor, Kobe University, Japan</p>
+         </div>
+          </div>
+          </div>
+          <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Mizanur Rahman</b></p>
+         <p>Professor, Nanzan University, Japan</p>
+         </div>
+          </div>
+          </div>
+          <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Gulam Kibria</b></p>
+         <p>Professor, Delaware State University, USA</p>
+         </div>
+          </div>
+          </div>
+          <div  class="">
+        <div class="card h-75">
+         <div class="card-body">
+         <p><b>Dr. Robert Hodgson</b></p>
+         <p>Professor, University of Exeter, UK</p>
+         </div>
+          </div>
+          </div>
+
+
+
+       </div>
+        </div>
+      <!--  Main Associate Editors and Academic Editors Section ends here -->
+
+
+    </div>
     </div>
     </div>
 </div>

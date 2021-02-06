@@ -1,5 +1,16 @@
 <?php 
 include('link/config.php');
+
+$query = "SELECT COUNT(*) as total_rows FROM paper WHERE action=1";
+$stmt = $dbh->prepare($query);
+
+// execute query
+$stmt->execute();
+
+// get total rows
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$total_paper = $row['total_rows'];
+
 ?>
 <!DOCTYPE html>  
 <html lang="en"> 
@@ -50,35 +61,24 @@ include('link/config.php');
     <!-- Sidebar section starts here  -->
     <div  class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
      <?php
-     include 'sidelinks.php';
-     ?> 
+     include 'sidelinks.php'; 
+     ?>  
     </div>
     <!-- Sidebar Section ends here  -->
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
+    <div class="text-left ">
     <p  id="content" class="pt-4">
-    <b>Aim and Scope: </b>Production and Hosting by Elsevier B.V. on behalf of Faculty of Engineering, Alexandria University Peer Review under the responsibility of Faculty of Engineering, Alexandria University Alexandria Engineering Journal is an international journal devoted to publishing high quality papers in the field of engineering and applied science. Alexandria Engineering Journal is cited in the Engineering Information Services (EIS) and the Chemical Abstracts (CA). The papers published in Alexandria Engineering Journal are grouped into five sections, according to the following classification:
-
-    • Mechanical, Production, Marine and Textile Engineering
-
-    • Electrical Engineering, Computer Science and Nuclear Engineering
-
-    • Civil and Architecture Engineering
-
-    • Chemical Engineering and Applied Sciences
-
-    • Environmental Engineering
-    Alexandria Engineering Journal publishes original papers, critical reviews, technical papers, technical data, short notes, and letters to the editor. Papers covering experimental, theoretical, and computational aspects which contribute to the understanding of engineering and applied sciences or give an insight into engineering practices and processes are welcome. Authors from all over the world are invited to submit manuscripts for possible publications in Alexandria Engineering Journal.
-
-    For queries related to the journal, please contact magdy@alexu.edu.eg
+    <b>Aim and Scope: </b>It aims to address the most important issues in the aforementioned fields. The journal can be of great value to teachers, students, researchers, and experts dealing with these fields
     </p>
-    <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more">Read more...</span></a>
+    <!-- <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more">Read more...</span></a> -->
     </div>
 
      <hr class="bg-secondary" >
+     <?php  if ($total_paper>0) { ?>
+    <!-- Published paper Showing Section Starts Here  -->
     <table id="heading-table">
     <tbody>
-    <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action from paper WHERE action=1 ";
+    <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.pdate from paper WHERE action=1 ";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -89,6 +89,8 @@ include('link/config.php');
       foreach($results as $result)  
       { 
     $authoremail = htmlentities($result->authoremail); 
+    $publishdatestring = htmlentities($result->pdate);
+    $publishdate = date("d-M-Y",strtotime($publishdatestring));
      ?> 
     <!-- Select User name section starts here  -->
     <?php include 'link/selectauthorname.php'; ?>
@@ -97,16 +99,15 @@ include('link/config.php');
     <!-- Dashboard section starts  --> 
     <tr> 
     <td>
-    <div class="jumbotron  mb-0 bg-transparent">
+    <div class="jumbotron  mb-0 bg-transparent"> 
   
     <form action="paper-download" class="indexform" method="post">
     <input type="hidden" name="paperidpublic" value="<?php echo htmlentities($result->paperid);?>">
     <button class="bg-transparent" style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;" type="submit" name="paperdownload"><?php echo htmlentities($result->papername);?></button>
     </form>
-
-    <!-- <a href="paper-download.php?id=<?php echo htmlentities($result->paperid);?>"><h5 style="font-size:17px;"><?php echo htmlentities($result->papername);?></h5></a> -->
-
+    <h5 class="text-primary" style="font-size:16px;"><small>Published on <?php echo $publishdate;?></small></h5>
     <h5 class="text-dark" style="font-size:16px;"><?php echo $authorname;?></h5>
+
     <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
     <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
    <!--Individual Read More section starts here   -->
@@ -126,6 +127,73 @@ include('link/config.php');
     <?php }} ?>
     </tbody>
     </table>
+    <!-- Published paper showing section ends here  -->
+
+    <?php  }  else { ?>
+
+    <!-- Else Current Issue Paper Showing Section Showing  -->
+<!--  Volume 1 Issue 3 Section Starts Here  -->
+<table id="heading-table">
+    <tbody>
+    <?php 
+    $V2018 = '2018';
+    $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$V2018'";
+      $query = $dbh->prepare($sql); 
+      $query->execute(); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1; 
+ 
+      if($query->rowCount() > 0) 
+      {
+      foreach($results as $result)  
+      {  
+          $filepathname = htmlentities($result->filename);
+          $filepath = 'documents/archivefile/'.$filepathname;
+
+    $publishdatestring = htmlentities($result->publisheddate);
+    $publishdate = date("Y",strtotime($publishdatestring));
+     ?> 
+
+    <!-- Dashboard section starts  --> 
+    <tr> 
+    <td>
+    <div class="jumbotron  mb-0 bg-transparent">
+
+    <a class="bg-transparent" style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername);?></a>
+
+    <div class="d-flex justify-content-between">
+<div>
+<h5 class="text-primary" style="font-size:16px;"><small>Published on <?php echo $publishdate;?></small></h5>
+</div>
+<div>
+<a style="font-size:14px;" class="btn btn-info btn-sm" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
+</div>
+    </div>
+    <h5 class="text-dark" style="font-size:16px;"><?php echo htmlentities($result->authorname);?></h5>
+
+    <p id="paper-abstract<?php echo htmlentities($result->id);?>" style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract);?></p>
+    <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
+   <!--Individual Read More section starts here   -->
+    <script>
+    document.querySelector('#read-more-abstract<?php echo htmlentities($result->id);?>').addEventListener('click', function() {
+    document.querySelector('#paper-abstract<?php echo htmlentities($result->id);?>').style.height= 'auto';
+        this.style.display= 'none';
+        });
+            </script>
+      <!-- Individual Read More section ends here  -->
+      <hr>
+            </td>
+           </div>
+           </tr>
+       <!-- DashBoard Section ends  -->
+
+    <?php }}  ?>
+    </tbody>
+    </table>
+<!-- Volume 1 Issue 3 Section Ends Here -->
+<?php  }  ?>
+  <!-- Else Current Issue Paper Showing Section Showing  -->
+
     </div>
     </div>
     <div class="pb-3"></div>

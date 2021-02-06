@@ -6,7 +6,7 @@ if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 } 
 
-if(isset($_POST['deletepaper'])) {
+if(isset($_POST['deletepaper'])) { 
     $id=($_POST['paperiddelete']);
     $file1 = $_POST['filepathtitle'];
     $file2 = $_POST['filepathsecond'];

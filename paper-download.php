@@ -8,6 +8,7 @@ if($link === false){
 
 // $id=($_GET['paperidpublic']);
 $id=($_POST['paperidpublic']);
+
 $sql = "SELECT * FROM paper WHERE paperid = '$id' ";
 
 $result = mysqli_query($link,$sql);
@@ -19,7 +20,7 @@ $filename = $file['name'];
 $papername = $file['papername'];
 $abstract = $file['abstract'];
 $authorname = $file['authoremail'];
-$filepath = 'documents/'.$file['name'];
+$filepath = 'documents/file2/'.$file['name2'];
 
 
 $sql = "SELECT * FROM author WHERE  primaryemail= '$authorname' ";

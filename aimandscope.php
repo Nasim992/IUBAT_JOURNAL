@@ -44,9 +44,9 @@
     <!-- Sidebar Section ends here  -->
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
     <div class="text-left pb-4">
-        <h4 class="text-center">AIM AND SCOPE</h4>
+        <h5 class="text-center">AIM AND SCOPE</h5>
         <hr class="bg-secondary">
-        <p>Aim and Scope is not Available Now.</p>
+        <p>It aims to address the most important issues in the aforementioned fields. The journal can be of great value to teachers, students, researchers, and experts dealing with these fields</p>
     </p>
     </div>
 

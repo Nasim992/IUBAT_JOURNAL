@@ -41,7 +41,7 @@ include 'header.php';
 </div> 
 <!-- Author showing header sections ends   -->
 
-<div id="mySidebar" class="sidebar">
+<div id="mySidebar" class="sidebar mt-4">
   <?php
   include 'sidebar.php';
   ?>

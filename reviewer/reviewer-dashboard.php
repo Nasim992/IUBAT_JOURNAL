@@ -20,40 +20,10 @@ if(strlen($_SESSION['alogin'])=="")
         if($query->rowCount() > 0) 
         {
       // Check that the Reviewer is logged in or not section ends here 
-
-
-                    //  Number of Reviews   count section starts here 
-
-                    $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail' and feedback IS NOT NULL";
-                    $stmt = $dbh->prepare($query);
-                     
-                    // execute query
-                    $stmt->execute();
-                    
-                    // get total rows
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $total_reviewed = $row['total_rowsrev'];
-               // Number of Reviews  count section ends here 
-
-              //  Assigned Paper Section Starts Here 
-    
-
-                    $query = "SELECT COUNT(*) as total_rowsrev FROM reviewertable where primaryemail = '$authoremail' and feedback IS NULL and accepted IS NOT NULL";
-                    $stmt = $dbh->prepare($query);
-                     
-                    // execute query
-                    $stmt->execute();
-                    
-                    // get total rows
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $total_reviewing = $row['total_rowsrev'];
      
-               
-              // Assigned Paper Section Ends Here 
-   
-
-
-
+      // Count
+      include '../link/count.php';
+      // Count
 ?>  
 
 <!DOCTYPE html>

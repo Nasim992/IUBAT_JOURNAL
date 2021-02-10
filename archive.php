@@ -19,6 +19,15 @@
         .indexform button:hover{
             color:#0b4953 !important;
         }
+        .volumeissue {
+            cursor:pointer;
+        }
+        .volumeissue:hover {
+            color:#17defe !important;
+        }
+        .colorbtn {
+            color:#17defe !important;
+        }
     </style>
 </head> 
 <body> 
@@ -43,7 +52,7 @@
     </div> 
     </div>
  
-    <div class="row">
+    <div class="row"> 
     <!-- Sidebar section starts here  -->
     <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
@@ -54,11 +63,15 @@
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
     <div class="text-left pb-4">
         <h5 class="text-center">ARCHIVE</h5>
+        <a  onclick="showpoint()"><h6 class="text-info volumeissue" id="1stpoint">> VOLUME 1 ISSUE 1 </h6></a>
+        <a  onclick="showpoint1()"><h6 class="text-info volumeissue" id="2ndpoint">> VOLUME 1 ISSUE 2 </h6></a>
+        <a  onclick="showpoint2()"><h6 class="text-info volumeissue" id="3rdpoint">> VOLUME 1 ISSUE 3 </h6></a>
         <hr class="bg-secondary">
         <!-- Archive  -->
- 
+
+<div id="vol1issue3">
 <!--  Volume 1 Issue 3 Section Starts Here  -->
-<h6 class="text-info">VOLUME 1 ISSUE 3 </h6>
+<h6  class="text-info">VOLUME 1 ISSUE 3 </h6>
  <hr>
 <table id="heading-table">
     <tbody>
@@ -118,9 +131,11 @@
     </tbody>
     </table>
 <!-- Volume 1 Issue 3 Section Ends Here -->
+</div>
 
+<div id="vol1issue2">
 <!--  Volume 1 Issue 2 Section Starts Here  -->
-<h6 class="text-info">VOLUME 2 ISSUE 2 </h6>
+<h6  class="text-info">VOLUME 1 ISSUE 2 </h6>
  <hr>
 <table id="heading-table">
     <tbody>
@@ -180,9 +195,12 @@
     </tbody>
     </table>
 <!-- Volume 1 Issue 2 Section Ends Here -->
+</div>
 
+
+<div id="vol1issue1">
 <!--  Volume 1 Issue 1 Section Starts Here  -->
- <h6 class="text-info">VOLUME 1 ISSUE 1 </h6>
+<h6  class="text-info">VOLUME 1 ISSUE 1 </h6>
  <hr>
 <table id="heading-table">
     <tbody>
@@ -242,7 +260,8 @@
     </tbody>
     </table>
 <!-- Volume 1 Issue 1 Section Ends Here -->
-<hr class="bg-secondary">
+</div>
+
 
 
         <!-- Archive  -->
@@ -267,6 +286,29 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
+
+<script>
+function showpoint() {
+  document.getElementById("vol1issue1").style.display = "block";
+  document.getElementById("1stpoint").classList.add('colorbtn');
+  document.getElementById("vol1issue2").style.display= "none";
+  document.getElementById("vol1issue3").style.display= "none";
+}
+function showpoint1() {
+    document.getElementById("vol1issue1").style.display = "none";
+    document.getElementById("1stpoint").classList.add('colorbtn');
+  document.getElementById("vol1issue2").style.display= "block";
+  document.getElementById("vol1issue3").style.display= "none";
+}
+function showpoint2() {
+    document.getElementById("vol1issue1").style.display = "none";
+    document.getElementById("1stpoint").classList.add('colorbtn');
+  document.getElementById("vol1issue2").style.display= "none";
+  document.getElementById("vol1issue3").style.display= "block";
+}
+
+</script>
+
 <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>

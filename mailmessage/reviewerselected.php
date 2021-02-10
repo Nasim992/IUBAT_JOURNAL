@@ -5,7 +5,7 @@ $subject = "Reviwer Request in IUBAT JOURNAL";
 include 'url.php';
 
 $msg = "You have been requested as a reviewer for $papername. Here, is the link for this paper title and Abstract:
-    $url/$filepathmessagetitle
+    $url/$filepathmessagetitle 
 
 If you want to accept this Request as a Reviewer for this paper please click the following acceptation link:
     $url/acceptrequestreviewer.php?paperid=$id&email=$pemail

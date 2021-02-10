@@ -52,9 +52,11 @@
 
     </div>
     </div>
+    <div class="pb-5"></div>
+    <div class="pb-5"></div>
 </div>
     <!-- Footer section starts here  -->
-    <?php
+ <?php
     include 'footer.php'
     ?>
     <!-- Footer section ends here  -->
@@ -68,6 +70,15 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
+
+<script>
+
+$(" .ul-nav li a").on("click", function() {
+//   $(" .ul-nav li a").removeClass("active");
+  $(this).addClass("active");
+});
+</script>
+
 <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>

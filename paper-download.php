@@ -100,6 +100,8 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
  <!-- DashBoard Section ends  -->
     </div>
     </div>
+    <div class="pb-5"></div>
+ <div class="pb-5"></div>
     </div>
 
     <!-- Footer section starts here  -->

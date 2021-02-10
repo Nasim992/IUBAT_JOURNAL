@@ -1,3 +1,12 @@
+
+<?php 
+session_start();
+error_reporting(0);
+include 'link/config.php';
+if (isset($_SESSION['alogin'])){
+  $authoremail = $_SESSION["email"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +16,7 @@
 <style>
 .navbar-nav li a {
   font-size:14px;
-}
+} 
 </style>
 </head>
 <body> 
@@ -19,35 +28,49 @@
  
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto ul-nav">
-     <li class="nav-item active">
+    <li class="nav-item">
+     <span class="navbar-text"><a class="nav-link active" href="index">Home</a></span>
+     </li>
+     <li class="nav-item ">
      <span class="navbar-text"><a class="nav-link" href="aimandscope">Aim and Scope</a></span>
      </li>
-   <li class="nav-item active">
+   <li class="nav-item ">
    <span class="navbar-text"><a class="nav-link" href="guideline">Guidelines</a></span>
       </li>
    
-   <li class="nav-item active">
+   <li class="nav-item ">
    <span class="navbar-text"><a class="nav-link" href="journalinfo">Journal Info</a></span>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
       <span class="navbar-text"><a class="nav-link" href="editorialboard">Editorial Board</a></span>
       </li>
  
         
-<li class="nav-item active">
+<li class="nav-item ">
 <span class="navbar-text"><a class="nav-link" href="archive">Archive</a></span>
       </li>
-<li class="nav-item active">
+<li class="nav-item ">
 <span class="navbar-text"><a class="nav-link" href="login">Submit an Article</a></span>
       </li>
-<li class="nav-item active">
+<li class="nav-item ">
 <span class="navbar-text"><form class="form-inline  my-lg-0">
       <input id="heading-input" class="form-control mr-sm-2" type="text" placeholder="Search paper" aria-label="Search">
     </form></span>
         </li>
-<li class="nav-item active">
+
+<?php if(empty($authoremail)) {?>
+<li class="nav-item">
 <span class="navbar-text"><a class="nav-link" href="login">Login</i></a></span>
-  </li>
+</li>
+<?php  }
+else {
+ ?>
+ <li class="nav-item">
+<span class="navbar-text"><a class="nav-link" href="logout">logout</i></a></span>
+</li>
+ <?php  
+}
+?>
  
 </ul>
   
@@ -72,6 +95,7 @@
         $('body').css('padding-top', '0');
       }   
   });
+
 
 </script>
 <!-- Essential Js,Jquery  section ends  -->

@@ -28,10 +28,10 @@ if(isset($_POST['select-associateeditor'])) {
 
     $pemail = $_POST['pemail'];
 
-    $sqlquthor = "UPDATE author SET associateeditor=1 WHERE primaryemail='$pemail'";
+    $sqlquthor = "UPDATE author SET associateeditor=1,academiceditor=NULL WHERE primaryemail='$pemail'";
     if(mysqli_query($link, $sqlquthor)){
         echo "<script>alert('Associate Editor Select Successfully.');</script>";
-        // header("refresh:0;url=editordetails");
+        header("refresh:0;url=selecteditor");
     }
     else {
         echo "<script>alert('Something went wrong.');</script>";
@@ -45,10 +45,10 @@ if(isset($_POST['select-academiceditor'])) {
 
     $pemail = $_POST['pemail'];
 
-    $sqlquthor = "UPDATE author SET academiceditor=1 WHERE primaryemail='$pemail'";
+    $sqlquthor = "UPDATE author SET academiceditor=1,associateeditor=NULL WHERE primaryemail='$pemail'";
     if(mysqli_query($link, $sqlquthor)){
         echo "<script>alert('Academic Editor Select Successfully.');</script>";
-        header("refresh:0;url=editordetails");
+        header("refresh:0;url=selecteditor");
     }
     else {
         echo "<script>alert('Something went wrong.');</script>";

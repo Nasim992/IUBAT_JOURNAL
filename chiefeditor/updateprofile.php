@@ -39,7 +39,7 @@ if(strlen($_SESSION['alogin'])=="")
             if(mysqli_query($link,$sqlauthorupdate)) {
 
               echo "<script>alert('Profile Updated Successfully');</script>";
-              header("refresh:0;url=login");
+              header("refresh:0;url=dashboard");
           } 
           else {
             echo "<script>alert('Something went Wrong !');</script>";

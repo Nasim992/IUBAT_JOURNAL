@@ -193,7 +193,7 @@
                     $result2 = query($sql2);
                     confirm($result2);
         
-                    set_message("<p class='bg-success text-white p-2 text-center'>Your are Accepted the Editor Invitation.Now Logged in as a Editor and Give your Valuable Feedback.</p>");
+                    set_message("<p class='bg-success text-white p-2 text-center'>Your are Accepted the Editor Invitation.Now Logged in as a Editor to see the paper</p>");
 
                     redirect("login"); 
         

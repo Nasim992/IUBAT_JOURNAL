@@ -15,7 +15,7 @@
 <body> 
 <a href="dashboard" class="sidebars"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a>
 <a href="publishedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Published Paper</a>
-<a href="addadmin" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Add Admin</a>
+<!-- <a href="addadmin" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Add Admin</a> -->
   <a href="unpublishedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Unpublished Paper</a>
   <a href="updateprofile" class="sidebars"><i class="fas fa-user-shield"></i>&nbsp Update Profile</a>
   <a href="changepassword" class="sidebars"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a>

@@ -295,9 +295,9 @@ if($_SESSION['alogin']!=''){
 
             <div class="login-details ">
            <ul class="d-flex justify-content-center">
-            <li><a href="#"> Send Login Details</a></li>
+            <!-- <li><a href="#"> Send Login Details</a></li> -->
             <li id="btn-signup"><a href="#">Register Now</a></li>
-            <li><a href="#">login Help </a></li>
+            <li><a href="guideline">login Help </a></li>
             </ul>
 
             </div>
@@ -400,6 +400,7 @@ if($_SESSION['alogin']!=''){
                 <input style="font-size:11px;" type="text" id="user-address" name = "user-address" class="form-control" placeholder="Address" required autofocus="">
 
                 <button name="sign-up" class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> REGISTER</button>
+                <br>
                 <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
             </form>
 
@@ -418,12 +419,14 @@ if($_SESSION['alogin']!=''){
             <p><b>To change your username and/or password:</b><small> Once you are registered, you may change your contact information, username and/or password at any time. Simply log in to the system and click on "Update My Information" in the navigation bar at the top of the page.</small></p>
 
 
-
+          <div class="mb-5"></div>
            </div>
 
        </div>
     </div>
-    <div class="mb-4"></div>
+    <div class="pb-5"></div>
+    <div class="pb-5"></div>
+    <div class="pb-5"></div>
         <!-- Footer section starts here  -->
         <?php include 'footer.php'; ?>
     <!-- Footer section ends here  -->

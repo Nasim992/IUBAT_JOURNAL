@@ -67,34 +67,34 @@ if(strlen($_SESSION['alogin'])=="")
 
  
     <li class="nav-item hidden active" title="Dashboard">
-    <a href="admin-dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a>
+    <span class="navbar-text"><a href="dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
     </li> 
 
     <li class="nav-item hidden active" title="Published paper">
-    <a href="publishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Published Paper</a>
+    <span class="navbar-text"><a href="publishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Published Paper</a></span>
     </li>
     <li class="nav-item hidden active" title="Unpublished paper">
-    <a href="unpublishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Unpublished Paper</a>
+    <span class="navbar-text"><a href="unpublishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Unpublished Paper</a></span>
     </li>
     <li class="nav-item hidden active" title="Changed password">
-    <a href="updateprofile" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Update Profile</a>
+    <span class="navbar-text"><a href="updateprofile" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Update Profile</a></span>
     </li>
     <li class="nav-item hidden active" title="Changed password">
-    <a href="changepassword" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a>
+    <span class="navbar-text"><a href="changepassword" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a></span>
     </li>
 
     <li class="nav-item hidden active" title="Author states">
-    <a href="authors" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Author States</a>
+    <span class="navbar-text"><a href="authors" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Author States</a></span>
     </li>
     <li class="nav-item hidden active" title="reviewer">
-    <a href="reviewerdetails" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a>
+    <span class="navbar-text"><a href="reviewerdetails" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a></span>
     </li> 
     <li class="nav-item hidden active" title="Feedback">
-    <a href="feedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Feedback</a>
+    <span class="navbar-text"><a href="feedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Feedback</a></span>
     </li>
 
         <li class="nav-item active" >
-       <a class="nav-link" href="../logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"><small>(Sign Out)</small><i class="fas fa-sign-out-alt"></i></a>
+        <span class="navbar-text"> <a class="nav-link" href="../logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"><small>(Sign Out)</small><i class="fas fa-sign-out-alt"></i></a></span>
         </li>
 
 

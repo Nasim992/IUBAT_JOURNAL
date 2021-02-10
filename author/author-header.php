@@ -86,30 +86,30 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
  
 
    <li class="nav-item hidden active" title="Dashboard"> 
-   <a href="dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a>
+   <span class="navbar-text"><a href="dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
    </li>
 
    <li class="nav-item hidden active" title="Upload paper"> 
-   <a href="uploadpaper" class="sidebars nav-link"><i class="fas fa-upload"></i>&nbsp Upload Paper</a>
+   <span class="navbar-text"><a href="uploadpaper" class="sidebars nav-link"><i class="fas fa-upload"></i>&nbsp Upload Paper</a></span>
   </li>
  
     <li class="nav-item hidden active" title="Paper Status">
-    <a href="paperstatus" class="sidebars nav-link"><i class="fas fa-exclamation-circle"></i>&nbsp Paper Status</a>
+    <span class="navbar-text"><a href="paperstatus" class="sidebars nav-link"><i class="fas fa-exclamation-circle"></i>&nbsp Paper Status</a></span>
     </li>
     
     <li class="nav-item hidden active" title="Update your profile">
-    <a href="updateprofile" class="sidebars nav-link"><i class="fas fa-exclamation-circle"></i>&nbsp Update Profile</a>
+    <span class="navbar-text"><a href="updateprofile" class="sidebars nav-link"><i class="fas fa-exclamation-circle"></i>&nbsp Update Profile</a></span>
     </li>
     <li class="nav-item hidden active" title="Change your password">
-    <a href="changepassword" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Change Password</a>
+    <span class="navbar-text"><a href="changepassword" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Change Password</a></span>
     </li>
     <li class="nav-item hidden active" title="Under Review">
-    <a href="reviewerstatus" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Reviewed paper</a>
+    <span class="navbar-text"><a href="reviewerstatus" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Reviewed paper</a></span>
     </li>
 
     
 <li class="nav-item active" >
-       <a class="nav-link " href="../logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"><small>(Sign Out)</small> <i class="fas fa-sign-out-alt"></i></a>
+<span class="navbar-text"> <a class="nav-link " href="../logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"><small>(Sign Out)</small> <i class="fas fa-sign-out-alt"></i></a></span>
   </li>
         </ul>
   

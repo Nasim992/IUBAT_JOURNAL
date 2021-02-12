@@ -115,19 +115,22 @@ include 'header.php';
         <label for="success" class="control-label">Current Password</label>
         <div class="">
         <input type="hidden" name="editoremail" value="<?php  echo $editoremail;?>">
-         <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" required="required" id="success" placeholder="Enter Old Password">                                      
+         <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" required="required" id="success" placeholder="Enter Old Password">                                      
           </div>
            </div>  
            <div class="form-group has-success">
             <label for="success" class="control-label">New Password</label>
             <div class="">
-            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="newpassword" required="required" class="form-control" id="success"placeholder="Enter New Password">
+            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" name="newpassword" required="required" class="form-control" id="success"placeholder="Enter New Password">
               </div>
                </div>
               <div class="form-group has-success">
             <label for="success" class="control-label">Confirm Password</label>
             <div class="">
-             <input type="password" name="confirmpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" required="required" id="success"placeholder="Enter New Password Again">
+             <input type="password" name="confirmpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" required="required" id="success"placeholder="Enter New Password Again">
                </div>
                  </div>
                 <div class="form-group has-success">

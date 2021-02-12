@@ -13,7 +13,7 @@
     </style> 
 </head>
 <body> 
-<a href="dashboard" class="sidebars"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a>
+<a href="dashboard" class="sidebars mt-4"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a>
 <a href="publishedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Published Paper</a>
 <!-- <a href="addadmin" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Add Admin</a> -->
   <a href="unpublishedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Unpublished Paper</a>

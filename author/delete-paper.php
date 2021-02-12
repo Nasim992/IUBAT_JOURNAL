@@ -9,7 +9,7 @@ if($link === false){
 if(isset($_POST['deletepaper'])) { 
     $id=($_POST['paperiddelete']);
     $file1 = $_POST['filepathtitle'];
-    $file2 = $_POST['filepathsecond'];
+    $file2 = $_POST['filepathsecond']; 
     $file = $_POST['filepath'];
     $fileresubmit = $_POST['filepathresubmit'];
 
@@ -28,19 +28,16 @@ if(isset($_POST['deletepaper'])) {
         header("refresh:0;url=authorpaperstatus"); 
     } else{
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+        header("refresh:0;url=authorpaperstatus"); 
     }
 
 }
-
 // // Built-in PHP function to delete file
 // unlink($_GET["name"]);
  
 // // Redirecting back
 // header("Location: " . $_SERVER["HTTP_REFERER"]);
 
-
-
- 
 // Close connection
 mysqli_close($link);
 

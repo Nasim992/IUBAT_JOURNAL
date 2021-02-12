@@ -82,74 +82,74 @@ if(strlen($_SESSION['alogin'])=="")
 </head>
 <body>
 
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating ">
-<?php
-include 'author-header.php';
-?> 
-</div>
-<!-- Author showing header sections ends   -->
-<div id="mySidebar" class="sidebar ">
-  <?php 
-  include 'author-sidebar.php';
-  ?>
-</div> 
+    <!-- Author showing header sections starts  --> 
+    <div class="sticky-top header-floating ">
+    <?php
+    include 'author-header.php';
+    ?> 
+    </div>
+    <!-- Author showing header sections ends   -->
+    <div id="mySidebar" class="sidebar ">
+      <?php 
+      include 'author-sidebar.php';
+      ?>
+    </div> 
 
-<div id="main">  
-<!-- <a href="#"><span class="resbtn"onclick="openNav()" id="closesign">☰</span></a> -->
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
+    <div id="main">  
+    <!-- <a href="#"><span class="resbtn"onclick="openNav()" id="closesign">☰</span></a> -->
+    <a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
+    <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+    <div class="container"> 
 
-<h6 >AUTHOR PROFILE</h6>
-<hr class="bg-success">
+    <h6 >AUTHOR PROFILE</h6>
+    <hr class="bg-success">
 
-<!-- Update Profile section starts here  -->
+    <!-- Update Profile section starts here  -->
           <?php  foreach($resultsauthor as $result) {   ?> 
              <form  class="form-signup marginbtm" method="post">
-                <input style="font-size:11px;" type="text" id="txt_username" class="form-control" name = "userName" placeholder=" User Name" value="<?php echo htmlentities($result->username);?>" disabled>
+                <input  type="text" id="txt_username" class="form-control" name = "userName" placeholder=" User Name" value="<?php echo htmlentities($result->username);?>" disabled>
                    <span><b id="uname_response"></b></span>
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name = "title" required="" placeholder="title" value="<?php echo htmlentities($result->title);?>">
+                <input  type="text" id="user-name" class="form-control" name = "title" required="" placeholder="title" value="<?php echo htmlentities($result->title);?>">
 
                 <div class="input-group">
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6" name = "firstName" placeholder="First Name" required="" value="<?php echo htmlentities($result->firstname);?>">
+                <input  type="text" id="user-name" class="form-control col-sm-6" name = "firstName" placeholder="First Name" required="" value="<?php echo htmlentities($result->firstname);?>">
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6 ml-1" name = "middleName" placeholder="Middle Name(Optional)" value="<?php echo htmlentities($result->middlename);?>">
+                <input  type="text" id="user-name" class="form-control col-sm-6 ml-1" name = "middleName" placeholder="Middle Name(Optional)" value="<?php echo htmlentities($result->middlename);?>">
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6 ml-1" name = "lastName" placeholder="Last Name" required="" value="<?php echo htmlentities($result->lastname);?>">
+                <input  type="text" id="user-name" class="form-control col-sm-6 ml-1" name = "lastName" placeholder="Last Name" required="" value="<?php echo htmlentities($result->lastname);?>">
 
                 </div>
 
-                <input style="font-size:11px;" type="hidden" id="pemail" class="form-control" name = "pemail" placeholder="Primary Email Address" required="" value="<?php echo htmlentities($result->primaryemail);?>">
+                <input  type="hidden" id="pemail" class="form-control" name = "pemail" placeholder="Primary Email Address" required="" value="<?php echo htmlentities($result->primaryemail);?>">
                 <span><b id="pemail-text"></b></span>
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemailcc" placeholder="Primary CC Email Address" required="" value="<?php echo htmlentities($result->primaryemailcc);?>">
+                <input  type="email" id="user-name" class="form-control" name = "pemailcc" placeholder="Primary CC Email Address" required="" value="<?php echo htmlentities($result->primaryemailcc);?>">
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "semail" placeholder="Secondary Email Address" required="" value="<?php echo htmlentities($result->secondaryemail);?>">
+                <input  type="email" id="user-name" class="form-control" name = "semail" placeholder="Secondary Email Address" required="" value="<?php echo htmlentities($result->secondaryemail);?>">
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "semailcc" placeholder="Secondary CC Email Address" required="" value="<?php echo htmlentities($result->secondaryemailcc);?>">
+                <input  type="email" id="user-name" class="form-control" name = "semailcc" placeholder="Secondary CC Email Address" required="" value="<?php echo htmlentities($result->secondaryemailcc);?>">
 
         
-                <input style="font-size:11px;" type="text" id="user-contact" name = "user-contact" class="form-control" placeholder="Contact Number" required value="<?php echo htmlentities($result->contact);?>">
+                <input  type="text" id="user-contact" name = "user-contact" class="form-control" placeholder="Contact Number" required value="<?php echo htmlentities($result->contact);?>">
 
-                <input style="font-size:11px;" type="text" id="user-address" name = "user-address" class="form-control" placeholder="Address" required value="<?php echo htmlentities($result->address);?>">
+                <input  type="text" id="user-address" name = "user-address" class="form-control" placeholder="Address" required value="<?php echo htmlentities($result->address);?>">
 
                 <button name="updateauthor" class="btn btn-sm btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> UPDATE</button>
             </form>
             <?php  } ?>
-<!-- Update profile section ends here  -->
+    <!-- Update profile section ends here  -->
 
 
-</div>
-</div>
-<!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/jquery.dataTables.min.js"></script>
-<script>
+    </div>
+    </div>
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script>
             // DataTables section starts here 
             $(document).ready(function () {
             $('#dtBasicExample').DataTable();
@@ -162,7 +162,7 @@ include 'author-header.php';
   document.getElementById("main").style.marginLeft = "250px";
   document.getElementById("closesignof").style.display= "block";
   document.getElementById("closesign").style.display= "none";
-}
+  }
 
 function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
@@ -170,7 +170,7 @@ function closeNav() {
   document.getElementById("closesign").style.display= "block";
   document.getElementById("closesignof").style.display= "none";
   
-}
+ }
  
 </script>
 <!-- Essential Js,Jquery  section ends  -->    
@@ -178,13 +178,10 @@ function closeNav() {
 </html> 
 
 <?php 
-            }
+       }
 else {
   echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
   header("refresh:0;url=login.php");
 }
-
 }
-
-    
 ?>

@@ -80,7 +80,8 @@ if($_SESSION['alogin']!=''){
 
             <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="" autofocus="">
 
-            <input style="font-size:13px;" type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
+            <input style="font-size:13px;" type="password" id="inputPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" name = "input-password" class="form-control" placeholder="Password" required>
             
             <button class="btn btn-info btn-sm btn-block" name = "chief-editor-login" type="submit" >Chief Editor</button>
 

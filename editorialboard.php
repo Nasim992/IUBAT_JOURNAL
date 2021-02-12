@@ -60,15 +60,15 @@ include('link/config.php');
          </div>
         </div>
         <div  class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-        <div class=" h-75">
+        <!-- <div class=" h-75">
          <div class="card-body">
           <h6 class="text-info"><b>ADVISORY BOARD</b></h6>
-         <p><b>Professor Dr. M Alimullah Miyan</b></p>
-         <p>Founder Vice-Chancellor, IUBAT</p>
+         <p><b>Professor Dr. M Abdur Rab</b></p>
+         <p>Vice-Chancellor, IUBAT</p>
          </div>
           </div>
         </div>
-        </div>
+        </div> -->
         <!-- Editors section -->
   
          <!-- Main Associate Editors and Academic Editors Section starts here -->
@@ -76,14 +76,6 @@ include('link/config.php');
         <div  class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
         <!-- Associate Editors -->
         <h6 class="ml-3 text-info"><b>ASSOCIATE EDITORS</b></h6>
-        <div  class="">
-        <div class="h-75">
-         <div class="card-body">
-         <p><b>Dr. Sajal Saha </b></p>
-         <p>Associate Professor and Director, Miyan Research Institute</p>
-         </div>
-         </div>
-          </div>
         <div  class="">
         <div class="h-75">
          <div class="card-body">
@@ -101,6 +93,14 @@ include('link/config.php');
           College of Business Administration, IUBAT</p>
          </div>
           </div>
+          </div>
+          <div  class="">
+        <div class="h-75">
+         <div class="card-body">
+         <p><b>Dr. Sajal Saha </b></p>
+         <p>Associate Professor and Director, Miyan Research Institute</p>
+         </div>
+         </div>
           </div>
         <!-- <div class="row">
         <div  class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">

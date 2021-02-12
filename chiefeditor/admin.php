@@ -81,7 +81,7 @@ include 'header.php';
             <th >Full Name</th>
             <th >Email</th>
             <th >Contact Address</th>
-            <th >Actions</th>
+            <!-- <th >Actions</th> -->
         </tr>
 </thead>
 
@@ -98,14 +98,14 @@ foreach($results as $result)
 <tr>
 <td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->id);?></td>
             <td ><?php echo htmlentities($result->username);?></td>
-            <td ><?php echo htmlentities($result->fullname);?></td>
+            <td ><a href="#"><?php echo htmlentities($result->fullname);?></a></td>
             <td ><?php echo htmlentities($result->email);?></td>
             <td ><?php echo htmlentities($result->contact);?></td>
 
-<td> 
+<!-- <td> 
 <a class="text-danger" href="delete-admin.php?id=<?php echo htmlentities($result->id);?>"onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt" title="Delete"></i></a>
 
-</td>
+</td> -->
 </tr>
 <?php $cnt=$cnt+1;}} ?>
        

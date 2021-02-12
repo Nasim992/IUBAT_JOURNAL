@@ -3,13 +3,12 @@ session_start();
 error_reporting(0);
 include('../link/config.php');
 
-if(strlen($_SESSION['alogin'])=="")
+  if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../chiefeditorlogin"); 
     }
     else  
     { 
-
      // Check that the Editor is logged in or not section starts here  
      $editoremail = $_SESSION["email"];
 

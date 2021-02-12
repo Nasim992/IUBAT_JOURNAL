@@ -11,7 +11,7 @@ if($_SESSION['alogin']!=''){
     //  Author log in section starts here
     if(isset($_POST['publisher-login']))  
     {
-
+ 
     $email = $_POST['input-email'];
     $password=md5($_POST["input-password"]); 
     $_SESSION["email"]=$_POST['input-email']; // push to the session
@@ -65,7 +65,7 @@ if($_SESSION['alogin']!=''){
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Reviewer');</script>";
         header("refresh:0;url=login");
-    
+     
     }
     } 
      
@@ -276,7 +276,8 @@ if($_SESSION['alogin']!=''){
 
             <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="">
 
-            <input style="font-size:13px;" type="password" id="inputPassword" name = "input-password" class="form-control" placeholder="Password" required>
+            <input style="font-size:13px;" type="password" id="inputPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" name = "input-password" class="form-control" placeholder="Password" required>
             
             <!-- <button class="btn btn-success btn-sm" name = "admin-login" type="submit" > Admin Login</button> -->
            <div class="d-flex justify-content-between">
@@ -361,15 +362,15 @@ if($_SESSION['alogin']!=''){
                    <span><b id="uname_response"></b></span>
 
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name = "title" placeholder="Title (Mr., Mrs., Dr., etc.)" required="" autofocus="">
+                <input style="font-size:11px;" type="text"  class="form-control" name = "title" placeholder="Title (Mr., Mrs., Dr., etc.)" required="" autofocus="">
 
                 <div class="input-group">
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6" name = "firstName" placeholder="First Name" required="" autofocus="">
+                <input style="font-size:11px;" type="text"  class="form-control col-sm-6" name = "firstName" placeholder="First Name" required="" autofocus="">
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6 ml-1" name = "middleName" placeholder="Middle Name(Optional)"  autofocus="">
+                <input style="font-size:11px;" type="text"  class="form-control col-sm-6 ml-1" name = "middleName" placeholder="Middle Name(Optional)"  autofocus="">
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control col-sm-6 ml-1" name = "lastName" placeholder="Last Name" required="" autofocus="">
+                <input style="font-size:11px;" type="text"  class="form-control col-sm-6 ml-1" name = "lastName" placeholder="Last Name" required="" autofocus="">
 
                 </div>
 
@@ -379,11 +380,11 @@ if($_SESSION['alogin']!=''){
                 <input style="font-size:11px;" type="email" id="pemailAgain" class="form-control" name = "pemailAgain" placeholder="Primary Email Address again" required="" autofocus="">
                 <span><b id="pemailAgain-response"></b></span>
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "pemailcc" placeholder="Primary CC Email Address" required="" autofocus="">
+                <input style="font-size:11px;" type="email"  class="form-control" name = "pemailcc" placeholder="Primary CC Email Address" required="" autofocus="">
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "semail" placeholder="Secondary Email Address" required="" autofocus="">
+                <input style="font-size:11px;" type="email"  class="form-control" name = "semail" placeholder="Secondary Email Address" required="" autofocus="">
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "semailcc" placeholder="Secondary CC Email Address" required="" autofocus="">
+                <input style="font-size:11px;" type="email"  class="form-control" name = "semailcc" placeholder="Secondary CC Email Address" required="" autofocus="">
 
                 
                 <!-- New Registration Form Section Ends Here  -->

@@ -23,39 +23,58 @@ if(strlen($_SESSION['alogin'])=="")
      
      // Check that the Editor is logged in or not section ends here 
 
-// Associate Editor 
-if(isset($_POST['select-associateeditor'])) {
+    // Associate Editor 
+    if(isset($_POST['select-associateeditor'])) {
 
-    $pemail = $_POST['pemail'];
+        $pemail = $_POST['pemail'];
 
-    $sqlquthor = "UPDATE author SET associateeditor=1,academiceditor=NULL WHERE primaryemail='$pemail'";
-    if(mysqli_query($link, $sqlquthor)){
-        echo "<script>alert('Associate Editor Select Successfully.');</script>";
-        header("refresh:0;url=selecteditor");
+        $sqlquthor = "UPDATE author SET associateeditor=1,academiceditor=NULL WHERE primaryemail='$pemail'";
+        if(mysqli_query($link, $sqlquthor)){
+            echo "<script>alert('Associate Editor Select Successfully.');</script>";
+            header("refresh:0;url=selecteditor");
+        }
+        else {
+            echo "<script>alert('Something went wrong.');</script>";
+        }
+
     }
-    else {
-        echo "<script>alert('Something went wrong.');</script>";
+    // Associate Editor 
+
+    // Academic Editor 
+    if(isset($_POST['select-academiceditor'])) {
+
+        $pemail = $_POST['pemail'];
+
+        $sqlquthor = "UPDATE author SET academiceditor=1,associateeditor=NULL WHERE primaryemail='$pemail'";
+        if(mysqli_query($link, $sqlquthor)){
+            echo "<script>alert('Academic Editor Select Successfully.');</script>";
+            header("refresh:0;url=selecteditor");
+        }
+        else {
+            echo "<script>alert('Something went wrong.');</script>";
+        }
+
     }
+    // Academic Editor 
 
-}
-// Associate Editor 
+    // Author
+    if(isset($_POST['select-author'])) {
 
-// Academic Editor 
-if(isset($_POST['select-academiceditor'])) {
+        $pemail = $_POST['pemail'];
+    
+        $sqlquthor = "UPDATE author SET academiceditor=NULL,associateeditor=NULL WHERE primaryemail='$pemail'";
+        if(mysqli_query($link, $sqlquthor)){
+            echo "<script>alert('Author Selected Successfully.');</script>";
+            header("refresh:0;url=selecteditor");
+         }
+        else {
+              echo "<script>alert('Something went wrong.');</script>";
+         }
+    
+     }
+     // Author
 
-    $pemail = $_POST['pemail'];
 
-    $sqlquthor = "UPDATE author SET academiceditor=1,associateeditor=NULL WHERE primaryemail='$pemail'";
-    if(mysqli_query($link, $sqlquthor)){
-        echo "<script>alert('Academic Editor Select Successfully.');</script>";
-        header("refresh:0;url=selecteditor");
-    }
-    else {
-        echo "<script>alert('Something went wrong.');</script>";
-    }
-
-}
-// Academic Editor 
 
 ?>
 
@@ -113,6 +132,7 @@ include 'header.php';
             <th >Primary Email</th>
             <th>Associate Editor</th>
             <th >Academic Editor</th>
+            <th >Author</th>
         </tr>
 </thead> 
 
@@ -135,7 +155,7 @@ foreach($results as $result)
     $academiceditor = htmlentities($result->academiceditor);
     ?> 
 <tr>
-<td class="result-color1"><?php echo htmlentities($result->id);?></td> 
+<td class="result-color1"><?php echo htmlentities($result->username);?></td> 
             <td ><?php echo $fullname ;?></td>
             <td ><?php echo htmlentities($result->primaryemail);?></td>
             <td>
@@ -152,13 +172,21 @@ foreach($results as $result)
             <?php if ($academiceditor==1) {
               echo "<b class='btn btn-sm btn-success text-white'>Selected</b>";
              } else { ?>
-           <form method="post">
+            <form method="post">
             <input type="hidden" name="pemail" value = "<?php echo htmlentities($result->primaryemail);?>">
             <button type="submit" name="select-academiceditor" class="btn btn-info btn-sm">Select</button>
             </form>
             <?php  } ?>
-
-     
+            </td>
+            <td>
+            <?php if (($academiceditor==0 OR $academiceditor==NULL) and ($associateeditor==0 OR $associateeditor==NULL)) {
+              echo "<b class='btn btn-sm btn-success text-white'>Selected</b>";
+             } else { ?>
+            <form method="post">
+            <input type="hidden" name="pemail" value = "<?php echo htmlentities($result->primaryemail);?>">
+            <button type="submit" name="select-author" class="btn btn-info btn-sm">Select</button>
+            </form>
+            <?php  } ?>
             </td>
 </tr>
 <?php $cnt=$cnt+1;}} ?>
@@ -225,6 +253,5 @@ else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
   header("refresh:0;url=../chiefeditorlogin");
 }
-
 }
 ?>

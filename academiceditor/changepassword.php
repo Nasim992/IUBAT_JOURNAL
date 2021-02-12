@@ -114,19 +114,22 @@ include 'header.php';
          <div class="form-group has-success">
         <label for="success" class="control-label">Current Password</label>
         <div class="">
-         <input type="password" name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required="required" id="success" placeholder="Enter Old Password">                                 
+         <input type="password" name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required="required" id="success" placeholder="Enter Old Password">                                 
           </div>
            </div>
            <div class="form-group has-success">
             <label for="success" class="control-label">New Password</label>
             <div class="">
-            <input type="password" name="newpassword" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"class="form-control" id="success"placeholder="Enter New Password">
+            <input type="password" name="newpassword" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"class="form-control" id="success"placeholder="Enter New Password">
               </div>
                </div>
               <div class="form-group has-success">
             <label for="success" class="control-label">Confirm Password</label>
             <div class="">
-             <input type="password" name="confirmpassword" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"required="required" id="success"placeholder="Enter New Password Again">
+             <input type="password" name="confirmpassword" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+             title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"required="required" id="success"placeholder="Enter New Password Again">
                </div>
                  </div>
                 <div class="form-group has-success">

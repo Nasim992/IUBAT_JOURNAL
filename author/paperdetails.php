@@ -38,147 +38,149 @@ if(strlen($_SESSION['alogin'])=="")
                           
        // Number of Feedback count section ends here
 
-if (!empty($_GET['paperid'])) {
-    $id=$_GET['paperid'];
+    if (!empty($_GET['paperid'])) {
+        $id=$_GET['paperid'];
 
-$sql = "SELECT * FROM paper WHERE paperid = '$id'";
-$result = mysqli_query($link,$sql);
-$file = mysqli_fetch_assoc($result);
+    $sql = "SELECT * FROM paper WHERE paperid = '$id'";
+    $result = mysqli_query($link,$sql);
+    $file = mysqli_fetch_assoc($result);
 
-// Title File and Abstract Section Starts Here
-$filepathtitle = '../documents/file1/'.$file['name1'];
-$filepathmessagetitle = 'documents/file1/'.$file['name1'];
-$filename1 = $file['name1'];
-$type1 = $file['type1']; 
-// Title File and Abstract Section Ends Here 
+    // Title File and Abstract Section Starts Here
+    $filepathtitle = '../documents/file1/'.$file['name1'];
+    $filepathmessagetitle = 'documents/file1/'.$file['name1'];
+    $filename1 = $file['name1'];
+    $type1 = $file['type1']; 
+    // Title File and Abstract Section Ends Here 
 
-// Title second Section Starts Here
-$filepathsecond = '../documents/file2/'.$file['name2'];
-$filepathmessageseconod = 'documents/file2/'.$file['name2'];
-$filename2 = $file['name2'];
-$type2 = $file['type2']; 
-// Title Second Section Ends Here 
+    // Title second Section Starts Here
+    $filepathsecond = '../documents/file2/'.$file['name2'];
+    $filepathmessageseconod = 'documents/file2/'.$file['name2'];
+    $filename2 = $file['name2'];
+    $type2 = $file['type2']; 
+    // Title Second Section Ends Here 
 
-// Main File Uploaded Section starts here 
-$filepath = '../documents/'.$file['name']; 
-$filepathmessage = 'documents/'.$file['name'];
-$filename = $file['name'];
-$type = $file['type']; 
-// Main File Uploaded Section Ends Here 
+    // Main File Uploaded Section starts here 
+    $filepath = '../documents/'.$file['name']; 
+    $filepathmessage = 'documents/'.$file['name'];
+    $filename = $file['name'];
+    $type = $file['type']; 
+    // Main File Uploaded Section Ends Here 
 
-// Resubmit file path section
-$filepathresubmit ='../documents/resubmit/'.$file['resubmitpaper'];
-$filepathresubmitname = $file['resubmitpaper'];
-$fileresubmitdate = $file['resubmitdate'];
-// Resubmit file path section 
+    // Resubmit file path section
+    $filepathresubmit ='../documents/resubmit/'.$file['resubmitpaper'];
+    $filepathresubmitname = $file['resubmitpaper'];
+    $fileresubmitdate = $file['resubmitdate'];
+    // Resubmit file path section 
 
-$papername = $file['papername'];
-$authormail = $file['authoremail'];
-$abstract = $file['abstract'];
-$numberofcoauthor = $file['numberofcoauthor'];
+    $papername = $file['papername'];
+    $authormail = $file['authoremail'];
+    $abstract = $file['abstract'];
+    $numberofcoauthor = $file['numberofcoauthor'];
 
-$uploaddate = $file['uploaddate'];
+    $uploaddate = $file['uploaddate'];
 
-$maindate = date("d-M-Y",strtotime($uploaddate));
+    $maindate = date("d-M-Y",strtotime($uploaddate));
 
-$cauname = unserialize($file['coauthorname']);
+    $cauname = unserialize($file['coauthorname']);
 
-// Authorname selection starts here 
-$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authormail' ";
+    $action = $file['action'];
 
-$result1 = mysqli_query($link,$sql1); 
+    // Authorname selection starts here 
+    $sql1 = "SELECT * FROM author WHERE  primaryemail= '$authormail' ";
 
-$file1 = mysqli_fetch_assoc($result1);
+    $result1 = mysqli_query($link,$sql1); 
 
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
+    $file1 = mysqli_fetch_assoc($result1);
 
-$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
-// Authorname selection section ends here 
+    $title = $file1['title'];
+    $fname= $file1['firstname'];
+    $middlename= $file1['middlename'];
+    $lastname= $file1['lastname'];
 
-// Paper description showing section ends here 
+    $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+    // Authorname selection section ends here 
 
-$arrayusernamereviewershowing = array();
-// Show Reviewer Selection section starts Here
-$sqlrshowing = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.action from reviewertable Where paperid='$id' and action IS NULL";
-$queryrshowing = $dbh->prepare($sqlrshowing); 
-$queryrshowing->execute(); 
-$resultrshowing=$queryrshowing->fetchAll(PDO::FETCH_OBJ); 
-$cnt=1;
-if($queryrshowing->rowCount() > 0) 
-{
+    // Paper description showing section ends here 
 
-foreach($resultrshowing as $resultr) 
-{ 
+    $arrayusernamereviewershowing = array();
+    // Show Reviewer Selection section starts Here
+    $sqlrshowing = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.action from reviewertable Where paperid='$id' and action IS NULL";
+    $queryrshowing = $dbh->prepare($sqlrshowing); 
+    $queryrshowing->execute(); 
+    $resultrshowing=$queryrshowing->fetchAll(PDO::FETCH_OBJ); 
+    $cnt=1;
+    if($queryrshowing->rowCount() > 0) 
+    { 
 
-$usernamereviewer = htmlentities($resultr->username);
-array_push($arrayusernamereviewershowing,$usernamereviewer);
-}}
-// Show Reviewer Selection Section ends here 
+    foreach($resultrshowing as $resultr) 
+    { 
 
-$arrayusernameeditorshowing = array();
-// Editor showing section starts here here
-$sqleshowing = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action from editortable Where paperid='$id' and action IS NULL";
-$queryeshowing = $dbh->prepare($sqleshowing); 
-$queryeshowing ->execute(); 
-$resulteshowing=$queryeshowing ->fetchAll(PDO::FETCH_OBJ); 
-$cnt=1;
+    $usernamereviewer = htmlentities($resultr->username);
+    array_push($arrayusernamereviewershowing,$usernamereviewer);
+    }}
+    // Show Reviewer Selection Section ends here 
 
-if($queryeshowing->rowCount() > 0) 
-{
-foreach($resulteshowing as $result) 
-{ 
-$usernameeditor = htmlentities($result->username);
-array_push($arrayusernameeditorshowing,$usernameeditor);
-}}
-// Editor showing section ends here
+    $arrayusernameeditorshowing = array();
+    // Editor showing section starts here here
+    $sqleshowing = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action from editortable Where paperid='$id' and action IS NULL";
+    $queryeshowing = $dbh->prepare($sqleshowing); 
+    $queryeshowing ->execute(); 
+    $resulteshowing=$queryeshowing ->fetchAll(PDO::FETCH_OBJ); 
+    $cnt=1;
+
+    if($queryeshowing->rowCount() > 0) 
+    {
+    foreach($resulteshowing as $result) 
+    { 
+    $usernameeditor = htmlentities($result->username);
+    array_push($arrayusernameeditorshowing,$usernameeditor);
+    }}
+    // Editor showing section ends here
 
 
-$associateeditorshowing = array();
-// Associate Editor showing section starts here
-$sqlassociateeditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.associateeditor from editortable Where paperid='$id' and action IS NULL and associateeditor IS NOT NULL";
-$queryassociateeditor = $dbh->prepare($sqlassociateeditor); 
-$queryassociateeditor ->execute(); 
-$resultassociateeditor=$queryassociateeditor ->fetchAll(PDO::FETCH_OBJ); 
-$cnt=1;
+    $associateeditorshowing = array();
+    // Associate Editor showing section starts here
+    $sqlassociateeditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.associateeditor from editortable Where paperid='$id' and action IS NULL and associateeditor IS NOT NULL";
+    $queryassociateeditor = $dbh->prepare($sqlassociateeditor); 
+    $queryassociateeditor ->execute(); 
+    $resultassociateeditor=$queryassociateeditor ->fetchAll(PDO::FETCH_OBJ); 
+    $cnt=1;
 
-if($queryassociateeditor->rowCount() > 0) 
-{
-foreach($resultassociateeditor as $result) 
-{ 
-$usernameeditor = htmlentities($result->username);
-array_push($associateeditorshowing,$usernameeditor);
-}}
-// Associate  Editor showing section ends here
+    if($queryassociateeditor->rowCount() > 0) 
+    {
+    foreach($resultassociateeditor as $result) 
+    { 
+    $usernameeditor = htmlentities($result->username);
+    array_push($associateeditorshowing,$usernameeditor);
+    }}
+    // Associate  Editor showing section ends here
 
-$academiceditorshowing = array();
-// Academic Editor showing section starts here
-$sqlacademiceditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.academiceditor from editortable Where paperid='$id' and action IS NULL  and academiceditor IS NOT NULL";
-$queryacademiceditor = $dbh->prepare($sqlacademiceditor); 
-$queryacademiceditor ->execute(); 
-$resultacademiceditor=$queryacademiceditor ->fetchAll(PDO::FETCH_OBJ); 
-$cnt=1;
+    $academiceditorshowing = array();
+    // Academic Editor showing section starts here
+    $sqlacademiceditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.academiceditor from editortable Where paperid='$id' and action IS NULL  and academiceditor IS NOT NULL";
+    $queryacademiceditor = $dbh->prepare($sqlacademiceditor); 
+    $queryacademiceditor ->execute(); 
+    $resultacademiceditor=$queryacademiceditor ->fetchAll(PDO::FETCH_OBJ); 
+    $cnt=1;
 
-if($queryacademiceditor->rowCount() > 0) 
-{
-foreach($resultacademiceditor as $result) 
-{ 
-$usernameeditor = htmlentities($result->username);
-array_push($academiceditorshowing,$usernameeditor);
-}}
-// Academic Editor section ends here 
+    if($queryacademiceditor->rowCount() > 0) 
+    {
+    foreach($resultacademiceditor as $result) 
+    { 
+    $usernameeditor = htmlentities($result->username);
+    array_push($academiceditorshowing,$usernameeditor);
+    }}
+    // Academic Editor section ends here 
 
-$arrayallusername = array();
-// Selecting All the username from the autor section starts here 
-$sqlreviewer = "SELECT username FROM author";
-$resultreviewer = mysqli_query($link,$sqlreviewer);
-$filereviewer = mysqli_fetch_assoc($resultreviewer);
-    foreach($resultreviewer as $filerev) {
-        array_push($arrayallusername,$filerev['username']);
-   }
-// Selecting All the username from the author section ends here
+    $arrayallusername = array();
+    // Selecting All the username from the autor section starts here 
+    $sqlreviewer = "SELECT username FROM author";
+    $resultreviewer = mysqli_query($link,$sqlreviewer);
+    $filereviewer = mysqli_fetch_assoc($resultreviewer);
+        foreach($resultreviewer as $filerev) {
+            array_push($arrayallusername,$filerev['username']);
+      }
+    // Selecting All the username from the author section ends here
 
 // Resubmit paper section starts here 
   if(isset($_POST['resubmit']))
@@ -345,6 +347,7 @@ include 'author-header.php';
 <input type="hidden" name="filepath" value="<?php echo $filepath; ?>">
 <input type="hidden" name="filepathresubmit" value="<?php echo $filepathresubmit; ?>">
 
+
 <button  type="submit" title="Delete"  class="bg-light" name="deletepaper" onclick="return confirm('Are you sure you want Delete this paper?');" style="border:none;color:red;margin-top:0px;"><i class="fas fa-trash-alt" title="Delete"></i></button>
 </form>
 
@@ -357,7 +360,32 @@ include 'author-header.php';
 <hr>
 
 <!-- Resubmit paper section starts here  -->
+<?php if($action==1) { ?>
 <form class="author-form"  method = "post" enctype = "multipart/form-data">
+<div class="col-sm-12 col-lg-12 col-md-12">
+<div class="input-group">
+<label class="col-sm-6 col-form-label" for="formGroupExampleInput"><b>Resubmit paper :</b></label>
+<div class="col-sm-6">
+<input type="hidden" name="resubmit-paperid" value="<?php echo $id;?>">
+<input type="file" class="form-control-file" name="fileresubmit"id="exampleFormControlFile1" accept = "application/pdf" required disabled>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6 col-lg-6 col-xl-6">
+</div>
+<?php if(empty($fileresubmitdate )) { ?>
+<div class="col-sm-2 col-lg-2 col-xl-2">
+<button class="btn btn-sm btn-info" name = "resubmit" type="submit" disabled>Submit</button>
+</div>
+<?php } else {?>
+    <div class="col-sm-2 col-lg-2 col-xl-2">
+<button class="btn btn-sm btn-info" name = "resubmit" type="submit" disabled>Submit</button>
+</div>
+<?php } ?>
+</div>
+</form>
+<?php } else { ?>
+  <form class="author-form"  method = "post" enctype = "multipart/form-data">
 <div class="col-sm-12 col-lg-12 col-md-12">
 <div class="input-group">
 <label class="col-sm-6 col-form-label" for="formGroupExampleInput"><b>Resubmit paper :</b></label>
@@ -380,6 +408,7 @@ include 'author-header.php';
 <?php } ?>
 </div>
 </form>
+<?php  } ?>
 <!-- Resubmit paper section ends here  -->
 
 <hr class="bg-success">

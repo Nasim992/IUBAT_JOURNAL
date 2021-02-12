@@ -55,21 +55,22 @@ if(strlen($_SESSION['alogin'])=="")
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
+ 
     <ul class="navbar-nav ml-auto ul-nav">
 
  
     <li class="nav-item hidden active" title="Dashboard">
-    <a href="dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
+    <span class="navbar-text"><a href="dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
     </li>
 
     <li class="nav-item hidden active" title="Published paper">
     <span class="navbar-text"><a href="publishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Published Paper</a></span>
     </li>
+
     <li class="nav-item hidden active" title="Unpublished paper">
     <span class="navbar-text"><a href="unpublishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Unpublished Paper</a></span>
     </li>
-    <span class="navbar-text"><li class="nav-item hidden active" title="Changed password">
+    <li class="nav-item hidden active" title="Changed password">
     <span class="navbar-text"><a href="updateprofile" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Update Profile</a></span>
     </li>
     <!-- <li class="nav-item hidden active" title="Changed password">

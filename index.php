@@ -4,11 +4,19 @@ include('link/config.php');
 $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action=1";
 $stmt = $dbh->prepare($query);
 // execute query
-$stmt->execute();
+$stmt->execute(); 
 // get total rows
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $total_published = $row['total_rows'];
 // Total published paper count section ends here
+
+    // Maximum VersionIssue Section Starts Here 
+    $query = "SELECT MAX(versionissue) as total_rows FROM archive";
+    $stmt = $dbh->prepare($query);
+    $stmt->execute(); 
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $maximumyear = $row['total_rows'];
+    // Maximum VersionIssue Section Ends Here
 ?>
 <!DOCTYPE html>  
 <html lang="en"> 
@@ -124,8 +132,7 @@ $total_published = $row['total_rows'];
     </div>
     <?php  }  else { ?>
     <?php 
-    $V2020 = '2020';
-    $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$V2020' ";
+    $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$maximumyear' ";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -178,9 +185,9 @@ $total_published = $row['total_rows'];
     <table id="heading-table">
     <tbody>
     <?php 
-    $V2020 = '2020';
-    $V2019 = '2019';
-    $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$V2020' or versionissue='$V2019' LIMIT 4";
+    $maximumyeardec=$maximumyear-1;
+    $maximumyeardec2=$maximumyear-2;
+    $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$maximumyear' or versionissue='$maximumyeardec' or versionissue='$maximumyeardec2' ORDER BY versionissue DESC LIMIT 10";
       $query = $dbh->prepare($sql); 
       $query->execute(); 
       $results=$query->fetchAll(PDO::FETCH_OBJ); 

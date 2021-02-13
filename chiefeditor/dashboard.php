@@ -24,8 +24,6 @@ if(strlen($_SESSION['alogin'])=="")
     //  Count 
     include '../link/count.php';
     // Count
-
-
 ?>  
 
 <!DOCTYPE html>

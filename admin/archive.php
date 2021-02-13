@@ -5,7 +5,7 @@ include('../link/config.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../adminlogin"); 
-    } 
+    }  
     else 
     {  
      // Check that the Editor is logged in or not section starts here  
@@ -20,40 +20,26 @@ if(strlen($_SESSION['alogin'])=="")
      {
      
      // Check that the Editor is logged in or not section ends here 
-
-if(isset($_POST['submit']))
-{ 
-
-  $versionissue= $_POST['published-year'];
+  if(isset($_POST['submit']))
+  { 
   $paperid = $_POST['paperid'];
   $papername = $_POST['papername'];
   $authorname = $_POST['authorname'];
   $abstract = $_POST['abstract'];
   $publisheddate =  $_POST['publisheddate'];
+  $versionyear = date("Y",strtotime($publisheddate));
+  $versionissue= intval($versionyear);
 
   // Full pdf if necessary info file section starts Here 
   $file = $_FILES['file'];
   $name = $_FILES['file']['name'];
   $filetmp = $_FILES['file']['tmp_name'];
-  $type = $_FILES['file']['type'];
+  $type = $_FILES['file']['type']; 
    // Full pdf if necessary info  File section ends here
 
-   $sql="INSERT INTO  archive(versionissue,paperid,papername,authorname,abstract,filename,publisheddate) VALUES(:versionissue,:paperid,:papername,:authorname,:abstract,:name,:publisheddate)";
+   $sqlarchive="INSERT INTO  archive(versionissue,paperid,papername,authorname,abstract,filename,publisheddate) VALUES('$versionissue','$paperid','$papername','$authorname','$abstract','$name','$publisheddate')";
 
-   $query = $dbh->prepare($sql);
-   $query->bindParam(':versionissue',$versionissue,PDO::PARAM_STR);
-   $query->bindParam(':paperid',$paperid,PDO::PARAM_STR);
-   $query->bindParam(':papername',$papername,PDO::PARAM_STR);
-   $query->bindParam(':authorname',$authorname,PDO::PARAM_STR);
-   $query->bindParam(':abstract',$abstract,PDO::PARAM_STR);
-   $query->bindParam(':name',$name,PDO::PARAM_STR);
-   $query->bindParam(':publisheddate',$publisheddate,PDO::PARAM_STR);
- 
- 
-   $query->execute();
- 
-   $results=$query->fetchAll(PDO::FETCH_OBJ);
-   if($query->rowCount() > 0)
+   if( mysqli_query($link,$sqlarchive))
    {
      move_uploaded_file($filetmp,"../documents/archivefile/".$name);
    echo "<script>alert('Paper Uploaded Successfully.');</script>";
@@ -62,14 +48,9 @@ if(isset($_POST['submit']))
        
        echo "<script>alert('Invalid Details !This paper has already Uploaded');</script>";
        header("refresh:0;url=archive");
- 
-   }   
-
-}
-
-
+    }   
+  }
 ?>  
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,17 +111,11 @@ include 'header.php';
    <h1 class="text-center" style="font-size:18px;"><b>ADD PAPER TO THE ARCHIVE</b></h1>
    <br>
 
-        <div class="input-group">
-        <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Published Year :</b></label>
-        <div class="col-sm-10">
-        <input type="text" class="form-control" id="exampleFormControlTextarea1" name= "published-year"  placeholder ="Enter the published year of this paper" required>
-        </div>
-        </div>
         <br>
         <div class="input-group">
         <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Paper ID:</b></label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="exampleFormControlTextarea1" name= "paperid"  placeholder ="Enter the published year of this paper" required>
+        <input type="text" class="form-control" id="exampleFormControlTextarea1" name= "paperid"  placeholder ="Enter the paper name" required>
         </div>
         </div>
         <br>

@@ -68,7 +68,7 @@ include 'header.php';
       {
       foreach($results as $result) 
 
-{   ?>
+ {   ?>
 
 <!-- Select User name section starts here  -->
 <?php  

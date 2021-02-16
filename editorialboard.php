@@ -9,8 +9,14 @@ include('link/config.php');
     <title>Editorial Board</title>
     <!-- Css links -->
     <?php include 'link/csslinks.php'; ?>
+    <style>
+    .card-body img {
+      height:70px;
+      weight:70px;
+      border-radius:30px;
+    }
+    </style>
     <!-- Css links -->
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head> 
 <body> 
   <div class="content">
@@ -66,9 +72,9 @@ include('link/config.php');
          <p><b>Professor Dr. M Abdur Rab</b></p>
          <p>Vice-Chancellor, IUBAT</p>
          </div>
-          </div>
+          </div> -->
         </div>
-        </div> -->
+        </div>
         <!-- Editors section -->
   
          <!-- Main Associate Editors and Academic Editors Section starts here -->
@@ -233,15 +239,6 @@ include('link/config.php');
          </div>
           </div>
         </div>
-
-        <div  class="">
-        <div class="h-75">
-         <div class="card-body">
-         <p><b>Dr. Venkat</b></p>
-         <p>Associate, India</p>
-         </div>
-          </div>
-          </div>
           <div  class="">
         <div class="h-75">
          <div class="card-body">
@@ -292,11 +289,6 @@ include('link/config.php');
     ?>
     <!-- Footer section ends here  -->
   </div>
-      <!-- Loader image section starts here  -->
-      <div class="loader-wrapper">
-      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
-    </div>
-    <!-- Loader image section ends here  -->
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>

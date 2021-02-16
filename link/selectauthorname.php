@@ -1,8 +1,8 @@
 <?php  
+ 
+$sqlauthorernam = "SELECT * FROM author WHERE  primaryemail= '$authoremail' or username='$username' ";
 
-$sqlauthorernam = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
-
-$resultauthorernam = mysqli_query($link,$sqlauthorernam); 
+$resultauthorernam = mysqli_query($link,$sqlauthorernam);  
  
 $fileauthorername = mysqli_fetch_assoc($resultauthorernam);
  

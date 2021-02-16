@@ -24,7 +24,7 @@ if(strlen($_SESSION['alogin'])=="")
         $middlename = htmlentities($result->middlename);
         $lastname  = htmlentities($result->lastname);
 
-        $fullname = $title.' '.$firstname.' '.$middlename.' '.$lastname; 
+        $fullname = $title.' '.$middlename; 
     // Check that the Associate Editor is logged in or not section ends here 
 
 ?>
@@ -56,7 +56,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">JOURNAL</a>
-  <h6 style="font-size:12px;">Welcome Back,<?php  echo  $fullname ;  } ?></h6>
+  <h6 style="font-size:12px;">Welcome,<?php  echo  $fullname ;  } ?></h6>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -70,11 +70,11 @@ if(strlen($_SESSION['alogin'])=="")
     <span class="navbar-text"><a href="dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
     </li> 
 
-    <li class="nav-item hidden active" title="Published paper">
+    <!-- <li class="nav-item hidden active" title="Published paper">
     <span class="navbar-text"><a href="publishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Published Paper</a></span>
-    </li>
+    </li> -->
     <li class="nav-item hidden active" title="Unpublished paper">
-    <span class="navbar-text"><a href="unpublishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Unpublished Paper</a></span>
+    <span class="navbar-text"><a href="paperstatus" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Paper Status</a></span>
     </li>
     <li class="nav-item hidden active" title="Changed password">
     <span class="navbar-text"><a href="updateprofile" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Update Profile</a></span>
@@ -86,6 +86,9 @@ if(strlen($_SESSION['alogin'])=="")
     <li class="nav-item hidden active" title="Author states">
     <span class="navbar-text"><a href="authors" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Author States</a></span>
     </li>
+    <li class="nav-item hidden active" title="reviewer">
+    <span class="navbar-text"><a href="editordetails" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Academic Editor</a></span>
+    </li> 
     <li class="nav-item hidden active" title="reviewer">
     <span class="navbar-text"><a href="reviewerdetails" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a></span>
     </li> 

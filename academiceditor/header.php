@@ -24,7 +24,7 @@ if(strlen($_SESSION['alogin'])=="")
         $middlename = htmlentities($result->middlename);
         $lastname  = htmlentities($result->lastname);
 
-        $fullname = $title.' '.$firstname.' '.$middlename.' '.$lastname; 
+        $fullname = $title.' '.$middlename; 
     // Check that the Associate Editor is logged in or not section ends here 
 
 ?>
@@ -56,7 +56,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">JOURNAL</a>
-  <h6 style="font-size:12px;">Welcome Back,<?php  echo  $fullname ;  } ?></h6>
+  <h6 style="font-size:12px;">Welcome,<?php  echo  $fullname ;  } ?></h6>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -70,11 +70,8 @@ if(strlen($_SESSION['alogin'])=="")
     <span class="navbar-text"><a href="dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
     </li> 
 
-    <li class="nav-item hidden active" title="Published paper">
-    <span class="navbar-text"><a href="publishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Published Paper</a></span>
-    </li>
     <li class="nav-item hidden active" title="Unpublished paper">
-    <span class="navbar-text"><a href="unpublishedpaper" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Unpublished Paper</a></span>
+    <span class="navbar-text"><a href="paperstatus" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Paper Status</a></span>
     </li>
     <li class="nav-item hidden active" title="Changed password">
     <span class="navbar-text"><a href="updateprofile" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Update Profile</a></span>
@@ -91,6 +88,10 @@ if(strlen($_SESSION['alogin'])=="")
     </li> 
     <li class="nav-item hidden active" title="Feedback">
     <span class="navbar-text"><a href="feedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Feedback</a></span>
+    </li>
+
+    <li class="nav-item hidden active" title="Feedback">
+    <span class="navbar-text"><a href="reviewedpaper" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Reviewed paper</a></span>
     </li>
 
         <li class="nav-item active" >

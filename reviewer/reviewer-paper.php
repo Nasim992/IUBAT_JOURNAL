@@ -112,7 +112,7 @@ include 'reviewer-header.php';
     <?php 
     // include 'link/linklocal.php';
     foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname from paper WHERE  action=0 and paperid='$pid'"; 
+        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name2,paper.name1,paper.resubmitpaper from paper WHERE  action=0 and paperid='$pid'"; 
         $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
         $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
@@ -122,13 +122,15 @@ include 'reviewer-header.php';
         $abstract = $filereviewerselection['abstract'];
         $authoremailpaper = $filereviewerselection['authoremail'];
         $name = $filereviewerselection['name'];
-        $filepath = '../documents/file2/'.$filereviewerselection['name']; 
-        $type = $filereviewerselection['type'];
+        $filepathdoc = '../documents/file1/'.$filereviewerselection['name1']; 
+        $filepathpdf = '../documents/file2/'.$filereviewerselection['name2']; 
+        $filepathresubmit = '../documents/resubmit/'.$filereviewerselection['resubmitpaper']; 
         $action = $filereviewerselection['action'];
         $uploaddatestring = $filereviewerselection['uploaddate'];
         $uploaddate = date("d-M-Y",strtotime($uploaddatestring));
         $type = $filereviewerselection['type'];
-        $pdate = $filereviewerselection['pdate'];
+        $pdatestring = $filereviewerselection['pdate'];
+        $pdate = date("d-M-Y",strtotime($pdatestring));
 
         $cauname = $filereviewerselection['coauthorname'];
           ?>
@@ -157,7 +159,7 @@ include 'reviewer-header.php';
                 </span>
                 <span style="color:green;">
                 <?php
-                echo "Published on ".$pdate.'-'.$pmonth.'-'.$pyear;
+                echo "Published on ".$pdate;
             }
             
             ?>
@@ -173,11 +175,16 @@ include 'reviewer-header.php';
 
             <div class=" d-flex justify-content-between col-sm-12">
             <div >
-            <a style="font-size:14px;" class="" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
+            <a style="font-size:14px;" class="" href="<?php echo $filepathdoc ?> "target ="_blank" role="button">Download as doc</a>
             </div>
             <div >
-            <p><?php echo $type;?></p>
+            <a style="font-size:14px;" class="" href="<?php echo $filepathpdf ?> "target ="_blank" role="button">Download as pdf</a>
             </div>
+            <?php if(!empty($filereviewerselection['resubmitpaper']))  { ?>
+            <div >
+            <a style="font-size:14px;" class="" href="<?php echo $filepathresubmit ?> "target ="_blank" role="button">Resubmitted paper</a>
+            </div>
+            <?php }?>
             <div >
        <form action='reviewer-feedback' method='post'>
        <input type="hidden" name="paperid" value="<?php echo $id;?>">

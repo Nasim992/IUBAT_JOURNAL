@@ -10,7 +10,6 @@
     <!-- Css links -->
     <?php include 'link/csslinks.php'; ?> 
     <!-- Css links -->
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
     <style>
           .indexform button{
            padding:0 !important;
@@ -30,7 +29,7 @@
         }
     </style>
 </head> 
-<body> 
+<body > 
 <div class="content">
 <div class=>
     <!-- Heading Sections starts  -->
@@ -97,7 +96,7 @@
     <!-- Dashboard section starts  --> 
     <tr> 
     <td>
-    <div class="jumbotron  mb-0 bg-transparent">
+    <div class="jumbotron text-justify  mb-0 bg-transparent">
 
     <a class="bg-transparent" style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername);?></a>
 
@@ -161,7 +160,7 @@
     <!-- Dashboard section starts  --> 
     <tr> 
     <td>
-    <div class="jumbotron  mb-0 bg-transparent">
+    <div class="jumbotron text-justify  mb-0 bg-transparent">
 
     <a class="bg-transparent" style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername);?></a>
 
@@ -226,7 +225,7 @@
     <!-- Dashboard section starts  --> 
     <tr> 
     <td>
-    <div class="jumbotron  mb-0 bg-transparent">
+    <div class="jumbotron text-justify  mb-0 bg-transparent">
 
     <a class="bg-transparent" style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername);?></a>
     <div class="d-flex justify-content-between">
@@ -276,11 +275,7 @@
     include 'footer.php'
     ?>
     <!-- Footer section ends here  -->
-        <!-- Loader image section starts here  -->
-        <div class="loader-wrapper">
-      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
-    </div>
-    <!-- Loader image section ends here  -->
+
 </div>
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>

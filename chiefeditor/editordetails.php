@@ -22,43 +22,27 @@ if(strlen($_SESSION['alogin'])=="")
      
      // Check that the Editor is logged in or not section ends here 
 
-    //  Remove as a Reviewer section starts Here 
+    //  Remove as a Editor section starts Here 
     if(isset($_POST['editor-remove'])) {
       $paperid = $_POST['paperid'];
       $username = $_POST['username'];
 
-      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  username='$username' and action IS  NULL";
-      $stmt = $dbh->prepare($query);
-                              
-       // execute query
-       $stmt->execute();
-                              
-       // get total rows
-       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-       $total_re = $row['total_rows'];
       $action = 1;
       $actionz= 0;
-      include '../link/linklocal.php';
-      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
+      $sqlremovereview="update editortable set action=$action where paperid='$paperid' and username='$username'";
 
       if(mysqli_query($link, $sqlremovereview))
       {
-      echo "<script>alert('Reviewer Removed Successfully for this paper.');</script>";
-        // header("refresh:0;url=reviewerdetails");
+      echo "<script>alert('Editor of this paper removed.');</script>";
+        header("refresh:0;url=editordetails");
       }
       else {
           echo "<script>alert('Something went wrong');</script>";
-          // header("refresh:0;url=reviewerdetails");
+          header("refresh:0;url=editordetails");
       }
 
-        if ($total_re-1==0) {
-          include '../link/linklocal.php';
-              $sqlremovereviewauthor="update author set reviewerselection=$actionz where username='$username'";
-              mysqli_query($link,$sqlremovereviewauthor);
         }
-
-        }
-         // Remove as  a Reviewer Section Ends Here 
+         // Remove as  a Editor Section Ends Here 
 
 ?>
 
@@ -163,7 +147,7 @@ foreach($results as $result)
 <form method="post">
 <input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
 <input type="hidden" name="username" value="<?php echo $username?>">
-<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="reviewer-remove" value="x">
+<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="editor-remove" value="x">
 </form>
 
 </td>
@@ -234,7 +218,7 @@ foreach($results as $result)
 <form method="post">
 <input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
 <input type="hidden" name="username" value="<?php echo $username?>">
-<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="reviewer-remove" value="x">
+<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="editor-remove" value="x">
 </form>
 
 </td>

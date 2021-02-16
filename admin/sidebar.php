@@ -21,7 +21,7 @@
   <a href="admin" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Admin Pannel</a>
   <a href="authors" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Author States</a>
   <a href="reviewerdetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a>
-  <a href="selecteditor" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Select Editor</a>
+  <!-- <a href="selecteditor" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Select Editor</a> -->
   <a href="editordetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editor</a>
   <a href="editored" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editored</a>
   <a href="feedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Feedback</a>

@@ -19,7 +19,7 @@
     <h6 style="font-size:15px;" class="text-dark pt-4"><b>YOUR RESEARCH DATA</b></h6>
     
     <ul class="list-group text-dark bg-secondary">
-    <li class="list-group-item"><a style="font-weight:400;" class="text-dark" href="#"> > Share your research data</a></li>
+    <li class="list-group-item"><a style="font-weight:400;" class="text-dark" href="login"> > Share your research data</a></li>
     </ul>
     
     <h6 style="font-size:15px;" class="text-dark pt-4"><b>EDITORIAL BOARD</b></h6>

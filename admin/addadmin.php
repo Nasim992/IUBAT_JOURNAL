@@ -11,9 +11,9 @@ if(strlen($_SESSION['alogin'])=="")
     { 
 
      // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
+     $email = $_SESSION["email"];
 
-     $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.contact FROM chiefeditor WHERE email='$editoremail'"; 
+     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$email'"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -179,8 +179,8 @@ include 'header.php';
 <?php 
 }
 else {
-  echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../chiefeditorlogin");
+  echo "<script>alert('You are not a Admin.Try to log in as an admin');</script>";
+  header("refresh:0;url=../adminlogin");
 }
 
 }

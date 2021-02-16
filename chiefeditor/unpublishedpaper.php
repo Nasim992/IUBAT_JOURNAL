@@ -124,7 +124,7 @@ $sqlacademiceditor = "SELECT primaryemail FROM editortable WHERE paperid = '$pap
 $resultacademiceditor = mysqli_query($link,$sqlacademiceditor);
 $fileacademiceditor = mysqli_fetch_assoc($resultassociateeditor);
 foreach($resultacademiceditor  as $filerev) {
-    array_push($primaryemailarrayassociateeditor,$filerev['primaryemail']);
+    array_push($primaryemailarrayacademiceditor,$filerev['primaryemail']);
 }
 // Selecting Primmaryemail from the academiceditor section starts here 
 
@@ -206,7 +206,7 @@ $rejected = htmlentities($result->reject);
       
      echo "<b><span class='text-warning'>Under Review</span> <br>Reviewer:</b>".'<br>';
       if(empty($primaryemailarray)) {
-          echo "Not Selected Yet";
+          echo "Not Selected Yet <br>";
       }
       else {
           $cnt = 1;
@@ -226,10 +226,11 @@ $rejected = htmlentities($result->reject);
          echo $cnt.'.'.$authorname.'<br>';
          $cnt = $cnt + 1;
     }
+  }
         //  Reviewer Showing Section Ends Here 
 
                  // Associate Editor showing section
-                 echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
+                 echo "<br><span class='text-info'>Associate Editor:</span></br>";
                  $cnt1 =1; 
                  foreach ($primaryemailarrayassociateeditor as $err) {
                    $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
@@ -264,72 +265,71 @@ $rejected = htmlentities($result->reject);
 
 
     //   Reviewing paper selection section ends here 
+    }
+
+
+    ?> 
+    <!-- Paper status section starts here  -->
+    </small>
+  </td>
+  <!-- Paper Status -->
+
+  <td class="text-dark">
+  <?php  echo htmlentities($result->paperid); ?>
+  </td>
+  <td>
+  <b>
+  <small><!-- Author Name Showing Section starts here  -->
+  <?php  
+  $authoremail = htmlentities($result->authoremail);
+  include '../link/selectauthorname.php';
+  echo $authorname;
+  ?>
+  <!-- Author Name Showing Section Ends Here  --></small>
+  </b>
+  </td>
+  
+  <td>
+  <a href="selection.php?id=<?php echo htmlentities($result->paperid);?>"><?php  echo wordwrap(htmlentities($result->papername),70,"<br>\n"); ?></a>
+  </td>
+  <td class="text-dark"> 
+  <small>
+  <b>Uploaded On :</b><br>
+  <?php
+    // Selecting Date section starts here 
+    $uploaddatestring = htmlentities($result->uploaddate);
+    $uploaddate = date("d-M-Y",strtotime($uploaddatestring)); 
+    echo $uploaddate.'<br>';
+    // Selecting Date section ends here 
+
+    $resubmitpaper = htmlentities($result->resubmitpaper);
+  $resubmitdatestring = htmlentities($result->resubmitdate);
+  $resubmitdate= date("d-M-Y",strtotime($resubmitdatestring));
+  if(!empty($resubmitpaper)){
+    echo '<b class="text-info">Resubmit on :</b><br>';
+    echo  $resubmitdate;
   }
-}
 
-
-  ?> 
-  <!-- Paper status section starts here  -->
+  ?>
   </small>
-</td>
-<!-- Paper Status -->
+  </td>
 
-<td class="text-dark">
-<?php  echo htmlentities($result->paperid); ?>
-</td>
-<td>
-<b>
-<small><!-- Author Name Showing Section starts here  -->
-<?php  
-$authoremail = htmlentities($result->authoremail);
-include '../link/selectauthorname.php';
-echo $authorname;
-?>
-<!-- Author Name Showing Section Ends Here  --></small>
-</b>
-</td>
- 
-<td>
-<a href="selection.php?id=<?php echo htmlentities($result->paperid);?>"><?php  echo htmlentities($result->papername); ?></a>
-</td>
-<td class="text-dark"> 
-<small>
-<b>Uploaded On :</b><br>
-<?php
-  // Selecting Date section starts here 
-  $uploaddatestring = htmlentities($result->uploaddate);
-  $uploaddate = date("d-M-Y",strtotime($uploaddatestring)); 
-  echo $uploaddate.'<br>';
-  // Selecting Date section ends here 
+  </tr>
+  <?php }} ?>
+        
+  </tbody>
 
-  $resubmitpaper = htmlentities($result->resubmitpaper);
- $resubmitdatestring = htmlentities($result->resubmitdate);
- $resubmitdate= date("d-M-Y",strtotime($resubmitdatestring));
- if(!empty($resubmitpaper)){
-   echo '<b class="text-info">Resubmit on :</b><br>';
-  echo  $resubmitdate;
- }
+  </table>
 
-?>
-</small>
-</td>
-
-</tr>
-<?php }} ?>
-       
-</tbody>
-
-</table>
-
-</div>
+  </div>
 
     
     <div class="mb-5"></div>
-</div> 
-</div>
+  </div> 
+  </div>
 
  <!-- Essential Js,jquery,section starts  -->
- <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>

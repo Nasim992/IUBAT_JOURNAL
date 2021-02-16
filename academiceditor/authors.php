@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');  
-
+ 
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../login"); 
@@ -69,7 +69,7 @@ include 'header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-  <h4>AUTHOR</h4>
+  <h5>AUTHOR</h4>
   <hr class="bg-secondary" >
   <div class="table-responsive p-4"> 
 
@@ -77,24 +77,15 @@ include 'header.php';
 
 <thead>
         <tr>
-            <th >id</th>
-            <th >UserName</th>
-            <th >Title</th>
-            <th >First Name</th>
-            <th >Middle Name</th>
-            <th >Last Name</th>
+        <th >UserName</th>
+            <th >FullName</th>
             <th >Primary Email</th>
-            <th >Primary Email cc</th>
-            <th >Secondary Email</th>
-            <th >Secondary Email cc</th>
-            <th >Contact</th>
-            <th >Address</th>
             <th >Registration Time</th>
         </tr>
 </thead>
 
 <tbody id="myTable-admin">
-<?php $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.primaryemailcc,author.secondaryemail,author.secondaryemailcc,author.contact,author.address,author.registrationtime,author.reviewerselection,author.associateeditor,author.academiceditor from author WHERE academiceditor IS NULL and academiceditor IS NULL";
+<?php $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.primaryemailcc,author.secondaryemail,author.secondaryemailcc,author.contact,author.address,author.registrationtime,author.reviewerselection,author.associateeditor,author.academiceditor from author WHERE associateeditor IS NULL and academiceditor IS NULL";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ);  
@@ -104,18 +95,10 @@ if($query->rowCount() > 0)
 foreach($results as $result) 
 {   ?> 
 <tr>
-<td class="result-color1"><?php echo htmlentities($result->id);?></td> 
             <td ><?php echo htmlentities($result->username);?></td>
-            <td ><?php echo htmlentities($result->title);?></td>
-            <td ><?php echo htmlentities($result->firstname);?></td>
-            <td ><?php echo htmlentities($result->middlename);?></td>
-            <td ><?php echo htmlentities($result->lastname);?></td> 
+            <td ><?php echo htmlentities($result->title).' '.htmlentities($result->firstname).' '.htmlentities($result->middlename).' '.htmlentities($result->lastname);?></td>
             <td ><?php echo htmlentities($result->primaryemail);?></td>
-            <td ><?php echo htmlentities($result->primaryemailcc);?></td>
-            <td ><?php echo htmlentities($result->secondaryemail);?></td>
-            <td ><?php echo htmlentities($result->secondaryemailcc);?></td>
-            <td ><?php echo htmlentities($result->contact);?></td>
-            <td ><?php echo htmlentities($result->address);?></td>
+         
             <td ><?php echo htmlentities($result->registrationtime);?></td>
 
 </tr>

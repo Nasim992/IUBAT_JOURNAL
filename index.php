@@ -1,14 +1,14 @@
 <?php 
-include('link/config.php');
-// Total published paper count section starts here 
-$query = "SELECT COUNT(*) as total_rows FROM paper WHERE action=1";
-$stmt = $dbh->prepare($query);
-// execute query
-$stmt->execute(); 
-// get total rows
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$total_published = $row['total_rows'];
-// Total published paper count section ends here
+  include('link/config.php');
+    // Total published paper count section starts here 
+    $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action=1";
+    $stmt = $dbh->prepare($query);
+    // execute query
+    $stmt->execute(); 
+    // get total rows
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $total_published = $row['total_rows'];
+    // Total published paper count section ends here
 
     // Maximum VersionIssue Section Starts Here 
     $query = "SELECT MAX(versionissue) as total_rows FROM archive";
@@ -31,43 +31,42 @@ $total_published = $row['total_rows'];
           .indexform button{
            padding:0 !important;
            margin:0 !important;
-        }
-        .indexform button:hover{
-            color:#0b4953 !important;
-        } 
-        @media only screen and (max-width: 992px) {
-          .leftrightpadding{
-            padding:0px 5px 0px 5px !important;
           }
-        }
-        .leftrightpadding{
-          padding:0px 20px 0px 20px;
-        }
+          .indexform button:hover{
+              color:#0b4953 !important;
+          } 
+          @media only screen and (max-width: 992px) {
+            .leftrightpadding{
+              padding:0px 10px 0px 10px !important;
+            }
+          }
+          .leftrightpadding{
+            padding:0px 30px 0px 30px;
+          }
     </style>
 </head>  
-<body>  
-   <div class="content"> 
-   <div>
-    <!-- Heading Sections starts  -->
-    <?php  
-    include 'heading.php';
-    ?>
-    <!-- Heading Sections ends  --> 
-    </div>
-    <div class="leftrightpadding text-dark">
+<body style="text-align:justify;">  
+        <div>
+        <!-- Heading Sections starts  -->
+        <?php  
+        include 'heading.php';
+        ?>
+        <!-- Heading Sections ends  --> 
+        </div>
+  <div class="leftrightpadding text-dark">
     
    <!-- Top Heading section starts here -->
     <div class="row pt-1">
-    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-    </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        </div>
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-    <div class="text-left pb-2">
-        <?php 
-         include 'header.php';
-        ?>
-    <div>
-    </div>
-    </div> 
+          <div class="text-left pb-2">
+          <?php 
+          include 'header.php';
+          ?>
+          <div>
+     </div>
+     </div> 
     </div>  
     <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2">
     </div>
@@ -77,12 +76,12 @@ $total_published = $row['total_rows'];
     <!--  Journal Image Showing section starts here -->
     <div class="col-sm-12 col-md-12 col-xl-4 col-lg-4">
     <img src="images/ijournal_img.jpg" class="img-fluid img-thumbnail w-100 " alt="Journal Image">
-    <div style="font-size:14px;" class="p-1 text-left">
+    <div   style="font-size:14px; text-align:justify;" class="p-1">
     <p>The IUBAT Review is a multidisciplinary academic journal that the editors intend to publish annually. The office of the journal is located at the International University of Business Agriculture and Technology, the first non-government university in Bangladesh.<p>
     <p>IUBAT Review is peer-reviewed. The editors accept submissions from authors in Bangladesh and elsewhere. The articles should generally analyze current issues relevant to management, social sciences, engineering, agriculture, science and technology.</p>
     
     <!-- Recently Published paper Section Starts Here  -->
-    <div class="card bg-light mb-3 w-100 h-25" style="">
+    <div class="card bg-light mb-3 w-100 h-25" style="text-left">
    <div class="card-header">RECENTLY PUBLISHED</div>
    <div class="card-body">
 
@@ -175,9 +174,7 @@ $total_published = $row['total_rows'];
     <!-- paper showing section starts here  -->
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <div class="text-left ">
-    <!-- <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more">Read more...</span></a> -->
     </div>
-
      <hr class="bg-secondary" >
     <!-- Else Current Issue Paper Showing Section Showing  -->
 
@@ -195,15 +192,15 @@ $total_published = $row['total_rows'];
  
       if($query->rowCount() > 0) 
       {
-      foreach($results as $result)  
-      {  
+        foreach($results as $result)  
+        {  
           $filepathname = htmlentities($result->filename);
           $filepath = 'documents/archivefile/'.$filepathname;
 
-    $publishdatestring = htmlentities($result->publisheddate);
-    $publishdate = date("Y",strtotime($publishdatestring));
-     ?> 
-    <tr> 
+          $publishdatestring = htmlentities($result->publisheddate);
+          $publishdate = date("Y",strtotime($publishdatestring));
+        ?> 
+        <tr> 
     <td>
     <div class="jumbotron  mb-0 bg-transparent">
 
@@ -257,12 +254,8 @@ $total_published = $row['total_rows'];
     ?> 
     <!-- Footer section ends here  -->
    </div>
-   </div>
-    <!-- Loader image section starts here  -->
-    <div class="loader-wrapper">
-      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
-    </div>
-    <!-- Loader image section ends here  -->
+
+
     
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>

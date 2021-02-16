@@ -301,7 +301,7 @@ $fileacademiceditor100 = mysqli_fetch_assoc($resultacademiceditor100);
 
 $arrayallusername = array();
 // Selecting All the username from the autor section starts here 
-$sqlreviewer = "SELECT username FROM author where associateeditor IS  NULL and academiceditor IS  NULL";
+$sqlreviewer = "SELECT username FROM author where associateeditor IS  NULL and academiceditor IS  NULL and primaryemail!='$authormail'";
 $resultreviewer = mysqli_query($link,$sqlreviewer);
 $filereviewer = mysqli_fetch_assoc($resultreviewer);
     foreach($resultreviewer as $filerev) {
@@ -365,7 +365,7 @@ include 'header.php';
   <hr class="bg-secondary" >
 
   <div class="jumbotron">
-     
+      
      <h5 style="font-size:18px" class="display-4">Name : <?php echo $papername ?></h5>
      <h6 style="font-size:15px;" class="display-5">Paper ID:<span style='color:#122916;'> <?php echo $id; ?></span></h6>
      <h6 style="font-size:15px;" class="display-5">Uploaded on:<span style='color:#122916;'> <small><?php echo $maindate; ?></small></span></h6>
@@ -380,7 +380,9 @@ include 'header.php';
          <p class="fontSize14px"><b>Co-Authors:</b>[<?php 
         //  Showing Co Author Name section starts here 
         foreach($cauname as $cname) {
-          echo $cname.' ';
+          if(!empty($cname)) {
+            echo $cname.',';
+          }
         }
         // Showing Co-Author Name Section ends here 
          ?>]</p>
@@ -436,8 +438,40 @@ include 'header.php';
          </div>
 
      <p style="font-size:14px"><b>Abstract:&nbsp</b><?php echo $abstract ?></p>
-     <hr >
 
+     <!-- --------------------- Select edit paper section starts here--------------------------------  -->
+<?php 
+
+$sqleditortablef = "SELECT * FROM editortable Where  paperid='$id'"; 
+
+$resulteditortablef= mysqli_query($link,$sqleditortablef); 
+
+$fileeditortablef = mysqli_fetch_assoc($resulteditortablef); 
+
+  if(empty( $fileeditortablef['feedback'])) { 
+?> 
+
+     <div class="float-right">
+  <form action='editorfeedback' method='post'>
+       <input type="hidden" name="paperid" value="<?php echo $id;?>">
+        
+       <button class=" btn btn-sm btn-info" type="submit" name="reviewer-feedbacks">Write a feedback</button>
+       </form>
+  </div>
+  <?php  } else  { ?>
+    <div class="float-right">
+  <form action='reviewedpaper' method='post'>
+  <input type="hidden" name="paperid" value="<?php echo $id;?>">
+       <button class=" btn btn-sm btn-info" type="submit" name="edit-feedbacks">Show reviewed paper</button>
+       </form>
+  </div>
+
+  <?php  } ?>
+
+<!-- ---------------------Select edit paper section ends here ---------------------------------- -->
+
+    <br>
+     <hr >
 <div class="row">
 
 <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
@@ -513,7 +547,7 @@ Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class=
      <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
    </div>
    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-reviewer"><b>Select</b></button>
+    <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-success form-control mt-0" type="submit" name="select-reviewer"><b><i class="fas fa-check"></i></b></button>
      </div>
    </div>
     </form>

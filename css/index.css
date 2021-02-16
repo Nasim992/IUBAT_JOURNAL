@@ -3,6 +3,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  text-align: justify !important;
 }
 
 .jumbotron {
@@ -57,14 +58,6 @@ img{
     }
   }
 
-  #content {
-    font-size:14px;
-    overflow: hidden;
-    height: 6.0em;
-    /* line-height: 1.2em; */
-    width:auto;
-  }
-      
 
 @media (max-width:991px)
 {

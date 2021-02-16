@@ -20,7 +20,7 @@ if(strlen($_SESSION['alogin'])=="")
               $query->execute(); 
               $results=$query->fetchAll(PDO::FETCH_OBJ); 
               $cnt=1;
-              if($query->rowCount() > 0) 
+              if($query->rowCount() > 0)  
               {
             // Check that the Author is logged in or not section ends here 
 
@@ -32,8 +32,8 @@ if(strlen($_SESSION['alogin'])=="")
       if(isset($_POST['reviewer-submit'])) {
         $paperid = $_POST['paperid'];
         $email = $_POST['authoremail'];
-        $feedback = $_POST['reviewer-review'];
-        $feedbackdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
+        $feedbackin = $_POST['reviewer-review'];
+        $feedbackdatein = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
 
           // Full pdf if necessary info file section starts Here 
           $filereviewer = $_FILES['reviewerfile'];
@@ -41,19 +41,19 @@ if(strlen($_SESSION['alogin'])=="")
           $filetmpreviewer = $_FILES['reviewerfile']['tmp_name'];
           $typereviewer = $_FILES['reviewerfile']['type'];
           // Full pdf if necessary info  File section ends here
- 
-
+       $feedback = serialize(array($feedbackin));
+       $feedbackdate = serialize(array($feedbackdatein));
         $sqlreviewer="update reviewertable set feedback='$feedback',feedbackfile='$namereviewer',feedbackdate='$feedbackdate' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
         {
           move_uploaded_file($filetmpreviewer,"../documents/review/".$namereviewer);
           echo "<script>alert('Feedback Sent Successfully');</script>";
-          // header("refresh:0;url=reviewer-feedback");
+          header("refresh:0;url=reviewed-paper");
         }
         else {
           echo "<script>alert('Something went wrong');</script>";
-          // header("refresh:0;url=reviewer-feedback");
+          header("refresh:0;url=reviewer-feedback");
         }
 
       }
@@ -85,7 +85,7 @@ include 'reviewer-header.php';
   <?php 
   include 'reviewer-sidebar.php';
   ?>
-</div> 
+</div>  
 
 <div id="main">  
 
@@ -93,30 +93,33 @@ include 'reviewer-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
+<!-- ---------------------------------------Reviewer Feedback -------------------------------------------------------- -->
+<h5>REVIEWER FEEDBACK</h5>
+<hr>
 
 <!-- Paper SHowing Section Starts Here  -->
 
 <?php
  
-include '../link/linklocal.php';
 // Selecting Paper section starts Here
-$sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname from paper WHERE  paperid='$paperid'";
+$sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2 from paper WHERE  paperid='$paperid'";
 
 $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
 
 $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
 $id =  $filereviewerselection['paperid'];
-$papername = $filereviewerselection['papername'];
+$papername = $filereviewerselection['papername']; 
 $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
 $abstract = $filereviewerselection['abstract'];
 $authoremailpaper = $filereviewerselection['authoremail'];
 $name = $filereviewerselection['name'];
-$filepath = '../documents/file2/'.$filereviewerselection['name']; 
+$filepath1 = '../documents/file1/'.$filereviewerselection['name1']; 
+$filepath2 = '../documents/file2/'.$filereviewerselection['name2']; 
 $type = $filereviewerselection['type'];
 $action = $filereviewerselection['action'];
 $uploaddatestring = $filereviewerselection['uploaddate'];
-$uploaddate =date("d-M-Y",strtotime($date));
+$uploaddate =date("d-M-Y",strtotime($uploaddatestring));
 
 $type = $filereviewerselection['type'];
 $pdate = $filereviewerselection['pdate'];
@@ -143,7 +146,7 @@ else {
     </span>
     <span style="color:green;">
     <?php
-    echo "Published on ".$pdate.'-'.$pmonth.'-'.$pyear;
+    echo "Published on ".$pdate;
 }
 
 ?>
@@ -159,7 +162,10 @@ else {
 
 <div class=" d-flex justify-content-between ">
 <div >
-<a style="font-size:14px;" class="" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
+<a style="font-size:14px;" class="" href="<?php echo $filepath1 ?> "target ="_blank" role="button">Download as doc</a>
+</div>
+<div >
+<a style="font-size:14px;" class="" href="<?php echo $filepath2 ?> "target ="_blank" role="button">Download as pdf</a>
 </div>
 <div >
 <p><?php echo $type;?></p>
@@ -175,19 +181,19 @@ else {
 <div class="row">
 
   <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
-     <!-- input file section starts here  --> 
+     <!-- input file section starts here  -->  
      <form class="author-form"  method = "post" enctype = "multipart/form-data">
    <div class="">
    <h1 class="text-center" style="font-size:18px;"><b>Give Review</b></h1>
    <br>
 
-<input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>"> 
+<input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>">  
 <input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
  
 <div class="input-group">
 <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Write Review:</b></label>
 <div class="col-sm-10">
-<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="8" placeholder ="Write a review of this paper" required></textarea>
+<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5" placeholder ="Write a review of this paper" required></textarea>
 </div>
 </div> 
 
@@ -195,7 +201,7 @@ else {
 <div class="input-group">
 <label class="col-sm-12 col-form-label" for="formGroupExampleInput"><b>Attach Review(If Required):</b></label><br>
 <div class="col-sm-12">
-<input type="file" class="form-control-file" name="reviewerfile"id="exampleFormControlFile1" accept = "application/pdf"  required>
+<input type="file" class="form-control-file" name="reviewerfile"id="exampleFormControlFile1" accept = ".doc, .docx, .pdf"  required>
 </div>
 
 
@@ -224,6 +230,7 @@ else {
   </div>
 
 </div>
+<!-- ---------------------------------------Reviewer Feedback --------------------------------------------------------- -->
 
 
 </div> <!-- Container div -->

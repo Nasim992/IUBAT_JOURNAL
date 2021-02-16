@@ -368,7 +368,7 @@ $fileacademiceditor100 = mysqli_fetch_assoc($resultacademiceditor100);
 
 $arrayallusername = array();
 // Selecting All the username from the autor section starts here 
-$sqlreviewer = "SELECT username FROM author where associateeditor IS  NULL and academiceditor IS  NULL";
+$sqlreviewer = "SELECT username FROM author where associateeditor IS  NULL and academiceditor IS  NULL and primaryemail!='$authormail'";
 $resultreviewer = mysqli_query($link,$sqlreviewer);
 $filereviewer = mysqli_fetch_assoc($resultreviewer);
     foreach($resultreviewer as $filerev) {
@@ -447,7 +447,9 @@ include 'header.php';
          <p class="fontSize14px"><b>Co-Authors:</b>[<?php 
         //  Showing Co Author Name section starts here 
         foreach($cauname as $cname) {
-          echo $cname.' ';
+          if(!empty($cname)) {
+            echo $cname.',';
+          }
         }
         // Showing Co-Author Name Section ends here 
          ?>]</p>
@@ -540,7 +542,6 @@ include 'header.php';
 <h6><small><b>Uploaded Files:</b></small></h6>
 <div class="row">
 
-<div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
 <?php  if(!empty($filename1)) {  ?>
 <div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
 Title and Abstract: <a style="font-size:13px;" title="Title and Abstract" class="" href="<?php echo $filepathtitle;?> "target ="_blank" role="button"><?php echo $filename1;  ?></a>
@@ -562,7 +563,6 @@ Necessary Info: <a style="font-size:13px;" title="Download this paper" class="" 
 Necessary Info: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathresubmit; ?> "target ="_blank" role="button"><?php echo $filenameresubmit;  ?></a>
 </div>
 <?php } ?>
-</div>
 <!-- File Section Ends Here  -->
 
 </div>

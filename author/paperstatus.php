@@ -212,10 +212,10 @@ $rejected = htmlentities($result->reject);
     echo "<p class='text-danger'><b>Reject on:<br></b> ".$rejectdate.'</p>';
   }
   else  { 
-      
+       
      echo "<b><span class='text-warning'>Under Review</span> <br>Reviewer:</b>".'<br>';
       if(empty($primaryemailarray)) {
-          echo "Not Selected Yet";
+          echo "Not Selected Yet<br>";
       }
       else {
           $cnt = 1;
@@ -235,10 +235,11 @@ $rejected = htmlentities($result->reject);
          echo $cnt.'.'.$authorname.'<br>';
          $cnt = $cnt + 1;
     }
+  }
         //  Reviewer Showing Section Ends Here 
 
                  // Associate Editor showing section
-                 echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
+                 echo "<br><b><span class='text-info'>Associate Editor:</span></b></br>";
                  $cnt1 =1; 
                  foreach ($primaryemailarrayassociateeditor as $err) {
                    $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
@@ -274,7 +275,6 @@ $rejected = htmlentities($result->reject);
 
     //   Reviewing paper selection section ends here 
   }
-}
 
 
   ?> 
@@ -286,7 +286,7 @@ $rejected = htmlentities($result->reject);
 </td>
 
 <td>
-<a href="paperdetails.php?paperid=<?php echo htmlentities($result->paperid);?>"><?php  echo htmlentities($result->papername); ?></a>
+<a href="paperdetails.php?paperid=<?php echo htmlentities($result->paperid);?>"><?php  echo wordwrap(htmlentities($result->papername),70,"<br>\n"); ?></a>
 </td>
 <td class="text-dark"> 
 <small>

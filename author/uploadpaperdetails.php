@@ -256,7 +256,7 @@ $cauaddress21 = $_POST['cauaddress21'];
 $cauaddress22= $_POST['cauaddress22'];
 $cauaddress23= $_POST['cauaddress23'];
 $cauaddress24= $_POST['cauaddress24'];
-$cauaddress25 = $_POST['cauaddress25'];
+$cauaddress25 = $_POST['cauaddress25']; 
 $cauaddress26 = $_POST['cauaddress26'];
 $cauaddress27= $_POST['cauaddress27'];
 $cauaddress28= $_POST['cauaddress28'];
@@ -290,13 +290,16 @@ $coauthoraddress = serialize(array($cauaddress1,$cauaddress2,$cauaddress3,$cauad
   $query->bindParam(':coauthorinstitute',$coauthorinstitute,PDO::PARAM_STR);
   $query->bindParam(':coauthoraddress',$coauthoraddress,PDO::PARAM_STR);
 
-
-
   $query->execute();
 
   $results=$query->fetchAll(PDO::FETCH_OBJ);
   if($query->rowCount() > 0)
   {
+    // Insert PaperID To the feedbacktable table
+    $sqlfeedbackpaperid = "INSERT INTO chieffeedback(paperid) VALUES('$paperid')";
+    mysqli_query($link,$sqlfeedbackpaperid);
+    // Insert PAperID to the feedbacktable
+
     move_uploaded_file($filetmp,"../documents/".$name);
     move_uploaded_file($filetmp1,"../documents/file1/".$name1);
     move_uploaded_file($filetmp2,"../documents/file2/".$name2);
@@ -393,15 +396,15 @@ include 'author-header.php';
 <div class="row">
 <div class="col-sm-12 col-lg-12 col-md-12">
 <div class="input-group">
-<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>1.Upload Title and Abstract as Pdf Format:</b></label>
+<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>1.Upload full manuscript as doc format:</b></label>
 <div class="col-sm-4">
-<input type="file" class="form-control-file" name="file1"id="exampleFormControlFile1" accept = "application/pdf"  required>
+<input type="file" class="form-control-file" name="file1"id="exampleFormControlFile1" accept = ".doc, .docx"  required>
 </div>
 </div>
 </div>
 <div class="col-sm-12 col-lg-12 col-md-12">
 <div class="input-group">
-<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>2.Upload full manuscript as Pdf format:</b></label>
+<label class="col-sm-8 col-form-label" for="formGroupExampleInput"><b>2.Upload full manuscript as pdf format:</b></label>
 <div class="col-sm-4">
 <input type="file" class="form-control-file" name="file2"id="exampleFormControlFile1" accept = "application/pdf"  required>
 </div>

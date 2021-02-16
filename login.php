@@ -138,8 +138,8 @@ if($_SESSION['alogin']!=''){
 
         $validation_code = md5($username . microtime());  
 
-     if ($pemail==$pemailAgain || $userpassword==$repeatPassword)
-     {
+    //  if ($pemail==$pemailAgain || $userpassword==$repeatPassword)
+    //  {
     
         $sql="INSERT INTO  author(username,title,firstname,middlename,lastname,primaryemail,primaryemailcc,secondaryemail,secondaryemailcc,password,contact,address,validation_code) VALUES(:username,:title,:firstname,:middlename,:lastname,:pemail,:pemailcc,:semail,:semailcc,:userpassword,:contact,:address,:validation_code)";
 
@@ -175,13 +175,13 @@ if($_SESSION['alogin']!=''){
         } else{
             
             echo "<script>alert('Invalid Details !UserName or Email address already is in use');</script>";
-            header("refresh:0;url=login.php");
+            header("refresh:0;url=login");
         }
-     }
-     else {
-        echo "<script>alert('Email or password doesn't matched with previous');</script>";
-        header("refresh:0;url=login.php");
-     }
+    //  }
+    //  else {
+    //     echo "<script>alert('Email or password doesn't matched with previous');</script>";
+    //     header("refresh:0;url=login");
+    //  }
 
         } 
 
@@ -390,10 +390,10 @@ if($_SESSION['alogin']!=''){
                 <!-- New Registration Form Section Ends Here  -->
 
                 <input style="font-size:11px;" type="password" id="user-pass" onfocusout="handlepasschange()" name = "user-password" class="form-control" placeholder="Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required autofocus="">
+                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required autofocus="">
 
                 <input style="font-size:11px;" type="password" id="user-repeatpass" name = "repeat-password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" placeholder="Repeat Password" required autofocus="">
+                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" placeholder="Repeat Password" required autofocus="">
                     <span><b id="user-reapeatpass-response"></b></span>
 
                 <input style="font-size:11px;" type="text" id="user-contact" name = "user-contact" class="form-control" placeholder="Contact Number" required autofocus="">
@@ -402,6 +402,7 @@ if($_SESSION['alogin']!=''){
 
                 <button name="sign-up" class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> REGISTER</button>
                 <br>
+                <hr>
                 <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
             </form>
 
@@ -411,13 +412,13 @@ if($_SESSION['alogin']!=''){
             
     </div>
            </div>
-           <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 ml-6 description">
+           <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 ml-6 description text-justify">
                <h4 class="text-center"><b>Instructions </b></h4>
             <p><b>First-time users:</b><small> Please click on the word "Register" in the navigation bar at the top of the page and enter the requested information. Upon successful registration, you will be sent an e-mail with instructions to verify your registration. NOTE: If you received an e-mail from us with an assigned user ID and password, DO NOT REGISTER AGAIN. Simply use that information to login. Usernames and passwords may be changed after registration (see instructions below).</small></p>
             <p><b>Repeat Users:</b><small>  Please click the "Login" button from the menu above and proceed as appropriate.</small></p>
-            <p><b>Authors:</b><small>Please click the "Login" button from the menu above and login to the system as "Author." You may then submit your manuscript and track its progress through the system.</small></p>
-            <p><b>Reviewers:</b><small>Please click the "Login" button from the menu above and login to the system as "Reviewer." You may then view and/or download manuscripts assigned to you for review or submit your comments to the editor and the authors.</small></p>
-            <p><b>To change your username and/or password:</b><small> Once you are registered, you may change your contact information, username and/or password at any time. Simply log in to the system and click on "Update My Information" in the navigation bar at the top of the page.</small></p>
+            <p><b>Authors:</b><small> Please click the "Login" button from the menu above and login to the system as "Author." You may then submit your manuscript and track its progress through the system.</small></p>
+            <p><b>Reviewers:</b><small> Please click the "Login" button from the menu above and login to the system as "Author." You may then view and/or download manuscripts assigned to you for review or submit your comments to the editor and the authors.</small></p>
+            <p><b>To change your username and/or password:</b><small> Once you are registered, you may change your contact information, password at any time. Simply log in to the system and click on "Update Profile" in the navigation bar at the top of the page.</small></p>
 
 
           <div class="mb-5"></div>
@@ -433,11 +434,7 @@ if($_SESSION['alogin']!=''){
     <!-- Footer section ends here  -->
 </div>
 
-    <!-- Loader image section starts here  -->
-    <div class="loader-wrapper">
-      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
-    </div>
-    <!-- Loader image section ends here  -->
+
 
 </body>
 

@@ -2,7 +2,7 @@
 
 $subject = "Paper Accepted";
 
-$msg = "Congratulations !Your paper $id has been Accepted by IUBAT JOURNAL.";
+$msg = "Congratulations ! Your paper $paperid named $papername has been Accepted by IUBAT JOURNAL.";
     
 $headers = "From: journal.iubat@gmail.com";
  

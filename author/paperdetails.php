@@ -22,7 +22,7 @@ if(strlen($_SESSION['alogin'])=="")
         { 
     // Check that the Author is logged in or not section ends here 
  
-// Paper description showing section starts here 
+      // Paper description showing section starts here 
 
           //  Number of Feedback  count section starts here 
 
@@ -211,6 +211,36 @@ if(strlen($_SESSION['alogin'])=="")
 }
 // Resubmit paper section ends here
 
+// Delete paper section starts here  
+ 
+if(isset($_POST['deletepaper'])) { 
+  $papid=($_POST['paperiddelete']);
+  $file1 = $_POST['filepathtitle']; 
+  $file2 = $_POST['filepathsecond']; 
+  $file = $_POST['filepath'];
+  $fileresubmit = $_POST['filepathresubmit'];
+
+  $sqldelete="DELETE FROM paper WHERE paperid='$papid' ";
+  $sqleditortable="DELETE FROM editortable WHERE paperid='$papid' ";
+  $sqlreviewertable="DELETE FROM reviewertable WHERE paperid='$papid' ";
+  if(mysqli_query($link, $sqldelete)){
+    mysqli_query($link, $sqleditortable);
+    mysqli_query($link, $sqlreviewertable);
+    unlink($file1);
+    unlink($file2 );
+    unlink($file);
+    unlink($fileresubmit);
+    echo "<script>alert('Paper Deleted Successfully!');</script>";
+      header("refresh:0;url=paperstatus"); 
+  } else{
+    echo "<script>alert('Could not be able to execute!');</script>";
+      header("refresh:0;url=paperstatus"); 
+  }
+
+}
+// Delete paper section ends here 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -270,9 +300,11 @@ include 'author-header.php';
          <div class="d-flex justify-content-between">
          <p class="fontSize14px"><b>Email:</b> <?php echo $authormail;?></p>
          <p class="fontSize14px"><b>Co-Authors:</b>[<?php 
-        //  Showing Co Author Name section starts here 
+        //  Showing Co Author Name section starts here  
         foreach($cauname as $cname) {
-          echo $cname.' ';
+          if(!empty($cname)) {
+            echo $cname.',';
+          }
         }
         // Showing Co-Author Name Section ends here 
          ?>]</p>
@@ -329,9 +361,9 @@ include 'author-header.php';
 
 <div class="row">
 
-<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:<?php echo $reviewed;?></a>
-</div>
+</div> -->
 <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Status:<span class="text-success">Satisfactory</span></a>
 </div> -->
@@ -340,7 +372,7 @@ include 'author-header.php';
  
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 
-<form action="delete-paper" method="post">
+<form  method="post">
 <input type="hidden" name="paperiddelete" value="<?php echo $id; ?>">
 <input type="hidden" name="filepathtitle" value="<?php echo $filepathtitle; ?>">
 <input type="hidden" name="filepathsecond" value="<?php echo $filepathsecond; ?>">
@@ -416,13 +448,13 @@ include 'author-header.php';
 <div class="row">
 <?php if(!empty($filename1)) { ?>
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-Title and Abstract: <a style="font-size:13px;" title="Title and Abstract" class="" href="<?php echo $filepathtitle;?> "target ="_blank" role="button"><?php echo $filename1;  ?></a>
+Full Manuscript as doc: <a style="font-size:13px;" title="Title and Abstract" class="" href="<?php echo $filepathtitle;?> "target ="_blank" role="button"><?php echo $filename1;  ?></a>
 </div>
 <?php } ?>
 
 <?php if(!empty($filename2)) { ?>
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-Full Manuscript: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathsecond;?> "target ="_blank" role="button"><?php echo $filename2; ?></a>
+Full Manuscript as pdf: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathsecond;?> "target ="_blank" role="button"><?php echo $filename2; ?></a>
 </div>
 <?php } ?>
 
@@ -443,58 +475,156 @@ Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class=
 </div> 
 <hr class="bg-success">
 
+<!-- ------------------------------------------Feedback Timeline------------------------------------------------------------ -->
 <p><b class="text-info">Feedback timeline:</b></p>
-<!-- Feedback Section Starts Here  -->
-<?php
-     $sqlreviewertable = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.feedback,reviewertable.action,reviewertable.permits from reviewertable Where paperid='$id' and feedback IS NOT NULL and permits=1";
-     $querytable = $dbh->prepare($sqlreviewertable); 
-     $querytable->execute(); 
-     $resultreviewertable=$querytable->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if( $querytable->rowCount() > 0) 
-     {
-     foreach($resultreviewertable as $result) 
-     { 
+<?php 
 
-        $feedback =   htmlentities($result->feedback);
-        $feedbackauthor =   htmlentities($result->username);
+// Select Reviewer Feedback section 
+$sqlreviewerupdate = "SELECT * from reviewertable WHERE  paperid='$id' and permits=1";
 
-      $authoremail = htmlentities($result->authoremail);
-      $sql1 = "SELECT * FROM author WHERE  username= '$feedbackauthor' ";
+$resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
 
-      $result1 = mysqli_query($link,$sql1); 
+$filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 
-      $file1 = mysqli_fetch_assoc($result1);
-      
-      $title = $file1['title']; 
-      $fname= $file1['firstname'];
-      $middlename= $file1['middlename'];
-      $lastname= $file1['lastname'];
+$feedbackfile = $filereviewerupdate['feedbackfile']; 
 
-      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+$feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
 
-  ?>
-  <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
-  <p><?php echo $feedback ?></p>
+$feedback =  unserialize($filereviewerupdate['feedback']); 
+$feedbackdate = unserialize($filereviewerupdate['feedbackdate']);
+$authoremail = $filereviewerupdate['primaryemail']; 
+
+  // Select Reviewer Feedback Section
+
+  // Selet chiefeditor feedback 
+  $sqlchief= "SELECT * from chieffeedback WHERE  paperid='$id'";
+
+  $resultchief = mysqli_query($link,$sqlchief );
+
+  $filechief = mysqli_fetch_assoc($resultchief);
+
+  $feedbackchief = $filechief['feedback']; 
+  $feedbackchieffile = $filechief['file']; 
+  $feedbackchiefdatestring = $filechief['date']; 
+  $feedbackchiefdate = date('d-M-Y',strtotime($feedbackchiefdatestring));
+
+  $feedbackfilechiefpath = '../documents/review/'.$feedbackchieffile;
+  // Select Chiefeditor feedback 
+
+    // select Authorname
+    include '../link/selectauthorname.php';
+    // Select Authorname
+
+    $revauthorname = $authorname;
+
+  // Select editor feedback 
+
+  $sqlreditorfeedback = "SELECT * from editortable WHERE  paperid='$id'";
+
+  $resultreviewerupdate = mysqli_query($link, $sqlreditorfeedback);
+
+  $fileeditorupdate = mysqli_fetch_assoc($resultreviewerupdate);
+
+  $feedbackfileeditor = $fileeditorupdate['feedbackfile']; 
+
+  $feedbackfilepatheditor = '../documents/review/'.$fileeditorupdate['feedbackfile'];
+
+  $feedbackeditor =  unserialize($filereviewerupdate['feedback']); 
+  $feedbackdateeditor = unserialize($filereviewerupdate['feedbackdate']);
+  $authoremail = $filereviewerupdate['primaryemail']; 
+
+  // Select Editor Feedback 
+
+    // Select editor feedback 
+
+    $sqlreditorfeedback = "SELECT * from editortable WHERE  paperid='$id'";
+
+    $resultreviewerupdate = mysqli_query($link, $sqlreditorfeedback);
+  
+    $fileeditorupdate = mysqli_fetch_assoc($resultreviewerupdate);
+  
+    $feedbackfileeditor = $fileeditorupdate['feedbackfile']; 
+  
+    $feedbackfilepatheditor = '../documents/review/'.$fileeditorupdate['feedbackfile'];
+  
+    $feedbackeditor =  unserialize($fileeditorupdate['feedback']); 
+    $feedbackdateeditor = unserialize($fileeditorupdate['feedbackdate']);
+    $authoremail = $fileeditorupdate['primaryemail'];  
+  
+    // Select Editor Feedback 
+
+     // select Authorname
+     include '../link/selectauthorname.php';
+     // Select Authorname
+ 
+
+  // Reviewer Selection ends here 
+  ?> 
+  <!-- Review Showing Section starts here  -->
+
+<?php if(!empty($feedbackchief)) {?>
+<!-- ChiefEditor Feedback  -->
+<div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+  <p><?php echo $feedbackchief; ?></p>
   <div class="d-flex justify-content-between">
-<div>
+  <div>
+  <p><b>Reviewed on: </b><small><?php echo $feedbackchiefdate; ?></small></p>
+  </div>
+  <div> 
+  <p>- <small>Prof.Dr.Monjurul Islam</small></p>
+  </div>
+  </div>
+  <?php if(!empty($feedbackchieffile)){?>
+  <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilechiefpath; ?> "target ="_blank" role="button">Feedback file</a>
+  <?php  }  ?>
+  </div>
+<!-- Chief Editor Feedback -->
+<?php  }  ?>
+<?php 
+  
+  $maxnumber = max((count($feedback)),(count($feedbackeditor)));
 
-        </div>
-        <div>
-        <p><small><b> - &nbsp<?php echo $authorname; ?></b></small></p>
-        </div>
-          </div>
-       
-          </div>
+  for ($x = $maxnumber-1; $x >=0 ; $x--) {
+    $date = date('d-M-Y',strtotime($feedbackdate[$x]));
+    $dateeditor = date('d-M-Y',strtotime($feedbackdateeditor[$x]));
+    ?>
+  <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+  <p><?php echo $feedback[$x]; ?></p>
+  <div class="d-flex justify-content-between">
+  <div>
+  <p><b>Reviewed on: </b><small><?php echo $date; ?></small></p>
+  </div>
+  <div> 
+  <p>- <small><?php echo $revauthorname; ?></small></p>
+  </div>
+  </div>
 
-<?php   }}  ?>
-<!-- Feedback Section Ends Here  -->
+  <?php if(!empty($feedbackfile )){?>
+  <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button">Feedback file</a>
+  <?php  }  ?>
+  </div>
+
+  <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+  <p><?php echo $feedbackeditor[$x]; ?></p>
+  <div class="d-flex justify-content-between">
+  <div>
+  <p><b>Reviewed on: </b><small><?php echo $dateeditor;?></small></p>
+  </div>
+  <div> 
+  <p>- <small><?php echo $authorname; ?></small></p>
+  </div>
+  </div>
+  
+  <?php if(!empty($feedbackfileeditor )){?>
+  <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button">Feedback file</a>
+  <?php  }  ?>
+  </div>
 
 
 
+  <?php  } ?>
 
-
-
+<!-- ------------------------------------------Feedback Timeline------------------------------------------------------------ -->
     <div class="pb-5"></div>
 
     </div>
@@ -513,7 +643,7 @@ Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class=
 }
 else {
     echo "<script>alert('You are not selecting Anything');</script>";
-    header("refresh:0;url=authorpaperstatus");
+    header("refresh:0;url=paperstatus");
 }
 }
 else {

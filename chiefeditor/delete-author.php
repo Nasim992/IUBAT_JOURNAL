@@ -22,7 +22,7 @@ $email = $file['email'];
 // Select Email From the Author Table Sections ends Here 
 
 // Select Paper Name Form the paper Table Section Starts Here 
- 
+
 
 // // Built-in PHP function to delete file
 // unlink($_GET["name"]);

@@ -7,7 +7,7 @@ if($link === false){
 }
 
 // $id=($_GET['paperidpublic']);
-$id=($_POST['paperidpublic']);
+$id=($_POST['paperidpublic']); 
 
 $sql = "SELECT * FROM paper WHERE paperid = '$id' ";
 
@@ -16,12 +16,17 @@ $result = mysqli_query($link,$sql);
 $file = mysqli_fetch_assoc($result);
 
 $filename = $file['name'];
-
 $papername = $file['papername'];
 $abstract = $file['abstract'];
 $authorname = $file['authoremail'];
-$filepath = 'documents/file2/'.$file['name2'];
+$resubmitpaper = $file['resubmitpaper'];
 
+if(!empty($resubmitpaper)) {
+    $filepath = 'documents/resubmit/'.$file['resubmitpaper'];
+}
+else  {
+    $filepath = 'documents/file2/'.$file['name2'];
+}
 
 $sql = "SELECT * FROM author WHERE  primaryemail= '$authorname' ";
 
@@ -87,7 +92,7 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 <hr class="bg-secondary" >
    <!-- Dashboard section starts  -->
-   <div class="jumbotron "> 
+   <div class="jumbotron " style="text-align:justify;"> 
      
      <h5 class="display-4">Name : <?php echo $papername ?></h5>
     <h6 class="display-5 ">Author:<span class="text-info"> <?php echo $name; ?></span></h6>
@@ -110,11 +115,7 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
     ?>
     <!-- Footer section ends here  -->
 </div>
-    <!-- Loader image section starts here  -->
-    <div class="loader-wrapper">
-      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
-    </div>
-    <!-- Loader image section ends here  -->
+
 
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>

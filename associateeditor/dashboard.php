@@ -22,7 +22,7 @@ if(strlen($_SESSION['alogin'])=="")
 // Check that the Associate Editor  is logged in or not section ends here 
 
        // Count
-       include '../link/count.php';
+       include '../link/count.php'; 
        // Count
 
 ?>  
@@ -86,7 +86,7 @@ include 'header.php';
               </div>
              </a>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <a href="editordetails">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
@@ -102,7 +102,7 @@ include 'header.php';
                 </div>
               </div>
               </a>
-            </div>
+            </div> -->
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <a href="editordetails">
               <div class="card card-statistic-1">
@@ -133,7 +133,7 @@ include 'header.php';
                   <div class="card-body">
                     <?php  echo $total_reviewered; ?>
                   </div>
-                </div>
+                </div> 
               </div>
              </a>
             </div>
@@ -155,7 +155,7 @@ include 'header.php';
             </a>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
              <a href="publishedpaper">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
@@ -173,21 +173,21 @@ include 'header.php';
                 </div>
               </div>
              </a>
-            </div>
+            </div> -->
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <a href="unpublishedpaper">
+            <a href="paperstatus">
             <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
                   <i class="far fa-file"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Unpublished</h4>
+                    <h4>Assigned paper</h4>
                   </div>
                   <div class="card-body">
                     <?php
-                    echo $total_unpublished;
+                    echo $total_assopaper;
                     ?>
                   </div>
                 </div>

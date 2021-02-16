@@ -79,7 +79,7 @@ include 'author-header.php';
 <a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
-
+ 
  <!-- input file section starts here  -->
    <form class="author-form" action="uploadpaperdetails"  method = "post">
    <h1 class="text-center" style="font-size:18px;"><b>UPLOAD PAPER</b></h1>

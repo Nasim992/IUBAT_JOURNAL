@@ -22,7 +22,7 @@ if(strlen($_SESSION['alogin'])=="")
      
      // Check that the Editor is logged in or not section ends here 
 
-     // Sending Review to the author section starts here 
+    //  ----------------------------------Sending Review --------------------------------------------
 if(isset($_POST['send-review']))
 {
     $paperid = $_POST['paperid']; 
@@ -46,8 +46,8 @@ if(isset($_POST['send-review']))
 
     }
 }
-// Sending Review to the author section ends here 
 
+  //  ----------------------------------Sending Review --------------------------------------------
 
 
     //  Remove as a Reviewer section starts Here 
@@ -57,7 +57,7 @@ if(isset($_POST['send-review']))
       $username = $_POST['username'];
       $filepathreviewer = $_POST['reviewpaperpath'];
 
-      $action = 1;
+      $action = 1; 
       $action0=0;
       $feedback = NULL;
       $feedbackdate = NULL;
@@ -122,8 +122,6 @@ if(isset($_POST['send-review']))
    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-
-
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
 <?php
@@ -146,7 +144,8 @@ include 'header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-  <h6>REVIEWER FEEDBACK</h6>
+ <!-- --------------------------------------Reviewer Feedback Section -------------------------------------------------- -->
+ <h6>REVIEWER FEEDBACK</h6>
   <hr class="bg-secondary" >
   <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm"> 
 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
@@ -157,7 +156,7 @@ include 'header.php';
             <th >Paper id</th> 
             <th >Reviewer Name</th>
             <th >Feedback</th>
-            <th >Date</th>
+            <th>Date</th>
             <th >Actions</th>
         </tr> 
 </thead> 
@@ -180,6 +179,7 @@ foreach($results as $result)
   $paperid = htmlentities($result->paperid);
   $permits = htmlentities($result->permits);
   $feedbackdate = htmlentities($result->feedbackdate);
+  $reviewertablemail = htmlentities($result->primaryemail);
   ?>
 
 
@@ -218,21 +218,44 @@ foreach($results as $result)
       
       // Selecting paperauthor email section ends here 
 
-
 ?>
 
             <td ><?php echo $authorname;?></td>
-            <td ><?php echo htmlentities($result->feedback);  ?><br>
-            <a style="font-size:13px;" title="Reviewer Feedback File" class="" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button"><?php echo $feedbackfilename;  ?></a>
+            <td ><?php
             
-            </td>
+  // Reviewer Selection section starts here 
+  $sqlreviewerupdate = "SELECT * from reviewertable WHERE  paperid='$paperid' and primaryemail='$reviewertablemail '";
 
-            <td ><?php 
-            
-            if(!empty(htmlentities($result->feedback))) {
-              echo $fddate; 
-            }
-            ?></td>
+  $resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
+
+  $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
+
+  $feedbackfile = $filereviewerupdate['feedbackfile']; 
+
+  $feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
+
+  $feedback =  unserialize($filereviewerupdate['feedback']);
+  $feedbackdate = unserialize($filereviewerupdate['feedbackdate']);
+
+  foreach ($feedback as $fd) {
+    echo $fd.'<hr>';
+  }
+
+
+  // Reviewer Selection ends here 
+      ?>
+      <br>
+            <a style="font-size:13px;" title="Reviewer Feedback File" class="" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button"><?php echo $feedbackfilename;  ?></a>
+     </td>
+
+     <td>
+      <?php 
+     if (!empty($feedbackdate)) {
+      echo date('d-M-Y',strtotime($feedbackdate[0]));
+     }
+      
+      ?>
+      </td>
  
 <td> 
 
@@ -242,19 +265,23 @@ foreach($results as $result)
 <input type="hidden" name="primaryemailauthor" value="<?php echo $primaryemailauthor;?>">
 <input type="hidden" name="reviewpaperpath" value="<?php echo $feedbackfilepath;?>">
 
-<?php if($permits==1)  { 
+ 
+<?php
+  if(!empty($feedbackdate))  {
   ?>
-  <input class=" btn btn-sm btn-info" title="send this review" onclick="return confirm('Are you sure you want to send this review to the author?');" style="font-size:15px;border:none;font-weight:600;" type="submit" name="send-review" value="Already Send" disabled>
-  <?php  
-} else {
-  if(!empty($feedbackdate)) {
-  ?>
-<input class=" btn btn-sm btn-info" title="send this review" onclick="return confirm('Are you sure you want to send this review to the author?');" style="font-size:15px;border:none;font-weight:600;" type="submit" name="send-review" value="send">
-<?php 
-  }}?>
+<div class="d-flex justify-content-between">
 
+<div>
+<input class=" btn btn-sm btn-info" title="send this review" onclick="return confirm('Are you sure you want to send this review to the author?');" style="font-size:15px;border:none;font-weight:600; background:transparent;" type="submit" name="send-review" value="✔️">
+</div>
 
+<div>
 <input class="btn btn-sm btn-danger" title="remove this review" onclick="return confirm('Are you sure you want to remove review for this paper?');" style="border:none;font-weight:600;" type="submit" name="reviewer-remove-feedback" value="x">
+</div>
+
+</div>
+<?php 
+  }?>
 
 </form>
 
@@ -269,6 +296,7 @@ foreach($results as $result)
 </table>
 
 </div>
+ <!-- --------------------------------------Reviewer Feedback Section -------------------------------------------------- -->
 
 <div class="mb-5"></div>
 </div>

@@ -56,14 +56,14 @@ $fname= $file1['firstname'];
 $middlename= $file1['middlename'];
 $lastname= $file1['lastname'];
 
-$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+$authorname = $title.' '.$middlename;
 
 ?>
 <!-- Select User Name title section ends here -->
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="reviewer-dashboard"><img src="../images/Iubat-logo.png">JOURNAL</a>
-  <h6 style="font-size:12px;">Welcome Back,<?php  echo $authorname; ?></h6>
+  <h6 style="font-size:12px;">Welcome,<?php  echo $authorname; ?></h6>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> 

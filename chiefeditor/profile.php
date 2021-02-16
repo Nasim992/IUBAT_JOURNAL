@@ -17,7 +17,7 @@
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
      $cnt=1;
      if($query->rowCount() > 0) 
-     {
+     { 
      // Check that the Editor is logged in or not section ends here 
 
      $authoremail= $_GET['email'];

@@ -90,6 +90,8 @@ include 'reviewer-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
+<!-- --------------------------------Reviewed paper -------------------------------- -->
+
 <h6>REVIEWED PAPER</h6>
 <hr class="bg-secondary">
 
@@ -100,11 +102,10 @@ include 'reviewer-header.php';
     <tr><th></th></tr>
 </thead>
 
-<!-- Author paper showing section starts (Jumbotron section) -->
 <tbody id="myTable">
     <?php 
     foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname from paper WHERE  paperid='$pid'";
+        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2,paper.resubmitpaper from paper WHERE  paperid='$pid'";
 
         $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
         
@@ -112,11 +113,13 @@ include 'reviewer-header.php';
 
         $id =  $filereviewerselection['paperid'];
         $papername = $filereviewerselection['papername'];
-        $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
+        $numberofcoauthor = $filereviewerselection['numberofcoauthor']; 
         $abstract = $filereviewerselection['abstract'];
         $authoremailpaper = $filereviewerselection['authoremail'];
         $name = $filereviewerselection['name'];
-        $filepath = '../documents/file2/'.$filereviewerselection['name']; 
+        $filepathdoc = '../documents/file1/'.$filereviewerselection['name1']; 
+        $filepathpdf = '../documents/file2/'.$filereviewerselection['name2']; 
+        $filepathresubmit = '../documents/resubmit/'.$filereviewerselection['resubmitpaper']; 
         $type = $filereviewerselection['type'];
         $action = $filereviewerselection['action']; 
 
@@ -170,14 +173,22 @@ include 'reviewer-header.php';
             <h5 class="display-4 fontSize16px"><?php echo $papername;?></h5>
             <p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate; ?></p>
 
-            </div>
+            </div> 
 
             <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
 
-            <div class=" d-flex justify-content-between">
-            <div >
-            <a style="font-size:14px;" class="" href="<?php echo $filepath ?> "target ="_blank" role="button">Download</a>
+            <div class=" d-flex justify-content-between col-sm-12">
+            <div>
+            <a style="font-size:14px;" class="" href="<?php echo $filepathdoc ?> "target ="_blank" role="button">Download as doc</a>
             </div>
+            <div >
+            <a style="font-size:14px;" class="" href="<?php echo $filepathpdf ?> "target ="_blank" role="button">Download as pdf</a>
+            </div>
+            <?php if(!empty($filereviewerselection['resubmitpaper']))  { ?>
+            <div >
+            <a style="font-size:14px;" class="" href="<?php echo $filepathresubmit ?> "target ="_blank" role="button">Resubmitted paper</a>
+            </div>
+            <?php  } ?>
             <div >
             <p><?php echo $type;?></p>
             </div> 
@@ -201,8 +212,7 @@ include 'reviewer-header.php';
     </tbody>
         </table>
 
-
-<!-- Authors paper showing section ends (jumbotron section) -->
+<!-- --------------------------------Reviewed paper ----------------------------------  -->
 
 <div class="pb-4"></div>
 </div>

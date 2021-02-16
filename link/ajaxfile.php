@@ -1,5 +1,5 @@
 <?php
-include "configmanual.php";
+include "config.php";
  
 // Check the username is available or not section starts here 
 if(isset($_POST['username'])){
@@ -7,7 +7,7 @@ if(isset($_POST['username'])){
 
    $query = "select count(*) as cntUser from author where username='".$username."'";
 
-   $result = mysqli_query($con,$query);
+   $result = mysqli_query($link,$query);
    $response = "<span style='color: green;'>User name is Available.</span>";
    if(mysqli_num_rows($result)){
       $row = mysqli_fetch_array($result);
@@ -32,7 +32,7 @@ if(isset($_POST['primaryemail'])){
 
    $query = "select count(*) as cntUser from author where primaryemail='".$primaryemail."'";
 
-   $result = mysqli_query($con,$query);
+   $result = mysqli_query($link,$query);
    $response = "<span style='color: green;'>Email is Available.</span>";
    if(mysqli_num_rows($result)){
       $row = mysqli_fetch_array($result);

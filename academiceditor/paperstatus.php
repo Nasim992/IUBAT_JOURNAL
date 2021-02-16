@@ -12,7 +12,7 @@ if(strlen($_SESSION['alogin'])=="")
     {  
       $email =  $_SESSION['alogin'];
      // Check that the Associate Editor is logged in or not section starts here 
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.associateeditor from author where primaryemail='$email' and associateeditor IS NOT NULL"; 
+     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.academiceditor from author where primaryemail='$email' and academiceditor IS NOT NULL"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -20,6 +20,20 @@ if(strlen($_SESSION['alogin'])=="")
      if($query->rowCount() > 0) 
      {
     // Check that the Associate Editor  is logged in or not section ends here 
+
+    // Selecting Primary email from the academiceditor section starts here 
+    $primaryacademic = array();
+
+    $sqlasso = "SELECT paperid FROM editortable WHERE primaryemail='$email' and academiceditor IS NOT NULL";
+    $resultasso = mysqli_query($link,$sqlasso);
+    $fileasso = mysqli_fetch_assoc($resultasso);
+    foreach($resultasso as $filerev) {
+        array_push($primaryacademic ,$filerev['paperid']);
+    }
+    // Selecting Primmaryemail from the academiceditor section starts here 
+
+
+    
 
 ?>
 <!DOCTYPE html>
@@ -58,10 +72,11 @@ include 'header.php';
 <a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
-<h6>UNPUBLISHED PAPER</h6>
+<h6>YOUR PAPER</h6>
 <hr class="bg-secondary" >
 <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
-<table id="dtBasicExample" class="table table-striped table-bordered table-hover">
+
+  <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
 
 <thead>
         <tr class="bg-secondary text-white">
@@ -73,8 +88,9 @@ include 'header.php';
         </tr> 
 </thead> 
 <tbody id="myTable-admin">
+<?php  foreach($primaryacademic as $papid)  { ?>
 <!-- Selecting paper section starts here  -->
-        <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.resubmitpaper,paper.resubmitdate,paper.reject,paper.rejectdate from paper WHERE action=0 ORDER BY uploaddate DESC";
+        <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.resubmitpaper,paper.resubmitdate,paper.reject,paper.rejectdate from paper WHERE paperid='$papid' ORDER BY uploaddate DESC";
             $query = $dbh->prepare($sql); 
             $query->execute(); 
             $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -87,8 +103,8 @@ include 'header.php';
                 ?>
 <!-- Selecting paper section ends here  -->
 <tr>
-<!-- paper Status -->
-<td>
+<!-- paper Status --> 
+<td> 
 <small>
   <!-- Paper Status Section starts here  -->
   <!-- Reviewer section starts here  -->
@@ -161,39 +177,39 @@ $rejected = htmlentities($result->reject);
       }
     //   Reviewing paper selection section ends here 
 
-          // Associate Editor showing section
-          echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
-          $cnt1 =1; 
-          foreach ($primaryemailarrayassociateeditor as $err) {
-            $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-            $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-            $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-                $title = $fileauthorname1['title'];
-                $fname= $fileauthorname1['firstname'];
-                $middlename= $fileauthorname1['middlename'];
-                $lastname= $fileauthorname1['lastname'];
-                $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-             echo $cnt1 .'.'.$authorname23.'<br>';
-             $cnt1 = $cnt1 + 1;
-          }
-        //   Associate Editor Section Ends Here 
+        //   // Associate Editor showing section
+        //   echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
+        //   $cnt1 =1; 
+        //   foreach ($primaryemailarrayassociateeditor as $err) {
+        //     $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
+        //     $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
+        //     $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
+        //         $title = $fileauthorname1['title'];
+        //         $fname= $fileauthorname1['firstname'];
+        //         $middlename= $fileauthorname1['middlename'];
+        //         $lastname= $fileauthorname1['lastname'];
+        //         $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
+        //      echo $cnt1 .'.'.$authorname23.'<br>';
+        //      $cnt1 = $cnt1 + 1;
+        //   }
+        // //   Associate Editor Section Ends Here 
 
-                 // Academic  Editor showing section
-                 echo "<b><span class='text-info'>Academic Editor:</span></b>".'<br>';
-                 $cnt1 =1; 
-                 foreach ($primaryemailarrayacademiceditor as $err) {
-                   $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-                   $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-                   $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-                       $title = $fileauthorname1['title'];
-                       $fname= $fileauthorname1['firstname'];
-                       $middlename= $fileauthorname1['middlename'];
-                       $lastname= $fileauthorname1['lastname'];
-                       $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-                    echo $cnt1 .'.'.$authorname23.'<br>';
-                    $cnt1 = $cnt1 + 1;
-                 }
-          //   Academic Editor Section Ends Here 
+        //          // Academic  Editor showing section
+        //          echo "<b><span class='text-info'>Academic Editor:</span></b>".'<br>';
+        //          $cnt1 =1; 
+        //          foreach ($primaryemailarrayacademiceditor as $err) {
+        //            $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
+        //            $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
+        //            $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
+        //                $title = $fileauthorname1['title'];
+        //                $fname= $fileauthorname1['firstname'];
+        //                $middlename= $fileauthorname1['middlename'];
+        //                $lastname= $fileauthorname1['lastname'];
+        //                $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
+        //             echo $cnt1 .'.'.$authorname23.'<br>';
+        //             $cnt1 = $cnt1 + 1;
+        //          }
+        //   //   Academic Editor Section Ends Here 
 
       // Reviewer Showing Section Ends Here
   }
@@ -204,7 +220,7 @@ $rejected = htmlentities($result->reject);
       
      echo "<b><span class='text-warning'>Under Review</span> <br>Reviewer:</b>".'<br>';
       if(empty($primaryemailarray)) {
-          echo "Not Selected Yet";
+          echo "Not Selected Yet<br>"; 
       }
       else {
           $cnt = 1;
@@ -224,9 +240,10 @@ $rejected = htmlentities($result->reject);
          echo $cnt.'.'.$authorname.'<br>';
          $cnt = $cnt + 1;
     }
+  }
         //  Reviewer Showing Section Ends Here 
 
-                 // Associate Editor showing section
+              //    // Associate Editor showing section
                  echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
                  $cnt1 =1; 
                  foreach ($primaryemailarrayassociateeditor as $err) {
@@ -241,9 +258,9 @@ $rejected = htmlentities($result->reject);
                     echo $cnt1 .'.'.$authorname23.'<br>';
                     $cnt1 = $cnt1 + 1;
                  }
-               //   Associate Editor Section Ends Here 
+              //  //   Associate Editor Section Ends Here 
        
-                        // Academic  Editor showing section
+              //           // Academic  Editor showing section
                         echo "<b><span class='text-info'>Academic Editor:</span></b>".'<br>';
                         $cnt1 =1; 
                         foreach ($primaryemailarrayacademiceditor as $err) {
@@ -258,12 +275,12 @@ $rejected = htmlentities($result->reject);
                            echo $cnt1 .'.'.$authorname23.'<br>';
                            $cnt1 = $cnt1 + 1;
                         }
-                 //   Academic Editor Section Ends Here 
+              //    //   Academic Editor Section Ends Here 
 
 
     //   Reviewing paper selection section ends here 
   }
-}
+
 
 
   ?> 
@@ -288,7 +305,7 @@ echo $authorname;
 </td>
  
 <td>
-<a href="selection.php?id=<?php echo htmlentities($result->paperid);?>"><?php  echo htmlentities($result->papername); ?></a>
+<a href="selection.php?id=<?php echo htmlentities($result->paperid);?>"><?php  echo wordwrap(htmlentities($result->papername),70,"<br>\n"); ?></a>
 </td>
 <td class="text-dark"> 
 <small>
@@ -313,11 +330,12 @@ echo $authorname;
 </td>
 
 </tr>
-<?php }} ?>
+<?php }} }?>
        
 </tbody>
 
 </table>
+
 
 </div>
 
@@ -347,7 +365,7 @@ echo $authorname;
 <?php 
 }
 else {
-  echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
+  echo "<script>alert('You are not a academiceditor.Try to log in as an academiceditor');</script>";
   header("refresh:0;url=../login");
 }
 

@@ -40,7 +40,7 @@
     </div>
     <!-- Sidebar Section ends here  -->
     <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-    <div class="text-left pb-4">
+    <div class="text-justify pb-4">
         <h5 class="text-center">JOURNAL INFORMATION</h5>
         <hr class="bg-secondary">
         <p>International University of Business Agriculture and Technology (IUBAT University) is a government approved non-proft independent institution and its fundamental objective is human resource development through appropriate teaching, training and guidance as well as creation of knowledge conducive to socio economic development of developing societies in general and that of Bangladesh in particular. This objective is being attained through offering courses and curricula relating to various aspects of knowledge as well as providing opportunities for individuals to acquire skills and relevant experience in the chosen feld of specialization, research, consultancy and training through specialized Centers.
@@ -68,11 +68,6 @@
     ?>
     <!-- Footer section ends here  -->
  </div>
-     <!-- Loader image section starts here  -->
-     <div class="loader-wrapper">
-      <span class="loader"><img src="images/IUBAT-Logo-load.gif"></span></span>
-    </div>
-    <!-- Loader image section ends here  -->
 <!-- Essential Js,jquery,section starts  -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.slim.min.js"></script>

@@ -28,7 +28,7 @@ if(strlen($_SESSION['alogin'])=="")
 
         $pemail = $_POST['pemail'];
 
-        $sqlquthor = "UPDATE author SET associateeditor=1,academiceditor=NULL WHERE primaryemail='$pemail'";
+        $sqlquthor = "UPDATE author SET associateeditor=1,academiceditor=NULL,reviewerselection=NULL WHERE primaryemail='$pemail'";
         if(mysqli_query($link, $sqlquthor)){
             echo "<script>alert('Associate Editor Select Successfully.');</script>";
             header("refresh:0;url=selecteditor");
@@ -45,7 +45,7 @@ if(strlen($_SESSION['alogin'])=="")
 
         $pemail = $_POST['pemail'];
 
-        $sqlquthor = "UPDATE author SET academiceditor=1,associateeditor=NULL WHERE primaryemail='$pemail'";
+        $sqlquthor = "UPDATE author SET academiceditor=1,associateeditor=NULL,reviewerselection=NULL WHERE primaryemail='$pemail'";
         if(mysqli_query($link, $sqlquthor)){
             echo "<script>alert('Academic Editor Select Successfully.');</script>";
             header("refresh:0;url=selecteditor");
@@ -162,7 +162,7 @@ foreach($results as $result)
             <?php if ($associateeditor==1) {
               echo "<b class='btn btn-sm btn-success text-white'>Selected</b>";
              } else { ?>
-            <form method="post">
+            <form method="post"> 
             <input type="hidden" name="pemail" value = "<?php echo htmlentities($result->primaryemail);?>">
             <button type="submit" name="select-associateeditor" class="btn btn-info btn-sm">Select</button>
             </form>

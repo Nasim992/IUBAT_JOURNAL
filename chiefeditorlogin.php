@@ -45,7 +45,7 @@ if($_SESSION['alogin']!=''){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login Pannel</title>
+    <title>Chief Editor Login Pannel</title>
     <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/login.js"></script>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">

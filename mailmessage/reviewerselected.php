@@ -9,7 +9,7 @@ $msg = "You have been requested as a reviewer for - $papername.
       $abstract.
 
 If you want to accept this Request as a Reviewer for this paper please click the following acceptation link and read the full manuscript:
-    $url/acceptrequestreviewer.php?paperid=$id&email=$pemail.
+    $url/acceptrequestreviewer.php?paperid=$paperid&email=$pemail.
 You have been selected as a reviewer till $endingdate.
 
 ---------------------------------------------------------------------------------------------------------------

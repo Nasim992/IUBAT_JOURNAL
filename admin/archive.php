@@ -168,6 +168,7 @@ include 'header.php';
 </div>
 </div>
 </div>
+</div>
 
   <!-- Form Section Ends Here  -->
   </form>

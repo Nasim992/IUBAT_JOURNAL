@@ -27,7 +27,7 @@ if($link === false){
 }
 
 // Paper description showing section starts here 
-
+ 
 $idstr=strval($_GET['id']);
  
 $unpublished = $idstr[-1];
@@ -772,6 +772,8 @@ foreach($resultassociateeditorshown as $arrname){
   </div>
   <!-- Reviewer Selection section ends here -->
   </div>
+  <br>
+  <br>
 
   <!-- ------------------------------------------------Feedback------------------------------------------------------------------------- -->
 
@@ -803,9 +805,10 @@ foreach($resultassociateeditorshown as $arrname){
     <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
     <b class="text-white bg-success btn-sm"><i>Your Review:</i></b>
     <hr>
+    <?php if(!empty($feedbackfile )){?>
     <p><?php echo $feedback; ?></p>
     <p><b>Reviewed on: </b><small><?php echo $date; ?></small></p>
-    <?php if(!empty($feedbackfile )){?>
+   
     <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button">Your Reviewed file</a>
     <?php  } else {
       echo "Not Reviewed yet!";

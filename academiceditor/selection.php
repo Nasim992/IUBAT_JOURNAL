@@ -31,12 +31,12 @@ $idstr=strval($_GET['id']);
  
 $unpublished = $idstr[-1];
 
-$id=rtrim($_GET['id'],"u");
+$paperid=rtrim($_GET['id'],"u");
 
 if (!empty($_GET['id'])) {
-$id=rtrim($_GET['id'],"u");
+$paperid=rtrim($_GET['id'],"u");
 
-$sql = "SELECT * FROM paper WHERE paperid = '$id' and action=0";
+$sql = "SELECT * FROM paper WHERE paperid = '$paperid' and action=0";
 $result = mysqli_query($link,$sql);
 $file = mysqli_fetch_assoc($result);
 
@@ -98,67 +98,11 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 // Paper description showing section ends here 
 
-// Accept Paper section starts Here
- 
-if(isset($_POST['accept-paper']))
-{
-    $id = $_POST['acceptid']; 
-    $action = 1;
-
-    $pdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
-
-    $sql="update paper set action=$action,pdate='$pdate',reject=NULL,rejectdate=NULL where paperid='$id' ";
-
-    if(mysqli_query($link, $sql))
-    {
-    //Accepted paper  Starts Here 
-    include '../mailmessage/acceptpaper.php';
-    // Accepted paper Section Ends Here 
-      send_email($authormail, $subject, $msg, $headers);
-    echo "<script>alert('Paper accepted...');</script>";
-      header("refresh:0;url=unpublishedpaper");
-    }
-    else {
-        echo "<script>alert('Paper is already Accepted!');</script>";
-        header("refresh:0;url=unpublishedpaper");
-
-    }
-}
-// Accept Paper section ends here
-// Reject paper section starts here 
-
-if(isset($_POST['reject-paper']))
-{ 
-    $id = $_POST['rejectid'];
-    $action = 1;
-
-    $rejectdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
-
-
-    $sql="update paper set action=0,pdate=NULL,reject=$action,rejectdate='$rejectdate' where paperid='$id' ";
-
-    if(mysqli_query($link, $sql))
-    {
-    //Accepted paper  Starts Here 
-    include '../mailmessage/rejectpaper.php';
-    // Accepted paper Section Ends Here 
-      send_email($authormail, $subject, $msg, $headers);
-    echo "<script>alert('Paper Rejected');</script>";
-      header("refresh:0;url=unpublishedpaper");
-    }
-    else {
-        echo "<script>alert('Something went wrong');</script>";
-        header("refresh:0;url=unpublishedpaper");
-
-    }
-} 
-
-// Reject paper section ends here 
 
 // Sending Review to the author section starts here 
 if(isset($_POST['send-review']))
 {
-    $id = $_POST['paperidrev'];
+    $paperid = $_POST['paperidrev'];
     $primaryemail = $_POST['primaryemailrev'];
     $authornamsender = $_POST['authorenamsender'];
     $authoremailsender = $_POST['authoremailrev'];
@@ -167,7 +111,7 @@ if(isset($_POST['send-review']))
     // Send Review Message Section Starts Here 
     include '../mailmessage/sendreview.php';
     // Send Review Message Section Ends Here 
-    $sql="update reviewertable set permits=$action where paperid='$id' and primaryemail='$primaryemail' ";
+    $sql="update reviewertable set permits=$action where paperid='$paperid' and primaryemail='$primaryemail' ";
     if(mysqli_query($link, $sql))
     {
     send_email($authoremailsender, $subject, $msg, $headers);
@@ -198,7 +142,7 @@ if(isset($_POST['select-reviewer']))
     $assigndate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 0, date('Y')));
     $endingdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 7, date('Y')));
 
-    $sqlinsert="INSERT INTO reviewertable (paperid,username,primaryemail,assigndate,endingdate) VALUES('$id','$usernameauthor','$primaryemail','$assigndate','$endingdate')";
+    $sqlinsert="INSERT INTO reviewertable (paperid,username,primaryemail,assigndate,endingdate) VALUES('$paperid','$usernameauthor','$primaryemail','$assigndate','$endingdate')";
 
     $reviewerselection =1;
     $sqlupdatereviewer = "update author set reviewerselection=$reviewerselection where username = '$usernameauthor' ";
@@ -224,7 +168,7 @@ if(isset($_POST['select-reviewer']))
 
 $arrayusernamereviewershowing = array();
 // Show Reviewer Selection section starts Here
-$sqlrshowing = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.action from reviewertable Where paperid='$id' and action IS NULL";
+$sqlrshowing = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.action from reviewertable Where paperid='$paperid' and action IS NULL";
 $queryrshowing = $dbh->prepare($sqlrshowing); 
 $queryrshowing->execute(); 
 $resultrshowing=$queryrshowing->fetchAll(PDO::FETCH_OBJ); 
@@ -243,7 +187,7 @@ array_push($arrayusernamereviewershowing,$usernamereviewer);
 
 $associateeditorshowing = array();
 // Associate Editor showing section starts here
-$sqlassociateeditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.associateeditor from editortable Where paperid='$id' and action IS NULL and associateeditor IS NOT NULL";
+$sqlassociateeditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.associateeditor from editortable Where paperid='$paperid' and action IS NULL and associateeditor IS NOT NULL";
 $queryassociateeditor = $dbh->prepare($sqlassociateeditor); 
 $queryassociateeditor ->execute(); 
 $resultassociateeditor=$queryassociateeditor ->fetchAll(PDO::FETCH_OBJ); 
@@ -262,7 +206,7 @@ array_push($associateeditorshowing,$usernameeditor);
 
 $academiceditorshowing = array();
 // Academic Editor showing section starts here
-$sqlacademiceditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.academiceditor from editortable Where paperid='$id' and action IS NULL  and academiceditor IS NOT NULL";
+$sqlacademiceditor = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.action,editortable.accepted,editortable.academiceditor from editortable Where paperid='$paperid' and action IS NULL  and academiceditor IS NOT NULL";
 $queryacademiceditor = $dbh->prepare($sqlacademiceditor); 
 $queryacademiceditor ->execute(); 
 $resultacademiceditor=$queryacademiceditor ->fetchAll(PDO::FETCH_OBJ); 
@@ -367,7 +311,7 @@ include 'header.php';
   <div class="jumbotron">
       
      <h5 style="font-size:18px" class="display-4">Name : <?php echo $papername ?></h5>
-     <h6 style="font-size:15px;" class="display-5">Paper ID:<span style='color:#122916;'> <?php echo $id; ?></span></h6>
+     <h6 style="font-size:15px;" class="display-5">Paper ID:<span style='color:#122916;'> <?php echo $paperid; ?></span></h6>
      <h6 style="font-size:15px;" class="display-5">Uploaded on:<span style='color:#122916;'> <small><?php echo $maindate; ?></small></span></h6>
 
      <div class="d-flex justify-content-between">
@@ -442,18 +386,18 @@ include 'header.php';
      <!-- --------------------- Select edit paper section starts here--------------------------------  -->
 <?php 
 
-$sqleditortablef = "SELECT * FROM editortable Where  paperid='$id'"; 
+$sqleditortablef = "SELECT * FROM editortable Where  paperid='$paperid' and primaryemail='$email'"; 
 
 $resulteditortablef= mysqli_query($link,$sqleditortablef); 
 
 $fileeditortablef = mysqli_fetch_assoc($resulteditortablef); 
 
-  if(empty( $fileeditortablef['feedback'])) { 
+  if(empty( $fileeditortablef['feedback'])) {  
 ?> 
 
      <div class="float-right">
   <form action='editorfeedback' method='post'>
-       <input type="hidden" name="paperid" value="<?php echo $id;?>">
+       <input type="hidden" name="paperid" value="<?php echo $paperid;?>">
         
        <button class=" btn btn-sm btn-info" type="submit" name="reviewer-feedbacks">Write a feedback</button>
        </form>

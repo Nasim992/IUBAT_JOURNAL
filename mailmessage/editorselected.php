@@ -1,7 +1,7 @@
 <?php 
 
 $subject = "Editor Request in IUBAT JOURNAL";
-
+ 
 include 'url.php';
 
 $msg = "You have been requested as a Editor for - $papername. Here, is the abstract of this paper.

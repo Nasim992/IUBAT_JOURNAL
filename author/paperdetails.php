@@ -38,8 +38,8 @@ if(strlen($_SESSION['alogin'])=="")
                           
        // Number of Feedback count section ends here
 
-    if (!empty($_GET['paperid'])) {
-        $id=$_GET['paperid'];
+    if (!empty($_POST['paperid'])) {
+        $id=$_POST['paperid'];
 
     $sql = "SELECT * FROM paper WHERE paperid = '$id'";
     $result = mysqli_query($link,$sql);
@@ -59,9 +59,9 @@ if(strlen($_SESSION['alogin'])=="")
     $type2 = $file['type2']; 
     // Title Second Section Ends Here 
 
-    // Main File Uploaded Section starts here 
+    // Main File Uploaded Section starts here  
     $filepath = '../documents/'.$file['name']; 
-    $filepathmessage = 'documents/'.$file['name'];
+    $filepathmessage = 'documents/'.$file['name']; 
     $filename = $file['name'];
     $type = $file['type']; 
     // Main File Uploaded Section Ends Here 
@@ -186,7 +186,9 @@ if(strlen($_SESSION['alogin'])=="")
   if(isset($_POST['resubmit']))
   { 
   $paperidresubmit = $_POST['resubmit-paperid'];
+
     // Full pdf if necessary info file section starts Here 
+
     $fileresubmit = $_FILES['fileresubmit'];
     $nameresubmit = $_FILES['fileresubmit']['name'];
     $filetmpresubmit = $_FILES['fileresubmit']['tmp_name']; 
@@ -199,6 +201,8 @@ if(strlen($_SESSION['alogin'])=="")
      
      if(mysqli_query($link, $sqlresubmit))
      {
+        unlink($filepathresubmit);
+        
         move_uploaded_file($filetmpresubmit,"../documents/resubmit/".$nameresubmit);
      echo "<script>alert('Paper Resubmitted Successfully.');</script>";
        header("refresh:0;url=paperstatus");
@@ -240,6 +244,26 @@ if(isset($_POST['deletepaper'])) {
 }
 // Delete paper section ends here 
 
+// -----------------------------------Edit paper Section ---------------------------------
+if(isset($_POST['paper-update'])) {
+  $paperid = $_POST['paperid'];
+  $papername = $_POST['papername-update']; 
+  $abstract = $_POST['abstract-update']; 
+
+
+  $sqledit="update paper set papername='$papername',abstract=' $abstract' where paperid='$paperid'"; 
+  mysqli_query($link,  $sqledit);
+  echo "<script>alert('Paper Updated Successfully');</script>"; 
+
+  // if(mysqli_query($link, $sqlpaperedit))
+  // {
+  //   echo "<script>alert('Paper Updated Successfully');</script>"; 
+  //   header("refresh:0;url=paperdetails");
+  // }
+
+}
+// -----------------------------------Edit paper Section ---------------------------------
+
 
 ?>
 
@@ -258,6 +282,9 @@ if(isset($_POST['deletepaper'])) {
     <style>
         button[type="submit"]:hover {
          background-color:none !important;
+     }
+     #edittitleandabstractsection{
+       display:none;
      }
     </style>
 </head> 
@@ -340,7 +367,7 @@ include 'author-header.php';
                $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
                echo $fullname.' ';
              }
-             echo "</small><h6 style='font-size:15px;'>Associate Editor:<span style='color:#122916;'> <small>";
+             echo "</small><h6 style='font-size:15px;'>Academic Editor:<span style='color:#122916;'> <small>";
              foreach( $academiceditorshowing  as $arrpap){
               $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
               $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
@@ -358,18 +385,61 @@ include 'author-header.php';
 
      <p style="font-size:14px"><b>Abstract: </b><?php echo $abstract ?></p>
      <hr >
+     <!-- --------------Edit paper title and abstarct section  starts here-------------------------  -->
+    <div id="edittitleandabstractsection" style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+    <br>
+  
+    <form method = "post" >
 
+    <input type="hidden" id="custId" name="paperid" value="<?php echo  $id ?>">
+
+    <div class="input-group">
+    <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>paper name:</b></label>
+    <div class="col-sm-10">
+    <input type="text" class="form-control" id="exampleFormControlTextarea1" name= "papername-update" rows="5" value="<?php echo  $papername; ?>"  required>
+    </div>
+    </div> 
+
+    <br>
+
+    <div class="input-group">
+    <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Abstract:</b></label>
+    <div class="col-sm-10">
+    <textarea class="form-control" id="exampleFormControlTextarea1" name= "abstract-update" rows="5"  required><?php echo  $abstract; ?></textarea>
+    </div>
+    </div> 
+    <br>
+    <div class="d-flex justify-content-between">
+    <div>
+
+    </div>
+    <div>
+    <button class="btn btn-sm btn-info btn-block mr-4" name = "paper-update" type="submit" >Update</button>
+    </div>
+    </div>
+
+      </form>
+      <br>
+    </div>
+     <!-- --------------Edit paper title and abstract section ends here  -------------------------- -->
+     <br>
 <div class="row">
-
 <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:<?php echo $reviewed;?></a>
 </div> -->
 <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Status:<span class="text-success">Satisfactory</span></a>
 </div> -->
+<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+<button  type="submit" title="Edit" onclick="handleeditsection()"  class="btn btn-sm btn-info" ><i class="fas fa-edit" title ="Edit paper"></i></button>
+<script>
+ function handleeditsection() {
+  document.getElementById("edittitleandabstractsection").style.display= "block";
+ }
+</script>
+</div> 
 
 
- 
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 
 <form  method="post">
@@ -379,12 +449,10 @@ include 'author-header.php';
 <input type="hidden" name="filepath" value="<?php echo $filepath; ?>">
 <input type="hidden" name="filepathresubmit" value="<?php echo $filepathresubmit; ?>">
 
-
-<button  type="submit" title="Delete"  class="bg-light" name="deletepaper" onclick="return confirm('Are you sure you want Delete this paper?');" style="border:none;color:red;margin-top:0px;"><i class="fas fa-trash-alt" title="Delete"></i></button>
+<button  type="submit" title="Delete"  class="btn btn-sm btn-danger" name="deletepaper" onclick="return confirm('Are you sure you want Delete this paper?');" ><i class="fas fa-trash-alt" title="Delete"></i></button>
 </form>
-
-
 </div> 
+
 </div>
 
 
@@ -429,15 +497,11 @@ include 'author-header.php';
 <div class="row">
 <div class="col-sm-6 col-lg-6 col-xl-6">
 </div>
-<?php if(empty($fileresubmitdate )) { ?>
+
 <div class="col-sm-2 col-lg-2 col-xl-2">
 <button class="btn btn-sm btn-info" name = "resubmit" type="submit">Submit</button>
 </div>
-<?php } else {?>
-    <div class="col-sm-2 col-lg-2 col-xl-2">
-<button class="btn btn-sm btn-info" name = "resubmit" type="submit" disabled>Submit</button>
-</div>
-<?php } ?>
+
 </div>
 </form>
 <?php  } ?>
@@ -479,22 +543,27 @@ Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class=
 <p><b class="text-info">Feedback timeline:</b></p>
 <?php 
 
-// Select Reviewer Feedback section 
-$sqlreviewerupdate = "SELECT * from reviewertable WHERE  paperid='$id' and permits=1";
+// // Select Reviewer Feedback section 
+// $sqlreviewerupdate = "SELECT * from reviewertable WHERE  paperid='$id' and permits=1";
 
-$resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
+// $resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
 
-$filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
+// $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 
-$feedbackfile = $filereviewerupdate['feedbackfile']; 
+// $feedbackfile = $filereviewerupdate['feedbackfile']; 
 
-$feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
+// $feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
 
-$feedback =  unserialize($filereviewerupdate['feedback']); 
-$feedbackdate = unserialize($filereviewerupdate['feedbackdate']);
-$authoremail = $filereviewerupdate['primaryemail']; 
+// $feedback =  unserialize($filereviewerupdate['feedback']); 
+// $feedbackdate = unserialize($filereviewerupdate['feedbackdate']);
+// $authoremail = $filereviewerupdate['primaryemail']; 
+//   // Select Reviewer Feedback Section
 
-  // Select Reviewer Feedback Section
+//      // select Authorname
+//      include '../link/selectauthorname.php';
+//      // Select Authorname
+//      $revauthorname = $authorname;
+  
 
   // Selet chiefeditor feedback 
   $sqlchief= "SELECT * from chieffeedback WHERE  paperid='$id'";
@@ -511,56 +580,7 @@ $authoremail = $filereviewerupdate['primaryemail'];
   $feedbackfilechiefpath = '../documents/review/'.$feedbackchieffile;
   // Select Chiefeditor feedback 
 
-    // select Authorname
-    include '../link/selectauthorname.php';
-    // Select Authorname
-
-    $revauthorname = $authorname;
-
-  // Select editor feedback 
-
-  $sqlreditorfeedback = "SELECT * from editortable WHERE  paperid='$id'";
-
-  $resultreviewerupdate = mysqli_query($link, $sqlreditorfeedback);
-
-  $fileeditorupdate = mysqli_fetch_assoc($resultreviewerupdate);
-
-  $feedbackfileeditor = $fileeditorupdate['feedbackfile']; 
-
-  $feedbackfilepatheditor = '../documents/review/'.$fileeditorupdate['feedbackfile'];
-
-  $feedbackeditor =  unserialize($filereviewerupdate['feedback']); 
-  $feedbackdateeditor = unserialize($filereviewerupdate['feedbackdate']);
-  $authoremail = $filereviewerupdate['primaryemail']; 
-
-  // Select Editor Feedback 
-
-    // Select editor feedback 
-
-    $sqlreditorfeedback = "SELECT * from editortable WHERE  paperid='$id'";
-
-    $resultreviewerupdate = mysqli_query($link, $sqlreditorfeedback);
-  
-    $fileeditorupdate = mysqli_fetch_assoc($resultreviewerupdate);
-  
-    $feedbackfileeditor = $fileeditorupdate['feedbackfile']; 
-  
-    $feedbackfilepatheditor = '../documents/review/'.$fileeditorupdate['feedbackfile'];
-  
-    $feedbackeditor =  unserialize($fileeditorupdate['feedback']); 
-    $feedbackdateeditor = unserialize($fileeditorupdate['feedbackdate']);
-    $authoremail = $fileeditorupdate['primaryemail'];  
-  
-    // Select Editor Feedback 
-
-     // select Authorname
-     include '../link/selectauthorname.php';
-     // Select Authorname
- 
-
-  // Reviewer Selection ends here 
-  ?> 
-  <!-- Review Showing Section starts here  -->
+?>
 
 <?php if(!empty($feedbackchief)) {?>
 <!-- ChiefEditor Feedback  -->
@@ -580,31 +600,100 @@ $authoremail = $filereviewerupdate['primaryemail'];
   </div>
 <!-- Chief Editor Feedback -->
 <?php  }  ?>
-<?php 
-  
-  $maxnumber = max((count($feedback)),(count($feedbackeditor)));
 
-  for ($x = $maxnumber-1; $x >=0 ; $x--) {
-    $date = date('d-M-Y',strtotime($feedbackdate[$x]));
-    $dateeditor = date('d-M-Y',strtotime($feedbackdateeditor[$x]));
-    ?>
-  <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
-  <p><?php echo $feedback[$x]; ?></p>
+<?php
+    // Select editor feedback 
+
+    $primaryemaileditortable = array();
+
+    $sqlassociateeditor = "SELECT primaryemail FROM editortable WHERE paperid = '$id'";
+    $resultassociateeditor = mysqli_query($link,$sqlassociateeditor);
+    $fileassociateeditor = mysqli_fetch_assoc($resultassociateeditor);
+    foreach($resultassociateeditor as $filerev) {
+    array_push($primaryemaileditortable,$filerev['primaryemail']);
+    }
+    for ($i = 0; $i <count($primaryemaileditortable); $i++) {
+
+    $sqlreditorfeedback = "SELECT * from editortable WHERE  paperid='$id' and primaryemail='$primaryemaileditortable[$i]'";
+ 
+    $resultreviewerupdate = mysqli_query($link, $sqlreditorfeedback);
+  
+    $fileeditorupdate = mysqli_fetch_assoc($resultreviewerupdate);
+  
+    $feedbackfileeditor = $fileeditorupdate['feedbackfile']; 
+  
+    $feedbackfilepatheditor = '../documents/review/'.$fileeditorupdate['feedbackfile'];
+  
+    $feedbackeditor =  unserialize($fileeditorupdate['feedback']); 
+    $feedbackdateeditor = unserialize($fileeditorupdate['feedbackdate']);
+    $authoremail = $fileeditorupdate['primaryemail'];  
+    // Select Editor Feedback 
+     // select Authorname
+     include '../link/selectauthorname.php';
+     // Select Authorname
+     $revauthorname = $authorname;
+     for ($x = count($feedbackeditor)-1; $x >=0 ; $x--) {
+      $dateeditor = date('d-M-Y',strtotime($feedbackdateeditor[$x]));
+      ?>
+<div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+  <p><?php echo $feedbackeditor[$x]; ?></p>
   <div class="d-flex justify-content-between">
   <div>
-  <p><b>Reviewed on: </b><small><?php echo $date; ?></small></p>
+  <p><b>Reviewed on: </b><small><?php echo $dateeditor;?></small></p>
   </div>
   <div> 
   <p>- <small><?php echo $revauthorname; ?></small></p>
   </div>
   </div>
-
-  <?php if(!empty($feedbackfile )){?>
+  
+  <?php if(!empty($feedbackfileeditor )){?>
   <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button">Feedback file</a>
   <?php  }  ?>
   </div>
+      <?php
+     }
+    }
+  ?> 
+  <!-- Review Showing Section starts here  -->
 
-  <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+
+
+
+  <?php
+    // Select editor feedback 
+
+    $primaryemailreviewertable = array();
+
+    $sqlreviewer = "SELECT primaryemail FROM reviewertable WHERE paperid = '$id'";
+    $resultreviewer = mysqli_query($link, $sqlreviewer);
+    $filereviewer = mysqli_fetch_assoc($resultreviewer);
+    foreach( $resultreviewer as $filerev) {
+    array_push($primaryemailreviewertable,$filerev['primaryemail']);
+    }
+    for ($i = 0; $i <count($primaryemailreviewertable); $i++) {
+
+    $sqlreditorfeedbacks = "SELECT * from reviewertable WHERE  paperid='$id' and primaryemail='$primaryemailreviewertable[$i]' and permits=1";
+ 
+    $resultreviewerupdates = mysqli_query($link, $sqlreditorfeedbacks);
+  
+    $fileeditorupdates = mysqli_fetch_assoc($resultreviewerupdates);
+  
+    $feedbackfileeditor = $fileeditorupdates['feedbackfile']; 
+  
+    $feedbackfilepatheditor = '../documents/review/'.$fileeditorupdate['feedbackfile'];
+  
+    $feedbackeditor =  unserialize($fileeditorupdates['feedback']); 
+    $feedbackdateeditor = unserialize($fileeditorupdates['feedbackdate']);
+    $authoremail = $fileeditorupdates['primaryemail'];  
+    // Select Editor Feedback 
+     // select Authorname
+     include '../link/selectauthorname.php';
+     // Select Authorname
+     
+     for ($x = count($feedbackeditor)-1; $x >=0 ; $x--) {
+      $dateeditor = date('d-M-Y',strtotime($feedbackdateeditor[$x]));
+      ?>
+<div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
   <p><?php echo $feedbackeditor[$x]; ?></p>
   <div class="d-flex justify-content-between">
   <div>
@@ -619,10 +708,12 @@ $authoremail = $filereviewerupdate['primaryemail'];
   <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button">Feedback file</a>
   <?php  }  ?>
   </div>
+      <?php
+     }
+    }
+  ?> 
 
-
-
-  <?php  } ?>
+<br>
 
 <!-- ------------------------------------------Feedback Timeline------------------------------------------------------------ -->
     <div class="pb-5"></div>
@@ -634,22 +725,23 @@ $authoremail = $filereviewerupdate['primaryemail'];
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery-3.5.1.slim.min.js"></script>
 <script src="../js/popper.min.js"></script>
+
 <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>
 
 
 <?php 
-}
-else {
-    echo "<script>alert('You are not selecting Anything');</script>";
-    header("refresh:0;url=paperstatus");
-}
-}
-else {
-    echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
-    header("refresh:0;url=../login");
-}
     }
+    else {
+        echo "<script>alert('You are not selecting Anything');</script>";
+        header("refresh:0;url=paperstatus");
+    }
+    }
+    else {
+        echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
+        header("refresh:0;url=../login");
+    }
+        }
 
     ?>

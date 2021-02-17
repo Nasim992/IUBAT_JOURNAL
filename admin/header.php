@@ -93,6 +93,9 @@ if(strlen($_SESSION['alogin'])=="")
     <li class="nav-item hidden active" title="Editor">
     <span class="navbar-text"><a href="editored" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Editored</a></span>
     </li>
+    <li class="nav-item hidden active" title="Editor">
+    <span class="navbar-text"><a href="addadmin" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Add Admin</a></span>
+    </li>
     <li class="nav-item hidden active" title="Feedback">
     <span class="navbar-text"><a href="feedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Feedback</a></span>
     </li>

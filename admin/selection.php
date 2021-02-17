@@ -512,6 +512,7 @@ include 'header.php';
 <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a href="reviewerdetails"  style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:0</a>
 </div>
+
 <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Editor Feedback:0</a>
 </div> -->
@@ -568,112 +569,7 @@ Necessary Info: <a style="font-size:13px;" title="Download this paper" class="" 
 </div>
 <hr class="bg-success">
  <!-- DashBoard Section ends  -->
- <div class="row">
- <!-- Associate Editor Section starts here  -->
-   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
 
-<h3 style="font-size:17px" class="text-dark "><b class="text-info"><i>Select Associate Editor of this paper</i></b></h3>
-<hr class="bg-success">
-
-<?php
-$selection = 0;
-foreach($resultassociateeditorshown as $arrname){
-  $sqlnamenibo = "SELECT title,firstname,middlename,lastname,primaryemail FROM author WHERE username='$arrname'";
-  $resultnamenibo = mysqli_query($link,$sqlnamenibo);
-  $filenamenibo = mysqli_fetch_assoc($resultnamenibo);
-  $fullname =  $filenamenibo['title'].$filenamenibo['firstname'].' '.$filenamenibo['middlename'].' '.$filenamenibo['lastname'];
-  $primaryemail = $filenamenibo['primaryemail'];
-
-  ?>
- <form  method="post">
- <div class="row">
- <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
- <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection+1 ?>.<span><?php echo $fullname ?></b></span></label>
-   <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-   <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
- </div>
- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-  <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-associate-editor"><b>Select</b></button>
-   </div>
- </div>
-  </form>
-   <?php 
-  $selection = $selection +1;   
-  }
-         ?>
-</div>
- <!-- Associate Editor Section ends here  -->
-
-<!-- Associate Editor Section starts here  -->
-<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
- <h3 style="font-size:17px" class="text-dark "><b class="text-info"><i>Select Academic Editor of this paper</i></b></h3>
-  <hr class="bg-success">
-
-  <?php
-  $sel1 = 0;
-  foreach($resultacademiceditorshown as $arrname){
-    $sqlnamenibo = "SELECT title,firstname,middlename,lastname,primaryemail,academiceditor FROM author WHERE username='$arrname'";
-    $resultnamenibo = mysqli_query($link,$sqlnamenibo);
-    $filenamenibo = mysqli_fetch_assoc($resultnamenibo);
-    $fullname =  $filenamenibo['title'].$filenamenibo['firstname'].' '.$filenamenibo['middlename'].' '.$filenamenibo['lastname'];
-    $primaryemail = $filenamenibo['primaryemail'];
-    ?>
-   <form  method="post">
-   <div class="row">
-   <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-   <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $sel1+1 ?>.<span><?php echo $fullname ?></b></span></label>
-     <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-     <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
-   </div>
-   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-academic-editor"><b>Select</b></button>
-     </div>
-   </div>
-    </form>
-     <?php 
-    $sel1 = $sel1 +1;   
-    }
-    ?>
-  </div>
-<!-- Associate Editor Section ends here -->
-
-
-  <!-- Reviewer Selection starts Here  -->
-  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-
-  <h3 style="font-size:17px" class="text-info "><b><i>Select Reviewer of this paper</i></b></h3>
-  <hr class="bg-success">
-
-  <?php
-  $selection = 0;
-  foreach($resultreviewershown as $arrname){
-    $sqlnamenibo = "SELECT title,firstname,middlename,lastname,primaryemail FROM author WHERE username='$arrname'";
-    $resultnamenibo = mysqli_query($link,$sqlnamenibo);
-    $filenamenibo = mysqli_fetch_assoc($resultnamenibo);
-    $fullname =  $filenamenibo['title'].$filenamenibo['firstname'].' '.$filenamenibo['middlename'].' '.$filenamenibo['lastname'];
-    $primaryemail = $filenamenibo['primaryemail'];
-
-    ?>
-   <form  method="post">
-   <div class="row">
-   <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-   <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection+1 ?>.<span><?php echo $fullname ?></b></span></label>
-     <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-     <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
-   </div>
-   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-secondary form-control mt-0" type="submit" name="select-reviewer"><b>Select</b></button>
-     </div>
-   </div>
-    </form>
-     <?php 
-    $selection = $selection +1;   
-    }
-           ?>
-  </div>
-  <!-- Reviewer Selection section ends here -->
-
-  </div>
 
 
     <div class="pb-5"></div>

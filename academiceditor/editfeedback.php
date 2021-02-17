@@ -243,14 +243,14 @@ else {
      <!-- input file section starts here  --> 
    <form method = "post" enctype = "multipart/form-data">
    <div class="">
-   <h1 class="text-center" style="font-size:18px;"><b>Edit your response</b></h1> 
+   <h1 class="text-center" style="font-size:18px;"><b>Sent feedback Again</b></h1> 
    <br>
 
 <input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>"> 
 <input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
  
 <div class="input-group">
-<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Edit your Review:</b></label>
+<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Review:</b></label>
 <div class="col-sm-10">
 <textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5"  required><?php echo  $feedback[count( $feedback)-1]; ?></textarea>
 </div>

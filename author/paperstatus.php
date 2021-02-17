@@ -47,6 +47,13 @@ if(strlen($_SESSION['alogin'])=="")
     .fontSize13px {
         font-size:13px !important;
     }
+    .indexform button{
+           padding:0 !important;
+           margin:0 !important;
+          }
+          .indexform button:hover{
+              color:#0b4953 !important;
+          } 
     </style>
 
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
@@ -284,9 +291,13 @@ $rejected = htmlentities($result->reject);
 <td>
 <?php  echo htmlentities($result->paperid); ?>
 </td>
-
+ 
 <td>
-<a href="paperdetails.php?paperid=<?php echo htmlentities($result->paperid);?>"><?php  echo wordwrap(htmlentities($result->papername),70,"<br>\n"); ?></a>
+
+     <form action="paperdetails" class="indexform" method="post">
+    <input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
+    <button class="bg-transparent" style="border:none;outline:none;font-weight:500;color:#17defe;text-align:left;" type="submit" name="paperdownload"><?php echo htmlentities($result->papername);?></button>
+    </form>
 </td>
 <td class="text-dark"> 
 <small>

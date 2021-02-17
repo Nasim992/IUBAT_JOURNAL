@@ -31,7 +31,7 @@ if(strlen($_SESSION['alogin'])=="")
         array_push($primaryassociate,$filerev['paperid']);
     }
     // Selecting Primmaryemail from the academiceditor section starts here 
-
+ 
 
     
 
@@ -76,18 +76,6 @@ include 'header.php';
 <hr class="bg-secondary" >
 <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
 
-<!-- <table  class="table table-striped table-bordered table-hover">
-<thead>
-        <tr class="bg-secondary text-white">
-            <th >Paper Status</th> 
-            <th >Paper ID</th> 
-            <th >Author Name</th>
-            <th >Paper Title</th>
-            <th >Submitted</th>
-        </tr> 
-</thead> 
-</table> -->
-
 
   <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
 
@@ -103,7 +91,6 @@ include 'header.php';
 <tbody id="myTable-admin">
 <!-- Selecting paper section starts here  -->
 <?php  foreach($primaryassociate as $papid)  { ?>
-
         <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.resubmitpaper,paper.resubmitdate,paper.reject,paper.rejectdate from paper WHERE paperid='$papid' ORDER BY uploaddate DESC";
             $query = $dbh->prepare($sql); 
             $query->execute(); 
@@ -114,6 +101,7 @@ include 'header.php';
             foreach($results as $result) 
             {  
                 $paperid = htmlentities($result->paperid);
+                $primaryemail = htmlentities($result->authoremail);
                 ?>
 <!-- Selecting paper section ends here  -->
 <tr>
@@ -150,9 +138,9 @@ foreach($resultassociateeditor as $filerev) {
 $primaryemailarrayacademiceditor = array();
 $sqlacademiceditor = "SELECT primaryemail FROM editortable WHERE paperid = '$paperid' and academiceditor IS NOT NULL";
 $resultacademiceditor = mysqli_query($link,$sqlacademiceditor);
-$fileacademiceditor = mysqli_fetch_assoc($resultassociateeditor);
+$fileacademiceditor = mysqli_fetch_assoc($resultacademiceditor);
 foreach($resultacademiceditor  as $filerev) {
-    array_push($primaryemailarrayassociateeditor,$filerev['primaryemail']);
+    array_push($primaryemailarrayacademiceditor,$filerev['primaryemail']);
 }
 // Selecting Primmaryemail from the academiceditor section starts here 
 
@@ -258,20 +246,26 @@ $rejected = htmlentities($result->reject);
         //  Reviewer Showing Section Ends Here 
 
               //    // Associate Editor showing section
-                 echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
-                 $cnt1 =1; 
-                 foreach ($primaryemailarrayassociateeditor as $err) {
-                   $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-                   $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-                   $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-                       $title = $fileauthorname1['title'];
-                       $fname= $fileauthorname1['firstname'];
-                       $middlename= $fileauthorname1['middlename'];
-                       $lastname= $fileauthorname1['lastname'];
-                       $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-                    echo $cnt1 .'.'.$authorname23.'<br>';
-                    $cnt1 = $cnt1 + 1;
-                 }
+              if(empty($primaryemailarrayassociateeditor)) {
+                echo "Not Selected Yet<br>"; 
+            }
+            else {
+              echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
+              $cnt1 =1; 
+              foreach ($primaryemailarrayassociateeditor as $err) {
+                $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
+                $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
+                $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
+                    $title = $fileauthorname1['title'];
+                    $fname= $fileauthorname1['firstname'];
+                    $middlename= $fileauthorname1['middlename'];
+                    $lastname= $fileauthorname1['lastname'];
+                    $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
+                 echo $cnt1 .'.'.$authorname23.'<br>';
+                 $cnt1 = $cnt1 + 1;
+              }
+            }
+             
               //  //   Associate Editor Section Ends Here 
        
               //           // Academic  Editor showing section

@@ -70,7 +70,7 @@ if(strlen($_SESSION['alogin'])=="")
 
           //  Number of Feedback  count section starts here 
 
-          $query = "SELECT COUNT(*) as total_rows FROM reviewertable where primaryemail='$authoremail' and feedback IS NOT NULL";
+          $query = "SELECT COUNT(*) as total_rows FROM reviewertable where primaryemail='$authoremail' and feedback IS NOT NULL and permits=1";
           $stmt = $dbh->prepare($query);
                                   
            // execute query
@@ -79,18 +79,7 @@ if(strlen($_SESSION['alogin'])=="")
            // get total rows
            $row = $stmt->fetch(PDO::FETCH_ASSOC);
            $feedbackr = $row['total_rows'];
-            
-
-           $query = "SELECT COUNT(*) as total_rows FROM editortable where primaryemail='$authoremail' and feedback IS NOT NULL";
-           $stmt = $dbh->prepare($query);
-                                   
-            // execute query
-            $stmt->execute();
-                                   
-            // get total rows
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $feedbacke = $row['total_rows'];
-             
+          
                           
        // Number of Feedback count section ends here 
 
@@ -332,10 +321,10 @@ include 'author-header.php';
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Feedback</h4>
+                    <h4>Reviewed paper</h4>
                   </div>
                   <div class="card-body">
-                    <?php echo $feedbackr+$feedbacke; ?>
+                    <?php echo $feedbackr; ?>
                   </div>
                 </div>
               </div>

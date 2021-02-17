@@ -5,7 +5,7 @@ include '../link/linklocal.php';
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 } 
-
+ 
 $id=intval($_GET['id']);
 
 // Select Email From the Author Table sections Starts Here 

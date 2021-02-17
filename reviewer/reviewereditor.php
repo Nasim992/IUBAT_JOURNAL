@@ -225,7 +225,7 @@ else {
   ?>
 <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
 <b class="text-white bg-success btn-sm"><i>Your Review:</i></b>
-<hr>
+<hr> 
 <p><?php echo $feedback[$x]; ?></p>
 <p><b>Reviewed on: </b><small><?php echo $date; ?></small></p>
 <?php if(!empty($feedbackfile )){?>
@@ -242,14 +242,14 @@ else {
      <!-- input file section starts here  --> 
    <form method = "post" enctype = "multipart/form-data">
    <div class="">
-   <h1 class="text-center" style="font-size:18px;"><b>Edit your response</b></h1> 
+   <h1 class="text-center" style="font-size:18px;"><b>Sent Review Again</b></h1> 
    <br>
 
 <input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>"> 
 <input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
  
 <div class="input-group">
-<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Edit your Review:</b></label>
+<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Review:</b></label>
 <div class="col-sm-10">
 <textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5"  required><?php echo  $feedback[count( $feedback)-1]; ?></textarea>
 </div>

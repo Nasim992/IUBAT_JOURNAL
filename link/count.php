@@ -105,7 +105,7 @@
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $total_reviewing = $row['total_rowsrev'];
         // Assigned Paper Section Ends Here 
-    
+     
         //  Selected EDitor paper section starts here  
         $query = "SELECT COUNT(*) as total_rowsrev FROM editortable where primaryemail = '$email'  and associateeditor IS NOT NULL";
          $stmt = $dbh->prepare($query);

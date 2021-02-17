@@ -136,9 +136,9 @@ foreach($resultassociateeditor as $filerev) {
 $primaryemailarrayacademiceditor = array();
 $sqlacademiceditor = "SELECT primaryemail FROM editortable WHERE paperid = '$paperid' and academiceditor IS NOT NULL";
 $resultacademiceditor = mysqli_query($link,$sqlacademiceditor);
-$fileacademiceditor = mysqli_fetch_assoc($resultassociateeditor);
+$fileacademiceditor = mysqli_fetch_assoc($resultacademiceditor );
 foreach($resultacademiceditor  as $filerev) {
-    array_push($primaryemailarrayassociateeditor,$filerev['primaryemail']);
+    array_push($primaryemailarrayacademiceditor ,$filerev['primaryemail']);
 }
 // Selecting Primmaryemail from the academiceditor section starts here 
 
@@ -177,39 +177,39 @@ $rejected = htmlentities($result->reject);
       }
     //   Reviewing paper selection section ends here 
 
-        //   // Associate Editor showing section
-        //   echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
-        //   $cnt1 =1; 
-        //   foreach ($primaryemailarrayassociateeditor as $err) {
-        //     $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-        //     $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-        //     $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-        //         $title = $fileauthorname1['title'];
-        //         $fname= $fileauthorname1['firstname'];
-        //         $middlename= $fileauthorname1['middlename'];
-        //         $lastname= $fileauthorname1['lastname'];
-        //         $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-        //      echo $cnt1 .'.'.$authorname23.'<br>';
-        //      $cnt1 = $cnt1 + 1;
-        //   }
-        // //   Associate Editor Section Ends Here 
+          // Associate Editor showing section
+          echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
+          $cnt1 =1; 
+          foreach ($primaryemailarrayassociateeditor as $err) {
+            $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
+            $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
+            $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
+                $title = $fileauthorname1['title'];
+                $fname= $fileauthorname1['firstname'];
+                $middlename= $fileauthorname1['middlename'];
+                $lastname= $fileauthorname1['lastname'];
+                $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
+             echo $cnt1 .'.'.$authorname23.'<br>';
+             $cnt1 = $cnt1 + 1;
+          }
+        //   Associate Editor Section Ends Here 
 
-        //          // Academic  Editor showing section
-        //          echo "<b><span class='text-info'>Academic Editor:</span></b>".'<br>';
-        //          $cnt1 =1; 
-        //          foreach ($primaryemailarrayacademiceditor as $err) {
-        //            $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-        //            $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-        //            $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-        //                $title = $fileauthorname1['title'];
-        //                $fname= $fileauthorname1['firstname'];
-        //                $middlename= $fileauthorname1['middlename'];
-        //                $lastname= $fileauthorname1['lastname'];
-        //                $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-        //             echo $cnt1 .'.'.$authorname23.'<br>';
-        //             $cnt1 = $cnt1 + 1;
-        //          }
-        //   //   Academic Editor Section Ends Here 
+                 // Academic  Editor showing section
+                 echo "<b><span class='text-info'>Academic Editor:</span></b>".'<br>';
+                 $cnt1 =1; 
+                 foreach ($primaryemailarrayacademiceditor as $err) {
+                   $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
+                   $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
+                   $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
+                       $title = $fileauthorname1['title'];
+                       $fname= $fileauthorname1['firstname'];
+                       $middlename= $fileauthorname1['middlename'];
+                       $lastname= $fileauthorname1['lastname'];
+                       $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
+                    echo $cnt1 .'.'.$authorname23.'<br>';
+                    $cnt1 = $cnt1 + 1;
+                 }
+          //   Academic Editor Section Ends Here 
 
       // Reviewer Showing Section Ends Here
   }

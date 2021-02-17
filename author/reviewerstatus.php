@@ -109,7 +109,13 @@ include 'author-header.php';
 </td>
  
 <td>
-<?php echo htmlentities($result->feedback);   ?>
+<?php $feedback = unserialize($result->feedback);
+
+  for ($x = count($feedback)-1; $x>=0;$x-- ){
+      echo $feedback[$x].'<hr>';
+  }
+
+;?>
 </td>
 <td class="text-dark">
 <small>
@@ -120,8 +126,8 @@ include 'author-header.php';
 
 if (!empty(htmlentities($result->feedback)))
 {
-    $feedbackdatestring = htmlentities($result->feedbackdate);
-    $maindate = date("d-M-Y",strtotime($feedbackdatestring));
+    $feedbackdatestring = unserialize($result->feedbackdate);
+    $maindate = date("d-M-Y",strtotime($feedbackdatestring[count($feedbackdatestring)-1]));
     echo $maindate.'<br>';
 }
 

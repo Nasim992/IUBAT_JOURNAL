@@ -64,6 +64,7 @@ include('../link/config.php');
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,56 +73,58 @@ include('../link/config.php');
     <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
-   <link rel="stylesheet" href="../css/admin-dashboard.css">
-   <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
+
 <body>
 
 
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating">
-<?php
+    <!-- Author showing header sections starts  -->
+    <div class="sticky-top header-floating">
+        <?php
 include 'header.php';
-?> 
-</div> 
-<!-- Author showing header sections ends   -->
+?>
+    </div>
+    <!-- Author showing header sections ends   -->
 
 
-<div id="mySidebar" class="sidebar">
-  <?php
+    <div id="mySidebar" class="sidebar">
+        <?php
   include 'sidebar.php';
   ?>
 
-</div> 
+    </div>
 
-<div id="main">  
+    <div id="main">
 
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
- 
-  <h5>REVIEWER DETAILS</h5>
-  <hr class="bg-secondary" >
-  <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
-<table id="dtBasicExample" class="table table-striped table-bordered table-hover">
+        <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
+        <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+        <div class="container">
 
-<thead>
-        <tr>
-            <th >#</th>
-            <th >Paper id</th> 
-            <th >Reviewer Name</th>
-            <th >Email</th>
-            <th >Assign Date</th>
-            <th >Ending Date</th>
-            <th >Actions</th>
-        </tr>
-</thead> 
+            <h5>REVIEWER DETAILS</h5>
+            <hr class="bg-secondary">
+            <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4">
+                <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
 
-<tbody id="myTable-admin">
-<?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.endingdate,reviewertable.action from reviewertable where action IS NULL";
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Paper id</th>
+                            <th>Reviewer Name</th>
+                            <th>Email</th>
+                            <th>Assign Date</th>
+                            <th>Ending Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="myTable-admin">
+                        <?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.endingdate,reviewertable.action from reviewertable where action IS NULL";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -130,10 +133,11 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result) 
 {   ?>
-<tr>
-<td><?php echo htmlentities($cnt);?></td><td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
+                        <tr>
+                            <td><?php echo htmlentities($cnt);?></td>
+                            <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
-<?php 
+                            <?php 
       $username = htmlentities($result->username);
       include '../link/linklocal.php';
       $sql1 = "SELECT * FROM author WHERE  username='$username' ";
@@ -156,67 +160,72 @@ foreach($results as $result)
 
 ?>
 
-            <td ><?php echo $authorname;?></td>
-            <td ><?php echo htmlentities($result->primaryemail);?></td>
-            <td ><?php echo $date?></td>
-            <td ><?php echo $endingdate?></td>
- 
-<td>
+                            <td><?php echo $authorname;?></td>
+                            <td><?php echo htmlentities($result->primaryemail);?></td>
+                            <td><?php echo $date?></td>
+                            <td><?php echo $endingdate?></td>
 
-<form method="post">
-<input type="hidden" name="paperid" value="<?php echo htmlentities($result->paperid);?>">
-<input type="hidden" name="username" value="<?php echo $username?>">
-<input class="text-danger" onclick="return confirm('Are you sure you want to remove reviewer for this paper?');" style="font-size:18px;border:none;font-weight:600;background-color:transparent;" type="submit" name="reviewer-remove" value="x">
-</form>
+                            <td>
 
-</td>
-</tr>
-<?php $cnt=$cnt+1;}} ?>
-       
-    
-    </tbody>
+                                <form method="post">
+                                    <input type="hidden" name="paperid"
+                                        value="<?php echo htmlentities($result->paperid);?>">
+                                    <input type="hidden" name="username" value="<?php echo $username?>">
+                                    <input class="text-danger"
+                                        onclick="return confirm('Are you sure you want to remove reviewer for this paper?');"
+                                        style="font-size:18px;border:none;font-weight:600;background-color:transparent;"
+                                        type="submit" name="reviewer-remove" value="x">
+                                </form>
 
-
-</table>
-</div>
-
-<div class="mb-5"></div>
-</div>
-</div>
-
-<!-- Authors showing section ends here  -->
+                            </td>
+                        </tr>
+                        <?php $cnt=$cnt+1;}} ?>
 
 
-</div>
+                    </tbody>
 
-<!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/jquery.dataTables.min.js"></script>
-<script>
-            $(function($) {
-                $('#example').DataTable();
 
-                $('#example2').DataTable( {
-                    "scrollY":        "300px",
-                    "scrollCollapse": true,
-                    "paging":         false
-                } );
+                </table>
+            </div>
 
-                $('#example3').DataTable();
-            });
+            <div class="mb-5"></div>
+        </div>
+    </div>
 
-            $(document).ready(function () {
-            $('#dtBasicExample').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-            });
-            </script>
+    <!-- Authors showing section ends here  -->
 
-<!-- Essential Js,Jquery  section ends  -->
+
+    </div>
+
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script>
+    $(function($) {
+        $('#example').DataTable();
+
+        $('#example2').DataTable({
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging": false
+        });
+
+        $('#example3').DataTable();
+    });
+
+    $(document).ready(function() {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+    </script>
+
+    <!-- Essential Js,Jquery  section ends  -->
 
 
 </body>
+
 </html>
 
 

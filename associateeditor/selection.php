@@ -271,61 +271,68 @@ $resultacademiceditorshown=array_diff($arrayallusernameacademiceditor,$academice
 ?>
 
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../css/index.css">
     <title>Select Reviewer and Author</title>
     <style>
-        button[type="submit"]:hover {
-         background-color:none !important;
-     }
-    </style> 
-</head> 
-<body>
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating">
-<?php
-include 'header.php';
-?> 
-</div> 
-<!-- Author showing header sections ends-->
+    button[type="submit"]:hover {
+        background-color: none !important;
+    }
+    </style>
+</head>
 
-<div id="mySidebar" class="sidebar">
-  <?php
+<body>
+    <!-- Author showing header sections starts  -->
+    <div class="sticky-top header-floating">
+        <?php
+include 'header.php';
+?>
+    </div>
+    <!-- Author showing header sections ends-->
+
+    <div id="mySidebar" class="sidebar">
+        <?php
   include 'sidebar.php';
   ?>
 
-</div> 
+    </div>
 
-<div id="main">  
+    <div id="main">
 
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
+        <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
+        <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+        <div class="container">
 
-  <h5>UNPUBLISHED PAPER</h5>
-  <hr class="bg-secondary" >
+            <h5>UNPUBLISHED PAPER</h5>
+            <hr class="bg-secondary">
 
-  <div class="jumbotron">
-     
-     <h5 style="font-size:18px" class="display-4">Name : <?php echo $papername ?></h5>
-     <h6 style="font-size:15px;" class="display-5">Paper ID:<span style='color:#122916;'> <?php echo $paperid; ?></span></h6>
-     <h6 style="font-size:15px;" class="display-5">Uploaded on:<span style='color:#122916;'> <small><?php echo $maindate; ?></small></span></h6>
+            <div class="jumbotron">
 
-     <div class="d-flex justify-content-between">
-         <p class="fontSize14px"><b>Author:</b> <?php echo $authorname ?></p>
-      <a href="#"><p class="fontSize14px">Number of Co-Author:0<?php echo $numberofcoauthor;?></p></a>
-         </div>
-     
-         <div class="d-flex justify-content-between">
-         <p class="fontSize14px"><b>Email:</b> <?php echo $authormail;?></p>
-         <p class="fontSize14px"><b>Co-Authors:</b>[<?php 
+                <h5 style="font-size:18px" class="display-4">Name : <?php echo $papername ?></h5>
+                <h6 style="font-size:15px;" class="display-5">Paper ID:<span style='color:#122916;'>
+                        <?php echo $paperid; ?></span></h6>
+                <h6 style="font-size:15px;" class="display-5">Uploaded on:<span style='color:#122916;'>
+                        <small><?php echo $maindate; ?></small></span></h6>
+
+                <div class="d-flex justify-content-between">
+                    <p class="fontSize14px"><b>Author:</b> <?php echo $authorname ?></p>
+                    <a href="#">
+                        <p class="fontSize14px">Number of Co-Author:0<?php echo $numberofcoauthor;?></p>
+                    </a>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class="fontSize14px"><b>Email:</b> <?php echo $authormail;?></p>
+                    <p class="fontSize14px"><b>Co-Authors:</b>[<?php 
         //  Showing Co Author Name section starts here 
         foreach($cauname as $cname) {
           if(!empty($cname)) {
@@ -334,14 +341,14 @@ include 'header.php';
         }
         // Showing Co-Author Name Section ends here 
          ?>]</p>
-         </div>
-         <div class="d-flex justify-content-between">
+                </div>
+                <div class="d-flex justify-content-between">
 
-         <div>
-         <h6 style="font-size:15px;" class="display-5">Reviewer:<span style='color:#122916;'> <small>
+                    <div>
+                        <h6 style="font-size:15px;" class="display-5">Reviewer:<span style='color:#122916;'> <small>
 
-     <!-- Show Reviewer Selection section starts Here  -->
-         <?php
+                                    <!-- Show Reviewer Selection section starts Here  -->
+                                    <?php
            foreach( $arrayusernamereviewershowing as $arrpap){
             $sqlnameeditorr = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
             $resultnameeditorr = mysqli_query($link,$sqlnameeditorr);
@@ -350,15 +357,16 @@ include 'header.php';
             echo $fullname.' '; 
           }
      ?>
-     <!-- Show Reviewer Selection Section ends here -->
+                                    <!-- Show Reviewer Selection Section ends here -->
 
-         
-         </small></span></h6>
-         </div>
-         <div>
-         <h6 style="font-size:15px;" class="display-5"> Associate Editor:<span style='color:#122916;'> <small>
-    <!-- Showing Selected editor Section Starts Here  -->
-         <?php
+
+                                </small></span></h6>
+                    </div>
+                    <div>
+                        <h6 style="font-size:15px;" class="display-5"> Associate Editor:<span style='color:#122916;'>
+                                <small>
+                                    <!-- Showing Selected editor Section Starts Here  -->
+                                    <?php
              foreach( $associateeditorshowing  as $arrpap){
                $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
                $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
@@ -367,11 +375,12 @@ include 'header.php';
                echo $fullname.' ';
              }
      ?>
-    <!-- Showing Selected editor section ends here -->
-         </small></span></h6>
-         <h6 style="font-size:15px;" class="display-5"> Academic Editor:<span style='color:#122916;'> <small>
-    <!-- Showing Selected editor Section Starts Here  -->
-         <?php
+                                    <!-- Showing Selected editor section ends here -->
+                                </small></span></h6>
+                        <h6 style="font-size:15px;" class="display-5"> Academic Editor:<span style='color:#122916;'>
+                                <small>
+                                    <!-- Showing Selected editor Section Starts Here  -->
+                                    <?php
              foreach( $academiceditorshowing  as $arrpap){
                $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
                $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
@@ -379,15 +388,15 @@ include 'header.php';
                $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
                echo $fullname.' ';
              }
-     ?> 
-    <!-- Showing Selected editor section ends here -->
-         </small></span></h6>
-         </div> 
-         </div>
-     <p style="font-size:14px"><b>Abstract:&nbsp</b><?php echo $abstract ?></p>
+     ?>
+                                    <!-- Showing Selected editor section ends here -->
+                                </small></span></h6>
+                    </div>
+                </div>
+                <p style="font-size:14px"><b>Abstract:&nbsp</b><?php echo $abstract ?></p>
 
-<!-- --------------------- Select edit paper section starts here--------------------------------  -->
-<?php 
+                <!-- --------------------- Select edit paper section starts here--------------------------------  -->
+                <?php 
 
 $sqleditortablef = "SELECT * FROM editortable Where  paperid='$paperid'"; 
 
@@ -396,84 +405,94 @@ $resulteditortablef= mysqli_query($link,$sqleditortablef);
 $fileeditortablef = mysqli_fetch_assoc($resulteditortablef); 
 
   if(empty( $fileeditortablef['feedback'])) {
-?> 
+?>
 
-     <div class="float-right">
-  <form action='editorfeedback' method='post'>
-       <input type="hidden" name="paperid" value="<?php echo $paperid;?>">
-        
-       <button class=" btn btn-sm btn-info" type="submit" name="reviewer-feedbacks">Write a feedback</button>
-       </form>
-  </div>
-  <?php  } else  { ?>
-    <div class="float-right">
-  <form action='reviewedpaper' method='post'>
-  <input type="hidden" name="paperid" value="<?php echo $paperid;?>">
-       <button class=" btn btn-sm btn-info" type="submit" name="edit-feedbacks">Show reviewed paper</button>
-       </form>
-  </div>
+                <div class="float-right">
+                    <form action='editorfeedback' method='post'>
+                        <input type="hidden" name="paperid" value="<?php echo $paperid;?>">
 
-  <?php  } ?>
+                        <button class=" btn btn-sm btn-info" type="submit" name="reviewer-feedbacks">Write a
+                            feedback</button>
+                    </form>
+                </div>
+                <?php  } else  { ?>
+                <div class="float-right">
+                    <form action='reviewedpaper' method='post'>
+                        <input type="hidden" name="paperid" value="<?php echo $paperid;?>">
+                        <button class=" btn btn-sm btn-info" type="submit" name="edit-feedbacks">Show reviewed
+                            paper</button>
+                    </form>
+                </div>
 
-<!-- ---------------------Select edit paper section ends here ---------------------------------- -->
+                <?php  } ?>
 
- <br>
-<div class="row">
+                <!-- ---------------------Select edit paper section ends here ---------------------------------- -->
 
-<!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+                <br>
+                <div class="row">
+
+                    <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a href="reviewerdetails"  style="font-size:13px;" title="Reviewer Feedback" class="">Reviewer Feedback:0</a>
 </div> -->
-<!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+                    <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Editor Feedback:0</a>
 </div> -->
-<!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+                    <!-- <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
 <a style="font-size:13px;" title="Reviewer Feedback" class="">Status:<span class="text-success">Satisfactory</span></a>
 </div> -->
 
-<div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
-</div> 
-</div>
-<!-- File Section starts here  -->
-<hr class="bg-success"> 
-<h6><small><b>Uploaded Files:</b></small></h6>
-<div class="row">
- 
-<?php  if(!empty($filename1)) {  ?>
-<div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
-Full Manuscript as doc: <a style="font-size:13px;" title="Full Manuscript Doc Format" class="" href="<?php echo $filepathtitle;?> "target ="_blank" role="button"><?php echo $filename1;  ?></a>
-</div>
-<?php } ?>
-<?php  if(!empty($filename2)) {  ?>
-<div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
-Full Manuscript as pdf: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathsecond;?> "target ="_blank" role="button"><?php echo $filename2; ?></a>
-</div>
-<?php } ?>
-<?php  if(!empty($filename)) {  ?>
-<div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
-Necessary Info: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepath; ?> "target ="_blank" role="button"><?php echo $filename;  ?></a>
-</div>
-<?php } ?> 
+                    <div class="col-sm-4 col-lg-3 col-md-3 col-xl-3">
+                    </div>
+                </div>
+                <!-- File Section starts here  -->
+                <hr class="bg-success">
+                <h6><small><b>Uploaded Files:</b></small></h6>
+                <div class="row">
 
-<?php  if(!empty($filenameresubmit)) {  ?>
-<div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
-Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class="" href="<?php echo $filepathresubmit; ?> "target ="_blank" role="button"><?php echo $filenameresubmit;  ?></a>
-</div>
-<?php } ?>
+                    <?php  if(!empty($filename1)) {  ?>
+                    <div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
+                        Full Manuscript as doc: <a style="font-size:13px;" title="Full Manuscript Doc Format" class=""
+                            href="<?php echo $filepathtitle;?> " target="_blank"
+                            role="button"><?php echo $filename1;  ?></a>
+                    </div>
+                    <?php } ?>
+                    <?php  if(!empty($filename2)) {  ?>
+                    <div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
+                        Full Manuscript as pdf: <a style="font-size:13px;" title="Download this paper" class=""
+                            href="<?php echo $filepathsecond;?> " target="_blank"
+                            role="button"><?php echo $filename2; ?></a>
+                    </div>
+                    <?php } ?>
+                    <?php  if(!empty($filename)) {  ?>
+                    <div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
+                        Necessary Info: <a style="font-size:13px;" title="Download this paper" class=""
+                            href="<?php echo $filepath; ?> " target="_blank" role="button"><?php echo $filename;  ?></a>
+                    </div>
+                    <?php } ?>
 
-</div>
-<!-- File Section Ends Here  -->
+                    <?php  if(!empty($filenameresubmit)) {  ?>
+                    <div class="col-sm-4 col-lg-4 col-md-3 col-xl-4">
+                        Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class=""
+                            href="<?php echo $filepathresubmit; ?> " target="_blank"
+                            role="button"><?php echo $filenameresubmit;  ?></a>
+                    </div>
+                    <?php } ?>
 
-</div>
-<hr class="bg-success">
- <!-- DashBoard Section ends  -->
- <div class="row">
+                </div>
+                <!-- File Section Ends Here  -->
 
-<!-- Academic Editor Section starts here  -->
-<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
- <h3 style="font-size:17px" class="text-dark "><b class="text-info"><i>Select Academic Editor of this paper</i></b></h3>
-  <hr class="bg-success">
+            </div>
+            <hr class="bg-success">
+            <!-- DashBoard Section ends  -->
+            <div class="row">
 
-  <?php
+                <!-- Academic Editor Section starts here  -->
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <h3 style="font-size:17px" class="text-dark "><b class="text-info"><i>Select Academic Editor of this
+                                paper</i></b></h3>
+                    <hr class="bg-success">
+
+                    <?php
   $sel1 = 0;
   foreach($resultacademiceditorshown as $arrname){
     $sqlnamenibo = "SELECT title,firstname,middlename,lastname,primaryemail,academiceditor FROM author WHERE username='$arrname'";
@@ -482,33 +501,37 @@ Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class=
     $fullname =  $filenamenibo['title'].$filenamenibo['firstname'].' '.$filenamenibo['middlename'].' '.$filenamenibo['lastname'];
     $primaryemail = $filenamenibo['primaryemail'];
     ?>
-   <form  method="post">
-   <div class="row">
-   <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-   <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $sel1+1 ?>.<span><?php echo $fullname ?></b></span></label>
-     <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-     <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
-   </div>
-   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-success form-control mt-0" type="submit" name="select-academic-editor"><b><i class="fas fa-check"></i></b></button>
-     </div>
-   </div>
-    </form>
-     <?php 
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                                <label for="formGroupExampleInput"><b
+                                        style="font-size:14px;"><?php echo $sel1+1 ?>.<span><?php echo $fullname ?></b></span></label>
+                                <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
+                                <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <button style="font-size:10px;"
+                                    onclick="return confirm('Send Review Request to this author?');"
+                                    class="btn btn-sm btn-success form-control mt-0" type="submit"
+                                    name="select-academic-editor"><b><i class="fas fa-check"></i></b></button>
+                            </div>
+                        </div>
+                    </form>
+                    <?php 
     $sel1 = $sel1 +1;   
     }
     ?>
-  </div>
-<!-- Academic Editor Section ends here -->
+                </div>
+                <!-- Academic Editor Section ends here -->
 
 
-  <!-- Reviewer Selection starts Here  -->
-  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <!-- Reviewer Selection starts Here  -->
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
 
-  <h3 style="font-size:17px" class="text-info "><b><i>Select Reviewer of this paper</i></b></h3>
-  <hr class="bg-success">
+                    <h3 style="font-size:17px" class="text-info "><b><i>Select Reviewer of this paper</i></b></h3>
+                    <hr class="bg-success">
 
-  <?php
+                    <?php
   $selection = 0;
   foreach($resultreviewershown as $arrname){
     $sqlnamenibo = "SELECT title,firstname,middlename,lastname,primaryemail FROM author WHERE username='$arrname'";
@@ -517,40 +540,45 @@ Resubmitted paper: <a style="font-size:13px;" title="Download this paper" class=
     $fullname =  $filenamenibo['title'].$filenamenibo['firstname'].' '.$filenamenibo['middlename'].' '.$filenamenibo['lastname'];
     $primaryemail = $filenamenibo['primaryemail'];
 
-    ?> 
-   <form  method="post">
-   <div class="row">
-   <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-   <label  for="formGroupExampleInput"><b style="font-size:14px;"><?php echo $selection+1 ?>.<span><?php echo $fullname ?></b></span></label>
-     <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
-     <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
-   </div>
-   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    <button style="font-size:10px;" onclick="return confirm('Send Review Request to this author?');" class="btn btn-sm btn-success form-control mt-0" type="submit" name="select-reviewer"><b><i class="fas fa-check"></i></b></button>
-     </div>
-   </div>
-    </form>
-     <?php 
+    ?>
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                                <label for="formGroupExampleInput"><b
+                                        style="font-size:14px;"><?php echo $selection+1 ?>.<span><?php echo $fullname ?></b></span></label>
+                                <input type="hidden" id="custId" name="authornameselect" value="<?php echo $arrname ?>">
+                                <input type="hidden" name="primaryemail" value="<?php echo $primaryemail; ?>">
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <button style="font-size:10px;"
+                                    onclick="return confirm('Send Review Request to this author?');"
+                                    class="btn btn-sm btn-success form-control mt-0" type="submit"
+                                    name="select-reviewer"><b><i class="fas fa-check"></i></b></button>
+                            </div>
+                        </div>
+                    </form>
+                    <?php 
     $selection = $selection +1;   
     }
            ?>
-  </div>
-  <!-- Reviewer Selection section ends here -->
+                </div>
+                <!-- Reviewer Selection section ends here -->
 
-  </div>
+            </div>
 
 
-    <div class="pb-5"></div>
+            <div class="pb-5"></div>
 
+        </div>
     </div>
-    </div>
 
-<!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<!-- Essential Js,Jquery  section ends  -->
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <!-- Essential Js,Jquery  section ends  -->
 </body>
+
 </html>
 
 

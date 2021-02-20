@@ -90,7 +90,7 @@ include 'author-header.php';
 </thead> 
 <tbody id="myTable-admin">
 <!-- Selecting paper section starts here  -->
-        <?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.action,reviewertable.feedback,reviewertable.feedbackdate from reviewertable WHERE primaryemail='$authoremail' and feedback IS NOT NULL";
+        <?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.action,reviewertable.feedback,reviewertable.feedbackdate,reviewertable.feedbackfile from reviewertable WHERE primaryemail='$authoremail' and feedback IS NOT NULL";
             $query = $dbh->prepare($sql); 
             $query->execute(); 
             $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -100,6 +100,7 @@ include 'author-header.php';
             foreach($results as $result) 
             {  
                 $paperid = htmlentities($result->paperid);
+                $feedbackfile = htmlentities($result->feedbackfile);
                 ?>
 <!-- Selecting paper section ends here  -->
 
@@ -114,8 +115,11 @@ include 'author-header.php';
   for ($x = count($feedback)-1; $x>=0;$x-- ){
       echo $feedback[$x].'<hr>';
   }
-
 ;?>
+
+<?php if(!empty($feedbackfile )){?>
+  <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo '../documents/review/'.$feedbackfile ; ?> "target ="_blank" role="button">Feedback file</a>
+  <?php  }  ?>
 </td>
 <td class="text-dark">
 <small>

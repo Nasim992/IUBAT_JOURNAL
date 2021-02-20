@@ -201,7 +201,7 @@ else {
 <div class="input-group">
 <label class="col-sm-12 col-form-label" for="formGroupExampleInput"><b>Attach Review(If Required):</b></label><br>
 <div class="col-sm-12">
-<input type="file" class="form-control-file" name="reviewerfile"id="exampleFormControlFile1" accept = ".doc, .docx, .pdf"  required>
+<input type="file" class="form-control-file" name="reviewerfile"id="exampleFormControlFile1" accept = ".doc, .docx, .pdf" >
 </div>
 
 

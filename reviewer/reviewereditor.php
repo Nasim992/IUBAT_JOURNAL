@@ -26,7 +26,7 @@ if(strlen($_SESSION['alogin'])=="")
       if(isset($_POST['reviewer-feedbacks'])) {
         $paperid = $_POST['paperid'];
       }
-
+ 
       if(isset($_POST['reviewer-update'])) {
         $paperid = $_POST['paperid'];
         $email = $_POST['authoremail']; 
@@ -67,11 +67,11 @@ if(strlen($_SESSION['alogin'])=="")
         {
           move_uploaded_file($filetmpreviewer,"../documents/review/".$namereviewer);
           echo "<script>alert('Feedback Sent Successfully');</script>"; 
-          header("refresh:0;url=reviewed-paper");
+          // header("refresh:0;url=reviewed-paper");
         }
         else {
           echo "<script>alert('Something went wrong');</script>";
-          header("refresh:0;url=reviewed-paper");
+          // header("refresh:0;url=reviewed-paper");
         }
 
       }
@@ -196,7 +196,7 @@ else {
 <!-- Paper Showing Section Ends Here  -->
 
 <hr class="bg-success">
-<?php 
+<?php  
 
   // Reviewer Selection section starts here 
   $sqlreviewerupdate = "SELECT * from reviewertable WHERE  paperid='$id' and primaryemail='$email'";
@@ -270,7 +270,11 @@ else {
 
 </div>
 <div>
-<button class="btn btn-sm btn-info btn-block" name = "reviewer-update" type="submit" >Sent Review</button>
+<?php  if($action==1)  {?> 
+<button class="btn btn-sm btn-info btn-block" name = "reviewer-update" type="submit" disabled>Sent Review</button>
+<?php  } else {?>
+  <button class="btn btn-sm btn-info btn-block" name = "reviewer-update" type="submit">Sent Review</button>
+<?php  } ?>
 </div>
 </div>
 

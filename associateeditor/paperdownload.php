@@ -95,104 +95,111 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../css/index.css">
     <title>Download paper</title>
-</head> 
+</head>
+
 <body>
 
 
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating">
-<?php
+    <!-- Author showing header sections starts  -->
+    <div class="sticky-top header-floating">
+        <?php
 include 'header.php';
-?> 
-</div> 
-<!-- Author showing header sections ends   -->
+?>
+    </div>
+    <!-- Author showing header sections ends   -->
 
 
-<div id="mySidebar" class="sidebar">
-  <?php
+    <div id="mySidebar" class="sidebar">
+        <?php
   include 'sidebar.php';
   ?>
 
-</div> 
-
-<div id="main">  
-
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
-
-  <h4>DOWNLOAD THIS PAPER</h4>
-<hr class="bg-secondary" >
-   <!-- Dashboard section starts  -->
-   <div class="jumbotron "> 
-     
-     <h5 class="display-4">Name : <?php echo $papername; ?></h5>
-      <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
-
-     <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
-     <hr class="my-4">
-     <div class="row">
-
-<?php  if(!empty($filename1)) { ?>
-<div class="col-sm-12 col-md-6 col-xl-4 col-lg-4">
-    <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepathtitle; ?> "target ="_blank" role="button">Title and Abstract</a>
     </div>
-  <?php }?>
 
-  <?php  if(!empty($filename2)) { ?>
-    <div class="col-sm-12 col-md-6 col-xl-4 col-lg-4">
-   <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepathsecond; ?> "target ="_blank" role="button">Full Manuscript</a>
-    </div>
-  <?php }?>
-    
-    <?php if(!empty($filepath)) {?>
-      <div class="col-sm-12 col-md-6 col-xl-4 col-lg-4">
-    <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepath; ?> "target ="_blank" role="button">Necessary Info</a>
-    </div>
-    <?php  }?>
+    <div id="main">
 
-     </div>
-     </div>
+        <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
+        <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+        <div class="container">
 
- <!-- DashBoard Section ends  -->
+            <h4>DOWNLOAD THIS PAPER</h4>
+            <hr class="bg-secondary">
+            <!-- Dashboard section starts  -->
+            <div class="jumbotron ">
 
+                <h5 class="display-4">Name : <?php echo $papername; ?></h5>
+                <h6 class="display-5">Author:<span style='color:goldenrod;'> <?php echo $name; ?></span></h6>
+
+                <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
+                <hr class="my-4">
+                <div class="row">
+
+                    <?php  if(!empty($filename1)) { ?>
+                    <div class="col-sm-12 col-md-6 col-xl-4 col-lg-4">
+                        <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepathtitle; ?> "
+                            target="_blank" role="button">Title and Abstract</a>
+                    </div>
+                    <?php }?>
+
+                    <?php  if(!empty($filename2)) { ?>
+                    <div class="col-sm-12 col-md-6 col-xl-4 col-lg-4">
+                        <a style="font-size:14px;" class="btn btn-success btn-sm "
+                            href="<?php echo $filepathsecond; ?> " target="_blank" role="button">Full Manuscript</a>
+                    </div>
+                    <?php }?>
+
+                    <?php if(!empty($filepath)) {?>
+                    <div class="col-sm-12 col-md-6 col-xl-4 col-lg-4">
+                        <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepath; ?> "
+                            target="_blank" role="button">Necessary Info</a>
+                    </div>
+                    <?php  }?>
+
+                </div>
+            </div>
+
+            <!-- DashBoard Section ends  -->
+
+        </div>
     </div>
     </div>
-</div>
-<!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<!-- Essential Js,Jquery  section ends  -->
-   <script> 
-        $(document).ready(function(){
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <!-- Essential Js,Jquery  section ends  -->
+    <script>
+    $(document).ready(function() {
         $("#heading-input").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $("#heading-table tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-        });
-// Aim and scope readmore section starts here 
-        document.querySelector('#read-more').addEventListener('click', function() {
-        document.querySelector('#content').style.height= 'auto';
-       this.style.display= 'none';
-        });
-//   Aim and scope read more section ends here 
-  </script>
+    });
+    // Aim and scope readmore section starts here 
+    document.querySelector('#read-more').addEventListener('click', function() {
+        document.querySelector('#content').style.height = 'auto';
+        this.style.display = 'none';
+    });
+    //   Aim and scope read more section ends here 
+    </script>
 </body>
+
 </html>
 
- 
+
 
 <?php } else  {
 echo "<script>alert('Id is not recognized');</script>";

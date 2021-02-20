@@ -144,13 +144,13 @@ include 'header.php';
 
 <?php  if(!empty($filename1)) { ?>
 <div class="col-sm-12 col-md-6 col-xl-4 col-lg-4">
-    <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepathtitle; ?> "target ="_blank" role="button">Title and Abstract</a>
+    <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepathtitle; ?> "target ="_blank" role="button">Full Manuscript as doc</a>
     </div>
   <?php }?>
 
   <?php  if(!empty($filename2)) { ?>
     <div class="col-sm-12 col-md-6 col-xl-4 col-lg-4">
-   <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepathsecond; ?> "target ="_blank" role="button">Full Manuscript</a>
+   <a style="font-size:14px;" class="btn btn-success btn-sm " href="<?php echo $filepathsecond; ?> "target ="_blank" role="button">Full Manuscript as pdf </a>
     </div>
   <?php }?>
     

@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-
+include('../functions.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../login"); 
@@ -23,30 +23,31 @@ if(strlen($_SESSION['alogin'])=="")
 // Check that the Associate Editor  is logged in or not section ends here 
 
  
-     // Sending Review to the author section starts here 
-if(isset($_POST['send-review']))
-{
-    $paperid = $_POST['paperid']; 
-    $username = $_POST['username'];
-    $primaryemailauthor = $_POST['primaryemailauthor'];
-    
-    $action = 1;
-    $sql="update reviewertable set permits=$action where paperid='$paperid' and username='$username'";
-    if(mysqli_query($link, $sql))
-    {
-              // Send Review Message Section Starts Here 
-              include '../mailmessage/sendreview.php';
-              // Send Review Message Section Ends Here 
-    send_email($primaryemailauthor, $subject, $msg, $headers);
-    echo "<script>alert('Send this Review to the author Successfully.');</script>";
-      header("refresh:0;url=feedback");
-    }
-    else {
-        echo "<script>alert('Already sent!');</script>";
-        header("refresh:0;url=feedback");
-
-    }
-}
+     // Sending Review to the author section starts here  
+     if(isset($_POST['send-review']))
+     {
+         $paperid = $_POST['paperid']; 
+         $username = $_POST['username'];
+         $primaryemailauthor = $_POST['primaryemailauthor'];
+         
+         $action = 1;
+         $sql="update reviewertable set permits=$action where paperid='$paperid' and username='$username'";
+         if(mysqli_query($link, $sql))
+         {
+                   // Send Review Message Section Starts Here 
+                   include '../mailmessage/sendreview.php';
+                   // Send Review Message Section Ends Here 
+         send_email($primaryemailauthor, $subject, $msg, $headers);
+         echo "<script>alert('Send this Review to the author Successfully.');</script>";
+           header("refresh:0;url=feedback");
+         }
+         else {
+             echo "<script>alert('Already sent!');</script>";
+             header("refresh:0;url=feedback");
+     
+         }
+     }
+     
 // Sending Review to the author section ends here 
 
 
@@ -268,7 +269,6 @@ foreach($results as $result)
 <input type="hidden" name="primaryemailauthor" value="<?php echo $primaryemailauthor;?>">
 <input type="hidden" name="reviewpaperpath" value="<?php echo $feedbackfilepath;?>">
 
- 
 <?php
   if(!empty($feedbackdate))  { 
 

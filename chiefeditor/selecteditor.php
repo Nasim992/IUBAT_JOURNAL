@@ -80,6 +80,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,49 +96,50 @@ if(strlen($_SESSION['alogin'])=="")
 
 
 </head>
+
 <body>
 
 
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating">
-<?php
+    <!-- Author showing header sections starts  -->
+    <div class="sticky-top header-floating">
+        <?php
 include 'header.php';
-?> 
-</div> 
-<!-- Author showing header sections ends   -->
+?>
+    </div>
+    <!-- Author showing header sections ends   -->
 
 
-<div id="mySidebar" class="sidebar">
-  <?php
+    <div id="mySidebar" class="sidebar">
+        <?php
   include 'sidebar.php';
   ?>
 
-</div> 
+    </div>
 
-<div id="main">   
+    <div id="main">
 
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
+        <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
+        <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+        <div class="container">
 
-  <h6>SELECT ASSOCIATE AND ACADEMIC EDITOR</h6>
-  <hr class="bg-secondary" >
-  <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm"> 
+            <h6>SELECT ASSOCIATE AND ACADEMIC EDITOR</h6>
+            <hr class="bg-secondary">
+            <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm">
 
-<table  id="dtBasicExample" class="table table-striped table-bordered table-hover"  cellspacing="0">
-<thead>
-        <tr>
-            <th >UserName</th>
-            <th >Full Name</th>
-            <th >Primary Email</th>
-            <th>Associate Editor</th>
-            <th >Academic Editor</th>
-            <th >Author</th>
-        </tr>
-</thead> 
+                <table id="dtBasicExample" class="table table-striped table-bordered table-hover" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>UserName</th>
+                            <th>Full Name</th>
+                            <th>Primary Email</th>
+                            <th>Associate Editor</th>
+                            <th>Academic Editor</th>
+                            <th>Author</th>
+                        </tr>
+                    </thead>
 
-<tbody id="myTable-admin">
-<?php $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.primaryemailcc,author.secondaryemail,author.secondaryemailcc,author.contact,author.address,author.registrationtime,author.reviewerselection,author.associateeditor,author.academiceditor from author ";
+                    <tbody id="myTable-admin">
+                        <?php $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.primaryemailcc,author.secondaryemail,author.secondaryemailcc,author.contact,author.address,author.registrationtime,author.reviewerselection,author.associateeditor,author.academiceditor from author ";
 $query = $dbh->prepare($sql); 
 $query->execute(); 
 $results=$query->fetchAll(PDO::FETCH_OBJ);  
@@ -153,95 +155,102 @@ foreach($results as $result)
     $fullname = $title.' '.$firstname.' '.$middlename.' '.$lastname;
     $associateeditor = htmlentities($result->associateeditor);
     $academiceditor = htmlentities($result->academiceditor);
-    ?> 
-<tr>
-<td class="result-color1"><?php echo htmlentities($result->username);?></td> 
-            <td ><?php echo $fullname ;?></td>
-            <td ><?php echo htmlentities($result->primaryemail);?></td>
-            <td>
-            <?php if ($associateeditor==1) {
+    ?>
+                        <tr>
+                            <td class="result-color1"><?php echo htmlentities($result->username);?></td>
+                            <td><?php echo $fullname ;?></td>
+                            <td><?php echo htmlentities($result->primaryemail);?></td>
+                            <td>
+                                <?php if ($associateeditor==1) {
               echo "<b class='btn btn-sm btn-success text-white'>Selected</b>";
              } else { ?>
-            <form method="post"> 
-            <input type="hidden" name="pemail" value = "<?php echo htmlentities($result->primaryemail);?>">
-            <button type="submit" name="select-associateeditor" class="btn btn-info btn-sm">Select</button>
-            </form>
-            <?php  } ?>
-            </td>
-            <td>
-            <?php if ($academiceditor==1) {
+                                <form method="post">
+                                    <input type="hidden" name="pemail"
+                                        value="<?php echo htmlentities($result->primaryemail);?>">
+                                    <button type="submit" name="select-associateeditor"
+                                        class="btn btn-info btn-sm">Select</button>
+                                </form>
+                                <?php  } ?>
+                            </td>
+                            <td>
+                                <?php if ($academiceditor==1) {
               echo "<b class='btn btn-sm btn-success text-white'>Selected</b>";
              } else { ?>
-            <form method="post">
-            <input type="hidden" name="pemail" value = "<?php echo htmlentities($result->primaryemail);?>">
-            <button type="submit" name="select-academiceditor" class="btn btn-info btn-sm">Select</button>
-            </form>
-            <?php  } ?>
-            </td>
-            <td>
-            <?php if (($academiceditor==0 OR $academiceditor==NULL) and ($associateeditor==0 OR $associateeditor==NULL)) {
+                                <form method="post">
+                                    <input type="hidden" name="pemail"
+                                        value="<?php echo htmlentities($result->primaryemail);?>">
+                                    <button type="submit" name="select-academiceditor"
+                                        class="btn btn-info btn-sm">Select</button>
+                                </form>
+                                <?php  } ?>
+                            </td>
+                            <td>
+                                <?php if (($academiceditor==0 OR $academiceditor==NULL) and ($associateeditor==0 OR $associateeditor==NULL)) {
               echo "<b class='btn btn-sm btn-success text-white'>Selected</b>";
              } else { ?>
-            <form method="post">
-            <input type="hidden" name="pemail" value = "<?php echo htmlentities($result->primaryemail);?>">
-            <button type="submit" name="select-author" class="btn btn-info btn-sm">Select</button>
-            </form>
-            <?php  } ?>
-            </td>
-</tr>
-<?php $cnt=$cnt+1;}} ?>
-       
-    
-    </tbody>
+                                <form method="post">
+                                    <input type="hidden" name="pemail"
+                                        value="<?php echo htmlentities($result->primaryemail);?>">
+                                    <button type="submit" name="select-author"
+                                        class="btn btn-info btn-sm">Select</button>
+                                </form>
+                                <?php  } ?>
+                            </td>
+                        </tr>
+                        <?php $cnt=$cnt+1;}} ?>
 
 
-</table>
-</div>
-
-<div class="mb-5"></div>
-</div>
-</div>
-
- 
-
-<!-- Authors showing section ends here  -->
+                    </tbody>
 
 
-</div>
+                </table>
+            </div>
 
-<!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/jquery.dataTables.min.js"></script>
-        <script>
-            $(function($) {
-                $('#example').DataTable();
+            <div class="mb-5"></div>
+        </div>
+    </div>
 
-                $('#example2').DataTable( {
-                    "scrollY":        "300px",
-                    "scrollCollapse": true,
-                    "paging":         false
-                } );
 
-                $('#example3').DataTable();
-            });
 
-            // DataTables section starts here 
-            $(document).ready(function () {
-            $('#dtBasicExample').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-            });
-            // Datables section ends here 
-            </script>
+    <!-- Authors showing section ends here  -->
 
-<!-- Essential Js,Jquery  section ends  -->
+
+    </div>
+
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script>
+    $(function($) {
+        $('#example').DataTable();
+
+        $('#example2').DataTable({
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging": false
+        });
+
+        $('#example3').DataTable();
+    });
+
+    // DataTables section starts here 
+    $(document).ready(function() {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+    // Datables section ends here 
+    </script>
+
+    <!-- Essential Js,Jquery  section ends  -->
 
 
 
 
 
 </body>
+
 </html>
 
 

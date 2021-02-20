@@ -246,14 +246,4 @@
                     
                     }
                     // Reject Editor Request Function Ends Here 
-
-                    function month($months) {
-                        $arraymonth = array("JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEPT","OCT","NOV","DEC");
-                        return $arraymonth[$months-1];
-                    }
-                    $arraymonth = array("JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEPT","OCT","NOV","DEC");
-            
-
-            
-
 ?>

@@ -94,11 +94,14 @@ if(strlen($_SESSION['alogin'])=="")
     <li class="nav-item hidden active" title="Editor">
     <span class="navbar-text"><a href="editordetails" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Editor</a></span>
     </li>
-    <li class="nav-item hidden active" title="Editor">
+    <!-- <li class="nav-item hidden active" title="Editor">
     <span class="navbar-text"><a href="editored" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Editored</a></span>
+    </li> -->
+    <li class="nav-item hidden active" title="Feedback">
+    <span class="navbar-text"><a href="rfeedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Reviewer Feedback</a></span>
     </li>
     <li class="nav-item hidden active" title="Feedback">
-    <span class="navbar-text"><a href="feedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Feedback</a></span>
+    <span class="navbar-text"><a href="efeedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Editor Feedback</a></span>
     </li>
 
         <li class="nav-item active" >

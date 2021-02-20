@@ -12,4 +12,3 @@ unset($_SESSION['../chiefeditorlogin']);
 session_destroy(); // destroy session
 header("location:../chiefeditorlogin"); 
 ?>
-

@@ -49,9 +49,10 @@ if(strlen($_SESSION['alogin'])=="")
     
         // Update Author Profile Section ends here 
 
-?>  
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="widt
@@ -70,89 +71,96 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/login.css">
 
     <style>
-        form input {
-            font-size:16px !important;
-        }
+    form input {
+        font-size: 16px !important;
+    }
     </style>
 </head>
+
 <body>
 
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating ">
-<?php
+    <!-- Author showing header sections starts  -->
+    <div class="sticky-top header-floating ">
+        <?php
 include 'header.php';
-?> 
-</div>
-<!-- Author showing header sections ends   -->
-<div id="mySidebar" class="sidebar ">
-  <?php 
+?>
+    </div>
+    <!-- Author showing header sections ends   -->
+    <div id="mySidebar" class="sidebar ">
+        <?php 
   include 'sidebar.php';
   ?>
-</div> 
+    </div>
 
-<div id="main">  
-<!-- <a href="#"><span class="resbtn"onclick="openNav()" id="closesign">☰</span></a> -->
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
+    <div id="main">
+        <!-- <a href="#"><span class="resbtn"onclick="openNav()" id="closesign">☰</span></a> -->
+        <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
+        <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+        <div class="container">
 
-<h6 >AUTHOR PROFILE</h6>
-<hr class="bg-success">
+            <h6>AUTHOR PROFILE</h6>
+            <hr class="bg-success">
 
-<!-- Update Profile section starts here  -->
-          <?php  foreach($results as $result) { 
-            ?> 
-             <form  class="form-signup marginbtm" method="post">
+            <!-- Update Profile section starts here  -->
+            <?php  foreach($results as $result) { 
+            ?>
+            <form class="form-signup marginbtm" method="post">
 
-             <input style="font-size:11px;" type="hidden" id="editoremails" class="form-control" name = "editoremails" placeholder="Email" value="<?php echo  $editoremail1 ;?>">
-  
-                <input style="font-size:11px;" type="text" id="pemail" class="form-control" name = "fullname" placeholder="Fullname" required="" value="<?php echo htmlentities($result->fullname);?>">
+                <input style="font-size:11px;" type="hidden" id="editoremails" class="form-control" name="editoremails"
+                    placeholder="Email" value="<?php echo  $editoremail1 ;?>">
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name = "email" placeholder="Email" required="" value="<?php echo   $editoremail ;?>">
+                <input style="font-size:11px;" type="text" id="pemail" class="form-control" name="fullname"
+                    placeholder="Fullname" required="" value="<?php echo htmlentities($result->fullname);?>">
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name = "contact" placeholder="Secondary Email Address" required="" value="<?php echo htmlentities($result->contact);?>">
+                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name="email"
+                    placeholder="Email" required="" value="<?php echo   $editoremail ;?>">
 
-               
-                <button name="updatachiefeditor" class="btn btn-sm btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> UPDATE</button>
+                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name="contact"
+                    placeholder="Secondary Email Address" required=""
+                    value="<?php echo htmlentities($result->contact);?>">
+
+
+                <button name="updatachiefeditor" class="btn btn-sm btn-primary btn-block" type="submit"><i
+                        class="fas fa-user-plus"></i> UPDATE</button>
             </form>
             <?php  } ?>
-<!-- Update profile section ends here  -->
+            <!-- Update profile section ends here  -->
 
 
-</div>
-</div>
-<!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/jquery.dataTables.min.js"></script>
-<script>
-            // DataTables section starts here 
-            $(document).ready(function () {
-            $('#dtBasicExample').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-            });
-            // Datables section ends here 
+        </div>
+    </div>
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script>
+    // DataTables section starts here 
+    $(document).ready(function() {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+    // Datables section ends here 
 
-   function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-  document.getElementById("closesignof").style.display= "block";
-  document.getElementById("closesign").style.display= "none";
-}
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.getElementById("closesignof").style.display = "block";
+        document.getElementById("closesign").style.display = "none";
+    }
 
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-  document.getElementById("closesign").style.display= "block";
-  document.getElementById("closesignof").style.display= "none";
-  
-}
- 
-</script>
-<!-- Essential Js,Jquery  section ends  -->    
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        document.getElementById("closesign").style.display = "block";
+        document.getElementById("closesignof").style.display = "none";
+
+    }
+    </script>
+    <!-- Essential Js,Jquery  section ends  -->
 </body>
-</html> 
+
+</html>
 
 <?php 
          }

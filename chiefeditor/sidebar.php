@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <style>
       .sidebars i{ 
-     font-size:16px !important; 
+     font-size:16px !important;  
      color:#2ca32f;
       }
     </style> 
@@ -24,8 +24,9 @@
   <a href="reviewerdetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a>
   <a href="selecteditor" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Select Editor</a>
   <a href="editordetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editor</a>
-  <a href="editored" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editored</a>
-  <a href="feedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Feedback</a>
+  <!-- <a href="editored" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editored</a> -->
+  <a href="rfeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Reviewer Feerback</a>
+  <a href="efeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Editor Feerback</a>
   <!-- <a href="aimandscopeadmin" class="sidebars"><i class="fas fa-crosshairs"></i>&nbsp Aim and Scope</a>
   <a href="#" class="sidebars"><i class="fas fa-user-edit"></i>&nbsp Editorial Board</a>
   <a href="#" class="sidebars"><i class="fas fa-journal-whills"></i>&nbsp Journal Information</a>

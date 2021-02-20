@@ -4,7 +4,7 @@ error_reporting(0);
 include('link/config.php'); 
 include('link/functionsql.php');
 include('functions.php');
-
+ 
 if($_SESSION['alogin']!=''){
     $_SESSION['alogin']=''; 
     }
@@ -60,7 +60,7 @@ if($_SESSION['alogin']!=''){
     {
     $_SESSION['alogin']=$_POST['input-email'];
     echo "<script>alert('Logged in Success');</script>";
-    echo "<script type='text/javascript'> document.location = 'reviewer/reviewer-dashboard'; </script>";
+    echo "<script type='text/javascript'> document.location = 'reviewer/dashboard'; </script>";
     } else{ 
         
         echo "<script>alert('Invalid Details.Or,You are not selected as a Reviewer');</script>";
@@ -138,9 +138,6 @@ if($_SESSION['alogin']!=''){
 
         $validation_code = md5($username . microtime());  
 
-    //  if ($pemail==$pemailAgain || $userpassword==$repeatPassword)
-    //  {
-    
         $sql="INSERT INTO  author(username,title,firstname,middlename,lastname,primaryemail,primaryemailcc,secondaryemail,secondaryemailcc,password,contact,address,validation_code) VALUES(:username,:title,:firstname,:middlename,:lastname,:pemail,:pemailcc,:semail,:semailcc,:userpassword,:contact,:address,:validation_code)";
 
         $query = $dbh->prepare($sql);
@@ -177,12 +174,6 @@ if($_SESSION['alogin']!=''){
             echo "<script>alert('Invalid Details !UserName or Email address already is in use');</script>";
             header("refresh:0;url=login");
         }
-    //  }
-    //  else {
-    //     echo "<script>alert('Email or password doesn't matched with previous');</script>";
-    //     header("refresh:0;url=login");
-    //  }
-
         } 
 
     // Sign Up form section ends here 
@@ -225,6 +216,7 @@ if($_SESSION['alogin']!=''){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -232,207 +224,223 @@ if($_SESSION['alogin']!=''){
     <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/login.js"></script>
     <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
-        <!-- Css links -->
-        <?php include 'link/csslinks.php'; ?>
+    <!-- Css links -->
+    <?php include 'link/csslinks.php'; ?>
     <!-- Css links -->
 </head>
+
 <body>
 
-<div class="content"> 
-<div>
-    <!-- Heading Sections starts  -->
-    <?php 
+    <div class="content">
+        <div>
+            <!-- Heading Sections starts  -->
+            <?php 
     include 'heading.php';
     ?>
-    <!-- Heading Sections ends  --> 
-    </div>
+            <!-- Heading Sections ends  -->
+        </div>
 
-    <div style="font-size:14px; font-weight:bold;" class="container form-control-login">
-       <div class="row pt-2">
-           <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-section-login">
-           <div id="logreg-forms">
-        <form class="form-signin marginbtm" method="post">
-       <div class="logo-container">
-                <i style="font-size:35px;" class="fas fa-users logo"></i>
-            </div>
-            <h3 class="h3 mb-3 font-weight-normal" style="text-align: center;font-size:18px; padding:5px;"><b> SIGN IN</b></h3>
-            <div class="social-login">
-                <!-- <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
-                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> -->
+        <div style="font-size:14px; font-weight:bold;" class="container form-control-login">
+            <div class="row pt-2">
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 form-section-login">
+                    <div id="logreg-forms">
+                        <form class="form-signin marginbtm" method="post">
+                            <div class="logo-container">
+                                <i style="font-size:35px;" class="fas fa-users logo"></i>
+                            </div>
+                            <h3 class="h3 mb-3 font-weight-normal"
+                                style="text-align: center;font-size:18px; padding:5px;"><b> SIGN IN</b></h3>
+                            <div class="social-login">
+        
+                            </div>
 
-               
-                <!-- <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
-                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button> --> 
-
-            </div>
-           
-             <?php  
+                            <?php  
                
                display_message();
 
              ?>
-              
-        <!-- Sign in Section starts Here -->
 
-            <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"name = "input-email" placeholder="Email address" required="">
+                            <!-- Sign in Section starts Here -->
 
-            <input style="font-size:13px;" type="password" id="inputPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" name = "input-password" class="form-control" placeholder="Password" required>
-            
-            <!-- <button class="btn btn-success btn-sm" name = "admin-login" type="submit" > Admin Login</button> -->
-           <div class="d-flex justify-content-between">
-           <div>
-           <button class="btn btn-success btn-sm ml-1" name = "publisher-login" type="submit" > Author</button>
-           </div>
-           <div>
-            <button class="btn btn-success btn-sm ml-1" name = "reviewer-login" type="submit" > Reviewer</button>
-            </div>
+                            <input style="font-size:13px;" type="email" id="inputEmail" class="form-control"
+                                name="input-email" placeholder="Email address" required="">
 
-            <div>
-            <button class="btn btn-success btn-sm ml-1" name = "editor-login" type="submit" > Editor</button>
-            </div>   
-           </div>
-           
+                            <input style="font-size:13px;" type="password" id="inputPassword"
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                name="input-password" class="form-control" placeholder="Password" required>
 
-            <div class="login-details ">
-           <ul class="d-flex justify-content-center">
-            <!-- <li><a href="#"> Send Login Details</a></li> -->
-            <li id="btn-signup"><a href="#">Register Now</a></li>
-            <li><a href="guideline">login Help </a></li>
-            </ul>
+                            <!-- <button class="btn btn-success btn-sm" name = "admin-login" type="submit" > Admin Login</button> -->
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <button class="btn btn-success btn-sm ml-1" name="publisher-login" type="submit">
+                                        Author</button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-success btn-sm ml-1" name="reviewer-login" type="submit">
+                                        Reviewer</button>
+                                </div>
 
-            </div>
-
-            <a href="#" id="forgot_pswd">Forgot password?</a>
-            <hr>
-
-      
+                                <div>
+                                    <button class="btn btn-success btn-sm ml-1" name="editor-login" type="submit">
+                                        Editor</button>
+                                </div>
+                            </div>
 
 
-        <!-- Sign in section ends Here -->
+                            <div class="login-details ">
+                                <ul class="d-flex justify-content-center">
+                                    <!-- <li><a href="#"> Send Login Details</a></li> -->
+                                    <li id="btn-signup"><a href="#">Register Now</a></li>
+                                    <li><a href="guideline">login Help </a></li>
+                                </ul>
+
+                            </div>
+
+                            <a href="#" id="forgot_pswd">Forgot password?</a>
+                            <hr>
+
+                        </form>
 
 
-            <!-- <p>Don't have an account!</p>  -->
-            <!-- <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button> -->
-            </form>
+                        <!-- Reset section starts here  -->
+
+                        <form class="form-reset marginbtm" method="post">
+                            <div class="logo-container">
+                                <img src="images/forgotpass.png" alt="">
+                            </div>
 
 
-           <!-- Reset section starts here  -->
+                            <input type="email" name="remail" id="resetEmail" class="form-control"
+                                placeholder="Write Your Primary Email Address" required="">
 
-            <form  class="form-reset marginbtm" method="post">
-            <div class="logo-container">
-                    <img src="images/forgotpass.png" alt="">
-            </div>
+                            <button class="btn btn-sm btn-info btn-block" type="submit" name="rsubmit">Reset
+                                Password</button>
+                            <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
+                        </form>
 
-                <!-- <input type="text" name="rname" id="resetEmail" class="form-control" placeholder="Enter your Name" required="" autofocus=""> -->
-
-                <input type="email" name="remail" id="resetEmail" class="form-control" placeholder="Write Your Primary Email Address" required="" >
-
-                <!-- <input type="text" name="rcontact" id="resetEmail" class="form-control" placeholder="Enter your contact" required=""> -->
-
-                <!-- <input type="password" name="rpassword" id="resetEmail" class="form-control" placeholder="Enter New Password" required=""> -->
-
-                <button class="btn btn-sm btn-info btn-block" type="submit" name="rsubmit">Reset Password</button>
-                <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
-            </form>
-
-          <!-- Reset section ends here  -->
+                        <!-- Reset section ends here  -->
 
 
-            
-            
-            <!-- Sign up section starts here  -->
 
-            <form  class="form-signup marginbtm" method="post">
-                <!-- <div class="social-login">
-                    <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
-                </div> -->
-                <!-- <div class="social-login">
-                    <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up with Google+</span> </button>
-                </div> -->
 
-                <div class="logo-container">
-                    <i style="font-size:35px;" class="fas fa-user-plus logo"></i>
+                        <!-- Sign up section starts here  -->
+
+                        <form class="form-signup marginbtm" method="post">
+
+                            <div class="logo-container">
+                                <i style="font-size:35px;" class="fas fa-user-plus logo"></i>
+                            </div>
+
+                            <h2 style="text-align:center;font-size:18px;padding:5px;"><b>REGISTRATION FORM</b></h2>
+
+                            <!-- New Registration Form section starts Here  -->
+                            <input style="font-size:11px;" type="text" id="txt_username" class="form-control"
+                                name="userName" placeholder="Enter Preferred User Name" required="" autofocus="">
+                            <span><b id="uname_response"></b></span>
+
+
+                            <input style="font-size:11px;" type="text" class="form-control" name="title"
+                                placeholder="Title (Mr., Mrs., Dr., etc.)" required="" autofocus="">
+
+                            <div class="input-group">
+
+                                <input style="font-size:11px;" type="text" class="form-control col-sm-6"
+                                    name="firstName" placeholder="First Name" required="" autofocus="">
+
+                                <input style="font-size:11px;" type="text" class="form-control col-sm-6 ml-1"
+                                    name="middleName" placeholder="Middle Name(Optional)" autofocus="">
+
+                                <input style="font-size:11px;" type="text" class="form-control col-sm-6 ml-1"
+                                    name="lastName" placeholder="Last Name" required="" autofocus="">
+
+                            </div>
+
+                            <input style="font-size:11px;" type="email" id="pemail" class="form-control"
+                                onfocusout="handlefocus()" name="pemail" placeholder="Primary Email Address" required=""
+                                autofocus="">
+                            <span><b id="pemail-text"></b></span>
+
+                            <input style="font-size:11px;" type="email" id="pemailAgain" class="form-control"
+                                name="pemailAgain" placeholder="Primary Email Address again" required="" autofocus="">
+                            <span><b id="pemailAgain-response"></b></span>
+
+                            <input style="font-size:11px;" type="email" class="form-control" name="pemailcc"
+                                placeholder="Primary CC Email Address" required="" autofocus="">
+
+                            <input style="font-size:11px;" type="email" class="form-control" name="semail"
+                                placeholder="Secondary Email Address" required="" autofocus="">
+
+                            <input style="font-size:11px;" type="email" class="form-control" name="semailcc"
+                                placeholder="Secondary CC Email Address" required="" autofocus="">
+
+
+                            <!-- New Registration Form Section Ends Here  -->
+
+                            <input style="font-size:11px;" type="password" id="user-pass"
+                                onfocusout="handlepasschange()" name="user-password" class="form-control"
+                                placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                required autofocus="">
+
+                            <input style="font-size:11px;" type="password" id="user-repeatpass" name="repeat-password"
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                class="form-control" placeholder="Repeat Password" required autofocus="">
+                            <span><b id="user-reapeatpass-response"></b></span>
+
+                            <input style="font-size:11px;" type="text" id="user-contact" name="user-contact"
+                                class="form-control" placeholder="Contact Number" required autofocus="">
+
+                            <input style="font-size:11px;" type="text" id="user-address" name="user-address"
+                                class="form-control" placeholder="Address" required autofocus="">
+
+                            <button name="sign-up" class="btn btn-primary btn-block" type="submit"><i
+                                    class="fas fa-user-plus"></i> REGISTER</button>
+                            <br>
+                            <hr>
+                            <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
+                        </form>
+
+                        <!-- Sign up section ends here  -->
+
+                        <br>
+
+                    </div>
                 </div>
-                 
-                <h2 style="text-align:center;font-size:18px;padding:5px;"><b>REGISTRATION FORM</b></h2>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 ml-6 description text-justify">
+                    <h4 class="text-center"><b>Instructions </b></h4>
+                    <p><b>First-time users:</b><small> Please click on the word "Register" in the navigation bar at the
+                            top of the page and enter the requested information. Upon successful registration, you will
+                            be sent an e-mail with instructions to verify your registration. NOTE: If you received an
+                            e-mail from us with an assigned user ID and password, DO NOT REGISTER AGAIN. Simply use that
+                            information to login. Usernames and passwords may be changed after registration (see
+                            instructions below).</small></p>
+                    <p><b>Repeat Users:</b><small> Please click the "Login" button from the menu above and proceed as
+                            appropriate.</small></p>
+                    <p><b>Authors:</b><small> Please click the "Login" button from the menu above and login to the
+                            system as "Author." You may then submit your manuscript and track its progress through the
+                            system.</small></p>
+                    <p><b>Reviewers:</b><small> Please click the "Login" button from the menu above and login to the
+                            system as "Author." You may then view and/or download manuscripts assigned to you for review
+                            or submit your comments to the editor and the authors.</small></p>
+                    <p><b>To change your username and/or password:</b><small> Once you are registered, you may change
+                            your contact information, password at any time. Simply log in to the system and click on
+                            "Update Profile" in the navigation bar at the top of the page.</small></p>
 
-                <!-- New Registration Form section starts Here  -->
-                <input style="font-size:11px;" type="text" id="txt_username" class="form-control" name = "userName" placeholder="Enter Preferred User Name" required="" autofocus="">
-                   <span><b id="uname_response"></b></span>
 
-
-                <input style="font-size:11px;" type="text"  class="form-control" name = "title" placeholder="Title (Mr., Mrs., Dr., etc.)" required="" autofocus="">
-
-                <div class="input-group">
-
-                <input style="font-size:11px;" type="text"  class="form-control col-sm-6" name = "firstName" placeholder="First Name" required="" autofocus="">
-
-                <input style="font-size:11px;" type="text"  class="form-control col-sm-6 ml-1" name = "middleName" placeholder="Middle Name(Optional)"  autofocus="">
-
-                <input style="font-size:11px;" type="text"  class="form-control col-sm-6 ml-1" name = "lastName" placeholder="Last Name" required="" autofocus="">
-
+                    <div class="mb-5"></div>
                 </div>
 
-                <input style="font-size:11px;" type="email" id="pemail" class="form-control" onfocusout = "handlefocus()" name = "pemail" placeholder="Primary Email Address" required="" autofocus="">
-                <span><b id="pemail-text"></b></span>
-
-                <input style="font-size:11px;" type="email" id="pemailAgain" class="form-control" name = "pemailAgain" placeholder="Primary Email Address again" required="" autofocus="">
-                <span><b id="pemailAgain-response"></b></span>
-
-                <input style="font-size:11px;" type="email"  class="form-control" name = "pemailcc" placeholder="Primary CC Email Address" required="" autofocus="">
-
-                <input style="font-size:11px;" type="email"  class="form-control" name = "semail" placeholder="Secondary Email Address" required="" autofocus="">
-
-                <input style="font-size:11px;" type="email"  class="form-control" name = "semailcc" placeholder="Secondary CC Email Address" required="" autofocus="">
-
-                
-                <!-- New Registration Form Section Ends Here  -->
-
-                <input style="font-size:11px;" type="password" id="user-pass" onfocusout="handlepasschange()" name = "user-password" class="form-control" placeholder="Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required autofocus="">
-
-                <input style="font-size:11px;" type="password" id="user-repeatpass" name = "repeat-password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" placeholder="Repeat Password" required autofocus="">
-                    <span><b id="user-reapeatpass-response"></b></span>
-
-                <input style="font-size:11px;" type="text" id="user-contact" name = "user-contact" class="form-control" placeholder="Contact Number" required autofocus="">
-
-                <input style="font-size:11px;" type="text" id="user-address" name = "user-address" class="form-control" placeholder="Address" required autofocus="">
-
-                <button name="sign-up" class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> REGISTER</button>
-                <br>
-                <hr>
-                <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
-            </form>
-
-            <!-- Sign up section ends here  -->
-
-            <br>
-            
-    </div>
-           </div>
-           <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 ml-6 description text-justify">
-               <h4 class="text-center"><b>Instructions </b></h4>
-            <p><b>First-time users:</b><small> Please click on the word "Register" in the navigation bar at the top of the page and enter the requested information. Upon successful registration, you will be sent an e-mail with instructions to verify your registration. NOTE: If you received an e-mail from us with an assigned user ID and password, DO NOT REGISTER AGAIN. Simply use that information to login. Usernames and passwords may be changed after registration (see instructions below).</small></p>
-            <p><b>Repeat Users:</b><small>  Please click the "Login" button from the menu above and proceed as appropriate.</small></p>
-            <p><b>Authors:</b><small> Please click the "Login" button from the menu above and login to the system as "Author." You may then submit your manuscript and track its progress through the system.</small></p>
-            <p><b>Reviewers:</b><small> Please click the "Login" button from the menu above and login to the system as "Author." You may then view and/or download manuscripts assigned to you for review or submit your comments to the editor and the authors.</small></p>
-            <p><b>To change your username and/or password:</b><small> Once you are registered, you may change your contact information, password at any time. Simply log in to the system and click on "Update Profile" in the navigation bar at the top of the page.</small></p>
-
-
-          <div class="mb-5"></div>
-           </div>
-
-       </div>
-    </div>
-    <div class="pb-5"></div>
-    <div class="pb-5"></div>
-    <div class="pb-5"></div>
+            </div>
+        </div>
+        <div class="pb-5"></div>
+        <div class="pb-5"></div>
+        <div class="pb-5"></div>
         <!-- Footer section starts here  -->
         <?php include 'footer.php'; ?>
-    <!-- Footer section ends here  -->
-</div>
+        <!-- Footer section ends here  -->
+    </div>
 
 
 
@@ -440,58 +448,62 @@ if($_SESSION['alogin']!=''){
 
 <!-- Check that the username is availavle on the database or not  -->
 <script>
-$(document).ready(function(){
+$(document).ready(function() {
 
-   $("#txt_username").keyup(function(){
+    $("#txt_username").keyup(function() {
 
-      var username = $(this).val().trim();
+        var username = $(this).val().trim();
 
-      if(username != ''){
+        if (username != '') {
 
-         $.ajax({
-            url: 'link/ajaxfile.php',
-            type: 'post',
-            data: {username: username},
-            success: function(response){
+            $.ajax({
+                url: 'link/ajaxfile.php',
+                type: 'post',
+                data: {
+                    username: username
+                },
+                success: function(response) {
 
-                $('#uname_response').html(response);
+                    $('#uname_response').html(response);
 
-             }
-         });
-      }else{
-         $("#uname_response").html("");
-      }
+                }
+            });
+        } else {
+            $("#uname_response").html("");
+        }
 
     });
 
- });
+});
 
 
 //  Email is exists or not checking email
 
-$(document).ready(function(){
+$(document).ready(function() {
 
-$("#pemail").keyup(function(){
+    $("#pemail").keyup(function() {
 
-   var primaryemail = $(this).val().trim();
+        var primaryemail = $(this).val().trim();
 
-   if(primaryemail != ''){
+        if (primaryemail != '') {
 
-      $.ajax({
-         url: 'link/ajaxfile.php',
-         type: 'post',
-         data: {primaryemail: primaryemail},
-         success: function(response){
+            $.ajax({
+                url: 'link/ajaxfile.php',
+                type: 'post',
+                data: {
+                    primaryemail: primaryemail
+                },
+                success: function(response) {
 
-             $('#pemail-text').html(response);
+                    $('#pemail-text').html(response);
 
-          }
-      });
-   }else{
-      $("#pemail-text").html("");
-   }
+                }
+            });
+        } else {
+            $("#pemail-text").html("");
+        }
 
- });
+    });
 
 });
 // Check that the email address is exists or not in the database secion ends here 
@@ -501,66 +513,72 @@ $("#pemail").keyup(function(){
 
 function handlefocus() {
 
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         var pemail = document.getElementById('pemail').value;
-     $("#pemailAgain").keyup(function(){
+        $("#pemailAgain").keyup(function() {
 
-   var pemailAgain = $(this).val().trim();
+            var pemailAgain = $(this).val().trim();
 
-      if(pemailAgain != ''){
+            if (pemailAgain != '') {
 
-      $.ajax({
-         url: 'link/ajaxfile.php',
-         type: 'post',
-         data: {pemailAgain: pemailAgain,pemail:pemail},
-         success: function(response){
+                $.ajax({
+                    url: 'link/ajaxfile.php',
+                    type: 'post',
+                    data: {
+                        pemailAgain: pemailAgain,
+                        pemail: pemail
+                    },
+                    success: function(response) {
 
-             $('#pemailAgain-response').html(response);
+                        $('#pemailAgain-response').html(response);
 
-          }
-      });
-   }else{
-      $("#pemailAgain-response").html("");
-   }
+                    }
+                });
+            } else {
+                $("#pemailAgain-response").html("");
+            }
 
- });
+        });
 
-});
+    });
 }
 // Checking previous Email is matched or not ends here
 
 // Checking that the reapeat pass is matched or not section starts here 
 function handlepasschange() {
 
-$(document).ready(function(){
-    var userpassword = document.getElementById('user-pass').value;
-    console.log(userpassword);
- $("#user-repeatpass").keyup(function(){
+    $(document).ready(function() {
+        var userpassword = document.getElementById('user-pass').value;
+        console.log(userpassword);
+        $("#user-repeatpass").keyup(function() {
 
-var userrepeatpass = $(this).val().trim();
+            var userrepeatpass = $(this).val().trim();
 
-  if(userrepeatpass != ''){
+            if (userrepeatpass != '') {
 
-  $.ajax({
-     url: 'link/ajaxfile.php',
-     type: 'post',
-     data: {userrepeatpass: userrepeatpass,userpassword:userpassword},
-     success: function(response){
+                $.ajax({
+                    url: 'link/ajaxfile.php',
+                    type: 'post',
+                    data: {
+                        userrepeatpass: userrepeatpass,
+                        userpassword: userpassword
+                    },
+                    success: function(response) {
 
-         $('#user-reapeatpass-response').html(response);
+                        $('#user-reapeatpass-response').html(response);
 
-      }
-  });
-}else{
-  $("#user-reapeatpass-response").html("");
-}
-});
+                    }
+                });
+            } else {
+                $("#user-reapeatpass-response").html("");
+            }
+        });
 
-});
+    });
 }
 // Checking that the repeat pass is matched or not section ends here  section is ends here 
-
 </script>
 <!-- Check that the username is availavle on the database or not  -->
+
 </html>

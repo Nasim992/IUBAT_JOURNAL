@@ -82,7 +82,7 @@ if(strlen($_SESSION['alogin'])=="")
     <li class="nav-item hidden active" title="Changed password">
     <span class="navbar-text"><a href="changepassword" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a></span>
     </li>
-
+ 
     <li class="nav-item hidden active" title="Author states">
     <span class="navbar-text"><a href="authors" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Author States</a></span>
     </li>
@@ -93,8 +93,12 @@ if(strlen($_SESSION['alogin'])=="")
     <span class="navbar-text"><a href="reviewerdetails" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a></span>
     </li> 
     <li class="nav-item hidden active" title="Feedback">
-    <span class="navbar-text"><a href="feedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Feedback</a></span>
+    <span class="navbar-text"><a href="rfeedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Reviewer Feedback</a></span>
     </li>
+    <li class="nav-item hidden active" title="Feedback">
+    <span class="navbar-text"><a href="efeedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Editor Feedback</a></span>
+    </li>
+
 
         <li class="nav-item active" >
         <span class="navbar-text"><a class="nav-link" href="../logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"><small>(Sign Out)</small><i class="fas fa-sign-out-alt"></i></a></span>

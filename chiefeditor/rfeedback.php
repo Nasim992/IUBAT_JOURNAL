@@ -2,25 +2,52 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-include('../functions.php');
+include ('../functions.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../login"); 
+    header("Location: ../chiefeditorlogin"); 
     }
-    else   
+    else  
     { 
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
+     // Check that the Editor is logged in or not section starts here  
+     $editoremail = $_SESSION["email"];
 
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.associateeditor from author where primaryemail='$email' and associateeditor IS NOT NULL"; 
+     $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.contact FROM chiefeditor WHERE email='$editoremail'"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
      $cnt=1;
      if($query->rowCount() > 0) 
      {
- 
-// Check that the Associate Editor  is logged in or not section ends here 
+     
+     // Check that the Editor is logged in or not section ends here 
+
+    //  ----------------------------------Sending Review --------------------------------------------
+if(isset($_POST['send-review']))
+{
+    $paperid = $_POST['paperid']; 
+    $username = $_POST['username'];
+    $primaryemailauthor = $_POST['primaryemailauthor'];
+    
+    $action = 1;
+    $sql="update reviewertable set permits=$action where paperid='$paperid' and username='$username'";
+    if(mysqli_query($link, $sql))
+    {
+              // Send Review Message Section Starts Here 
+              include '../mailmessage/sendreview.php';
+              // Send Review Message Section Ends Here 
+    send_email($primaryemailauthor, $subject, $msg, $headers);
+    echo "<script>alert('Send this Review to the author Successfully.');</script>";
+      header("refresh:0;url=feedback");
+    }
+    else {
+        echo "<script>alert('Already sent!');</script>";
+        header("refresh:0;url=feedback");
+
+    }
+}
+
+  //  ----------------------------------Sending Review --------------------------------------------
 
 
     //  Remove as a Reviewer section starts Here 
@@ -30,7 +57,7 @@ if(strlen($_SESSION['alogin'])=="")
       $username = $_POST['username'];
       $filepathreviewer = $_POST['reviewpaperpath'];
 
-      $action = 1;
+      $action = 1; 
       $action0=0;
       $feedback = NULL;
       $feedbackdate = NULL;
@@ -42,11 +69,11 @@ if(strlen($_SESSION['alogin'])=="")
       {
         unlink($filepathreviewer);
       echo "<script>alert('Feedback Removed Successfully for this paper.');</script>";
-        header("refresh:0;url=feedback");
+        header("refresh:0;url=rfeedback");
       }
       else {
           echo "<script>alert('Something went wrong');</script>";
-          header("refresh:0;url=feedback");
+          header("refresh:0;url=rfeedback");
       }
    
 
@@ -70,37 +97,10 @@ if(strlen($_SESSION['alogin'])=="")
                 echo "<script>alert('Something went wrong');</script>";
                 // header("refresh:0;url=reviewerdetails");
             }
-         
+          
       
               }
          // Remove as  a Reviewer Section Ends Here 
- 
-     //  ----------------------------------Sending Review --------------------------------------------
-      if(isset($_POST['send-review']))
-      {
-          $paperid = $_POST['paperid']; 
-          $username = $_POST['username'];
-          $primaryemailauthor = $_POST['primaryemailauthor'];
-
-          $action = 1;
-          $sql="update reviewertable set permits=$action where paperid='$paperid' and username='$username'";
-          if(mysqli_query($link, $sql))
-          {
-                    // Send Review Message Section Starts Here 
-                    include '../mailmessage/sendreview.php';
-                    // Send Review Message Section Ends Here 
-          send_email($primaryemailauthor, $subject, $msg, $headers);
-          echo "<script>alert('Send this Review to the author Successfully.');</script>";
-            header("refresh:0;url=feedback");
-          }
-          else {
-              echo "<script>alert('Already sent!');</script>";
-              header("refresh:0;url=feedback");
-
-          }
-      }
-
-   //  ----------------------------------Sending Review --------------------------------------------
 
     
 ?>
@@ -122,8 +122,6 @@ if(strlen($_SESSION['alogin'])=="")
    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-
-
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
 <?php
@@ -146,8 +144,8 @@ include 'header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-  <!-- --------------------------------------Reviewer Feedback Section -------------------------------------------------- -->
-  <h6>REVIEWER FEEDBACK</h6>
+ <!-- --------------------------------------Reviewer Feedback Section -------------------------------------------------- -->
+ <h6>REVIEWER FEEDBACK</h6>
   <hr class="bg-secondary" >
   <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm"> 
 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
@@ -268,14 +266,11 @@ foreach($results as $result)
 <input type="hidden" name="reviewpaperpath" value="<?php echo $feedbackfilepath;?>">
 
  
-<?php
-  if(!empty($feedbackdate))  { 
-
-    if($permits==1) {
-      echo "<small>Already sent</small>";
-    }
+<?php 
+  if(!empty($feedbackdate))  {
   ?>
 <div class="d-flex justify-content-between">
+
 <div>
 <input class=" btn btn-sm btn-info" title="send this review" onclick="return confirm('Are you sure you want to send this review to the author?');" style="font-size:15px;border:none;font-weight:600; background:transparent;" type="submit" name="send-review" value="✔️">
 </div>
@@ -352,12 +347,11 @@ foreach($results as $result)
 
 }
 else {
-  echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
+  echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
+  header("refresh:0;url=../chiefeditorlogin");
 }
 
-
 }
-
+      
 
 ?>

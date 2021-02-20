@@ -60,51 +60,54 @@ if(strlen($_SESSION['alogin'])=="")
 ?>
 
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../css/index.css">
     <title>Select Reviewer and Author</title>
     <style>
-        button[type="submit"]:hover {
-         background-color:none !important;
-     }
-    </style> 
-</head> 
-<body>
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating">
-<?php
-include 'header.php';
-?> 
-</div> 
-<!-- Author showing header sections ends-->
+    button[type="submit"]:hover {
+        background-color: none !important;
+    }
+    </style>
+</head>
 
-<div id="mySidebar" class="sidebar">
-  <?php
+<body>
+    <!-- Author showing header sections starts  -->
+    <div class="sticky-top header-floating">
+        <?php
+include 'header.php';
+?>
+    </div>
+    <!-- Author showing header sections ends-->
+
+    <div id="mySidebar" class="sidebar">
+        <?php
   include 'sidebar.php';
   ?>
 
-</div> 
+    </div>
 
-<div id="main">  
+    <div id="main">
 
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
+        <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
+        <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+        <div class="container">
 
-<!-- ---------------------------------------Reviewer Feedback -------------------------------------------------------- -->
-<h5>YOUR FEEDBACK</h5>
-<hr>
+            <!-- ---------------------------------------Reviewer Feedback -------------------------------------------------------- -->
+            <h5>YOUR FEEDBACK</h5>
+            <hr>
 
-<!-- Paper SHowing Section Starts Here  -->
+            <!-- Paper SHowing Section Starts Here  -->
 
-<?php
+            <?php
  
 // Selecting Paper section starts Here
 $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2 from paper WHERE  paperid='$paperid'";
@@ -133,119 +136,128 @@ $cauname = $filereviewerselection['coauthorname'];
 // Selecting Paper Section Ends Here 
         
 ?>
-<div class="jumbotron mt-0" > 
-<div class="d-flex justify-content-between">
-<div>
-<p class="fontSize14px">Paper ID : <?php echo $id;?></p>
-</div>
-<div>
-<p class="fontSize14px"><b> Status: <?php
+            <div class="jumbotron mt-0">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fontSize14px">Paper ID : <?php echo $id;?></p>
+                    </div>
+                    <div>
+                        <p class="fontSize14px"><b> Status: <?php
 
 if ($action!=1) {
     ?>
-    <span style="color:goldenrod;">
-   <?php  echo "Pending";
+                                <span style="color:goldenrod;">
+                                    <?php  echo "Pending";
 }
 else {
     ?>
-    </span>
-    <span style="color:green;">
-    <?php
+                                </span>
+                                <span style="color:green;">
+                                    <?php
     echo "Published on ".$pdate;
 }
 
 ?>
-</span></b></p>
-</div>
-</div>
+                                </span></b></p>
+                    </div>
+                </div>
 
-<h5 class="display-4 fontSize16px"><?php echo $papername;?></h5>
-<p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate; ?></p>
-
-
-<p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
-
-<div class=" d-flex justify-content-between ">
-<div >
-<a style="font-size:14px;" class="" href="<?php echo $filepath1 ?> "target ="_blank" role="button">Download as doc</a>
-</div>
-<div >
-<a style="font-size:14px;" class="" href="<?php echo $filepath2 ?> "target ="_blank" role="button">Download as pdf</a>
-</div>
-<div >
-<p><?php echo $type;?></p>
-</div>
+                <h5 class="display-4 fontSize16px"><?php echo $papername;?></h5>
+                <p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate; ?></p>
 
 
-</div>
-</div>
-<!-- Paper Showing Section Ends Here  -->
+                <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
 
-<hr class="bg-success">
-
-<div class="row">
-
-  <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
-     <!-- input file section starts here  -->  
-     <form class="author-form"  method = "post" enctype = "multipart/form-data">
-   <div class="">
-   <h1 class="text-center" style="font-size:18px;"><b>Give Review</b></h1>
-   <br>
-
-<input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>">  
-<input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
- 
-<div class="input-group">
-<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Write Review:</b></label>
-<div class="col-sm-10">
-<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5" placeholder ="Write a review of this paper" required></textarea>
-</div>
-</div> 
+                <div class=" d-flex justify-content-between ">
+                    <div>
+                        <a style="font-size:14px;" class="" href="<?php echo $filepath1 ?> " target="_blank"
+                            role="button">Download as doc</a>
+                    </div>
+                    <div>
+                        <a style="font-size:14px;" class="" href="<?php echo $filepath2 ?> " target="_blank"
+                            role="button">Download as pdf</a>
+                    </div>
+                    <div>
+                        <p><?php echo $type;?></p>
+                    </div>
 
 
-<div class="input-group">
-<label class="col-sm-12 col-form-label" for="formGroupExampleInput"><b>Attach Review(If Required):</b></label><br>
-<div class="col-sm-12">
-<input type="file" class="form-control-file" name="reviewerfile"id="exampleFormControlFile1" accept = ".doc, .docx, .pdf"  required>
-</div>
+                </div>
+            </div>
+            <!-- Paper Showing Section Ends Here  -->
+
+            <hr class="bg-success">
+
+            <div class="row">
+
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <!-- input file section starts here  -->
+                    <form class="author-form" method="post" enctype="multipart/form-data">
+                        <div class="">
+                            <h1 class="text-center" style="font-size:18px;"><b>Give Review</b></h1>
+                            <br>
+
+                            <input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>">
+                            <input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
+
+                            <div class="input-group">
+                                <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Write
+                                        Review:</b></label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                                        name="reviewer-review" rows="5" placeholder="Write a review of this paper"
+                                        required></textarea>
+                                </div>
+                            </div>
 
 
-<br>
+                            <div class="input-group">
+                                <label class="col-sm-12 col-form-label" for="formGroupExampleInput"><b>Attach Review(If
+                                        Required):</b></label><br>
+                                <div class="col-sm-12">
+                                    <input type="file" class="form-control-file" name="reviewerfile"
+                                        id="exampleFormControlFile1" accept=".doc, .docx, .pdf" required>
+                                </div>
 
-<br>
-<br>
 
-   </div>
-<hr>
-<div class="form-group">
-<div class="d-flex justify-content-between">
-<div>
-<!-- <a href="upload-paper1.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a> -->
-</div>
-<div>
-<button class="btn btn-sm btn-success " name = "editor-submit" type="submit" >Submit</button>
-</div>
-</div>
+                                <br>
 
-</div>
+                                <br>
+                                <br>
 
-  <!-- Form Section Ends Here  -->
-  </form>
- <!-- Input file section ends here  -->
-  </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <!-- <a href="upload-paper1.php" role="button"><i class="fa fa-backward" aria-hidden="true"></i>Go back</a> -->
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-success " name="editor-submit"
+                                            type="submit">Submit</button>
+                                    </div>
+                                </div>
 
-</div>
-<!-- ---------------------------------------Reviewer Feedback --------------------------------------------------------- -->
+                            </div>
 
+                            <!-- Form Section Ends Here  -->
+                    </form>
+                    <!-- Input file section ends here  -->
+                </div>
+
+            </div>
+            <!-- ---------------------------------------Reviewer Feedback --------------------------------------------------------- -->
+
+        </div>
     </div>
-    </div>
 
-<!-- Essential Js,jquery,section starts  -->
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery-3.5.1.slim.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<!-- Essential Js,Jquery  section ends  -->
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <!-- Essential Js,Jquery  section ends  -->
 </body>
+
 </html>
 
 

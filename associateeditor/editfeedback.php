@@ -78,9 +78,10 @@ if(strlen($_SESSION['alogin'])=="")
       // Reviewer Paper Section Ends Here 
 
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,34 +91,35 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/heading.css">
     <link rel="stylesheet" href="../css/index.css">
     <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
-</head> 
+</head>
+
 <body>
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating">
-<?php
+    <!-- Author showing header sections starts  -->
+    <div class="sticky-top header-floating">
+        <?php
 include 'header.php';
-?> 
-</div>
-<!-- Author showing header sections ends   -->
-<div id="mySidebar" class="sidebar">
-  <?php 
+?>
+    </div>
+    <!-- Author showing header sections ends   -->
+    <div id="mySidebar" class="sidebar">
+        <?php 
   include 'sidebar.php';
   ?>
-</div> 
+    </div>
 
-<div id="main">  
+    <div id="main">
 
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
-<!-- ------------------------------ Edit feedback section --------------------------------------- -->
+        <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
+        <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+        <div class="container">
+            <!-- ------------------------------ Edit feedback section --------------------------------------- -->
 
-<h6>EDIT PAPER</h6>
-<hr>
+            <h6>EDIT PAPER</h6>
+            <hr>
 
-<!-- Paper SHowing Section Starts Here  -->
+            <!-- Paper SHowing Section Starts Here  -->
 
-<?php
+            <?php
  
 // Selecting Paper section starts Here
 $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2 from paper WHERE  paperid='$paperid'";
@@ -148,56 +150,58 @@ $cauname = $filereviewerselection['coauthorname'];;
         
 ?>
 
-<div class="jumbotron mt-0" > 
+            <div class="jumbotron mt-0">
 
-<div class="d-flex justify-content-between">
-<div>
-<p class="fontSize14px">Paper ID : <?php echo $id;?></p>
-</div>
-<div>
-<p class="fontSize14px"><b> Status: <?php
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fontSize14px">Paper ID : <?php echo $id;?></p>
+                    </div>
+                    <div>
+                        <p class="fontSize14px"><b> Status: <?php
 
 if ($action!=1) {
     ?>
-    <span style="color:goldenrod;">
-   <?php  echo "Pending";
+                                <span style="color:goldenrod;">
+                                    <?php  echo "Pending";
 }
 else {
     ?>
-    </span>
-    <span style="color:green;">
-    <?php
+                                </span>
+                                <span style="color:green;">
+                                    <?php
     echo "Published on ".$pdate;
 }
 
 ?>
-</span></b></p>
-</div>
-</div>
+                                </span></b></p>
+                    </div>
+                </div>
 
-<h5 class="display-4 fontSize16px"><?php echo $papername;?></h5>
-<p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate;?></p>
+                <h5 class="display-4 fontSize16px"><?php echo $papername;?></h5>
+                <p style="font-size:12px"><b>Uploaded On : </b><?php echo $uploaddate;?></p>
 
-<p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
+                <p class="fontSize14px"><span style="font-weight:bold">Abstract:</span> <?php echo $abstract;?></p>
 
-<div class=" d-flex justify-content-between col-sm-12">
-<div >
-<a style="font-size:14px;" class="" href="<?php echo $filepath1 ?> "target ="_blank" role="button">Download as doc</a>
-</div>
-<div >
-<a style="font-size:14px;" class="" href="<?php echo $filepath2 ?> "target ="_blank" role="button">Download as pdf </a>
-</div>
-<div >
-<p><?php echo $type;?></p>
-</div>
+                <div class=" d-flex justify-content-between col-sm-12">
+                    <div>
+                        <a style="font-size:14px;" class="" href="<?php echo $filepath1 ?> " target="_blank"
+                            role="button">Download as doc</a>
+                    </div>
+                    <div>
+                        <a style="font-size:14px;" class="" href="<?php echo $filepath2 ?> " target="_blank"
+                            role="button">Download as pdf </a>
+                    </div>
+                    <div>
+                        <p><?php echo $type;?></p>
+                    </div>
 
-</div>
-</div>
-<!-- Paper Showing Section Ends Here  -->
+                </div>
+            </div>
+            <!-- Paper Showing Section Ends Here  -->
 
-<hr class="bg-success">
+            <hr class="bg-success">
 
-<?php 
+            <?php 
 
   // Reviewer Selection section starts here 
   $sqlreviewerupdate = "SELECT * from editortable WHERE  paperid='$id' and primaryemail='$email'";
@@ -215,85 +219,93 @@ else {
  
 
   // Reviewer Selection ends here 
-?> 
+?>
 
-<div class="row"> 
-<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" >
- 
-<!-- Review Showing Section starts here  -->
-<?php for ($x =count($feedback)-1; $x >=0 ; $x--) {
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+                    <!-- Review Showing Section starts here  -->
+                    <?php for ($x =count($feedback)-1; $x >=0 ; $x--) {
   $date = date('d-M-Y',strtotime($feedbackdate[$x]));
   ?>
-<div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
-<b class="text-white bg-success btn-sm"><i>Your Review:</i></b>
-<hr>
-<p><?php echo $feedback[$x]; ?></p>
-<p><b>Reviewed on: </b><small><?php echo $date; ?></small></p>
-<?php if(!empty($feedbackfile )){?>
-<a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "target ="_blank" role="button">Your Reviewed file</a>
-<?php  } else {
+                    <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+                        <b class="text-white bg-success btn-sm"><i>Your Review:</i></b>
+                        <hr>
+                        <p><?php echo $feedback[$x]; ?></p>
+                        <p><b>Reviewed on: </b><small><?php echo $date; ?></small></p>
+                        <?php if(!empty($feedbackfile )){?>
+                        <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "
+                            target="_blank" role="button">Your Reviewed file</a>
+                        <?php  } else {
   echo "Not Reviewed yet!";
 } ?>
-</div>
-<?php  } ?>
-<!-- Review Showing Section Ends Here  -->
- </div>
+                    </div>
+                    <?php  } ?>
+                    <!-- Review Showing Section Ends Here  -->
+                </div>
 
-  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-     <!-- input file section starts here  --> 
-   <form method = "post" enctype = "multipart/form-data">
-   <div class="">
-   <h1 class="text-center" style="font-size:18px;"><b>Sent Review Again</b></h1> 
-   <br>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <!-- input file section starts here  -->
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="">
+                            <h1 class="text-center" style="font-size:18px;"><b>Sent Review Again</b></h1>
+                            <br>
 
-<input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>"> 
-<input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
- 
-<div class="input-group">
-<label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Review:</b></label>
-<div class="col-sm-10">
-<textarea class="form-control" id="exampleFormControlTextarea1" name= "reviewer-review" rows="5"  required><?php echo  $feedback[count( $feedback)-1]; ?></textarea>
-</div>
-</div> 
-<br>
-<div class="input-group">
-<label class="col-sm-12 col-form-label" for="formGroupExampleInput"><b>Attach Review(If Required):</b></label><br>
-<div class="col-sm-12">
-<input type="file" class="form-control-file" name="reviewerfile"id="exampleFormControlFile1" accept = ".doc, .docx, .pdf" >
-</div>
-<br>
-<br>
-   </div>
+                            <input type="hidden" id="custId" name="authoremail" value="<?php echo $email ?>">
+                            <input type="hidden" id="custId" name="paperid" value="<?php echo  $paperid ?>">
 
-<div class="form-group">
-<div class="d-flex justify-content-between">
-<div>
+                            <div class="input-group">
+                                <label class="col-sm-2 col-form-label"
+                                    for="formGroupExampleInput"><b>Review:</b></label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                                        name="reviewer-review" rows="5"
+                                        required><?php echo  $feedback[count( $feedback)-1]; ?></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <label class="col-sm-12 col-form-label" for="formGroupExampleInput"><b>Attach Review(If
+                                        Required):</b></label><br>
+                                <div class="col-sm-12">
+                                    <input type="file" class="form-control-file" name="reviewerfile"
+                                        id="exampleFormControlFile1" accept=".doc, .docx, .pdf">
+                                </div>
+                                <br>
+                                <br>
+                            </div>
 
-</div>
-<div>
-<button class="btn btn-sm btn-info btn-block" name = "editor-update" type="submit" >Sent Review</button>
-</div>
-</div>
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between">
+                                    <div>
 
-</div>
-  <!-- Form Section Ends Here  -->
-  </form>
- <!-- Input file section ends here  -->
-  </div>
-</div>
-<!-- ------------------------------ Edit feedback Section ---------------------------------------  -->
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-info btn-block" name="editor-update"
+                                            type="submit">Sent Review</button>
+                                    </div>
+                                </div>
 
-</div> <!-- Container div -->
-</div>
+                            </div>
+                            <!-- Form Section Ends Here  -->
+                    </form>
+                    <!-- Input file section ends here  -->
+                </div>
+            </div>
+            <!-- ------------------------------ Edit feedback Section ---------------------------------------  -->
+
+        </div> <!-- Container div -->
+    </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
-    <!-- Essential Js,Jquery  section ends  -->    
+    <!-- Essential Js,Jquery  section ends  -->
 </body>
+
 </html>
-  <?php    
+<?php    
   }
   else {
     echo "<script>alert('You are not selected as a Reviewer.');</script>";

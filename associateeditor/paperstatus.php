@@ -37,61 +37,63 @@ if(strlen($_SESSION['alogin'])=="")
 
 ?>
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unpublished paper</title>
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/index.css"> 
-    <link rel="stylesheet" href="../css/jquery.dataTables.min.css"> 
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
-</head> 
-<body> 
+</head>
 
-<!-- Author showing header sections starts  --> 
-<div class="sticky-top header-floating">
-<?php
+<body>
+
+    <!-- Author showing header sections starts  -->
+    <div class="sticky-top header-floating">
+        <?php
 include 'header.php';
-?> 
-</div> 
-<!-- Author showing header sections ends   -->
+?>
+    </div>
+    <!-- Author showing header sections ends   -->
 
 
-<div id="mySidebar" class="sidebar">
-  <?php
+    <div id="mySidebar" class="sidebar">
+        <?php
   include 'sidebar.php';
   ?>
 
-</div> 
+    </div>
 
-<div id="main">  
+    <div id="main">
 
-<a href="#"><span class="openbtn"onclick="openNav()" id="closesign">☰</span></a>
-<a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
-<div class="container"> 
-<h6>YOUR PAPER</h6>
-<hr class="bg-secondary" >
-<div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
+        <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
+        <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
+        <div class="container">
+            <h6>YOUR PAPER</h6>
+            <hr class="bg-secondary">
+            <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4">
 
 
-  <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
+                <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
 
-<thead>
-        <tr class="bg-secondary text-white">
-            <th >Paper Status</th> 
-            <th >Paper ID</th> 
-            <th >Author Name</th>
-            <th >Paper Title</th>
-            <th >Submitted</th>
-        </tr> 
-</thead> 
-<tbody id="myTable-admin">
-<!-- Selecting paper section starts here  -->
-<?php  foreach($primaryassociate as $papid)  { ?>
-        <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.resubmitpaper,paper.resubmitdate,paper.reject,paper.rejectdate from paper WHERE paperid='$papid' ORDER BY uploaddate DESC";
+                    <thead>
+                        <tr class="bg-secondary text-white">
+                            <th>Paper Status</th>
+                            <th>Paper ID</th>
+                            <th>Author Name</th>
+                            <th>Paper Title</th>
+                            <th>Submitted</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable-admin">
+                        <!-- Selecting paper section starts here  -->
+                        <?php  foreach($primaryassociate as $papid)  { ?>
+                        <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.resubmitpaper,paper.resubmitdate,paper.reject,paper.rejectdate from paper WHERE paperid='$papid' ORDER BY uploaddate DESC";
             $query = $dbh->prepare($sql); 
             $query->execute(); 
             $results=$query->fetchAll(PDO::FETCH_OBJ); 
@@ -103,14 +105,14 @@ include 'header.php';
                 $paperid = htmlentities($result->paperid);
                 $primaryemail = htmlentities($result->authoremail);
                 ?>
-<!-- Selecting paper section ends here  -->
-<tr>
-<!-- paper Status -->
-<td>
-<small>
-  <!-- Paper Status Section starts here  -->
-  <!-- Reviewer section starts here  -->
- <?php 
+                        <!-- Selecting paper section ends here  -->
+                        <tr>
+                            <!-- paper Status -->
+                            <td>
+                                <small>
+                                    <!-- Paper Status Section starts here  -->
+                                    <!-- Reviewer section starts here  -->
+                                    <?php 
 
 // Selecting Primary email from the reviewertable section starts here 
 $primaryemailarray = array();
@@ -147,9 +149,9 @@ foreach($resultacademiceditor  as $filerev) {
 
 
  ?>
-<!-- Reviewer section ends here -->
+                                    <!-- Reviewer section ends here -->
 
-   <?php 
+                                    <?php 
 
 $rejected = htmlentities($result->reject);
   $rejectdatestring = htmlentities($result->rejectdate);
@@ -291,34 +293,37 @@ $rejected = htmlentities($result->reject);
 
 
 
-  ?> 
-  <!-- Paper status section starts here  -->
-  </small>
-</td>
-<!-- Paper Status -->
+  ?>
+                                    <!-- Paper status section starts here  -->
+                                </small>
+                            </td>
+                            <!-- Paper Status -->
 
-<td class="text-dark">
-<?php  echo htmlentities($result->paperid); ?>
-</td>
-<td>
-<b>
-<small><!-- Author Name Showing Section starts here  -->
-<?php  
+                            <td class="text-dark">
+                                <?php  echo htmlentities($result->paperid); ?>
+                            </td>
+                            <td>
+                                <b>
+                                    <small>
+                                        <!-- Author Name Showing Section starts here  -->
+                                        <?php  
 $authoremail = htmlentities($result->authoremail);
 include '../link/selectauthorname.php';
 echo $authorname;
 ?>
-<!-- Author Name Showing Section Ends Here  --></small>
-</b>
-</td>
- 
-<td>
-<a href="selection.php?id=<?php echo htmlentities($result->paperid);?>"><?php echo wordwrap(htmlentities($result->papername),70,"<br>\n"); ?></a>
-</td>
-<td class="text-dark"> 
-<small>
-<b>Uploaded On :</b><br>
-<?php
+                                        <!-- Author Name Showing Section Ends Here  -->
+                                    </small>
+                                </b>
+                            </td>
+
+                            <td>
+                                <a
+                                    href="selection.php?id=<?php echo htmlentities($result->paperid);?>"><?php echo wordwrap(htmlentities($result->papername),70,"<br>\n"); ?></a>
+                            </td>
+                            <td class="text-dark">
+                                <small>
+                                    <b>Uploaded On :</b><br>
+                                    <?php
   // Selecting Date section starts here 
   $uploaddatestring = htmlentities($result->uploaddate);
   $uploaddate = date("d-M-Y",strtotime($uploaddatestring)); 
@@ -334,40 +339,41 @@ echo $authorname;
  }
 
 ?>
-</small>
-</td>
+                                </small>
+                            </td>
 
-</tr>
-<?php }} } ?>
-       
-</tbody>
+                        </tr>
+                        <?php }} } ?>
 
-</table>
+                    </tbody>
 
-</div>
+                </table>
 
-    
-    <div class="mb-5"></div>
-</div> 
-</div>
+            </div>
 
- <!-- Essential Js,jquery,section starts  -->
- <script src="../js/bootstrap.min.js"></script>
+
+            <div class="mb-5"></div>
+        </div>
+    </div>
+
+    <!-- Essential Js,jquery,section starts  -->
+    <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
 
     <script>
-            // DataTables section starts here 
-             $(document).ready(function () {
-            $('#dtBasicExample').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-            });
-            // Datables section ends here 
+    // DataTables section starts here 
+    $(document).ready(function() {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+    // Datables section ends here 
     </script>
 
-    <!-- Essential Js,Jquery  section ends  -->   
+    <!-- Essential Js,Jquery  section ends  -->
 </body>
+
 </html>
 <?php 
 }

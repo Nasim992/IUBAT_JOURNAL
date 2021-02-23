@@ -22,7 +22,7 @@ if (isset($_SESSION['alogin'])){
 
 <body>
     <nav id="navbar_top" class="navbar nav-class navbar-expand-xl  navbar-light ">
-        <a class="navbar-brand" href="index"><img src="images/Iubat-logo.png">JOURNAL</a>
+        <a class="navbar-brand" style="font-size:20px;" href="index"><img src="images/Iubat-logo.png"> IUBAT Review</a>
         <button style="margin-top:0px;" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">

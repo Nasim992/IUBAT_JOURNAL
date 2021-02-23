@@ -162,19 +162,12 @@ include 'header.php';
     <!-- Essential Js,Jquery  section ends  -->
 
 </body>
-
 </html>
-
 <?php     
-
-
 }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
   header("refresh:0;url=../chiefeditorlogin");
 }
-
 }
-     
-
 ?>

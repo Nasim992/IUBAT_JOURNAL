@@ -1,6 +1,6 @@
 <?php 
 
-$subject = "Reviwer Request in IUBAT JOURNAL";
+$subject = "Reviwer Request in IUBAT Review";
 
 include 'url.php'; 
  
@@ -14,7 +14,7 @@ You have been selected as a reviewer till $endingdate.
 
 ---------------------------------------------------------------------------------------------------------------
 For Rejecting the Review Request of this paper Please Click on the Following link:
-    $url/rejectrequestreviewer.php?paperid=$id&email=$pemail";
+    $url/rejectrequestreviewer.php?paperid=$paperid&email=$pemail";
     
 $headers = "From: journal.iubat@gmail.com";
  

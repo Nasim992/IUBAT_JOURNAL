@@ -19,10 +19,11 @@ $id=intval($_GET['id']);
 $sql="DELETE FROM admin WHERE id= '$id' ";
 
 if(mysqli_query($link, $sql)){
-    echo "Selected Admin  deleted successfully.";
+    echo "<script>alert('Selected Admin  deleted successfully')</script>";
     header("refresh:0;url=admin");
 } else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+    echo "<script>alert('Something went wrong')</script>";
+    header("refresh:0;url=admin");
 }
  
 // Close connection

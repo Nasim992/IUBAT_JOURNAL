@@ -85,6 +85,17 @@ if(strlen($_SESSION['alogin'])=="")
 
     $action = $file['action'];
 
+    // Chief Feedback selection section 
+    $sqlchief = "SELECT * FROM chieffeedback WHERE  paperid='$id' ";
+
+    $resultchief = mysqli_query($link,$sqlchief ); 
+
+    $filechief = mysqli_fetch_assoc( $resultchief );
+
+    $status  =   $filechief['status'];
+
+    // Chief Feedback Selection section 
+
     // Authorname selection starts here 
     $sql1 = "SELECT * FROM author WHERE  primaryemail= '$authormail' ";
 
@@ -224,8 +235,67 @@ if(isset($_POST['deletepaper'])) {
   $fileresubmit = $_POST['filepathresubmit'];
 
   $sqldelete="DELETE FROM paper WHERE paperid='$papid' ";
-  $sqleditortable="DELETE FROM editortable WHERE paperid='$papid' ";
-  $sqlreviewertable="DELETE FROM reviewertable WHERE paperid='$papid' ";
+  // $sqleditortable="DELETE FROM editortable WHERE paperid='$papid' ";
+
+   // Delete Editor  section 
+   $editoremail = array();
+   $sqleditor = "SELECT editortable.id,editortable.paperid,editortable.primaryemail from editortable Where paperid='$papid'";
+   $queryeditor = $dbh->prepare($sqleditor); 
+   $queryeditor ->execute(); 
+   $resulteditor=$queryeditor->fetchAll(PDO::FETCH_OBJ); 
+   $cnt=1;
+
+   if($queryeditor->rowCount() > 0) 
+   {
+   foreach($resulteditor as $result) 
+   { 
+   $usernameeditor = htmlentities($result->paperid);
+   array_push($editoremail,$usernameeditor);
+   }}
+   foreach($editoremail as $pp) {
+       $selecteditor = "SELECT * FROM editortable where paperid='$pp'";
+       $resulteditor= mysqli_query($link,$selecteditor);  
+       $filerevpaper = mysqli_fetch_assoc($resulteditor);
+       $filefeedback = $filerevpaper['feedbackfile'];
+
+       unlink('../documents/review/'.$filefeedback);
+       
+       $sqlreditordelete="DELETE FROM editortable WHERE paperid= '$pp' ";
+       mysqli_query($link, $sqlreditordelete);
+   }
+   // Delete Editor section 
+  
+  // $sqlreviewertable="DELETE FROM reviewertable WHERE paperid='$papid' ";
+
+      // Delete Reviewer  section 
+      $revieweremail = array();
+      $sqlreviewer = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.primaryemail from reviewertable Where paperid='$papid'";
+      $queryreviewer = $dbh->prepare($sqlreviewer); 
+      $queryreviewer ->execute(); 
+      $resultreviewer=$queryreviewer ->fetchAll(PDO::FETCH_OBJ); 
+      $cnt=1;
+  
+      if($queryreviewer->rowCount() > 0) 
+      {
+      foreach($resultreviewer as $result) 
+      { 
+      $usernameeditor = htmlentities($result->paperid);
+      array_push($revieweremail,$usernameeditor);
+      }}
+      foreach($revieweremail as $pp) {
+  
+          $selectreviewer = "SELECT * FROM reviewertable where paperid='$pp'";
+          $resultrevpaper= mysqli_query($link,$selectreviewer);  
+          $filerevpaper = mysqli_fetch_assoc($resultrevpaper);
+          $filefeedback = $filerevpaper['feedbackfile'];
+  
+          unlink('../documents/review/'.$filefeedback);
+           
+          $sqlreviewerdelete="DELETE FROM reviewertable WHERE paperid= '$pp' ";
+          mysqli_query($link, $sqlreviewerdelete);
+      }
+      // Delete Reviewer section 
+
   $sqlselectchieffeedback="SELECT * FROM chieffeedback WHERE paperid='$papid' ";
   $resultchieffeedback= mysqli_query($link,$sqlselectchieffeedback);  
   $filechieffeedback = mysqli_fetch_assoc($resultchieffeedback);
@@ -233,8 +303,7 @@ if(isset($_POST['deletepaper'])) {
   $sqlrchieffeedback="DELETE FROM chieffeedback WHERE paperid='$papid' ";
  
   if(mysqli_query($link, $sqldelete)){
-    mysqli_query($link, $sqleditortable);
-    mysqli_query($link, $sqlreviewertable);
+
     mysqli_query($link, $sqlrchieffeedback);
     unlink($file1);
     unlink($file2 );
@@ -331,7 +400,14 @@ include 'author-header.php';
   <div class="jumbotron">
      
      <h5 style="font-size:18px" class="display-4">Name : <?php echo $papername ?></h5>
+     <div class="d-flex justify-content-between">
+     <div>
      <h6 style="font-size:15px;" class="display-5">Paper ID:<span style='color:#122916;'> <?php echo $id; ?></span></h6>
+     </div>
+     <div>
+     <b><p>Status: <span class="text-success"><?php echo $status; ?></span></p></b>
+     </div>
+     </div>
      <h6 style="font-size:15px;" class="display-5">Uploaded on:<span style='color:#122916;'> <small><?php echo $maindate; ?></small></span></h6>
 
    <div class="d-flex justify-content-between">
@@ -664,21 +740,21 @@ $authoremail = $filereviewerupdate['primaryemail'];
      for ($x = count($feedbackeditor)-1; $x >=0 ; $x--) {
       $dateeditor = date('d-M-Y',strtotime($feedbackdateeditor[$x]));
       ?>
-<div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
-  <p><?php echo $feedbackeditor[$x]; ?></p>
-  <div class="d-flex justify-content-between">
-  <div>
-  <p><b>Reviewed on: </b><small><?php echo $dateeditor;?></small></p>
-  </div>
-  <div> 
-  <p>- <small><?php echo $revauthorname; ?></small></p>
-  </div>
-  </div>
+    <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
+      <p><?php echo $feedbackeditor[$x]; ?></p>
+      <div class="d-flex justify-content-between">
+      <div>
+      <p><b>Reviewed on: </b><small><?php echo $dateeditor;?></small></p>
+      </div>
+      <div> 
+      <p>- <small><?php echo $revauthorname; ?></small></p>
+      </div>
+      </div>
   
   <?php if(!empty($feedbackfileeditor )){?>
   <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepatheditor; ?> "target ="_blank" role="button">Feedback file</a>
   <?php  }  ?>
-  </div>
+  </div> 
       <?php
      }
     }
@@ -689,7 +765,7 @@ $authoremail = $filereviewerupdate['primaryemail'];
 
 
   <?php
-    // Select editor feedback 
+    // Select Reviewer  feedback 
 
     $primaryemailreviewertable = array();
 

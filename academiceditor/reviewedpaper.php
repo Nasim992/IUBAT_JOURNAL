@@ -39,10 +39,6 @@ if(strlen($_SESSION['alogin'])=="")
         }
       
     // --------------------- Selecting paper id form Associate Editor ------------------------
-
-     
-
-
 ?>
 
 <!DOCTYPE html>
@@ -129,13 +125,8 @@ include 'header.php';
         
         $pdatestring = $filereviewerselection['pdate'];
         $pdate = date("d-M-Y",strtotime( $pdatestring));
-
-          ?>
-
-                        <?php 
-
-
-?>
+        ?>
+                        <?php    ?>
                         <!-- Select user  name section ends here  -->
 
                         <!-- Dashboard section starts  -->
@@ -150,20 +141,20 @@ include 'header.php';
                                         <div>
                                             <p class="fontSize14px"><b> Status: <?php
 
-            if ($action!=1) {
-                ?>
+                                                            if ($action!=1) {
+                                                                ?>
                                                     <span style="color:goldenrod;">
                                                         <?php  echo "Pending";
-            }
-            else {
-                ?>
+                                                                    }
+                                                                    else {
+                                                                        ?>
                                                     </span>
                                                     <span style="color:green;">
                                                         <?php
-                echo "Published on ".$pdate;
-            }
-            
-            ?>
+                                                                echo "Published on ".$pdate;
+                                                            }
+                                                            
+                                                            ?>
                                                     </span></b></p>
                                         </div>
                                     </div>
@@ -237,8 +228,5 @@ include 'header.php';
     echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
     header("refresh:0;url=../login");
   }
-  
-  
   }
-  
     ?>

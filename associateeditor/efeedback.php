@@ -100,14 +100,10 @@ if(strlen($_SESSION['alogin'])=="")
           }
       }
 
-   //  ----------------------------------Sending Review --------------------------------------------
-
-    
+   //  ----------------------------------Sending Review --------------------------------------------   
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,10 +119,7 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/admin-dashboard.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
-
 <body>
-
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
         <?php
@@ -134,15 +127,11 @@ include 'header.php';
 ?>
     </div>
     <!-- Author showing header sections ends   -->
-
-
     <div id="mySidebar" class="sidebar">
         <?php
   include 'sidebar.php';
   ?>
-
     </div>
-
     <div id="main">
 
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
@@ -154,7 +143,6 @@ include 'header.php';
             <hr class="bg-secondary">
             <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm">
                 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
-
                     <thead>
                         <tr>
                             <th>#</th>
@@ -168,88 +156,86 @@ include 'header.php';
 
                     <tbody id="myTable-admin">
                         <?php $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.primaryemail,editortable.assigndate,editortable.action,editortable.feedback,editortable.feedbackfile,editortable.feedbackdate from editortable where action IS NULL";
-$query = $dbh->prepare($sql); 
-$query->execute(); 
-$results=$query->fetchAll(PDO::FETCH_OBJ); 
-$cnt=1;
-if($query->rowCount() > 0) 
-{
-foreach($results as $result)  
-{  
-  
-  $feedbackfilename = htmlentities($result->feedbackfile);
+                            $query = $dbh->prepare($sql); 
+                            $query->execute(); 
+                            $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                            $cnt=1;
+                            if($query->rowCount() > 0) 
+                            {
+                            foreach($results as $result)  
+                            {  
+                            
+                            $feedbackfilename = htmlentities($result->feedbackfile);
 
-  $feedbackfilepath = '../documents/review/'.$feedbackfilename;
+                            $feedbackfilepath = '../documents/review/'.$feedbackfilename;
 
-  $paperid = htmlentities($result->paperid);
- 
-  $feedbackdate = htmlentities($result->feedbackdate);
-  $reviewertablemail = htmlentities($result->primaryemail);
-  ?>
-
-
+                            $paperid = htmlentities($result->paperid);
+                            
+                            $feedbackdate = htmlentities($result->feedbackdate);
+                            $reviewertablemail = htmlentities($result->primaryemail);
+                            ?>
                         <tr>
                             <td><?php echo htmlentities($cnt);?></td>
                             <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
                             <?php 
-      $username = htmlentities($result->username);
-      $sql1 = "SELECT * FROM author WHERE  username='$username' ";
+                                $username = htmlentities($result->username);
+                                $sql1 = "SELECT * FROM author WHERE  username='$username' ";
 
-      $result1 = mysqli_query($link,$sql1); 
+                                $result1 = mysqli_query($link,$sql1); 
 
-      $file1 = mysqli_fetch_assoc($result1);
-      
-      $title = $file1['title'];
-      $fname= $file1['firstname'];
-      $middlename= $file1['middlename']; 
-      $lastname= $file1['lastname'];
+                                $file1 = mysqli_fetch_assoc($result1);
+                                
+                                $title = $file1['title'];
+                                $fname= $file1['firstname'];
+                                $middlename= $file1['middlename']; 
+                                $lastname= $file1['lastname'];
 
-      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+                                $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
-      $fdate = htmlentities($result->feedbackdate);
+                                $fdate = htmlentities($result->feedbackdate);
 
-      $fddate = date("d-M-Y",strtotime($fdate ));
+                                $fddate = date("d-M-Y",strtotime($fdate ));
 
-       
-      // Selecting paperauthor email section starts here 
-      $sqlpaper = "SELECT * FROM paper WHERE  paperid='$paperid' ";
+                                
+                                // Selecting paperauthor email section starts here 
+                                $sqlpaper = "SELECT * FROM paper WHERE  paperid='$paperid' ";
 
-      $resultpaper = mysqli_query($link,$sqlpaper ); 
+                                $resultpaper = mysqli_query($link,$sqlpaper ); 
 
-      $filepaper = mysqli_fetch_assoc($resultpaper );
+                                $filepaper = mysqli_fetch_assoc($resultpaper );
 
-      $primaryemailauthor = $filepaper['authoremail'];
+                                $primaryemailauthor = $filepaper['authoremail'];
 
-      
-      // Selecting paperauthor email section ends here 
+                                
+                                // Selecting paperauthor email section ends here 
 
-?>
+                            ?>
 
                             <td><?php echo $authorname;?></td>
                             <td><?php
             
-  // Reviewer Selection section starts here 
-  $sqlreviewerupdate = "SELECT * from editortable WHERE  paperid='$paperid' and primaryemail='$reviewertablemail '";
+                                // Reviewer Selection section starts here 
+                                $sqlreviewerupdate = "SELECT * from editortable WHERE  paperid='$paperid' and primaryemail='$reviewertablemail '";
 
-  $resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
+                                $resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
 
-  $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
+                                $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 
-  $feedbackfile = $filereviewerupdate['feedbackfile']; 
+                                $feedbackfile = $filereviewerupdate['feedbackfile']; 
 
-  $feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
+                                $feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
 
-  $feedback =  unserialize($filereviewerupdate['feedback']);
-  $feedbackdate = unserialize($filereviewerupdate['feedbackdate']);
+                                $feedback =  unserialize($filereviewerupdate['feedback']);
+                                $feedbackdate = unserialize($filereviewerupdate['feedbackdate']);
 
-  foreach ($feedback as $fd) {
-    echo $fd.'<hr>';
-  }
+                                foreach ($feedback as $fd) {
+                                    echo $fd.'<hr>';
+                                }
 
 
-  // Reviewer Selection ends here 
-      ?>
+                                // Reviewer Selection ends here 
+                                        ?>
                                 <br>
                                 <a style="font-size:13px;" title="Reviewer Feedback File" class=""
                                     href="<?php echo $feedbackfilepath; ?> " target="_blank"
@@ -258,11 +244,11 @@ foreach($results as $result)
 
                             <td>
                                 <?php 
-     if (!empty($feedbackdate)) {
-      echo date('d-M-Y',strtotime($feedbackdate[0]));
-     }
-      
-      ?>
+                                    if (!empty($feedbackdate)) {
+                                    echo date('d-M-Y',strtotime($feedbackdate[0]));
+                                    }
+                                    
+                                    ?>
                             </td>
 
                         </tr>
@@ -315,24 +301,13 @@ foreach($results as $result)
     </script>
 
     <!-- Essential Js,Jquery  section ends  -->
-
-
 </body>
-
 </html>
-
-
-
 <?php 
-
 }
 else {
   echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
   header("refresh:0;url=../login");
 }
-
-
 }
-
-
 ?>

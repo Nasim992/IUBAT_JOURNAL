@@ -40,9 +40,6 @@ if(strlen($_SESSION['alogin'])=="")
       
     // --------------------- Selecting paper id form Associate Editor ------------------------
 
-     
-
-
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +54,7 @@ if(strlen($_SESSION['alogin'])=="")
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../css/index.css">
-    <title>Select Reviewer and Author</title>
+    <title>Reviewed paper</title>
     <style>
     button[type="submit"]:hover {
         background-color: none !important;
@@ -68,16 +65,12 @@ if(strlen($_SESSION['alogin'])=="")
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
-    </div>
-    <!-- Author showing header sections ends-->
+        <?php include 'header.php'; ?>
+                </div>
+                <!-- Author showing header sections ends-->
 
-    <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
+                <div id="mySidebar" class="sidebar">
+                    <?php include 'sidebar.php'; ?>
 
     </div>
 
@@ -91,51 +84,48 @@ include 'header.php';
             <h6>REVIEWED PAPER</h6>
             <hr class="bg-secondary">
 
-            <div class="table-responsive">
+            <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4">
                 <table id="dtBasicExample" cellspacing="0">
 
-                    <thead>
-                        <tr>
+                    <thead> 
+                        <tr> 
                             <th></th>
                         </tr>
                     </thead>
-
+                     <?php if(!empty($arraypaperidreviewer)) {?>
                     <tbody id="myTable">
                         <?php 
-    foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2,paper.resubmitpaper from paper WHERE  paperid='$pid'";
+                        foreach ($arraypaperidreviewer  as $pid) {
+                            $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2,paper.resubmitpaper from paper WHERE  paperid='$pid'";
 
-        $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
-        
-        $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
+                            $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
+                            
+                            $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
-        $id =  $filereviewerselection['paperid'];
-        $papername = $filereviewerselection['papername'];
-        $numberofcoauthor = $filereviewerselection['numberofcoauthor']; 
-        $abstract = $filereviewerselection['abstract'];
-        $authoremailpaper = $filereviewerselection['authoremail'];
-        $name = $filereviewerselection['name'];
-        $filepathdoc = '../documents/file1/'.$filereviewerselection['name1']; 
-        $filepathpdf = '../documents/file2/'.$filereviewerselection['name2']; 
-        $filepathresubmit = '../documents/resubmit/'.$filereviewerselection['resubmitpaper']; 
-        $type = $filereviewerselection['type'];
-        $action = $filereviewerselection['action']; 
+                            $id =  $filereviewerselection['paperid'];
+                            $papername = $filereviewerselection['papername'];
+                            $numberofcoauthor = $filereviewerselection['numberofcoauthor']; 
+                            $abstract = $filereviewerselection['abstract'];
+                            $authoremailpaper = $filereviewerselection['authoremail'];
+                            $name = $filereviewerselection['name'];
+                            $filepathdoc = '../documents/file1/'.$filereviewerselection['name1']; 
+                            $filepathpdf = '../documents/file2/'.$filereviewerselection['name2']; 
+                            $filepathresubmit = '../documents/resubmit/'.$filereviewerselection['resubmitpaper']; 
+                            $type = $filereviewerselection['type'];
+                            $action = $filereviewerselection['action']; 
 
-        $mainuploaddate = $filereviewerselection['uploaddate'];
+                            $mainuploaddate = $filereviewerselection['uploaddate'];
 
-        $uploaddate =  date("d-M-Y",strtotime($mainuploaddate));
+                            $uploaddate =  date("d-M-Y",strtotime($mainuploaddate));
 
-        $type = $filereviewerselection['type'];
-        
-        $pdatestring = $filereviewerselection['pdate'];
-        $pdate = date("d-M-Y",strtotime( $pdatestring));
+                            $type = $filereviewerselection['type'];
+                            
+                            $pdatestring = $filereviewerselection['pdate'];
+                            $pdate = date("d-M-Y",strtotime( $pdatestring));
 
-          ?>
+                            ?>
 
-                        <?php 
-
-
-?>
+                        <?php                   ?>
                         <!-- Select user  name section ends here  -->
 
                         <!-- Dashboard section starts  -->
@@ -150,20 +140,14 @@ include 'header.php';
                                         <div>
                                             <p class="fontSize14px"><b> Status: <?php
 
-            if ($action!=1) {
-                ?>
+                                                                                    if ($action!=1) {
+                                                                                        ?>
                                                     <span style="color:goldenrod;">
-                                                        <?php  echo "Pending";
-            }
-            else {
-                ?>
+                                                        <?php  echo "Pending";      } else {    ?>
                                                     </span>
                                                     <span style="color:green;">
                                                         <?php
-                echo "Published on ".$pdate;
-            }
-            
-            ?>
+                                                            echo "Published on ".$pdate;    }        ?>
                                                     </span></b></p>
                                         </div>
                                     </div>
@@ -215,7 +199,9 @@ include 'header.php';
         <?php } ?>
         </tbody>
         </table>
-
+        <?php  } else { 
+            echo "No paper reviewed yet";
+        } ?>
         <!-- --------------------------------Reviewed paper ----------------------------------  -->
 
     </div>

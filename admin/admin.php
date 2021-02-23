@@ -23,8 +23,6 @@ if(strlen($_SESSION['alogin'])=="")
      
      // Check that the Editor is logged in or not section ends here 
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -48,17 +46,13 @@ if(strlen($_SESSION['alogin'])=="")
 
 <!-- Author showing header sections starts  --> 
 <div class="sticky-top header-floating">
-<?php
-include 'header.php';
-?> 
+<?php include 'header.php'; ?> 
 </div> 
 <!-- Author showing header sections ends   -->
 
 
 <div id="mySidebar" class="sidebar">
-  <?php
-  include 'sidebar.php';
-  ?>
+  <?php include 'sidebar.php'; ?>
 
 </div> 
 
@@ -100,8 +94,6 @@ foreach($results as $result)
             <td ><?php echo htmlentities($result->fullname);?></td>
             <td ><?php echo htmlentities($result->email);?></td>
             <td ><?php echo htmlentities($result->contact);?></td>
-
-
 </tr>
 <?php $cnt=$cnt+1;}} ?>
        
@@ -144,26 +136,17 @@ foreach($results as $result)
             $('.dataTables_length').addClass('bs-select');
             });
             </script>
-
 <!-- Essential Js,Jquery  section ends  -->
-
-
-
-
 
 </body>
 </html>
 
-
-
 <?php 
-
 }
 else {
-  echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
+  echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
   header("refresh:0;url=../adminlogin");
 }
 
 } 
-
 ?>

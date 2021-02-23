@@ -23,7 +23,7 @@
 
     <a href="authors" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Author States</a>
     <a href="reviewerdetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a>
-    <a href="reviewedpaper" class="sidebars"><i class="fas fa-comments"></i>&nbsp Reviewed paper</a>
+    <a href="reviewedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Reviewed paper</a>
     <a href="feedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Feedback</a>
     <a href="#" class="sidebars"></a>
 

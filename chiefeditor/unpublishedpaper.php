@@ -279,7 +279,7 @@ if(strlen($_SESSION['alogin'])=="")
                             </td>
 
                             <td>
-                                <a href="selection/<?php echo htmlentities($result->paperid);?>"><?php  echo wordwrap(htmlentities($result->papername),70,"<br>\n"); ?></a>
+                                <a href="selection.php?id=<?php echo htmlentities($result->paperid);?>"><?php  echo wordwrap(htmlentities($result->papername),70,"<br>\n"); ?></a>
                             </td>
                             <td class="text-dark">
                                 <small>

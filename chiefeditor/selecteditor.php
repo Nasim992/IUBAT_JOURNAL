@@ -156,7 +156,7 @@ foreach($results as $result)
     $associateeditor = htmlentities($result->associateeditor);
     $academiceditor = htmlentities($result->academiceditor);
     ?>
-                        <tr>
+                        <tr> 
                             <td class="result-color1"><?php echo htmlentities($result->username);?></td>
                             <td><?php echo $fullname ;?></td>
                             <td><?php echo htmlentities($result->primaryemail);?></td>

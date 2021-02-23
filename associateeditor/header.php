@@ -55,7 +55,7 @@ if(strlen($_SESSION['alogin'])=="")
 <body>  
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">JOURNAL</a>
+  <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">IUBAT Review</a>
   <h6 style="font-size:12px;">Welcome,<?php  echo  $fullname ;  } ?></h6>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -92,6 +92,9 @@ if(strlen($_SESSION['alogin'])=="")
     <li class="nav-item hidden active" title="reviewer">
     <span class="navbar-text"><a href="reviewerdetails" class="sidebars nav-link"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a></span>
     </li> 
+    <li class="nav-item hidden active" title="Feedback">
+    <span class="navbar-text"><a href="reviewedpaper" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Reviewed Paper</a></span>
+    </li>
     <li class="nav-item hidden active" title="Feedback">
     <span class="navbar-text"><a href="rfeedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Reviewer Feedback</a></span>
     </li>

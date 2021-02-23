@@ -130,6 +130,18 @@
         $total_acapaper = $row['total_rowsrev'];
         // Selected Editor paper section ends here 
 
+                //  Selected Archive  paper section starts here  
+                $query = "SELECT COUNT(*) as total_rowsrev FROM archive";
+                $stmt = $dbh->prepare($query);
+                              
+                // execute query
+                $stmt->execute();
+                             
+                 // get total rows
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $total_archive = $row['total_rowsrev'];
+                // Selected Archive paper section ends here 
+
 
 
 ?>

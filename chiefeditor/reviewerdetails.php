@@ -86,18 +86,11 @@ include('../link/config.php');
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
-
-
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -125,48 +118,44 @@ include 'header.php';
 
                     <tbody id="myTable-admin">
                         <?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.endingdate,reviewertable.action from reviewertable where action IS NULL";
-$query = $dbh->prepare($sql); 
-$query->execute(); 
-$results=$query->fetchAll(PDO::FETCH_OBJ); 
-$cnt=1;
-if($query->rowCount() > 0) 
-{
-foreach($results as $result) 
-{   ?>
+                                $query = $dbh->prepare($sql); 
+                                $query->execute(); 
+                                $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                                $cnt=1;
+                                if($query->rowCount() > 0) 
+                                {
+                                foreach($results as $result) 
+                                {   ?>
                         <tr>
                             <td><?php echo htmlentities($cnt);?></td>
                             <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
                             <?php 
-      $username = htmlentities($result->username);
-      include '../link/linklocal.php';
-      $sql1 = "SELECT * FROM author WHERE  username='$username' ";
+                                $username = htmlentities($result->username);
+                                include '../link/linklocal.php';
+                                $sql1 = "SELECT * FROM author WHERE  username='$username' ";
 
-      $result1 = mysqli_query($link,$sql1); 
+                                $result1 = mysqli_query($link,$sql1); 
 
-      $file1 = mysqli_fetch_assoc($result1);
-      
-      $title = $file1['title'];
-      $fname= $file1['firstname'];
-      $middlename= $file1['middlename'];
-      $lastname= $file1['lastname'];
+                                $file1 = mysqli_fetch_assoc($result1);
+                                
+                                $title = $file1['title'];
+                                $fname= $file1['firstname'];
+                                $middlename= $file1['middlename'];
+                                $lastname= $file1['lastname'];
 
-      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+                                $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
-      $assigndate = htmlentities($result->assigndate);
-      $endingdatestring = htmlentities($result->endingdate);
-      $date = date("d-M-Y",strtotime($assigndate));
-      $endingdate = date("d-M-Y",strtotime($endingdatestring));
-
-?>
-
+                                $assigndate = htmlentities($result->assigndate);
+                                $endingdatestring = htmlentities($result->endingdate);
+                                $date = date("d-M-Y",strtotime($assigndate));
+                                $endingdate = date("d-M-Y",strtotime($endingdatestring));
+                                    ?>
                             <td><?php echo $authorname;?></td>
                             <td><?php echo htmlentities($result->primaryemail);?></td>
                             <td><?php echo $date?></td>
                             <td><?php echo $endingdate?></td>
-
                             <td>
-
                                 <form method="post">
                                     <input type="hidden" name="paperid"
                                         value="<?php echo htmlentities($result->paperid);?>">
@@ -227,9 +216,6 @@ foreach($results as $result)
 </body>
 
 </html>
-
-
-
 <?php 
 
 }

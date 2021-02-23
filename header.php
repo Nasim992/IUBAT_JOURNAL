@@ -26,7 +26,8 @@ $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefedi
 </head>
 
 <body>
-    <h3 class="text-dark "><b>IUBAT JOURNAL</b></h3>
+    <h3 class="text-dark "><b>IUBAT Review</b></h3>
+    <h5 class="text-dark">A Multidisciplinary Academic Journal</h5>
     <p class="text-secondary"><b>Editor-in-Chief : </b><?php echo $chiefeditorname; ?></p>
     <a class="text-secondary" href="editorialboard" title="Journal Editorial Board"> View Editorial Board</a>
     <div class="d-flex justify-content-start">

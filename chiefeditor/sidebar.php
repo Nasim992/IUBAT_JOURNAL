@@ -25,8 +25,9 @@
   <a href="selecteditor" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Select Editor</a>
   <a href="editordetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editor</a>
   <!-- <a href="editored" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editored</a> -->
-  <a href="rfeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Reviewer Feerback</a>
-  <a href="efeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Editor Feerback</a>
+  <a href="rfeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Reviewer Feedback</a>
+  <a href="efeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Editor Feedback</a>
+  <a href="archive" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Archive</a>
   <!-- <a href="aimandscopeadmin" class="sidebars"><i class="fas fa-crosshairs"></i>&nbsp Aim and Scope</a>
   <a href="#" class="sidebars"><i class="fas fa-user-edit"></i>&nbsp Editorial Board</a>
   <a href="#" class="sidebars"><i class="fas fa-journal-whills"></i>&nbsp Journal Information</a>

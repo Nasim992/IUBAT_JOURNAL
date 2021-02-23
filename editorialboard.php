@@ -50,7 +50,7 @@ include('link/config.php');
                 <!-- Sidebar Section ends here  -->
                 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
                     <div class="text-left pb-4 pt-2">
-                        <h6 class="">EDITORIAL BOARD</h5>
+                        <h5 class="text-center">EDITORIAL BOARD</h5>
                             <hr class="bg-secondary">
                             <!-- Editors section -->
                             <div class="row">
@@ -66,7 +66,14 @@ include('link/config.php');
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-
+                                <div class="h-75">
+                                        <div class="card-body">
+                                            <h6 class="text-info"><b>ADVISOR IN CHIEF</b></h6>
+                                            <p><b>Professor Selina Nargis</b></p>
+                                            <p>Treasurer and Director Administration, IUBAT</p>
+                                           
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Editors section -->
@@ -89,8 +96,7 @@ include('link/config.php');
                                         <div class="h-75">
                                             <div class="card-body">
                                                 <p><b>Mozaffar Alam Chowdhury</b></p>
-                                                <p>Assistant Professor
-                                                    College of Business Administration, IUBAT</p>
+                                                <p>Assistant Professor College of Business Administration, IUBAT</p>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +104,8 @@ include('link/config.php');
                                         <div class="h-75">
                                             <div class="card-body">
                                                 <p><b>Dr. Sajal Saha </b></p>
-                                                <p>Associate Professor and Director, Miyan Research Institute</p>
+                                                <p>Associate Professor and Director </p>
+                                                <p>Miyan Research Institute, IUBAT</p>
                                             </div>
                                         </div>
                                     </div>

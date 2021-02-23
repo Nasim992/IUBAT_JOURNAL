@@ -109,55 +109,55 @@ include 'header.php';
 
             <?php
  
-// Selecting Paper section starts Here
-$sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2 from paper WHERE  paperid='$paperid'";
+            // Selecting Paper section starts Here
+            $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2 from paper WHERE  paperid='$paperid'";
 
-$resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
+            $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
 
-$filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
+            $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
-$id =  $filereviewerselection['paperid'];
-$papername = $filereviewerselection['papername']; 
-$numberofcoauthor = $filereviewerselection['numberofcoauthor'];
-$abstract = $filereviewerselection['abstract'];
-$authoremailpaper = $filereviewerselection['authoremail'];
-$name = $filereviewerselection['name'];
-$filepath1 = '../documents/file1/'.$filereviewerselection['name1']; 
-$filepath2 = '../documents/file2/'.$filereviewerselection['name2']; 
-$type = $filereviewerselection['type'];
-$action = $filereviewerselection['action'];
-$uploaddatestring = $filereviewerselection['uploaddate'];
-$uploaddate =date("d-M-Y",strtotime($uploaddatestring));
+            $id =  $filereviewerselection['paperid'];
+            $papername = $filereviewerselection['papername']; 
+            $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
+            $abstract = $filereviewerselection['abstract'];
+            $authoremailpaper = $filereviewerselection['authoremail'];
+            $name = $filereviewerselection['name'];
+            $filepath1 = '../documents/file1/'.$filereviewerselection['name1']; 
+            $filepath2 = '../documents/file2/'.$filereviewerselection['name2']; 
+            $type = $filereviewerselection['type'];
+            $action = $filereviewerselection['action'];
+            $uploaddatestring = $filereviewerselection['uploaddate'];
+            $uploaddate =date("d-M-Y",strtotime($uploaddatestring));
 
-$type = $filereviewerselection['type'];
-$pdate = $filereviewerselection['pdate'];
-$cauname = $filereviewerselection['coauthorname'];
+            $type = $filereviewerselection['type'];
+            $pdate = $filereviewerselection['pdate'];
+            $cauname = $filereviewerselection['coauthorname'];
 
-// Selecting Paper Section Ends Here 
-        
-?>
-            <div class="jumbotron mt-0">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <p class="fontSize14px">Paper ID : <?php echo $id;?></p>
-                    </div>
-                    <div>
-                        <p class="fontSize14px"><b> Status: <?php
+            // Selecting Paper Section Ends Here 
+                    
+            ?>
+                        <div class="jumbotron mt-0">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="fontSize14px">Paper ID : <?php echo $id;?></p>
+                                </div>
+                                <div>
+                                    <p class="fontSize14px"><b> Status: <?php
 
-if ($action!=1) {
-    ?>
-                                <span style="color:goldenrod;">
-                                    <?php  echo "Pending";
-}
-else {
-    ?>
-                                </span>
-                                <span style="color:green;">
-                                    <?php
-    echo "Published on ".$pdate;
-}
+                                        if ($action!=1) {
+                                              ?>
+                                            <span style="color:goldenrod;">
+                                                <?php  echo "Pending";
+                                                            }
+                                                            else {
+                                                                ?>
+                                            </span>
+                                            <span style="color:green;">
+                                                <?php
+                                                    echo "Published on ".$pdate;
+                                                }
 
-?>
+                                                ?>
                                 </span></b></p>
                     </div>
                 </div>
@@ -216,7 +216,7 @@ else {
                                         Required):</b></label><br>
                                 <div class="col-sm-12">
                                     <input type="file" class="form-control-file" name="reviewerfile"
-                                        id="exampleFormControlFile1" accept=".doc, .docx, .pdf" required>
+                                        id="exampleFormControlFile1" accept=".doc, .docx, .pdf">
                                 </div>
 
 
@@ -264,7 +264,7 @@ else {
 <?php 
   }
   else {
-    echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
+    echo "<script>alert('You are not a AssociateEditor.Try to log in as an Associateeditor');</script>";
     header("refresh:0;url=../login");
   }
   

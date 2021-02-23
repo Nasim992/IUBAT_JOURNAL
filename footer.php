@@ -6,6 +6,14 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css"> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+    .credit {
+        color:white;
+    }
+    footer {
+        padding:10px;
+    }
+    </style>
 </head>
 <body> 
 
@@ -13,14 +21,21 @@
 
 <div class="container p-4 text-white text-center">
 
-<a class="navbar-brand" href="#"><img src="images/Iubat-logo.png"></a>
+<a class="navbar-brand" href="index"><img src="images/Iubat-logo.png"></a> <h4>IUBAT Review</h4>
 <h6 >IUBAT— International University of Business Agriculture and Technology</h6><br>
 <p style="font-size:14px;">4 Embankment Drive Road,Sector-10, Uttara Model Town, Dhaka-1230.</p>
 
 <p style="font-size:14px;"><b>Phone:</b> (88 02) 55091801-5, Mobile : +88 01714014933, 01756174477, 01939056290, 01700513586</p>
 
 <p style="font-size:14px;"><b>Fax:</b> (880-2) 5895 2625, <b>Email :</b> info@iubat.edu</p>
+</div>
 
+<div class="d-flex justify-content-between">
+<div>
+</div>
+<div>
+<a class="credit" href="https://www.cse.iubat.edu"> <small>Developed by © Dept. of Computer Science and Engineering</small></a>
+</div>
 </div>
 
 </footer>

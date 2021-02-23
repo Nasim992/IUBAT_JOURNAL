@@ -16,13 +16,13 @@ include('link/config.php');
 
 <body>
     <div class="content">
-        <div class="">
+
             <!-- Heading Sections starts  -->
             <?php
             include 'heading.php';
-            ?>
+            ?> 
             <!-- Heading Sections ends  -->
-        </div>
+
 
         <div class="container">
             <div class="row mt-3">

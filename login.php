@@ -31,7 +31,7 @@ if($_SESSION['alogin']!=''){
     echo "<script type='text/javascript'> document.location = 'author/dashboard'; </script>";
     } else{ 
         
-        echo "<script>alert('Invalid Details.Enter Correct Information');</script>";
+        echo "<script>alert('Invalid Details.Or, You are not a registered user');</script>";
         header("refresh:0;url=login");
     
     }
@@ -136,6 +136,29 @@ if($_SESSION['alogin']!=''){
         $contact=$_POST['user-contact'];
         $address=$_POST['user-address'];
 
+        // Adding Reviewer username on the reviewertable  
+        $revieweremail = array();
+        $sqlreviewer = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.primaryemail from reviewertable Where primaryemail='$pemail'";
+        $queryreviewer = $dbh->prepare($sqlreviewer); 
+        $queryreviewer ->execute(); 
+        $resultreviewer=$queryreviewer ->fetchAll(PDO::FETCH_OBJ); 
+        $cnt=1;
+    
+        if($queryreviewer->rowCount() > 0) 
+        {
+        foreach($resultreviewer as $result) 
+        { 
+        $usernameeditor = htmlentities($result->primaryemail);
+        array_push($revieweremail,$usernameeditor);
+        }}
+        if (!empty($revieweremail)) {
+        foreach($revieweremail as $pp) {
+            $selectreviewerupdate = "UPDATE reviewertable set username='$username' where primaryemail='$pp'";
+            mysqli_query($link,$selectreviewerupdate);  
+        }
+        }
+        // Adding Reviewer username on the reviewertable 
+
         $validation_code = md5($username . microtime());  
 
         $sql="INSERT INTO  author(username,title,firstname,middlename,lastname,primaryemail,primaryemailcc,secondaryemail,secondaryemailcc,password,contact,address,validation_code) VALUES(:username,:title,:firstname,:middlename,:lastname,:pemail,:pemailcc,:semail,:semailcc,:userpassword,:contact,:address,:validation_code)";
@@ -162,6 +185,10 @@ if($_SESSION['alogin']!=''){
         $results=$query->fetchAll(PDO::FETCH_OBJ);
         if($query->rowCount() > 0) 
         {
+            if (!empty($revieweremail)) {
+                    $selectreviewerselection = "UPDATE author set reviewerselection=1 where primaryemail='$pemail'";
+                    mysqli_query($link,$selectreviewerselection);  
+                }
                     // Activation Link sending Messages starts here
                     include './mailmessage/accountactivation.php'; 
                     // Activation Link sending Messages section ends here
@@ -208,7 +235,7 @@ if($_SESSION['alogin']!=''){
         }
     }else
     {
-        echo "<script>alert('Email is not available on the database!');</script>";
+        echo "<script>alert('You are not registered yet!');</script>";
     }
     }
     // Reset-Password section ends here 
@@ -408,7 +435,8 @@ if($_SESSION['alogin']!=''){
 
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 ml-6 description text-justify">
+<!-- --------------------------------Instructions for authors ----------------------------------------------------   -->
+<div class="col-sm-12 col-md-12 col-lg-6 col-xl-4 ml-6 description text-justify">
                     <h4 class="text-center"><b>Instructions </b></h4>
                     <p><b>First-time users:</b><small> Please click on the word "Register" in the navigation bar at the
                             top of the page and enter the requested information. Upon successful registration, you will
@@ -426,12 +454,12 @@ if($_SESSION['alogin']!=''){
                             or submit your comments to the editor and the authors.</small></p>
                     <p><b>To change your username and/or password:</b><small> Once you are registered, you may change
                             your contact information, password at any time. Simply log in to the system and click on
-                            "Update Profile" in the navigation bar at the top of the page.</small></p>
+                            "Update Profile" on your pannel.</small></p>
 
 
                     <div class="mb-5"></div>
                 </div>
-
+<!-- --------------------------------Instructions for authors ----------------------------------------------------   -->
             </div>
         </div>
         <div class="pb-5"></div>

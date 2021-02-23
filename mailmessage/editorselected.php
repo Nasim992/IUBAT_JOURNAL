@@ -1,6 +1,6 @@
 <?php 
 
-$subject = "Editor Request in IUBAT JOURNAL";
+$subject = "Editor Request in IUBAT Review";
  
 include 'url.php';
 

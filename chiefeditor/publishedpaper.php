@@ -33,22 +33,15 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
     <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head>
-
 <body>
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -67,11 +60,10 @@ include 'header.php';
                       $query->execute(); 
                       $results=$query->fetchAll(PDO::FETCH_OBJ); 
                       $cnt=1; 
-                
+
                       if($query->rowCount() > 0) 
                       {
                       foreach($results as $result) 
-
                       {  
                     ?>
 
@@ -100,7 +92,6 @@ include 'header.php';
                     <tr>
                         <td>
                             <div class="jumbotron  mb-0">
-
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <a href="paperdownload.php?id=<?php echo htmlentities($result->paperid);?>">
@@ -142,7 +133,8 @@ include 'header.php';
                     </tr>
         <!-- DashBoard Section ends  -->
 
-         <?php }} ?>
+         <?php }  
+        } ?>
           </tbody>
         </table>
         <div class="mb-5"></div>

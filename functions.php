@@ -137,7 +137,7 @@
               function reject_requestreviewer(){
 
                 if($_SERVER['REQUEST_METHOD'] == "GET") {
-            
+             
                     if(isset($_GET['paperid']) and isset($_GET['email'])){
             
             

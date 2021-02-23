@@ -20,8 +20,8 @@ $id=intval($_GET['id']);
 
 
     // Delete paper section 
-    $paper = array();
-    $sqlacademiceditor = "SELECT paper.id,paper.paperid,paper.authoremail from paper Where authoremail='$email'";
+    $paperid = array();
+    $sqlacademiceditor = "SELECT paper.id,paper.paperid,paper.authoremail,paper.name,paper.name1,paper.name2,paper.resubmitpaper from paper Where authoremail='$email'";
     $queryacademiceditor = $dbh->prepare($sqlacademiceditor); 
     $queryacademiceditor ->execute(); 
     $resultacademiceditor=$queryacademiceditor ->fetchAll(PDO::FETCH_OBJ); 
@@ -32,11 +32,30 @@ $id=intval($_GET['id']);
     foreach($resultacademiceditor as $result) 
     { 
     $usernameeditor = htmlentities($result->paperid);
-    array_push($paper,$usernameeditor);
+    array_push($paperid,$usernameeditor);
     }}
-    foreach($paper as $pp) {
-        $sqlpapdelete="DELETE FROM paper WHERE authoremail= '$pp' ";
-        (mysqli_query($link, $sqlpapdelete));
+    foreach($paperid as $pp) {
+        $sqlpaperselect = "SELECT * FROM paper where paperid='$pp'";
+
+        $resultpaper= mysqli_query($link,$sqlpaperselect);  
+ 
+        $filepaper = mysqli_fetch_assoc($resultpaper);
+        
+        $file1 = $filepaper['name1']; 
+        $file2 = $filepaper['name2'];
+        $file = $filepaper['name'];
+        $fileresubmit = $filepaper['resubmitpaper'];
+
+        unlink('../documents/file1/'.$file1);
+        unlink('../documents/file2/'.$file2);
+        unlink('../documents/'.$file);
+        unlink('../documents/resubmit/'.$fileresubmit);
+
+        $sqlpapdelete="DELETE FROM paper WHERE paperid='$pp' ";
+        mysqli_query($link, $sqlpapdelete);
+
+        $sqlchieffeedback="DELETE FROM chieffeedback WHERE paperid= '$pp' ";
+        mysqli_query($link, $sqlchieffeedback);
     }
     // Delete paper section 
 
@@ -57,8 +76,16 @@ $id=intval($_GET['id']);
     array_push($revieweremail,$usernameeditor);
     }}
     foreach($revieweremail as $pp) {
+
+        $selectreviewer = "SELECT * FROM reviewertable where primaryemail='$pp'";
+        $resultrevpaper= mysqli_query($link,$selectreviewer);  
+        $filerevpaper = mysqli_fetch_assoc($resultrevpaper);
+        $filefeedback = $filerevpaper['feedbackfile'];
+
+        unlink('../documents/review/'.$filefeedback);
+         
         $sqlreviewerdelete="DELETE FROM reviewertable WHERE primaryemail= '$pp' ";
-        (mysqli_query($link, $sqlreviewerdelete));
+        mysqli_query($link, $sqlreviewerdelete);
     }
     // Delete Reviewer section 
 
@@ -79,8 +106,15 @@ $id=intval($_GET['id']);
     array_push($editoremail,$usernameeditor);
     }}
     foreach($editoremail as $pp) {
+        $selecteditor = "SELECT * FROM editortable where primaryemail='$pp'";
+        $resulteditor= mysqli_query($link,$selecteditor);  
+        $filerevpaper = mysqli_fetch_assoc($resulteditor);
+        $filefeedback = $filerevpaper['feedbackfile'];
+
+        unlink('../documents/review/'.$filefeedback);
+        
         $sqlreditordelete="DELETE FROM editortable WHERE primaryemail= '$pp' ";
-        (mysqli_query($link, $sqlreditordelete));
+        mysqli_query($link, $sqlreditordelete);
     }
     // Delete Editor section 
 
@@ -102,14 +136,14 @@ $id=intval($_GET['id']);
 $sql="DELETE FROM author WHERE id= '$id' ";
 
 if(mysqli_query($link, $sql)){
-    echo "Selected Authors were deleted successfully.";
+    echo "<script>alert('Selected Authors were deleted successfully.')</script>";
     header("refresh:0;url=authors");
 } else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+    echo "<script>alert('Something went wrong')</script>";
     header("refresh:0;url=authors");
 }
  
 // Close connection
-mysqli_close($link);
+// mysqli_close($link);
 
 ?>

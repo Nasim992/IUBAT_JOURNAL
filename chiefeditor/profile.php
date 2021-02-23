@@ -71,15 +71,15 @@
 
                         <tbody id="myTable-admin">
                             <?php $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.primaryemailcc,author.secondaryemail,author.secondaryemailcc,author.contact,author.address,author.registrationtime,author.reviewerselection,author.associateeditor,author.academiceditor from author WHERE primaryemail='$authoremail'"; 
-    $query = $dbh->prepare($sql); 
-    $query->execute(); 
-    $results=$query->fetchAll(PDO::FETCH_OBJ);  
-    $cnt=1;
-    if($query->rowCount() > 0) 
-    {
-    foreach($results as $result) 
-    { 
-    ?>
+                                $query = $dbh->prepare($sql); 
+                                $query->execute(); 
+                                $results=$query->fetchAll(PDO::FETCH_OBJ);  
+                                $cnt=1;
+                                if($query->rowCount() > 0) 
+                                {
+                                foreach($results as $result) 
+                                { 
+                                ?>
 
                             <form class="form-signup marginbtm" method="post">
                                 <input type="text" id="txt_username" class="form-control" name="userName"

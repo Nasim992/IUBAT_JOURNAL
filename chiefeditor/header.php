@@ -48,7 +48,7 @@ if(strlen($_SESSION['alogin'])=="")
 <body>  
 
 <nav class="navbar nav-class navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">JOURNAL</a>
+  <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">IUBAT Review</a>
   <h6 style="font-size:12px;">Welcome,<?php  echo htmlentities($result->fullname);  } ?></h6>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -103,6 +103,10 @@ if(strlen($_SESSION['alogin'])=="")
     <li class="nav-item hidden active" title="Feedback">
     <span class="navbar-text"><a href="efeedback" class="sidebars nav-link"><i class="fas fa-comments"></i>&nbsp Editor Feedback</a></span>
     </li>
+    <li class="nav-item hidden active" title="Feedback">
+    <span class="navbar-text"><a href="archive" class="sidebars nav-link"><i class="far fa-newspaper"></i>&nbsp Archive</a></span>
+    </li>
+
 
         <li class="nav-item active" >
         <span class="navbar-text"> <a class="nav-link" href="logout" onclick="return confirm('Are you sure you want Logging out the system?');" title = "Sign Out"><small>(Sign Out)</small><i class="fas fa-sign-out-alt"></i></a></span>

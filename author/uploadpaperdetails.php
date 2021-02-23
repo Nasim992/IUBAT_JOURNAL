@@ -3,6 +3,7 @@ session_start();
 error_reporting(0);
 include('../link/config.php');
 include('../link/functionsql.php');
+include('../functions.php');
 if(strlen($_SESSION['alogin'])=="")
     {     
     header("Location: ../login"); 
@@ -270,7 +271,7 @@ $coauthoraddress = serialize(array($cauaddress1,$cauaddress2,$cauaddress3,$cauad
 
   $sql="INSERT INTO  paper(paperid,authoremail,papername,numberofcoauthor,abstract,name,name1,name2,type,type1,type2,action,uploaddate,coauthorname,coauthoremail,coauthordept,coauthorinstitute,coauthoraddress) VALUES(:paperid,:authoremailmain,:papername,:numberOfCoAuthorp,:abstract,:name,:name1,:name2,:type,:type1,:type2,:action,:uploaddate,:coauthorname,:coauthoremail,:coauthordept,:coauthorinstitute,:coauthoraddress)";
 
-  $query = $dbh->prepare($sql);
+  $query = $dbh->prepare($sql); 
   $query->bindParam(':paperid',$paperid,PDO::PARAM_STR);
   $query->bindParam(':authoremailmain',$authoremailmain,PDO::PARAM_STR);
   $query->bindParam(':papername',$papername,PDO::PARAM_STR);
@@ -294,11 +295,21 @@ $coauthoraddress = serialize(array($cauaddress1,$cauaddress2,$cauaddress3,$cauad
 
   $results=$query->fetchAll(PDO::FETCH_OBJ);
   if($query->rowCount() > 0)
-  {
+  { 
     // Insert PaperID To the feedbacktable table
     $sqlfeedbackpaperid = "INSERT INTO chieffeedback(paperid) VALUES('$paperid')";
     mysqli_query($link,$sqlfeedbackpaperid);
     // Insert PAperID to the feedbacktable
+
+    // Sending messages to the chief editor section 
+    $sqlchiefeditoremail = "SELECT * FROM chiefeditor";
+    $resultchiefeditoremail= mysqli_query($link,$sqlchiefeditoremail);  
+    $filechiefeditoremail = mysqli_fetch_assoc($resultchiefeditoremail);
+    $pemail = $filechiefeditoremail['email'];
+          include '../mailmessage/sendingchiefeditormessages.php'; 
+          send_email($pemail, $subject, $msg, $headers);
+    // Sending message to the chief editor section 
+     
 
     move_uploaded_file($filetmp,"../documents/".$name);
     move_uploaded_file($filetmp1,"../documents/file1/".$name1);
@@ -312,8 +323,6 @@ $coauthoraddress = serialize(array($cauaddress1,$cauaddress2,$cauaddress3,$cauad
 
   }   
 } 
-
- 
 // Paper Uploaded Section Ends Here 
 
 ?>

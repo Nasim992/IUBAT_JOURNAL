@@ -114,71 +114,71 @@ include 'header.php';
                                     <!-- Reviewer section starts here  -->
                                     <?php 
 
-// Selecting Primary email from the reviewertable section starts here 
-$primaryemailarray = array();
+                            // Selecting Primary email from the reviewertable section starts here 
+                            $primaryemailarray = array();
 
-$sqlreviewer = "SELECT primaryemail FROM reviewertable WHERE paperid = '$paperid'";
-$resultreviewer = mysqli_query($link,$sqlreviewer );
-$file = mysqli_fetch_assoc($resultreviewer);
-foreach($resultreviewer as $filerev) {
-    array_push($primaryemailarray,$filerev['primaryemail']);
-}
-// Selecting Primary email from the reviewertable section starts here 
+                            $sqlreviewer = "SELECT primaryemail FROM reviewertable WHERE paperid = '$paperid'";
+                            $resultreviewer = mysqli_query($link,$sqlreviewer );
+                            $file = mysqli_fetch_assoc($resultreviewer);
+                            foreach($resultreviewer as $filerev) {
+                                array_push($primaryemailarray,$filerev['primaryemail']);
+                            }
+                            // Selecting Primary email from the reviewertable section starts here 
 
-// Selecting Primary email from the associateeditor section starts here 
-$primaryemailarrayassociateeditor = array();
+                            // Selecting Primary email from the associateeditor section starts here 
+                            $primaryemailarrayassociateeditor = array();
 
-$sqlassociateeditor = "SELECT primaryemail FROM editortable WHERE paperid = '$paperid' and associateeditor IS NOT NULL";
-$resultassociateeditor = mysqli_query($link,$sqlassociateeditor);
-$fileassociateeditor = mysqli_fetch_assoc($resultassociateeditor);
-foreach($resultassociateeditor as $filerev) {
-    array_push($primaryemailarrayassociateeditor,$filerev['primaryemail']);
-}
-// Selecting Primmaryemail from the academiceditor section starts here 
+                            $sqlassociateeditor = "SELECT primaryemail FROM editortable WHERE paperid = '$paperid' and associateeditor IS NOT NULL";
+                            $resultassociateeditor = mysqli_query($link,$sqlassociateeditor);
+                            $fileassociateeditor = mysqli_fetch_assoc($resultassociateeditor);
+                            foreach($resultassociateeditor as $filerev) {
+                                array_push($primaryemailarrayassociateeditor,$filerev['primaryemail']);
+                            }
+                            // Selecting Primmaryemail from the academiceditor section starts here 
 
-// Selecting Primary email from the associateeditor section starts here 
-$primaryemailarrayacademiceditor = array();
-$sqlacademiceditor = "SELECT primaryemail FROM editortable WHERE paperid = '$paperid' and academiceditor IS NOT NULL";
-$resultacademiceditor = mysqli_query($link,$sqlacademiceditor);
-$fileacademiceditor = mysqli_fetch_assoc($resultacademiceditor);
-foreach($resultacademiceditor  as $filerev) {
-    array_push($primaryemailarrayacademiceditor,$filerev['primaryemail']);
-}
-// Selecting Primmaryemail from the academiceditor section starts here 
+                            // Selecting Primary email from the associateeditor section starts here 
+                            $primaryemailarrayacademiceditor = array();
+                            $sqlacademiceditor = "SELECT primaryemail FROM editortable WHERE paperid = '$paperid' and academiceditor IS NOT NULL";
+                            $resultacademiceditor = mysqli_query($link,$sqlacademiceditor);
+                            $fileacademiceditor = mysqli_fetch_assoc($resultacademiceditor);
+                            foreach($resultacademiceditor  as $filerev) {
+                                array_push($primaryemailarrayacademiceditor,$filerev['primaryemail']);
+                            }
+                            // Selecting Primmaryemail from the academiceditor section starts here 
 
 
 
- ?>
+                            ?>
                                     <!-- Reviewer section ends here -->
 
                                     <?php 
 
-$rejected = htmlentities($result->reject);
-  $rejectdatestring = htmlentities($result->rejectdate);
-  $rejectdate = date("d-M-Y",strtotime($rejectdatestring)); 
+                $rejected = htmlentities($result->reject);
+                $rejectdatestring = htmlentities($result->rejectdate);
+                $rejectdate = date("d-M-Y",strtotime($rejectdatestring)); 
 
-  $accepted = htmlentities($result->action);
-  $pdatestring = htmlentities($result->pdate);
-  $pdate= date("d-M-Y",strtotime($pdatestring));
+                $accepted = htmlentities($result->action);
+                $pdatestring = htmlentities($result->pdate);
+                $pdate= date("d-M-Y",strtotime($pdatestring));
 
-  if($accepted == 1 ) {
+                if($accepted == 1 ) {
 
-      echo "<p class='text-success'><b>Accepted on:<br></b> ".$pdate.'</p>';
-      // Reviewer showing section
-      echo "<b><span class='text-success'>Reviewed by:</span></b>".'<br>';
-      $cnt1 =1; 
-      foreach ($primaryemailarray as $err) {
-        $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-        $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-        $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-            $title = $fileauthorname1['title'];
-            $fname= $fileauthorname1['firstname'];
-            $middlename= $fileauthorname1['middlename'];
-            $lastname= $fileauthorname1['lastname'];
-            $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-         echo $cnt1 .'.'.$authorname23.'<br>';
-         $cnt1 = $cnt1 + 1;
-      }
+                    echo "<p class='text-success'><b>Accepted on:<br></b> ".$pdate.'</p>';
+                    // Reviewer showing section
+                    echo "<b><span class='text-success'>Reviewed by:</span></b>".'<br>';
+                    $cnt1 =1; 
+                    foreach ($primaryemailarray as $err) {
+                        $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
+                        $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
+                        $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
+                            $title = $fileauthorname1['title'];
+                            $fname= $fileauthorname1['firstname'];
+                            $middlename= $fileauthorname1['middlename'];
+                            $lastname= $fileauthorname1['lastname'];
+                            $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
+                        echo $cnt1 .'.'.$authorname23.'<br>';
+                        $cnt1 = $cnt1 + 1;
+                    }
     //   Reviewing paper selection section ends here 
 
         //   // Associate Editor showing section
@@ -289,11 +289,9 @@ $rejected = htmlentities($result->reject);
 
 
     //   Reviewing paper selection section ends here 
-  }
+                                            }
 
-
-
-  ?>
+                                            ?>
                                     <!-- Paper status section starts here  -->
                                 </small>
                             </td>
@@ -307,10 +305,10 @@ $rejected = htmlentities($result->reject);
                                     <small>
                                         <!-- Author Name Showing Section starts here  -->
                                         <?php  
-$authoremail = htmlentities($result->authoremail);
-include '../link/selectauthorname.php';
-echo $authorname;
-?>
+                                            $authoremail = htmlentities($result->authoremail);
+                                            include '../link/selectauthorname.php';
+                                            echo $authorname;
+                                            ?>
                                         <!-- Author Name Showing Section Ends Here  -->
                                     </small>
                                 </b>
@@ -324,21 +322,21 @@ echo $authorname;
                                 <small>
                                     <b>Uploaded On :</b><br>
                                     <?php
-  // Selecting Date section starts here 
-  $uploaddatestring = htmlentities($result->uploaddate);
-  $uploaddate = date("d-M-Y",strtotime($uploaddatestring)); 
-  echo $uploaddate.'<br>';
-  // Selecting Date section ends here 
+                                            // Selecting Date section starts here 
+                                            $uploaddatestring = htmlentities($result->uploaddate);
+                                            $uploaddate = date("d-M-Y",strtotime($uploaddatestring)); 
+                                            echo $uploaddate.'<br>';
+                                            // Selecting Date section ends here 
 
-  $resubmitpaper = htmlentities($result->resubmitpaper);
- $resubmitdatestring = htmlentities($result->resubmitdate);
- $resubmitdate= date("d-M-Y",strtotime($resubmitdatestring));
- if(!empty($resubmitpaper)){
-   echo '<b class="text-info">Resubmit on :</b><br>';
-  echo  $resubmitdate;
- }
+                                            $resubmitpaper = htmlentities($result->resubmitpaper);
+                                            $resubmitdatestring = htmlentities($result->resubmitdate);
+                                            $resubmitdate= date("d-M-Y",strtotime($resubmitdatestring));
+                                            if(!empty($resubmitpaper)){
+                                            echo '<b class="text-info">Resubmit on :</b><br>';
+                                            echo  $resubmitdate;
+                                            }
 
-?>
+                                            ?>
                                 </small>
                             </td>
 

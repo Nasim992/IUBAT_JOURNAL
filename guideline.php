@@ -50,7 +50,7 @@ include('link/config.php');
                 <!-- Sidebar Section ends here  -->
                 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 guidelines">
                     <div class="text-left pb-4">
-                        <h4 class="text-center">Guidelines for Author</h4>
+                        <h5 class="text-center">GUIDELINES FOR AUTHORS</h5>
                         <hr class="bg-secondary">
                         <!-- Instruction section starts here  -->
                         <div>

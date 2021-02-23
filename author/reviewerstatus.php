@@ -76,7 +76,7 @@ include 'author-header.php';
 <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
 <div class="container"> 
 
-<h6>PAPER STATUS</h6>
+<h6>REVIEWER STATUS</h6>
   <hr class="bg-secondary" >
   <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4"> 
 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">

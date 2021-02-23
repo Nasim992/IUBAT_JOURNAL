@@ -26,7 +26,7 @@ $maximumyear = $row['total_rows'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IUBAT JOURNAL</title>
+    <title>IUBAT Review</title>
     <!-- Css links -->
     <?php include 'link/csslinks.php'; ?>
     <!-- Css links -->
@@ -51,26 +51,22 @@ $maximumyear = $row['total_rows'];
     }
     </style>
 </head>
-
 <body style="text-align:justify;">
     <div>
         <!-- --------------------------------Heading---------------------------  -->
-        <?php
-    include 'heading.php';
-    ?>
+        <?php include 'heading.php'; ?>
         <!-- --------------------------------Heading---------------------------  -->
     </div>
+
     <div class="leftrightpadding text-dark">
 
         <!-- Top Heading section starts here -->
-        <div class="row pt-1">
+        <div class="row mt-3">
             <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
             </div>
             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="text-left pb-2">
-                    <?php
-          include 'header.php';
-          ?>
+                    <?php include 'header.php'; ?>
                     <div>
                     </div>
                 </div>
@@ -101,17 +97,17 @@ $maximumyear = $row['total_rows'];
                             <!-- Published paper Showing Section Starts Here  -->
 
                             <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.pdate from paper WHERE action=1 ORDER BY pdate DESC LIMIT 5";
-                $query = $dbh->prepare($sql);
-                $query->execute();
-                $results = $query->fetchAll(PDO::FETCH_OBJ);
-                $cnt = 1;
+                            $query = $dbh->prepare($sql);
+                            $query->execute();
+                            $results = $query->fetchAll(PDO::FETCH_OBJ);
+                            $cnt = 1;
 
-                if ($query->rowCount() > 0) {
-                  foreach ($results as $result) {
-                    $authoremail = htmlentities($result->authoremail);
-                    $publishdatestring = htmlentities($result->pdate);
-                    $publishdate = date("d-M-Y", strtotime($publishdatestring));
-                ?>
+                            if ($query->rowCount() > 0) {
+                            foreach ($results as $result) {
+                                $authoremail = htmlentities($result->authoremail);
+                                $publishdatestring = htmlentities($result->pdate);
+                                $publishdate = date("d-M-Y", strtotime($publishdatestring));
+                            ?>
                             <!-- Select User name section starts here  -->
                             <?php include 'link/selectauthorname.php'; ?>
                             <!-- Select user  name section ends here  -->
@@ -130,7 +126,7 @@ $maximumyear = $row['total_rows'];
                                         aria-hidden="true"></i> Published on <?php echo $publishdate; ?></small></h5>
 
                             <!--Individual Read More section starts here   -->
-                            <script>
+                            <script.>
                             document.querySelector('#read-more-abstract<?php echo htmlentities($result->id); ?>')
                                 .addEventListener('click', function() {
                                     document.querySelector(
@@ -138,7 +134,7 @@ $maximumyear = $row['total_rows'];
                                         .height = 'auto';
                                     this.style.display = 'none';
                                 });
-                            </script>
+                            </script.>
                             <!-- Individual Read More section ends here  -->
                             <hr>
 
@@ -150,7 +146,7 @@ $maximumyear = $row['total_rows'];
                     </div>
                     <?php  } else { ?>
                     <?php
-                $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$maximumyear' ";
+                $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$maximumyear' ORDER BY versionissue DESC LIMIT 5";
                 $query = $dbh->prepare($sql);
                 $query->execute();
                 $results = $query->fetchAll(PDO::FETCH_OBJ);

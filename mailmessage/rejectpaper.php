@@ -2,7 +2,7 @@
 
 $subject = "Paper Rejected";
 
-$msg = "Sorry! Your paper $paperid named $papername has been Rejected by IUBAT JOURNAL.";
+$msg = "Sorry! Your paper $paperid named $papername has been Rejected by IUBAT Review.";
     
 $headers = "From: journal.iubat@gmail.com";
  

@@ -24,6 +24,7 @@
     <a href="authors" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Author States</a>
     <a href="editordetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Academic Editor</a>
     <a href="reviewerdetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a>
+    <a href="reviewedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Reviewed paper</a>
     <a href="rfeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Reviewer Feedback</a>
     <a href="efeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Editor Feedback</a>
     <a href="#" class="sidebars"></a>

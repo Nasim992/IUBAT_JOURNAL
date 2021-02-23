@@ -8,14 +8,6 @@ if($link === false){
 
 $id=intval($_GET['id']);
 
-
-// // Built-in PHP function to delete file
-// unlink($_GET["name"]);
- 
-// // Redirecting back
-// header("Location: " . $_SERVER["HTTP_REFERER"]);
-
-
 $sql="DELETE FROM admin WHERE id= '$id' ";
 
 if(mysqli_query($link, $sql)){

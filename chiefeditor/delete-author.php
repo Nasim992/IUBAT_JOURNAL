@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+error_reporting(0);
 include('../link/config.php');
 
 if($link === false){
@@ -119,20 +120,6 @@ $id=intval($_GET['id']);
     // Delete Editor section 
 
 
-
-
-// Select Email From the Author Table Sections ends Here 
-
-// Select Paper Name Form the paper Table Section Starts Here 
-
-
-// // Built-in PHP function to delete file
-// unlink($_GET["name"]);
- 
-// // Redirecting back
-// header("Location: " . $_SERVER["HTTP_REFERER"]);
-
-
 $sql="DELETE FROM author WHERE id= '$id' ";
 
 if(mysqli_query($link, $sql)){
@@ -144,6 +131,7 @@ if(mysqli_query($link, $sql)){
 }
  
 // Close connection
+// header("Location: " . $_SERVER["HTTP_REFERER"]);
 // mysqli_close($link);
 
 ?>

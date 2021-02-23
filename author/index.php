@@ -24,7 +24,12 @@
                     <b>
                         <h1 style="font-size:50px;font-weight:700">404 <span style="color:red;">ERROR!</span></h1>
                     </b>
-                    <p>Sorry, we can't find the page you are looking for. Please go to <a href="../index">Home</a>.</p>
+                    <p>Sorry, we can't find the page you are looking for. Please go to back<button onclick="goBack()" class="btn btn-info btn-sm">Go back</button></p>
+                    <script>
+                    function goBack() {
+                    window.history.back(); 
+                    }
+                    </script>
                 </div>
             </div>
 

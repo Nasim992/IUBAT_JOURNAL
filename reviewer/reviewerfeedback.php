@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 
 include('../link/config.php');
-
+include('../functions.php');
 if(strlen($_SESSION['alogin'])=="")
     {     
     header("Location: ../login"); 
@@ -48,6 +48,39 @@ if(strlen($_SESSION['alogin'])=="")
         if(mysqli_query($link, $sqlreviewer))
         {
           move_uploaded_file($filetmpreviewer,"../documents/review/".$namereviewer);
+
+        //   Select mail 
+        $chiefeditor = "SELECT * FROM chiefeditor";
+        $resultchiefmail = mysqli_query($link,$chiefeditor);  
+        $filechiefmail = mysqli_fetch_assoc($resultchiefmail);
+        $chiefmail = $filechiefmail['email'];
+        // Select mail 
+        // Select editor mail 
+        $academiceditorshowing = array();
+        $sqlacademiceditor = "SELECT editortable.id,editortable.paperid,editortable.primaryemail from editortable Where paperid='$paperid'";
+        $queryacademiceditor = $dbh->prepare($sqlacademiceditor); 
+        $queryacademiceditor ->execute(); 
+        $resultacademiceditor=$queryacademiceditor ->fetchAll(PDO::FETCH_OBJ); 
+        $cnt=1;
+        
+        if($queryacademiceditor->rowCount() > 0) 
+        {
+        foreach($resultacademiceditor as $result) 
+        { 
+        $usernameeditor = htmlentities($result->primaryemail);
+        array_push($academiceditorshowing,$usernameeditor);
+        }}
+        $alleditoremail = implode(',',$academiceditorshowing);
+
+
+        // Select editor mail  
+
+        $to_mail = "$chiefmail,$alleditoremail ";
+        //   Reviewed messages sending
+        include '../mailmessage/rfeedbackmail.php';
+        send_email($to_mail, $subject, $msg, $headers);
+        //  Reviewed messages sending 
+
           echo "<script>alert('Feedback Sent Successfully');</script>";
           header("refresh:0;url=reviewedpaper");
         }
@@ -159,7 +192,7 @@ if(strlen($_SESSION['alogin'])=="")
             </div>
             <!-- Paper Showing Section Ends Here  -->
 
-            <hr class="bg-success">
+            <hr class="bg-success"> 
 
             <div class="row">
 

@@ -5,7 +5,7 @@ include('../link/config.php');
 include ('../functions.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../chiefeditorlogin"); 
+    header("Location: ../login"); 
     }
     else  
     { 
@@ -75,8 +75,6 @@ if(isset($_POST['send-review']))
           echo "<script>alert('Something went wrong');</script>";
           header("refresh:0;url=feedback");
       }
-   
-
         }
 
         if(isset($_POST['editor-remove-feedback'])) {
@@ -101,13 +99,9 @@ if(isset($_POST['send-review']))
       
               }
          // Remove as  a Reviewer Section Ends Here 
-
-    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -119,7 +113,7 @@ if(isset($_POST['send-review']))
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" href="../css/admin-dashboard.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
@@ -127,17 +121,11 @@ if(isset($_POST['send-review']))
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
-
-
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
+        <?php include 'sidebar.php';  ?>
 
     </div>
 
@@ -222,7 +210,7 @@ include 'header.php';
                                 
                                 // Selecting paperauthor email section ends here 
 
-                            ?>
+                               ?>
 
                             <td><?php echo $authorname;?></td>
                             <td><?php
@@ -254,20 +242,16 @@ include 'header.php';
 
                             <td>
                                 <?php 
-     if (!empty($feedbackdate)) {
-      echo date('d-M-Y',strtotime($feedbackdate[0]));
-     }
-      
-      ?>
+                                if (!empty($feedbackdate)) {
+                                echo date('d-M-Y',strtotime($feedbackdate[0]));
+                                }
+                                
+                                ?>
                             </td>
 
                         </tr>
                         <?php $cnt=$cnt+1;}} ?>
-
-
                     </tbody>
-
-
                 </table>
 
             </div>
@@ -277,13 +261,9 @@ include 'header.php';
         </div>
     </div>
     <!-- Authors showing section ends here  -->
-
-
     </div>
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
     <script>
@@ -324,10 +304,8 @@ include 'header.php';
 }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../chiefeditorlogin");
+  header("refresh:0;url=../login");
 }
 
 }
-      
-
 ?>

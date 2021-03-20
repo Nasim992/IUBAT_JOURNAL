@@ -1,18 +1,16 @@
 <?php
 session_start();
-error_reporting(0); 
-include('../link/config.php');
-
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location:../login"); 
-    } 
+error_reporting(0);  
+include('../link/config.php');  
+include('../link/count.php');
+if(strlen($_SESSION['alogin'])=="")  
+    {     
+    header("Location:../login");  
+    }  
     else  
     {  
            $authoremail = $_SESSION["email"];
-
           //  Check that the author is logged in to the section or not starts here 
-
             $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
             $query = $dbh->prepare($sql); 
             $query->execute(); 
@@ -20,115 +18,7 @@ if(strlen($_SESSION['alogin'])=="")
             $cnt=1;
             if($query->rowCount() > 0) 
             {
-    
           // Check that the author is logged in to the section or not ends here 
-
-           //  New Paper count section starts here 
-
-           $query = "SELECT COUNT(*) as total_rows FROM paper WHERE authoremail = '$authoremail'";
-           $stmt = $dbh->prepare($query);
-           
-           // execute query
-           $stmt->execute();
-           
-           // get total rows
-           $row = $stmt->fetch(PDO::FETCH_ASSOC);
-           $total_paper = $row['total_rows'];
-   
-   
-        // New Paper count section ends here 
-
-              //  Rejected paper count section starts here 
-
-              $query = "SELECT COUNT(*) as total_rows FROM paper WHERE authoremail = '$authoremail' and reject=1";
-              $stmt = $dbh->prepare($query);
-              
-              // execute query
-              $stmt->execute();
-              
-              // get total rows
-              $row = $stmt->fetch(PDO::FETCH_ASSOC);
-              $total_reject = $row['total_rows'];
-      
-      
-           //Rejected paper count section ends here 
-
-      //  Number of Editor  count section starts here 
-
-       $query = "SELECT COUNT(*) as total_rows FROM author where primaryemail='$authoremail' and reviewerselection=1";
-       $stmt = $dbh->prepare($query);
-                               
-        // execute query
-        $stmt->execute();
-                               
-        // get total rows
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $reviewered = $row['total_rows'];
-                       
-                       
-    // Number of Editor count section ends here 
-
-          //  Number of Feedback  count section starts here 
-
-          $query = "SELECT COUNT(*) as total_rows FROM reviewertable where primaryemail='$authoremail' and feedback IS NOT NULL and permits=1";
-          $stmt = $dbh->prepare($query);
-                                  
-           // execute query
-           $stmt->execute();
-                                  
-           // get total rows
-           $row = $stmt->fetch(PDO::FETCH_ASSOC);
-           $feedbackr = $row['total_rows'];
-          
-                          
-       // Number of Feedback count section ends here 
-
-          //  Number of Editor  count section starts here 
-
-          $query = "SELECT COUNT(*) as total_rows FROM author where primaryemail='$authoremail' and associateeditor=1";
-          $stmt = $dbh->prepare($query);
-                                  
-           // execute query 
-           $stmt->execute();
-                                  
-           // get total rows
-           $row = $stmt->fetch(PDO::FETCH_ASSOC);
-           $editored = $row['total_rows'];
-                          
-                          
-       // Number of Editor count section ends here 
-
-
-          //  Number of Published paper  count section starts here 
-
-                  $query = "SELECT COUNT(*) as total_rows FROM paper WHERE action = 1 and authoremail = '$authoremail'"; 
-                  $stmt = $dbh->prepare($query);
-                  
-                  // execute query
-                  $stmt->execute();
-                  
-                  // get total rows
-                  $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                  $total_published = $row['total_rows'];
-          
-          
-        // Number of Published paper  count section ends here 
-
-        //  Number of Unublished paper  count section starts here 
-
-                  $queryu = "SELECT COUNT(*) as total_rowsu FROM paper WHERE action = 0 and authoremail = '$authoremail'"; 
-                  $stmtu = $dbh->prepare($queryu);
-                  
-                  // execute query
-                  $stmtu->execute();
-                  
-                  // get total rows
-                  $rowu = $stmtu->fetch(PDO::FETCH_ASSOC);
-                  $total_unpublished = $rowu['total_rowsu'];
-          
-          
-        // Number of Unublished paper  count section ends here 
-
 ?>
 
 <!DOCTYPE html>
@@ -154,15 +44,11 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating ">
-        <?php 
-include 'author-header.php';
-?>
+        <?php include 'author-header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar ">
-        <?php 
-  include 'author-sidebar.php';
-  ?>
+        <?php  include 'author-sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -184,7 +70,7 @@ include 'author-header.php';
                                     <h4>Accepted</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_published; ?>
+                                    <?php echo total_published_author($authoremail); ?>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +88,7 @@ include 'author-header.php';
                                     <h4>Under Review</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_unpublished;?>
+                                    <?php echo total_unpublished_author($authoremail); ?>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +106,7 @@ include 'author-header.php';
                                     <h4>Rejected</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_reject ;?>
+                                    <?php echo total_reject($authoremail) ;?>
                                 </div>
                             </div>
                         </div>
@@ -238,7 +124,7 @@ include 'author-header.php';
                                     <h4>Total</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_paper; ?>
+                                    <?php echo total_paper($authoremail); ?>
                                 </div>
                             </div>
                         </div>
@@ -259,7 +145,7 @@ include 'author-header.php';
                                 <div class="">
                                     <?php 
                     
-                    if( $reviewered == 0) {?>
+                                     if( reviewed($authoremail) == 0) {?> 
                                     <p style="font-size:16px;" class="text-danger"><i class="fas fa-times-circle"></i>
                                         <?php  echo "Not Selected"; ?></p>
                                     <?php } else { ?>
@@ -282,7 +168,7 @@ include 'author-header.php';
                                     <h4>Reviewed paper</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $feedbackr; ?>
+                                    <?php echo feedbackr($authoremail); ?>
                                 </div>
                             </div>
                         </div>
@@ -330,9 +216,7 @@ include 'author-header.php';
             }
 else {
   echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
-  header("refresh:0;url=login.php");
+//   header("refresh:0;url=../login");
 }
-
 }
-
 ?>

@@ -1,22 +1,15 @@
 <?php 
-
     // Return html Entities section starts Here 
     function clean($string){
-
         return htmlentities($string);
-    
     }
     // Return html Entities Section Ends Here
 
     //   Set Message Function starts Here 
         function set_message($message) {
-
-            if(!empty($message)){
-            
-            $_SESSION['message']= $message;
-            
-            }else {
-        
+            if(!empty($message)){ 
+            $_SESSION['message']= $message;  
+            }else {  
             $message = "";
             }
         }
@@ -35,61 +28,38 @@
     // Display Function Ends Here
     
     // Send Mail Function Starts Here 
-        function send_email($email, $subject, $msg, $headers) {
-
+    function send_email($email, $subject, $msg, $headers) {
         return (mail($email, $subject, $msg, $headers)); 
-
-            }
+        }
     // Send Mail Function Ends Here 
 
         // Redirect Function section starts Here 
         function redirect($location){
-
             return header("Location: {$location}");
-        
         }
-        
         // Redirect Function Section Ends Here
 
         // Activate User Function Starts Here
         function activate_user(){
-
-            if($_SERVER['REQUEST_METHOD'] == "GET") {
-        
+            if($_SERVER['REQUEST_METHOD'] == "GET") { 
                 if(isset($_GET['email'])){
-        
-        
-                    echo $email = clean($_GET['email']);
-        
-                    echo $validation_code = clean($_GET['code']);
-                  
+                    $email = clean($_GET['email']);
+                    $validation_code = clean($_GET['code']);    
                     $sql = "SELECT * FROM author WHERE primaryemail = '".escape($_GET['email'])."' AND validation_code ='".escape($_GET['code'])."' ";
                     $result = query($sql); 
                     confirm($result);
-        
                     if(row_count($result) ==1) {
-        
                     $sql2 = "UPDATE author SET activation =1, validation_code = 0 WHERE primaryemail ='".escape($email)."' AND validation_code ='" .escape($validation_code) ."' ";
                     $result2 = query($sql2);
                     confirm($result2);
-        
                     set_message("<p class='bg-success text-white p-2 text-center'>Your Account has been activated please login </p>");
-
                     redirect("login"); 
-        
-        
                   } else {
-        
-        
                       set_message("<p class='bg-danger text-white p-2 text-center'>Sorry Your account is not activated</p>");
-
                       redirect("login");
-                  }  
-        
-                    
+                  }               
                 }
             }
-         
         }
         // Activate User Function Ends Here 
 
@@ -99,10 +69,9 @@
             if($_SERVER['REQUEST_METHOD'] == "GET") {
         
                 if(isset($_GET['paperid']) and isset($_GET['email'])){
-        
-        
-                    echo $paperid = clean($_GET['paperid']);
-                    echo $email = clean($_GET['email']);
+          
+                    $paperid = clean($_GET['paperid']);
+                    $email = clean($_GET['email']);
                     $sql = "SELECT * FROM reviewertable WHERE primaryemail = '".escape($_GET['email'])."' AND paperid ='".escape($_GET['paperid'])."' ";
                     $result = query($sql); 
                     confirm($result);
@@ -115,18 +84,12 @@
         
                     set_message("<p class='bg-success text-white p-2 text-center'>Your are Accepted the Reviewer Invitation.Now Logged in as a Reviewer and Give your Valuable Feedback.</p>");
 
-                    redirect("login"); 
-        
-        
-                  } else {
-        
-        
+                    redirect("login");     
+                  } else {       
                       set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
 
                       redirect("login");
-                  }  
-        
-                    
+                  }              
                 }
             }
         
@@ -141,8 +104,8 @@
                     if(isset($_GET['paperid']) and isset($_GET['email'])){
             
             
-                        echo $paperid = clean($_GET['paperid']);
-                        echo $email = clean($_GET['email']);
+                        $paperid = clean($_GET['paperid']);
+                        $email = clean($_GET['email']);
                         $sql = "SELECT * FROM reviewertable WHERE primaryemail = '".escape($_GET['email'])."' AND paperid ='".escape($_GET['paperid'])."' ";
                         $result = query($sql); 
                         confirm($result);
@@ -157,16 +120,11 @@
     
                         redirect("login"); 
             
-            
                       } else {
-            
-            
                           set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
     
                           redirect("login");
-                      }  
-            
-                        
+                      }    
                     }
                 }
             
@@ -181,8 +139,8 @@
                 if(isset($_GET['paperid']) and isset($_GET['email'])){
         
         
-                    echo $paperid = clean($_GET['paperid']);
-                    echo $email = clean($_GET['email']);
+                    $paperid = clean($_GET['paperid']);
+                    $email = clean($_GET['email']);
                     $sql = "SELECT * FROM editortable WHERE primaryemail = '".escape($_GET['email'])."' AND paperid ='".escape($_GET['paperid'])."' ";
                     $result = query($sql); 
                     confirm($result);
@@ -195,18 +153,11 @@
         
                     set_message("<p class='bg-success text-white p-2 text-center'>Your are Accepted the Editor Invitation.Now Logged in as a Editor to see the paper</p>");
 
-                    redirect("login"); 
-        
-        
-                  } else {
-        
-        
+                    redirect("login");       
+                  } else {        
                       set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
-
                       redirect("login");
-                  }  
-        
-                    
+                  }                 
                 }
             }
         
@@ -218,11 +169,9 @@
 
                         if($_SERVER['REQUEST_METHOD'] == "GET") {
                     
-                            if(isset($_GET['paperid']) and isset($_GET['email'])){
-                    
-                    
-                                echo $paperid = clean($_GET['paperid']);
-                                echo $email = clean($_GET['email']);
+                            if(isset($_GET['paperid']) and isset($_GET['email'])){                  
+                                $paperid = clean($_GET['paperid']);
+                                $email = clean($_GET['email']);
                                 $sql = "SELECT * FROM editortable WHERE primaryemail = '".escape($_GET['email'])."' AND paperid ='".escape($_GET['paperid'])."' ";
                                 $result = query($sql); 
                                 confirm($result);
@@ -243,7 +192,6 @@
                               }                       
                             }
                         }
-                    
                     }
                     // Reject Editor Request Function Ends Here 
 ?>

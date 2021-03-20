@@ -5,7 +5,7 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location:../adminlogin");  
+    header("Location:../login");  
     } else {
 
      // Check that the Editor is logged in or not section starts here  
@@ -166,7 +166,7 @@ if(strlen($_SESSION['alogin'])=="")
 <?php }
 else {
   echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-  header("refresh:0;url=../adminlogin");
+  header("refresh:0;url=../login");
 }
 
 }

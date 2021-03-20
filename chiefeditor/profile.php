@@ -4,7 +4,7 @@
     include('../link/config.php');  
     if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../chiefeditorlogin"); 
+    header("Location: ../login"); 
     }
     else  
     { 
@@ -50,15 +50,11 @@
 
         <!-- Author showing header sections starts  -->
         <div class="sticky-top header-floating">
-            <?php
-    include 'header.php';
-    ?>
+            <?php include 'header.php';?>
         </div>
         <!-- Author showing header sections ends   -->
         <div id="mySidebar" class="sidebar">
-            <?php
-    include 'sidebar.php';
-    ?>
+            <?php include 'sidebar.php';?>
         </div>
         <div id="main">
             <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
@@ -144,17 +140,11 @@
                 <div class="mb-5"></div>
             </div>
         </div>
-
-
-
         <!-- Authors showing section ends here  -->
-
-
         </div>
 
         <!-- Essential Js,jquery,section starts  -->
         <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/jquery-3.5.1.slim.min.js"></script>
         <script src="../js/popper.min.js"></script>
         <script src="../js/jquery.dataTables.min.js"></script>
         <script>
@@ -177,25 +167,15 @@
         });
         // Datables section ends here 
         </script>
-
         <!-- Essential Js,Jquery  section ends  -->
-
-
-
-
-
     </body>
-
     </html>
-
-
-
     <?php 
 
 }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../chiefeditorlogin");
+  header("refresh:0;url=../login");
 }
 
 }

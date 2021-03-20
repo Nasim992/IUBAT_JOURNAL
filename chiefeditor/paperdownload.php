@@ -5,7 +5,7 @@ include '../link/config.php';
 include '../functions.php'; 
 if(strlen($_SESSION['alogin'])=="")
     {     
-        header("Location:../chiefeditorlogin");  
+        header("Location:../login");  
     }
     else
     {  
@@ -24,8 +24,6 @@ if(strlen($_SESSION['alogin'])=="")
       if($link === false){
           die("ERROR: Could not connect. " .mysqli_connect_error());
       }
-
-
       if (!empty($_GET['id'])) {
       $id=$_GET['id'];
 
@@ -88,7 +86,6 @@ if(strlen($_SESSION['alogin'])=="")
 
       $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
       // Selecting authorname section starts here 
-
 ?>
 
 <!DOCTYPE html>
@@ -103,6 +100,7 @@ if(strlen($_SESSION['alogin'])=="")
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <title>Download paper</title>
 </head>
 
@@ -168,7 +166,6 @@ if(strlen($_SESSION['alogin'])=="")
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
     <script>
@@ -198,7 +195,7 @@ header("refresh:0;url=publishedpaper");
   }
   else {
     echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-    header("refresh:0;url=../chiefeditorlogin");
+    header("refresh:0;url=../login");
   }
 }
     ?>

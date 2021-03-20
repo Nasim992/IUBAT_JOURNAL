@@ -5,7 +5,7 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="") 
     {    
-    header("Location:../chiefeditorlogin"); 
+    header("Location:../login"); 
     } 
     else  
     {  
@@ -69,6 +69,7 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
 
     <style>
     form input {
@@ -81,15 +82,11 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating ">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar ">
-        <?php 
-  include 'sidebar.php';
-  ?>
+        <?php  include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -106,22 +103,15 @@ include 'header.php';
             ?>
             <form class="form-signup marginbtm" method="post">
 
-                <input style="font-size:11px;" type="hidden" id="editoremails" class="form-control" name="editoremails"
-                    placeholder="Email" value="<?php echo  $editoremail1 ;?>">
+                <input style="font-size:11px;" type="hidden" id="editoremails" class="form-control" name="editoremails" placeholder="Email" value="<?php echo  $editoremail1 ;?>">
 
-                <input style="font-size:11px;" type="text" id="pemail" class="form-control" name="fullname"
-                    placeholder="Fullname" required="" value="<?php echo htmlentities($result->fullname);?>">
+                <input style="font-size:11px;" type="text" id="pemail" class="form-control" name="fullname" placeholder="Fullname" required="" value="<?php echo htmlentities($result->fullname);?>">
 
-                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name="email"
-                    placeholder="Email" required="" value="<?php echo   $editoremail ;?>">
+                <input style="font-size:11px;" type="email" id="user-name" class="form-control" name="email" placeholder="Email" required="" value="<?php echo   $editoremail ;?>">
 
-                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name="contact"
-                    placeholder="Secondary Email Address" required=""
-                    value="<?php echo htmlentities($result->contact);?>">
+                <input style="font-size:11px;" type="text" id="user-name" class="form-control" name="contact" placeholder="Secondary Email Address" required="" value="<?php echo htmlentities($result->contact);?>">
 
-
-                <button name="updatachiefeditor" class="btn btn-sm btn-primary btn-block" type="submit"><i
-                        class="fas fa-user-plus"></i> UPDATE</button>
+                <button name="updatachiefeditor" class="btn btn-sm btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> UPDATE</button>
             </form>
             <?php  } ?>
             <!-- Update profile section ends here  -->
@@ -131,7 +121,6 @@ include 'header.php';
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
     <script>
@@ -166,11 +155,7 @@ include 'header.php';
          }
          else {
            echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-           header("refresh:0;url=../chiefeditorlogin");
+           header("refresh:0;url=../login");
+         }       
          }
-         
-         }
-              
-
-    
 ?>

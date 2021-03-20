@@ -1,8 +1,4 @@
 <?php
-session_start();
-error_reporting(0);
-include('../link/config.php');
-
 if(strlen($_SESSION['alogin'])=="") 
     {    
     header("Location:../login");  
@@ -54,7 +50,7 @@ if(strlen($_SESSION['alogin'])=="")
 </head> 
 <body>  
 
-<nav class="navbar nav-class navbar-expand-lg navbar-light">
+<nav class="navbar nav-class navbar-expand-xl navbar-expand{-sm|-md|-lg|-xl}  navbar-light">
   <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">IUBAT Review</a>
   <h6 style="font-size:12px;">Welcome,<?php  echo  $fullname ;  } ?></h6>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -1,6 +1,7 @@
-<?php 
-include('link/config.php'); 
-?>
+<?php
+error_reporting(0);
+ include('link/config.php');
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,17 +17,18 @@ include('link/config.php');
         width: 70px;
         border-radius: 30px;
     }
+    .card-body {
+        line-height: initial;
+    }
     </style>
     <!-- Css links -->
 </head>
 
 <body>
     <div class="content">
-        <div>
+        <div class="sticky-top">
             <!-- Heading Sections starts  -->
-            <?php 
-    include 'heading.php'
-    ?>
+            <?php include 'heading.php' ?>
             <!-- Heading Sections ends  -->
         </div>
 
@@ -59,9 +61,9 @@ include('link/config.php');
                                     <div class="h-75">
                                         <div class="card-body">
                                             <h6 class="text-info"><b>EDITORS</b></h6>
-                                            <p><b>Dr.Md. Monirul Islam</b></p>
-                                            <p>Chair and Professor</p>
-                                            <p>College of Engineering and Technology, IUBAT</p>
+                                            <p><b>Prof. Dr. Md. Monirul Islam</b></p>
+                                            <p> Professor & Chair</p>
+                                            <p> Dept of Civil Engineering Dean, CEAT</p>
                                         </div>
                                     </div>
                                 </div>
@@ -70,10 +72,10 @@ include('link/config.php');
                                         <div class="card-body">
                                             <h6 class="text-info"><b>ADVISOR IN CHIEF</b></h6>
                                             <p><b>Professor Selina Nargis</b></p>
-                                            <p>Treasurer and Director Administration, IUBAT</p>
+                                            <p>Treasurer & Director Administration, IUBAT</p>
                                            
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                             <!-- Editors section -->
@@ -87,8 +89,8 @@ include('link/config.php');
                                         <div class="h-75">
                                             <div class="card-body">
                                                 <p><b>Dr. Md. Mahbubur Rahman</b></p>
-                                                <p>Associate Professor
-                                                    Department of Physics, IUBAT</p>
+                                                <p>Associate Professor & Coordinator</p>
+                                                <p> Department of Physics, IUBAT</p>
                                             </div>
                                         </div>
                                     </div>
@@ -96,15 +98,16 @@ include('link/config.php');
                                         <div class="h-75">
                                             <div class="card-body">
                                                 <p><b>Mozaffar Alam Chowdhury</b></p>
-                                                <p>Assistant Professor College of Business Administration, IUBAT</p>
+                                                <p>Associate Professor & Coordinator </p>
+                                                <p>BBA Program Director, International Program</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="">
                                         <div class="h-75">
                                             <div class="card-body">
-                                                <p><b>Dr. Sajal Saha </b></p>
-                                                <p>Associate Professor and Director </p>
+                                                <p><b>Dr. Sajal Saha</b></p>
+                                                <p>Associate Professor and Director</p>
                                                 <p>Miyan Research Institute, IUBAT</p>
                                             </div>
                                         </div>
@@ -115,8 +118,8 @@ include('link/config.php');
                                     <div class="">
                                         <div class="h-75">
                                             <div class="card-body">
-                                                <p><b>Professor Dr. Abul Khair</b></p>
-                                                <p>Dept.of Chemistry, IUBAT</p>
+                                                <p><b>Prof. Dr. Abul Khair</b></p>
+                                                <p>Chair & Dean CAAS, IUBAT</p>
                                             </div>
                                         </div>
                                     </div>
@@ -124,8 +127,8 @@ include('link/config.php');
                                         <div class="h-75">
                                             <div class="card-body">
                                                 <p><b>Professor Dr. Karen Lund</b></p>
-                                                <p>Canadian Nurse Teaching Specialist
-                                                    HRH Project in Bangladesh</p>
+                                                <p>Canadian Nurse Teaching Specialist </p>
+                                                <p>HRH Project in Bangladesh</p>
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +143,8 @@ include('link/config.php');
                                     <div class="">
                                         <div class="h-75">
                                             <div class="card-body">
-                                                <p><b>Professor Dr. AZA Saifullah</b></p>
+                                                <p><b>Prof. Dr.Engr. A Z A Saifullah</b></p>
+                                                <p>Professor & Chair</p>
                                                 <p>Dept. of Mechanical Engineering, IUBAT</p>
                                             </div>
                                         </div>
@@ -148,17 +152,17 @@ include('link/config.php');
                                     <div class="">
                                         <div class="h-75">
                                             <div class="card-body">
-                                                <p><b>Dr. Utpal Kanti Das</b></p>
-                                                <p>Associate Professor</p>
-                                                <p>Dept. Computer Science and Engineering, IUBAT</p>
+                                                <p><b>Prof. Dr. Utpal Kanti Das</b></p>
+                                                <p>Professor & Coordinator</p>
+                                                <p>Dept. of Computer Science and Engineering, IUBAT</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="">
                                         <div class="h-75">
                                             <div class="card-body">
-                                                <p><b>Dr. Biswajit Saha</b></p>
-                                                <p>Associate Professor</p>
+                                                <p><b>Dr. Bishwajit Saha</b></p>
+                                                <p>Professor</p>
                                                 <p>Dept. of Electrical and Electronic Engineering, IUBAT</p>
                                             </div>
                                         </div>
@@ -168,14 +172,16 @@ include('link/config.php');
                                             <div class="card-body">
                                                 <p><b>Dr. Md. Momtazur Rahman</b></p>
                                                 <p>Associate Professor</p>
-                                                <p>Dept. English Language, IUBAT</p>
+                                                <p>Professor & Chairman</p>
+                                                <p>English/Dept of Languages, IUBAT</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="">
                                         <div class="h-75">
                                             <div class="card-body">
-                                                <p><b>Dr. Farzana Sultana</b></p>
+                                                <p><b>Dr. Farjana Sultana</b></p>
+                                                <p>Associate Professor & Chair of Complaint Committee</p>
                                                 <p>College of Agricultural Science, IUBAT</p>
                                             </div>
                                         </div>
@@ -252,9 +258,6 @@ include('link/config.php');
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
                             <!--  Main Associate Editors and Academic Editors Section ends here -->
@@ -263,16 +266,12 @@ include('link/config.php');
             </div>
         </div>
         <!-- Footer section starts here  -->
-        <?php
-    include 'footer.php'
-    ?>
+        <?php include 'footer.php' ?>
         <!-- Footer section ends here  -->
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>

@@ -1,99 +1,68 @@
-<!-- ----------------------------Included php ---------------------------- -->
 <?php
+error_reporting(0);
 include('link/config.php');
-// Total published paper count section starts here 
-$query = "SELECT COUNT(*) as total_rows FROM paper WHERE action=1";
-$stmt = $dbh->prepare($query);
-// execute query
-$stmt->execute();
-// get total rows
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$total_published = $row['total_rows'];
-// Total published paper count section ends here
-
-// Maximum VersionIssue Section Starts Here 
-$query = "SELECT MAX(versionissue) as total_rows FROM archive";
-$stmt = $dbh->prepare($query);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$maximumyear = $row['total_rows'];
-// Maximum VersionIssue Section Ends Here
+include('link/count.php');
+$total_published = total_published(); 
+$maximumyear = maximumyear();   
 ?>
-<!-- ----------------------------Included php ---------------------------- -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IUBAT Review</title>
-    <!-- Css links -->
     <?php include 'link/csslinks.php'; ?>
-    <!-- Css links -->
     <style>
-    .indexform button {
+    .indexform button { 
         padding: 0 !important;
         margin: 0 !important;
     }
-
     .indexform button:hover {
         color: #0b4953 !important;
     }
-
-    @media only screen and (max-width: 992px) {
-        .leftrightpadding {
-            padding: 0px 10px 0px 10px !important;
-        }
-    }
-
-    .leftrightpadding {
-        padding: 0px 30px 0px 30px;
-    }
     </style>
 </head>
-<body style="text-align:justify;">
-    <div>
-        <!-- --------------------------------Heading---------------------------  -->
-        <?php include 'heading.php'; ?>
-        <!-- --------------------------------Heading---------------------------  -->
+
+<body >
+<!-- --------------------------------Heading---------------------------  -->
+    <div class="sticky-top">
+        <?php include 'heading.php'; ?> 
     </div>
-
-    <div class="leftrightpadding text-dark">
-
-        <!-- Top Heading section starts here -->
-        <div class="row mt-3">
-            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+<!-- --------------------------------Heading---------------------------  -->
+    <!-- <div class="bg-image">
+            <div class="bg-image__intro">
+            <?php// include 'header.php'; ?>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                <div class="text-left pb-2">
-                    <?php include 'header.php'; ?>
-                    <div>
+    </div>   -->
+    <div class="container-fluid mt-3 text-dark">     
+    <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="text-left pb-4">
+                        <?php include "header.php"; ?>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2">
-            </div>
-        </div>
-        <!-- Top Heading Section ends here  -->
-<!----------------------------------- Recently Published paper Section Starts Here------------------  -->
+            </div>  
+        <!----------------------------------- Recently Published paper Section Starts Here---------------------  -->
         <div class="row">
-            <!--  Journal Image Showing section starts here -->
             <div class="col-sm-12 col-md-12 col-xl-4 col-lg-4">
                 <img src="images/ijournal_img.jpg" class="img-fluid img-thumbnail w-100 " alt="Journal Image">
-                <div style="font-size:14px; text-align:justify;" class="p-1">
+                <div style="font-size:15px; text-align:justify;" class="p-1">
                     <p>The IUBAT Review is a multidisciplinary academic journal that the editors intend to publish
                         annually. The office of the journal is located at the International University of Business
                         Agriculture and Technology, the first non-government university in Bangladesh.
                     <p>
                     <p>IUBAT Review is peer-reviewed. The editors accept submissions from authors in Bangladesh and
                         elsewhere. The articles should generally analyze current issues relevant to management, social
-                        sciences, engineering, agriculture, science and technology.</p>
+                        sciences, engineering, agriculture, science and technology.
+                    </p>
 
-                    <div class="card bg-light mb-3 w-100 h-25" >
+                    <div class="card bg-light mb-3 w-100 h-25">
                         <div class="card-header">RECENTLY PUBLISHED</div>
                         <div class="card-body">
-
-                            <?php if ($total_published > 0) { ?>
+                            <?php                      
+                            if ($total_published > 0) { ?>
                             <!-- Published paper Showing Section Starts Here  -->
 
                             <?php $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.pdate from paper WHERE action=1 ORDER BY pdate DESC LIMIT 5";
@@ -109,24 +78,18 @@ $maximumyear = $row['total_rows'];
                                 $publishdate = date("d-M-Y", strtotime($publishdatestring));
                             ?>
                             <!-- Select User name section starts here  -->
-                            <?php include 'link/selectauthorname.php'; ?>
+                            <?php include 'link/selectauthorname.php'; ?> 
                             <!-- Select user  name section ends here  -->
 
                             <!-- Dashboard section starts  -->
 
                             <form action="paper-download" class="indexform" method="post">
-                                <input type="hidden" name="paperidpublic"
-                                    value="<?php echo htmlentities($result->paperid); ?>">
-                                <button class="bg-transparent"
-                                    style="border:none;outline:none;font-weight:500;color:#17defe;text-align:left;font-size:17px"
-                                    type="submit"
-                                    name="paperdownload"><?php echo htmlentities($result->papername); ?></button>
+                                <input type="hidden" name="paperidpublic" value="<?php echo htmlentities($result->paperid); ?>">
+                                <button class="bg-transparent" style="border:none;outline:none;font-weight:500;color:#17defe;text-align:left;font-size:17px"type="submit" name="paperdownload"><?php echo htmlentities($result->papername); ?></button>
                             </form>
-                            <h5 class="text-primary" style="font-size:16px;"><small><i class="fa fa-calendar"
-                                        aria-hidden="true"></i> Published on <?php echo $publishdate; ?></small></h5>
-
+                            <h5 class="text-primary" style="font-size:16px;"><small><i class="fa fa-calendar" aria-hidden="true"></i> Published on <?php echo $publishdate; ?></small></h5>
                             <!--Individual Read More section starts here   -->
-                            <script.>
+                            <script>
                             document.querySelector('#read-more-abstract<?php echo htmlentities($result->id); ?>')
                                 .addEventListener('click', function() {
                                     document.querySelector(
@@ -134,18 +97,16 @@ $maximumyear = $row['total_rows'];
                                         .height = 'auto';
                                     this.style.display = 'none';
                                 });
-                            </script.>
+                            </script>
                             <!-- Individual Read More section ends here  -->
                             <hr>
-
                             <!-- DashBoard Section ends  -->
-                            <?php }
-                } ?>
+                            <?php }  } ?>
                             <!-- Published paper showing section ends here  -->
                         </div>
                     </div>
                     <?php  } else { ?>
-                    <?php
+                <?php
                 $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$maximumyear' ORDER BY versionissue DESC LIMIT 5";
                 $query = $dbh->prepare($sql);
                 $query->execute();
@@ -156,15 +117,11 @@ $maximumyear = $row['total_rows'];
                   foreach ($results as $result) {
                     $filepathname = htmlentities($result->filename);
                     $filepath = 'documents/archivefile/' . $filepathname;
-
                     $publishdatestring = htmlentities($result->publisheddate);
-                    $publishdate = date("Y", strtotime($publishdatestring));
-          ?>
+                    $publishdate = date("Y", strtotime($publishdatestring)); ?>
 
-                    <a class="bg-transparent" href="<?php echo $filepath ?> " target="_blank"
-                        style="font-size:17px;border:none;outline:none;font-weight:500;text-align:left;"><?php echo htmlentities($result->papername); ?></a>
-                    <h5 class="text-dark" style="font-size:16px;"><small> <i class="fa fa-calendar"
-                                aria-hidden="true"></i> Published on <?php echo $publishdate; ?></small></h5>
+                    <a class="bg-transparent" href="<?php echo $filepath ?> " target="_blank"style="font-size:17px;border:none;outline:none;font-weight:500;text-align:left;"><?php echo htmlentities($result->papername); ?></a>
+                    <h5 class="text-dark" style="font-size:16px;"><small> <i class="fa fa-calendar" aria-hidden="true"></i> Published on <?php echo $publishdate; ?></small></h5>
                     <div class="d-flex justify-content-between">
                         <div>
                         </div>
@@ -173,26 +130,25 @@ $maximumyear = $row['total_rows'];
                         <!--Individual Read More section starts here   -->
                     </div>
                     </tr>
-                    <?php }
-                }  ?>
+                    <?php } }  ?>
                 </div>
             </div>
             <?php  }  ?>
         </div>
     </div>
-<!-- -------------------------------Recently Published paper Section Ends Here-------------------------  -->
+    <!-- -------------------------------Recently Published paper Section Ends Here------------------------------  -->
 
-<!-- ---------------------------------Latest Archive Showing section starts here --------------------- -->
+    <!-- ---------------------------------Latest Archive Showing section starts here ------------------------ -->
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <hr class="bg-success">
         <div class="text-left ">
         </div>
-        <hr class="bg-secondary">
         <!-- Else Current Issue Paper Showing Section Showing  -->
 
         <!--  Latest Archive Section starts Here  -->
         <table id="heading-table">
             <tbody>
-                <?php
+        <?php
         $maximumyeardec = $maximumyear - 1;
         $maximumyeardec2 = $maximumyear - 2;
         $sql = "SELECT archive.id,archive.paperid,archive.versionissue,archive.papername,archive.authorname,archive.filename,archive.publisheddate,archive.abstract from archive where versionissue='$maximumyear' or versionissue='$maximumyeardec' or versionissue='$maximumyeardec2' ORDER BY versionissue DESC LIMIT 10";
@@ -207,35 +163,24 @@ $maximumyear = $row['total_rows'];
             $filepath = 'documents/archivefile/' . $filepathname;
 
             $publishdatestring = htmlentities($result->publisheddate);
-            $publishdate = date("Y", strtotime($publishdatestring));
-        ?>
+            $publishdate = date("Y", strtotime($publishdatestring));?>
                 <tr>
                     <td>
                         <div class="jumbotron  mb-0 bg-transparent">
 
-                            <a class="bg-transparent"
-                                style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername); ?></a>
+                            <a class="bg-transparent" style="font-size:18px;border:none;outline:none;font-weight:500;color: #098680;text-align:left;"><?php echo htmlentities($result->papername); ?></a>
 
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h5 class="text-primary" style="font-size:16px;"><small>Published on
-                                            <?php echo $publishdate; ?></small></h5>
+                                    <h5 class="text-primary" style="font-size:16px;"><small>Published on <?php echo $publishdate; ?></small></h5>
                                 </div>
                                 <div>
-                                    <a style="font-size:14px;" class="btn btn-info btn-sm"
-                                        href="<?php echo $filepath ?> " target="_blank" role="button">Download</a>
+                                    <a style="font-size:15px;" class="btn btn-info btn-sm" href="<?php echo $filepath ?> " target="_blank" role="button">Download</a>
                                 </div>
                             </div>
-                            <h5 class="text-dark" style="font-size:16px;">
-                                <?php echo htmlentities($result->authorname); ?></h5>
-
-                            <p id="paper-abstract<?php echo htmlentities($result->id); ?>"
-                                style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span
-                                    style="font-weight:bold">Abstract:</span>
-                                <?php echo htmlentities($result->abstract); ?></p>
-                            <a style="cursor:pointer;" class="text-secondary float-right"><span
-                                    id="read-more-abstract<?php echo htmlentities($result->id); ?>">Read
-                                    more...</span></a>
+                            <h5 class="text-dark" style="font-size:16px;"> <?php echo htmlentities($result->authorname); ?></h5>
+                            <p id="paper-abstract<?php echo htmlentities($result->id); ?>" style="font-size:15px;font-weight:400;line-height: 1.7em;height: 5.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span> <?php echo htmlentities($result->abstract); ?></p>
+                            <a style="cursor:pointer;" class="text-secondary float-right"><span  id="read-more-abstract<?php echo htmlentities($result->id); ?>">Read more...</span></a>
                             <script>
                             document.querySelector('#read-more-abstract<?php echo htmlentities($result->id); ?>')
                                 .addEventListener('click', function() {
@@ -249,37 +194,27 @@ $maximumyear = $row['total_rows'];
                     </td>
     </div>
     </tr>
-
-    <?php }
-        }  ?>
+    <?php }  }  ?>
     </tbody>
     </table>
     </div>
-<!-- -------------------------------------Latest Archive Showing section ends here ---------------------- -->
-
-<!-- -----------------Sidebar ------------------------  -->
+    <!-- -------------------------------------Latest Archive Showing section ends here ---------------------- -->
+    <!-- -----------------Sidebar ------------------------  -->
     <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <?php
-  include 'sidelinks.php';
-  ?>
+        <?php include 'sidelinks.php'; ?>
     </div>
-<!-- -----------------Sidebar ------------------------  -->
+    <!-- -----------------Sidebar ------------------------  -->
     </div>
     <div class="pb-5"></div>
     <div class="pb-5"></div>
     <div class="pb-5"></div>
     </div>
-
-<!----------------------------- Footer ----------------------------- -->
-    <?php
-include 'footer.php';
-?>
-<!----------------------------- Footer ----------------------------- -->
+    <!----------------------------- Footer ----------------------------- -->
+    <?php include 'footer.php'; ?>
+    <!----------------------------- Footer ----------------------------- -->
     </div>
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
     <script>

@@ -5,7 +5,7 @@ include('../link/config.php');
 
   if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../chiefeditorlogin"); 
+    header("Location: ../login"); 
     }
     else  
     { 
@@ -76,14 +76,12 @@ include('../link/config.php');
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" href="../css/admin-dashboard.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
 
 <body>
-
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
         <?php include 'header.php'; ?>
@@ -92,9 +90,7 @@ include('../link/config.php');
     <div id="mySidebar" class="sidebar">
         <?php include 'sidebar.php'; ?>
     </div>
-
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
@@ -103,7 +99,6 @@ include('../link/config.php');
             <hr class="bg-secondary">
             <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4">
                 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
-
                     <thead>
                         <tr>
                             <th>#</th>
@@ -169,26 +164,16 @@ include('../link/config.php');
                             </td>
                         </tr>
                         <?php $cnt=$cnt+1;}} ?>
-
-
                     </tbody>
-
-
                 </table>
             </div>
-
             <div class="mb-5"></div>
         </div>
     </div>
-
     <!-- Authors showing section ends here  -->
-
-
     </div>
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
     <script>
@@ -211,19 +196,15 @@ include('../link/config.php');
     </script>
 
     <!-- Essential Js,Jquery  section ends  -->
-
-
 </body>
-
 </html>
 <?php 
 
 }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../chiefeditorlogin");
+  header("refresh:0;url=../login");
 }
 
 }
-    
 ?>

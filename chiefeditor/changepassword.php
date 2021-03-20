@@ -4,7 +4,7 @@ error_reporting(0);
 include('../link/config.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../chiefeditorlogin");  
+    header("Location: ../login");  
     }
     else
     {  
@@ -35,7 +35,7 @@ if(strlen($_SESSION['alogin'])=="")
     if(mysqli_query($link,$sqlpass))
     {
     echo "<script>alert('Password Changed Successfully');</script>";
-    header("refresh:0;url=../chiefeditorlogin");
+    header("refresh:0;url=../login");
     }
     else {
         echo "<script>alert('You entered wrong password Or,Your Current password cannot be your new password');</script>";
@@ -61,6 +61,7 @@ if(strlen($_SESSION['alogin'])=="")
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
 
     <title>Change password</title>
 
@@ -87,22 +88,14 @@ if(strlen($_SESSION['alogin'])=="")
 </head>
 
 <body>
-
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
-
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -143,12 +136,7 @@ include 'header.php';
                     </div>
                 </div>
                 <div class="form-group has-success">
-
-
-
                     <button type="submit" name="submit" class="btn btn-success btn-sm  ">Change password</button>
-
-
             </form>
 
             <div class="mb-5"></div>
@@ -157,17 +145,17 @@ include 'header.php';
 
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
 
 </body>
+
 </html>
 <?php     
 }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../chiefeditorlogin");
+  header("refresh:0;url=../login");
 }
 }
 ?>

@@ -5,7 +5,7 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location:../chiefeditorlogin");  
+    header("Location:../login");  
     } else {
 
      // Check that the Editor is logged in or not section starts here  
@@ -31,7 +31,7 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
 </head>
 <body>
     <!-- Author showing header sections starts  -->
@@ -142,7 +142,6 @@ if(strlen($_SESSION['alogin'])=="")
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
     <script>
@@ -168,8 +167,7 @@ if(strlen($_SESSION['alogin'])=="")
 <?php }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../chiefeditorlogin");
+  header("refresh:0;url=../login");
 }
-
 }
    ?>

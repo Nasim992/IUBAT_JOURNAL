@@ -1,45 +1,43 @@
 <?php  
-session_start();
-error_reporting(0);
-include 'link/config.php';
-if($link === false){
-    die("ERROR: Could not connect. " .mysqli_connect_error());
-}
+    session_start();
+    error_reporting(0);
+    include 'link/config.php';
+    if($link === false){
+        die("ERROR: Could not connect. " .mysqli_connect_error());
+    }
+    $id=($_POST['paperidpublic']); 
 
-// $id=($_GET['paperidpublic']);
-$id=($_POST['paperidpublic']); 
+    $sql = "SELECT * FROM paper WHERE paperid = '$id' ";
 
-$sql = "SELECT * FROM paper WHERE paperid = '$id' ";
+    $result = mysqli_query($link,$sql);
 
-$result = mysqli_query($link,$sql);
+    $file = mysqli_fetch_assoc($result);
 
-$file = mysqli_fetch_assoc($result);
+    $filename = $file['name'];
+    $papername = $file['papername'];
+    $abstract = $file['abstract'];
+    $authorname = $file['authoremail'];
+    $resubmitpaper = $file['resubmitpaper'];
 
-$filename = $file['name'];
-$papername = $file['papername'];
-$abstract = $file['abstract'];
-$authorname = $file['authoremail'];
-$resubmitpaper = $file['resubmitpaper'];
+    if(!empty($resubmitpaper)) {
+        $filepath = 'documents/resubmit/'.$file['resubmitpaper'];
+    }
+    else  {
+        $filepath = 'documents/file2/'.$file['name2'];
+    }
 
-if(!empty($resubmitpaper)) {
-    $filepath = 'documents/resubmit/'.$file['resubmitpaper'];
-}
-else  {
-    $filepath = 'documents/file2/'.$file['name2'];
-}
+    $sql = "SELECT * FROM author WHERE  primaryemail= '$authorname' ";
 
-$sql = "SELECT * FROM author WHERE  primaryemail= '$authorname' ";
+    $result1 = mysqli_query($link,$sql); 
 
-$result1 = mysqli_query($link,$sql); 
+    $file1 = mysqli_fetch_assoc($result1);
 
-$file1 = mysqli_fetch_assoc($result1);
+    $title = $file1['title'];
+    $fname= $file1['firstname'];
+    $middlename= $file1['middlename'];
+    $lastname= $file1['lastname'];
 
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
-
-$name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+    $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 ?>
 
@@ -57,14 +55,12 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
 <body>
     <div class="content">
-        <div>
+        <div class="sticky-top">
             <!-- Heading Sections starts  -->
-            <?php 
-     include 'heading.php'
-     ?>
+            <?php include 'heading.php'?>
             <!-- Heading Sections ends  -->
         </div>
-        <div class="container">
+        <div class="container mt-3">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
@@ -102,14 +98,11 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
         </div>
 
         <!-- Footer section starts here  -->
-        <?php
-    include 'footer.php';
-    ?>
+        <?php include 'footer.php'; ?>
         <!-- Footer section ends here  -->
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
     <script>

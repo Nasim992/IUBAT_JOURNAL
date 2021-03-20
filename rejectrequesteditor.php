@@ -3,8 +3,9 @@
  ob_start();
 
 session_start(); 
+error_reporting(0); 
  
- include("link/linklocal.php");   
+ include("link/config.php");   
  include('link/functionsql.php');
  ?>
 

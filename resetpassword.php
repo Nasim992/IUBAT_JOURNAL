@@ -1,8 +1,7 @@
 <?php 
 session_start();
 error_reporting(0);
-
-include('./link/linklocal.php');
+include('link/config.php');
 include('link/functionsql.php');
     $email = $_GET['email'];
     // Reset-Password section starts here 
@@ -35,7 +34,6 @@ include('link/functionsql.php');
     // Reset-Password section ends here 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,26 +41,11 @@ include('link/functionsql.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RESET PASSWORD</title>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
-    <script src="js/login.js"></script>
-    <link rel="shortcut icon" href="images/Iubat-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/heading.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/fontawesome.css">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <?php include('link/csslinks.php') ?>
 </head>
-
 <body>
-
     <div style="font-size:14px; font-weight:bold;" class="container form-control-login">
         <div class="row pt-5">
-
             <div id="logreg-forms">
                 <form class="form-signin marginbtm" method="post">
                     <div class="logo-container">
@@ -81,14 +64,9 @@ include('link/functionsql.php');
 
                     <button class="btn btn-success btn-sm btn-block" name="change-submit" type="submit"> Change
                         password</button>
-
                     <div class="pb-5"></div>
-
             </div>
-
         </div>
-
-
     </div>
     </div>
 

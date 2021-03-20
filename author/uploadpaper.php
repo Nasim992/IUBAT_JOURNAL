@@ -1,9 +1,7 @@
 <?php
 session_start();
-error_reporting(0);
-
+error_reporting(0);  
 include('../link/config.php');
-
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../login"); 
@@ -11,10 +9,7 @@ if(strlen($_SESSION['alogin'])=="")
     else
     { 
        $authoremail = $_SESSION["email"];
-
           //  Check that the author is logged in to the section or not starts here 
-
-
           $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
           $query = $dbh->prepare($sql); 
           $query->execute(); 
@@ -24,11 +19,6 @@ if(strlen($_SESSION['alogin'])=="")
             {
          
         // Check that the author is logged in to the section or not ends here 
-    
-
- 
-// Paper Uploaded Section Ends Here 
-
 ?>
 
 <!DOCTYPE html>

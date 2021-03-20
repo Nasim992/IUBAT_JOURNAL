@@ -5,8 +5,8 @@
     margin:2vh auto;
     background-color:#ffffff;
     box-shadow: 0 2px 5px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
-     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-     border:2px solid rgba(212, 214, 212, 0.904);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    border:2px solid rgba(212, 214, 212, 0.904);
 }
 #logreg-forms form {
     width: 100%;
@@ -87,7 +87,7 @@ margin: 10px 0px;
 
 @media screen and (max-width:500px){
     #logreg-forms{
-        width:400px;
+        width:100%;
     }
     
     #logreg-forms  .social-login{
@@ -179,11 +179,6 @@ color: #008000ba;
     
     margin: 0 15px;
     }
-
-    /* .login-details ul li a{
-    text-decoration: none;
-    }
-     */
 
      /* Instruction Section Starts here  */
     .description {

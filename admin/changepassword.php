@@ -4,7 +4,7 @@ error_reporting(0);
 include('../link/config.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../adminlogin");  
+    header("Location: ../login");  
     }
     else
     {  
@@ -35,7 +35,7 @@ if(strlen($_SESSION['alogin'])=="")
     if(mysqli_query($link,$sqlpass))
     {
     echo "<script>alert('Password Changed Successfully');</script>";
-    header("refresh:0;url=../adminlogin");
+    header("refresh:0;url=../login");
     }
     else {
         echo "<script>alert('You entered wrong password Or,Your Current password cannot be your new password');</script>";
@@ -159,7 +159,7 @@ if(strlen($_SESSION['alogin'])=="")
 }
 else {
   echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-  header("refresh:0;url=../adminlogin");
+  header("refresh:0;url=../login");
 }
 
 }

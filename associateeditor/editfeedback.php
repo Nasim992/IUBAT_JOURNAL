@@ -66,6 +66,9 @@ if(strlen($_SESSION['alogin'])=="")
         if(mysqli_query($link, $sqlreviewer))
         {
           move_uploaded_file($filetmpreviewer,"../documents/review/".$namereviewer);
+
+          
+
           echo "<script>alert('Feedback Sent Successfully');</script>"; 
           header("refresh:0;url=reviewedpaper");
         }

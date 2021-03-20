@@ -1,31 +1,25 @@
 <?php
-session_start();
-error_reporting(0);
+session_start(); 
+error_reporting(0);   
 include('../link/config.php'); 
-if(strlen($_SESSION['alogin'])=="")
+include('../link/count.php'); 
+if(strlen($_SESSION['alogin'])=="") 
     {    
-    header("Location: ../adminlogin"); 
+    header("Location: ../login");   
     } 
-    else 
+    else  
     {  
      // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
+     $adminemail = $_SESSION["email"]; 
 
-     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$editoremail'"; 
+     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$adminemail'"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
      $results=$query->fetchAll(PDO::FETCH_OBJ); 
      $cnt=1;
      if($query->rowCount() > 0) 
      {
-     
      // Check that the Editor is logged in or not section ends here 
-
-    //  Count 
-    include '../link/count.php';
-    // Count 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -36,18 +30,13 @@ if(strlen($_SESSION['alogin'])=="")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
-
-
 </head>
-
+ 
 <body>
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
         <?php include 'header.php'; ?>
@@ -77,7 +66,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4>Admin</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_admin ?>
+                                    <?php echo total_admin(); ?>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +84,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4>Author</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_authors;  ?>
+                                    <?php echo total_authors();  ?>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +101,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4> Associate Editor</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_associateeditors; ?>
+                                    <?php  echo total_associateeditors(); ?>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +118,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4>Academic Editors</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_academiceditors; ?>
+                                    <?php  echo total_academiceditors(); ?>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +135,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4>Reviewer</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_reviewered; ?>
+                                    <?php  echo total_reviewered(); ?>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +152,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4>Feedback</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo  $total_feedback; ?>
+                                    <?php echo  total_feedback() ; ?>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +170,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4>Published</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_published;  ?>
+                                    <?php  echo total_published();  ?>
                                 </div>
                             </div>
                         </div>
@@ -199,7 +188,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4>Unpublished</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_unpublished;  ?>
+                                    <?php echo total_unpublished();  ?>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +206,7 @@ if(strlen($_SESSION['alogin'])=="")
                                     <h4>Total Archive</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_archive; ?>
+                                    <?php echo total_archive(); ?>
                                 </div>
                             </div>
                         </div>
@@ -247,13 +236,10 @@ if(strlen($_SESSION['alogin'])=="")
 </html>
 
 <?php 
-
 }
 else {
   echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-  header("refresh:0;url=../adminlogin");
+  header("refresh:0;url=../login");
 }
-
 }
-    
 ?>

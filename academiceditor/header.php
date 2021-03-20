@@ -1,8 +1,4 @@
 <?php
-session_start();
-error_reporting(0);
-include('../link/config.php');
-
 if(strlen($_SESSION['alogin'])=="") 
     {    
     header("Location:../login");  
@@ -10,7 +6,6 @@ if(strlen($_SESSION['alogin'])=="")
 
       $email =  $_SESSION['alogin'];
      // Check that the Associate Editor  is logged in or not section starts here 
-
      $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.password,author.contact,author.academiceditor from author where primaryemail='$email' and academiceditor IS NOT NULL"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
@@ -58,7 +53,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <body>
 
-    <nav class="navbar nav-class navbar-expand-lg navbar-light">
+    <nav class="navbar nav-class navbar-expand-xl navbar-expand{-sm|-md|-lg|-xl}  navbar-light">
         <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">IUBAT Review</a>
         <h6 style="font-size:12px;">Welcome,<?php  echo  $fullname ;  } ?></h6>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -110,16 +105,9 @@ if(strlen($_SESSION['alogin'])=="")
                             onclick="return confirm('Are you sure you want Logging out the system?');"
                             title="Sign Out"><small>(Sign Out)</small><i class="fas fa-sign-out-alt"></i></a></span>
                 </li>
-
-
-
-
             </ul>
-
         </div>
     </nav>
-
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
@@ -144,7 +132,5 @@ else {
   echo "<script>alert('You are not a academiceditor.Try to log in as an Author');</script>";
   header("refresh:0;url=../login");
 }
-
-
 }
 ?>

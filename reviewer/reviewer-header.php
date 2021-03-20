@@ -2,7 +2,6 @@
 session_start();
 error_reporting(0);
 include('../link/config.php'); 
-
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../login");   
@@ -35,33 +34,30 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/heading.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
     <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
-
 </head>
 
 <body>
     <!-- Select User Name tile section starts Here  -->
     <?php  
+    $authoremail = $_SESSION["email"];
 
-$authoremail = $_SESSION["email"];
+    $sql1 = "SELECT * FROM author WHERE  primaryemail= '$email' ";
 
-$sql1 = "SELECT * FROM author WHERE  primaryemail= '$email' ";
+    $result1 = mysqli_query($link,$sql1); 
 
-$result1 = mysqli_query($link,$sql1); 
+    $file1 = mysqli_fetch_assoc($result1);
 
-$file1 = mysqli_fetch_assoc($result1);
+    $username = $file1['username'];
 
-$username = $file1['username'];
+    $title = $file1['title'];
+    $fname= $file1['firstname'];
+    $middlename= $file1['middlename'];
+    $lastname= $file1['lastname'];
 
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
+    $authorname = $title.' '.$middlename;
 
-$authorname = $title.' '.$middlename;
-
-?>
+    ?>
     <!-- Select User Name title section ends here -->
 
     <nav class="navbar nav-class navbar-expand-lg navbar-light">
@@ -91,26 +87,24 @@ $authorname = $title.' '.$middlename;
                 <ul>
 
                     <?php  
-include '../link/linklocal.php';
+                        $authoremail = $_SESSION["email"];
 
-$authoremail = $_SESSION["email"];
+                        $sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
 
-$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
+                        $result1 = mysqli_query($link,$sql1); 
 
-$result1 = mysqli_query($link,$sql1); 
+                        $file1 = mysqli_fetch_assoc($result1);
 
-$file1 = mysqli_fetch_assoc($result1);
+                        $username = $file1['username'];
 
-$username = $file1['username'];
+                        $title = $file1['title'];
+                        $fname= $file1['firstname'];
+                        $middlename= $file1['middlename'];
+                        $lastname= $file1['lastname'];
 
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
+                        $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
-$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
-
-?>
+                            ?>
                     <!-- Select user  name section ends here  -->
 
 
@@ -120,17 +114,9 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
                             <small>(Sign Out)</small> <i class="fas fa-sign-out-alt"></i></a>
                     </li>
                 </ul>
-
-
-
-
             </ul>
-
         </div>
     </nav>
-
-
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
@@ -146,9 +132,5 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
    echo "<script>alert('You are not selected as a Reviewer.');</script>";
    header("refresh:0;url=../login");
  }
-
-
 }
-
-    
     ?>

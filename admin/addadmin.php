@@ -5,7 +5,7 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../chiefeditorlogin"); 
+    header("Location: ../login"); 
     } 
     else 
     { 
@@ -184,7 +184,7 @@ if(strlen($_SESSION['alogin'])=="")
 }
 else {
   echo "<script>alert('You are not a Admin.Try to log in as an admin');</script>";
-  header("refresh:0;url=../adminlogin");
+  header("refresh:0;url=../login");
 }
 
 }

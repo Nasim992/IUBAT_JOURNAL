@@ -1,12 +1,13 @@
 <?php
 session_start();
-error_reporting(0);
-include('../link/config.php'); 
+error_reporting(0); 
+include('../link/config.php');  
+include('../link/count.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../chiefeditorlogin"); 
+    header("Location: ../login"); 
     } 
-    else 
+    else  
     {  
      // Check that the Editor is logged in or not section starts here  
      $editoremail = $_SESSION["email"];
@@ -18,12 +19,7 @@ if(strlen($_SESSION['alogin'])=="")
      $cnt=1;
      if($query->rowCount() > 0) 
      {
-     
      // Check that the Editor is logged in or not section ends here 
-
-    //  Count 
-    include '../link/count.php';
-    // Count
 ?>
 
 <!DOCTYPE html>
@@ -34,35 +30,25 @@ if(strlen($_SESSION['alogin'])=="")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="css/heading.css"> -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="css/admin-dashboard.css"> -->
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
-
-
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
 </head>
-
 <body>
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
@@ -80,7 +66,7 @@ include 'header.php';
                                     <h4>Admin</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_admin; ?>
+                                    <?php echo total_admin(); ?>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +84,7 @@ include 'header.php';
                                     <h4>Author</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_authors;  ?>
+                                    <?php echo total_authors();  ?>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +101,7 @@ include 'header.php';
                                     <h4> Associate Editor</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_associateeditors; ?>
+                                    <?php  echo total_associateeditors(); ?>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +118,7 @@ include 'header.php';
                                     <h4>Academic Editors</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_academiceditors; ?>
+                                    <?php  echo total_academiceditors(); ?>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +135,7 @@ include 'header.php';
                                     <h4>Reviewer</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_reviewered; ?>
+                                    <?php  echo total_reviewered(); ?>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +152,7 @@ include 'header.php';
                                     <h4>Feedback</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo  $total_feedback; ?>
+                                    <?php echo  total_feedback(); ?>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +170,7 @@ include 'header.php';
                                     <h4>Published</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_published; ?>
+                                    <?php echo total_published(); ?>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +188,7 @@ include 'header.php';
                                     <h4>Unpublished</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_unpublished; ?>
+                                    <?php echo total_unpublished(); ?>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +206,7 @@ include 'header.php';
                                     <h4>Total Archive</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_archive;  ?>
+                                    <?php echo total_archive();  ?>
                                 </div>
                             </div>
                         </div>
@@ -233,7 +219,6 @@ include 'header.php';
         </div>
         <!-- Essential Js,jquery,section starts  -->
         <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/jquery-3.5.1.slim.min.js"></script>
         <script src="../js/popper.min.js"></script>
         <script src="../js/jquery.dataTables.min.js"></script>
         <script>
@@ -254,7 +239,7 @@ include 'header.php';
 }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../chiefeditorlogin");
+  header("refresh:0;url=../login");
 }
 
 }

@@ -40,6 +40,8 @@ include('link/config.php');
 
     </div>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Essential Js,jquery,section starts  -->
 </body>
 

@@ -5,7 +5,7 @@ include '../link/config.php';
 include '../functions.php';
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location:../adminlogin"); 
+    header("Location:../login"); 
     } 
     else
     {   
@@ -829,6 +829,7 @@ if(isset($_POST['deletepaperchiefeditor'])) {
                                         name="select-associate-editor"><b><i class="fas fa-check"></i></b></button>
                                 </div>
                             </div>
+                            <br>
                         </form>
                         <?php 
                             $selection = $selection +1;    }  ?>
@@ -867,6 +868,7 @@ if(isset($_POST['deletepaperchiefeditor'])) {
                                         name="select-academic-editor"><b><i class="fas fa-check"></i></b></button>
                                 </div>
                             </div>
+                            <br>
                         </form>
                         <?php  $sel1 = $sel1 +1;    }
                         ?>
@@ -962,7 +964,7 @@ if(isset($_POST['deletepaperchiefeditor'])) {
   }
   else {
     echo "<script>alert('You are not admin.Try to log in as a admin');</script>";
-    header("refresh:0;url=../adminlogin");
+    header("refresh:0;url=../login");
   }
   
   }

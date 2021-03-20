@@ -38,6 +38,14 @@ $stmt->execute();
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $total_available = $row['total_available'];
 // Check that the id is available or not in the database
+
+    // Check that this paper is assigned or not 
+    $querypublished = "SELECT COUNT(*) as total_assign FROM editortable WHERE paperid='$idstr' and academiceditor IS NOT NULL";
+    $stmt = $dbh->prepare($querypublished);     
+    $stmt->execute();       
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $total_assign = $row['total_assign'];
+    // Check that this paper is assigned or not 
  
 $unpublished = $idstr[-1];
 
@@ -45,8 +53,8 @@ $paperid=rtrim($_GET['id'],"u");
 
 if (!empty($_GET['id'])) {
 
-    if($total_available==0) {
-        echo "<script>alert('This id is not available');</script>";
+    if($total_available==0 || $total_assign==0) {
+        echo "<script>alert('This id is not available.Or,You are not assign this paper');</script>";
         header("refresh:0;url=paperstatus");
     }
     else {
@@ -372,16 +380,12 @@ $resultacademiceditorshown=array_diff($arrayallusernameacademiceditor,$academice
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends-->
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
+        <?php include 'sidebar.php'; ?>
 
     </div>
 
@@ -418,14 +422,14 @@ include 'header.php';
                 <div class="d-flex justify-content-between">
                     <p class="fontSize14px"><b>Email:</b> <?php echo $authormail;?></p>
                     <p class="fontSize14px"><b>Co-Authors:</b>[<?php 
-        //  Showing Co Author Name section starts here 
-        foreach($cauname as $cname) {
-          if(!empty($cname)) {
-            echo $cname.',';
-          }
-        }
-        // Showing Co-Author Name Section ends here 
-         ?>]</p>
+                    //  Showing Co Author Name section starts here 
+                    foreach($cauname as $cname) {
+                    if(!empty($cname)) {
+                        echo $cname.',';
+                    }
+                    }
+                    // Showing Co-Author Name Section ends here 
+                    ?>]</p>
                 </div>
                 <div class="d-flex justify-content-between">
 
@@ -434,14 +438,14 @@ include 'header.php';
 
                                     <!-- Show Reviewer Selection section starts Here  -->
                                     <?php
-           foreach( $arrayusernamereviewershowing as $arrpap){
-            $sqlnameeditorr = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
-            $resultnameeditorr = mysqli_query($link,$sqlnameeditorr);
-            $filenameeditorr = mysqli_fetch_assoc($resultnameeditorr);
-            $fullname =  $filenameeditorr['title'].$filenameeditorr['firstname'].' '.$filenameeditorr['middlename'].' '.$filenameeditorr['lastname'];
-            echo $fullname.' '; 
-          }
-     ?>
+                                    foreach( $arrayusernamereviewershowing as $arrpap){
+                                        $sqlnameeditorr = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
+                                        $resultnameeditorr = mysqli_query($link,$sqlnameeditorr);
+                                        $filenameeditorr = mysqli_fetch_assoc($resultnameeditorr);
+                                        $fullname =  $filenameeditorr['title'].$filenameeditorr['firstname'].' '.$filenameeditorr['middlename'].' '.$filenameeditorr['lastname'];
+                                        echo $fullname.' '; 
+                                    }
+                                ?>
                                     <!-- Show Reviewer Selection Section ends here -->
 
 
@@ -452,28 +456,28 @@ include 'header.php';
                                 <small>
                                     <!-- Showing Selected editor Section Starts Here  -->
                                     <?php
-             foreach( $associateeditorshowing  as $arrpap){
-               $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
-               $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
-               $filenameeditorp = mysqli_fetch_assoc($resultnameeditorp);
-               $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
-               echo $fullname.' ';
-             }
-     ?>
+                                    foreach( $associateeditorshowing  as $arrpap){
+                                    $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
+                                    $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
+                                    $filenameeditorp = mysqli_fetch_assoc($resultnameeditorp);
+                                    $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
+                                    echo $fullname.' ';
+                                    }
+                            ?>
                                     <!-- Showing Selected editor section ends here -->
                                 </small></span></h6>
                         <h6 style="font-size:15px;" class="display-5"> Academic Editor:<span style='color:#122916;'>
                                 <small>
                                     <!-- Showing Selected editor Section Starts Here  -->
                                     <?php
-             foreach( $academiceditorshowing  as $arrpap){
-               $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
-               $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
-               $filenameeditorp = mysqli_fetch_assoc($resultnameeditorp);
-               $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
-               echo $fullname.' ';
-             }
-     ?>
+                                        foreach( $academiceditorshowing  as $arrpap){
+                                        $sqlnameeditorp = "SELECT title,firstname,middlename,lastname FROM author WHERE username='$arrpap'";
+                                        $resultnameeditorp = mysqli_query($link,$sqlnameeditorp);
+                                        $filenameeditorp = mysqli_fetch_assoc($resultnameeditorp);
+                                        $fullname =  $filenameeditorp['title'].$filenameeditorp['firstname'].' '.$filenameeditorp['middlename'].' '.$filenameeditorp['lastname'];
+                                        echo $fullname.' ';
+                                        }
+                                ?>
                                     <!-- Showing Selected editor section ends here -->
                                 </small></span></h6>
                     </div>
@@ -662,8 +666,5 @@ header("refresh:0;url=paperstatus");
     echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
     header("refresh:0;url=../login");
   }
-  
-  
   }
-  
     ?>

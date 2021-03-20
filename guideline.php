@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include('link/config.php');
 ?>
 <!DOCTYPE html>
@@ -20,18 +21,14 @@ include('link/config.php');
 
 <body>
     <div class="content">
-        <div>
             <!-- Heading Sections starts  -->
-            <?php
-            include 'heading.php'
-            ?>
+            <div class="sticky-top">
+                <?php include 'heading.php'; ?> 
+            </div>
             <!-- Heading Sections ends  -->
-        </div>
-
         <div class="container">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
                     <div class="text-left pb-4">
@@ -44,8 +41,6 @@ include('link/config.php');
                 <!-- Sidebar section starts here  -->
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <?php include "sidelinks.php"; ?>
-
-
                 </div>
                 <!-- Sidebar Section ends here  -->
                 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 guidelines">
@@ -68,51 +63,39 @@ include('link/config.php');
                                             <li style="list-style-type:square;font-weight:500;padding:5px;">Aims</li>
                                         </a>
                                         <a href="#benefitstoauthor">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Benefits to
-                                                Author</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Benefits to Author</li>
                                         </a>
                                         <a href="#conditions">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Conditions
-                                                for submission of manuscript</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Conditions for submission of manuscript</li>
                                         </a>
                                         <a href="#ethicalaspects">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Ethical
-                                                Aspects</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Ethical Aspects</li>
                                         </a>
                                         <a href="#manuscriptsubmission">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Manuscript
-                                                Submission</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Manuscript Submission</li>
                                         </a>
                                         <a href="#coveringletter">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Covering
-                                                Letter</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Covering Letter</li>
                                         </a>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-
                                         <a href="#manuscript-organization">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Manuscript
-                                                Organization</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Manuscript Organization</li>
                                         </a>
                                         <a href="#manuscript-format">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Manuscript
-                                                Format</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Manuscript Format</li>
                                         </a>
                                         <a href="#title-page">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Title page
-                                            </li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Title page </li>
                                         </a>
                                         <a href="#abstract">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Abstract
-                                            </li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Abstract</li>
                                         </a>
                                         <a href="#text-language">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Text
-                                                Language (usage and editing services)</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Text Language (usage and editing services)</li>
                                         </a>
                                         <a href="#introduction1">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Introduction
-                                            </li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Introduction</li>
                                         </a>
                                         <a href="#method">
                                             <li style="list-style-type:square;font-weight:500;padding:5px;"> Method</li>
@@ -127,28 +110,22 @@ include('link/config.php');
                                         </a>
                                         <div id="introduction"></div>
                                         <a href="#illustration">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">
-                                                Illustration/Discussion</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Illustration/Discussion</li>
                                         </a>
                                         <a href="#acknowledgement">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">
-                                                Acknowledgement</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Acknowledgement</li>
                                         </a>
                                         <a href="#reference-style">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Reference
-                                                style (APA Style)</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Reference style (APA Style)</li>
                                         </a>
                                         <a href="#reference-example">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Reference
-                                                examples:</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Reference examples:</li>
                                         </a>
                                         <a href="#submission-checklist">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Submission
-                                                checklist</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Submission checklist</li>
                                         </a>
                                         <a href="#publication-process">
-                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Publication
-                                                Process and Procedure</li>
+                                            <li style="list-style-type:square;font-weight:500;padding:5px;">Publication Process and Procedure</li>
                                         </a>
                                     </div>
                                 </div>
@@ -569,9 +546,7 @@ include('link/config.php');
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>

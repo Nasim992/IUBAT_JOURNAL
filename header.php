@@ -1,4 +1,4 @@
-<!-- Chief Editor name selection section starts here  -->
+<!-- Chief Editor name  -->
 <?php 
 $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.email,chiefeditor.contact from chiefeditor";
       $query = $dbh->prepare($sql); 
@@ -14,8 +14,7 @@ $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefedi
       }
     }
 ?>
-<!-- Chief Editor name Selection section ends here  -->
-
+<!-- Chief Editor name   -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,10 +25,10 @@ $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefedi
 </head>
 
 <body>
-    <h3 class="text-dark "><b>IUBAT Review</b></h3>
-    <h5 class="text-dark">A Multidisciplinary Academic Journal</h5>
-    <p class="text-secondary"><b>Editor-in-Chief : </b><?php echo $chiefeditorname; ?></p>
-    <a class="text-secondary" href="editorialboard" title="Journal Editorial Board"> View Editorial Board</a>
+    <h3 ><b>IUBAT Review</b></h3>
+    <h5 >A Multidisciplinary Academic Journal</h5>
+    <p ><b>Editor-in-Chief : </b><?php echo $chiefeditorname; ?></p>
+    <a  href="editorialboard" title="Journal Editorial Board"> View Editorial Board</a>
     <div class="d-flex justify-content-start">
         <!-- <a class="pr-3 text-secondary" href="#" title="Cite Score"><b>> Cite score : 0.00</b></a>
     <a class="text-secondary" href="#" title="Impact Factor"><b>Impact Factor : 0.00</b></a> -->

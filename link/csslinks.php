@@ -8,4 +8,24 @@
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/fontawesome.css">
     <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/loading.css"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+    .credit {
+        text-align: right !important;
+    }
+    footer { 
+        padding: 10px;
+    }
+
+    @media only screen and (max-width: 992px) {
+        .credit {
+            text-align: center !important;
+        }
+    }
+    .navbar-nav li a {
+        font-size: 15px;
+    }
+    </style>
+        <script src="js/jquery-3.5.1.slim.min.js"></script>

@@ -1,14 +1,10 @@
 <?php
-session_start();
-error_reporting(0);
-include('../link/config.php');
-
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../login");   
+    header("Location: ../login");    
     }
     else 
-    { 
+    {   
         $email =  $_SESSION['alogin'];
 
         // Check that the Author is logged in or not section starts here 
@@ -73,11 +69,11 @@ $middlename= $file1['middlename'];
 $lastname= $file1['lastname'];
 
 $authorname = $title.' '.$middlename;
-
+ 
 ?>
     <!-- Select User Name title section ends here -->
 
-    <nav class="navbar nav-class navbar-expand-lg navbar-light">
+    <nav class="navbar nav-class navbar-expand-xl navbar-expand{-sm|-md|-lg|-xl} } navbar-light">
         <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">IUBAT Review</a>
         <h6 style="font-size:12px;">Welcome,<?php  echo $authorname; ?></h6>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -145,9 +141,5 @@ $authorname = $title.' '.$middlename;
                   echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
                   header("refresh:0;url=../login");
                 }
-  
-  
   }
-    
-    
     ?>

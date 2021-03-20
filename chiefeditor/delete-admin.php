@@ -1,6 +1,6 @@
 <?php
 
-include '../link/linklocal.php';
+include '../link/config.php';
 
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
@@ -16,7 +16,6 @@ if(mysqli_query($link, $sql)){
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
- 
 // Close connection
 mysqli_close($link);
 

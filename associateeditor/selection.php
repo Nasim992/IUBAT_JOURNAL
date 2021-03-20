@@ -21,32 +21,38 @@ if(strlen($_SESSION['alogin'])=="")
      {
      // Check that the Associate Editor  is logged in or not section ends here 
 
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
+    if($link === false){
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
 
-// Paper description showing section starts here 
+    // Paper description showing section starts here 
 
-$idstr=strval($_GET['id']);
+    $idstr=strval($_GET['id']);
 
-// Check that the id is available or not in the database 
-$querypublished = "SELECT COUNT(*) as total_available FROM paper WHERE paperid='$idstr'";
-$stmt = $dbh->prepare($querypublished);     
-// execute query
-$stmt->execute();       
-// get total rows
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$total_available = $row['total_available'];
-// Check that the id is available or not in the database
- 
-$unpublished = $idstr[-1];
+    // Check that the id is available or not in the database 
+    $querypublished = "SELECT COUNT(*) as total_available FROM paper WHERE paperid='$idstr'";
+    $stmt = $dbh->prepare($querypublished);     
+    $stmt->execute();       
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $total_available = $row['total_available'];
+    // Check that the id is available or not in the database
 
-$paperid=rtrim($_GET['id'],"u");
+    // Check that this paper is assigned or not 
+    $querypublished = "SELECT COUNT(*) as total_assign FROM editortable WHERE paperid='$idstr' and associateeditor IS NOT NULL";
+    $stmt = $dbh->prepare($querypublished);     
+    $stmt->execute();       
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $total_assign = $row['total_assign'];
+    // Check that this paper is assigned or not 
+    
+    $unpublished = $idstr[-1];
 
-if (!empty($_GET['id'])) {
+    $paperid=rtrim($_GET['id'],"u");
 
-        if($total_available==0) {
-            echo "<script>alert('This id is not available');</script>";
+  if (!empty($_GET['id'])) { 
+
+        if($total_available==0 || $total_assign==0) {
+            echo "<script>alert('This id is not available.Or, you are not assign this paper');</script>";
             header("refresh:0;url=paperstatus");
         }
         else {
@@ -605,6 +611,7 @@ include 'header.php';
                                     name="select-academic-editor"><b><i class="fas fa-check"></i></b></button>
                             </div>
                         </div>
+                        <br>
                     </form>
                     <?php 
                     $sel1 = $sel1 +1;   

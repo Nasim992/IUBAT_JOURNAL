@@ -4,12 +4,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^([^\.]+)$ $1.php [NC,L] 
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^(css|images|js|fonts) - [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^chiefeditor/selection/id/([a-zA-Z0-9_-]+)  chiefeditor/selection.php?id=$1 [L,QSA]
-
 ErrorDocument 404 http://localhost/IUBAT_JOURNAL/error

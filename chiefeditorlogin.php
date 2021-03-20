@@ -2,15 +2,10 @@
 session_start();
 error_reporting(0);
 include('link/config.php');
-if($_SESSION['alogin']!=''){
-    $_SESSION['alogin']=''; 
-    }
-
-   //  Chief editor section starts here 
-
+   //  Chief editor section starts here  
     if(isset($_POST['chief-editor-login']))  
     {
-        $email = $_POST['input-email'];
+        $email = $_POST['input-email']; 
         $password=md5($_POST["input-password"]); 
         $_SESSION["email"]=$_POST['input-email']; // push to the session
     
@@ -29,14 +24,10 @@ if($_SESSION['alogin']!=''){
        }
        else {
         echo "<script>alert('Invalid Details.');</script>";
-        header("refresh:0;url=chiefeditorlogin");
+        header("refresh:0;url=login");
        }
     }
-    
-    
     // Chief editor section ends here 
-
-
 ?>
 
 

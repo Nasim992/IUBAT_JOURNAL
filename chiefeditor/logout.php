@@ -8,7 +8,7 @@ if (ini_get("session.use_cookies")) {
         $params["secure"], $params["httponly"]
     );
 }
-unset($_SESSION['../chiefeditorlogin']);
+unset($_SESSION['../login']);
 session_destroy(); // destroy session
-header("location:../chiefeditorlogin"); 
+header("location:../login"); 
 ?>

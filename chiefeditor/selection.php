@@ -5,7 +5,7 @@
   include '../functions.php';
   if(strlen($_SESSION['alogin'])=="") 
     {    
-    header("Location:../chiefeditorlogin"); 
+    header("Location:../login"); 
     } 
     else
     {  
@@ -865,6 +865,7 @@ if(isset($_POST['chief-update'])) {
                                         name="select-associate-editor"><b><i class="fas fa-check"></i></b></button>
                                 </div>
                             </div>
+                            <br>
                         </form>
                         <?php 
                         $selection = $selection +1;   
@@ -904,6 +905,7 @@ if(isset($_POST['chief-update'])) {
                                         name="select-academic-editor"><b><i class="fas fa-check"></i></b></button>
                                 </div>
                             </div>
+                            <br>
                         </form>
                         <?php 
                         $sel1 = $sel1 +1;   
@@ -1101,7 +1103,7 @@ header("refresh:0;url=unpublishedpaper");
   }
   else {
     echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-    header("refresh:0;url=../chiefeditorlogin");
+    header("refresh:0;url=../login");
   }
   }
     ?>

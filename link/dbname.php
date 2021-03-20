@@ -12,5 +12,5 @@ define('DB_NAME','iubat');
 // define('DB_PASS','d1cMVcXvOSxtu6q');
 // define('DB_NAME','epiz_27210191_iubat');
 // Establish database connection.
-
+ 
 ?>

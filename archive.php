@@ -1,9 +1,9 @@
-<?php 
+<?php
+error_reporting(0);
  include('link/config.php'); 
-?>
+ ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,6 @@
         padding: 0 !important;
         margin: 0 !important;
     }
-
     .indexform button:hover {
         color: #0b4953 !important;
     }
@@ -37,14 +36,11 @@
 
 <body>
     <div class="content">
-        <div class=>
+        <div class="sticky-top">
             <!-- Heading Sections starts  -->
-            <?php 
-    include 'heading.php'
-    ?>
+            <?php  include 'heading.php'?>
             <!-- Heading Sections ends  -->
         </div>
-
         <div class="container">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -60,25 +56,23 @@
             <div class="row">
                 <!-- Sidebar section starts here  -->
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-
                     <?php include "sidelinks.php"  ?>
-
                 </div>
                 <!-- Sidebar Section ends here  -->
                 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
                     <div class="text-left pb-4">
                         <h5 class="text-center">ARCHIVE</h5>
-                        <a onclick="showpoint()">
-                            <h6 class="text-info volumeissue" id="1stpoint">> VOLUME 1 ISSUE 1 </h6>
-                        </a>
-                        <a onclick="showpoint1()">
-                            <h6 class="text-info volumeissue" id="2ndpoint">> VOLUME 1 ISSUE 2 </h6>
+                        <a onclick="showpoint3()">
+                            <h6 class="text-info volumeissue" id="4thpoint">> VOLUME 2 ISSUE 1 </h6>
                         </a>
                         <a onclick="showpoint2()">
                             <h6 class="text-info volumeissue" id="3rdpoint">> VOLUME 1 ISSUE 3 </h6>
                         </a>
-                        <a onclick="showpoint3()">
-                            <h6 class="text-info volumeissue" id="3rdpoint">> VOLUME 2 ISSUE 1 </h6>
+                        <a onclick="showpoint1()">
+                            <h6 class="text-info volumeissue" id="2ndpoint">> VOLUME 1 ISSUE 2 </h6>
+                        </a>
+                        <a onclick="showpoint()">
+                            <h6 class="text-info volumeissue" id="1stpoint">> VOLUME 1 ISSUE 1 </h6>
                         </a>
                         <hr class="bg-secondary">
                         <!-- Archive  -->
@@ -107,14 +101,13 @@
                                         $publishdatestring = htmlentities($result->publisheddate);
                                         $publishdate = date("Y",strtotime($publishdatestring));
                                         ?>
-
                                     <!-- Dashboard section starts  -->
                                     <tr>
                                         <td>
                                             <div class="jumbotron text-justify  mb-0 bg-transparent">
 
                                                 <a class="bg-transparent"
-                                                    style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername);?></a>
+                                                    style="font-size:17px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
 
                                                 <div class="d-flex justify-content-between">
                                                     <div>
@@ -192,7 +185,7 @@
                                             <div class="jumbotron text-justify  mb-0 bg-transparent">
 
                                                 <a class="bg-transparent"
-                                                    style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername);?></a>
+                                                    style="font-size:17px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
 
                                                 <div class="d-flex justify-content-between">
                                                     <div>
@@ -270,7 +263,7 @@
                                         <div class="jumbotron text-justify  mb-0 bg-transparent">
 
                                             <a class="bg-transparent"
-                                                style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername);?></a>
+                                                style="font-size:17px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
 
                                             <div class="d-flex justify-content-between">
                                                 <div>
@@ -348,7 +341,7 @@
                                     <div class="jumbotron text-justify  mb-0 bg-transparent">
 
                                         <a class="bg-transparent"
-                                            style="font-size:17px;border:none;outline:none;font-weight:500;color:#17defe;text-align:left;"><?php echo htmlentities($result->papername);?></a>
+                                            style="font-size:17px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
                                         <div class="d-flex justify-content-between">
                                             <div>
                                                 <h5 class="text-primary" style="font-size:16px;"><small>Published on
@@ -393,9 +386,6 @@
                 </table>
             </div>
  <!-- -------------------------------------Volume 1 Issue 1 -------------------------------------------- -->
-
-
-
             <!-- Archive  -->
             </p>
         </div>
@@ -412,42 +402,55 @@
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
-
     <script>
     function showpoint() {
         document.getElementById("vol1issue1").style.display = "block";
-        document.getElementById("1stpoint").classList.add('colorbtn');
         document.getElementById("vol1issue2").style.display = "none";
         document.getElementById("vol2issue1").style.display = "none";
+
+        document.getElementById("1stpoint").classList.add('colorbtn');
+        document.getElementById("2ndpoint").classList.remove('colorbtn');
+        document.getElementById("3rdpoint").classList.remove('colorbtn');
+        document.getElementById("4thpoint").classList.remove('colorbtn');
     }
 
     function showpoint1() {
         document.getElementById("vol1issue1").style.display = "none";
-        document.getElementById("1stpoint").classList.add('colorbtn');
         document.getElementById("vol1issue2").style.display = "block";
         document.getElementById("vol1issue3").style.display = "none";
         document.getElementById("vol2issue1").style.display = "none";
+
+        document.getElementById("1stpoint").classList.remove('colorbtn');
+        document.getElementById("2ndpoint").classList.add('colorbtn');
+        document.getElementById("3rdpoint").classList.remove('colorbtn');
+        document.getElementById("4thpoint").classList.remove('colorbtn');
     }
 
     function showpoint2() {
         document.getElementById("vol1issue1").style.display = "none";
-        document.getElementById("1stpoint").classList.add('colorbtn');
         document.getElementById("vol1issue2").style.display = "none";
         document.getElementById("vol1issue3").style.display = "block";
         document.getElementById("vol2issue1").style.display = "none";
+
+        document.getElementById("1stpoint").classList.remove('colorbtn');
+        document.getElementById("2ndpoint").classList.remove('colorbtn');
+        document.getElementById("3rdpoint").classList.add('colorbtn');
+        document.getElementById("4thpoint").classList.remove('colorbtn');
     }
     function showpoint3() {
         document.getElementById("vol1issue1").style.display = "none";
-        document.getElementById("1stpoint").classList.add('colorbtn');
         document.getElementById("vol1issue2").style.display = "none";
         document.getElementById("vol1issue3").style.display = "none";
         document.getElementById("vol2issue1").style.display = "block";
+
+        document.getElementById("1stpoint").classList.remove('colorbtn');
+        document.getElementById("2ndpoint").classList.remove('colorbtn');
+        document.getElementById("3rdpoint").classList.remove('colorbtn');
+        document.getElementById("4thpoint").classList.add('colorbtn');
     }
     </script>
 
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>

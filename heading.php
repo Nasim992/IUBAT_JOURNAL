@@ -1,38 +1,20 @@
 <?php 
-session_start();
-error_reporting(0);
-include 'link/config.php';
+include('mailmessage/url.php');
 if (isset($_SESSION['alogin'])){
   $authoremail = $_SESSION["email"];
-}
+} 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
-    <style>
-    .navbar-nav li a {
-        font-size: 14px;
-    }
-    </style>
-</head>
-
-<body>
-    <nav id="navbar_top" class="navbar nav-class navbar-expand-xl  navbar-light ">
-        <a class="navbar-brand" style="font-size:20px;" href="index"><img src="images/Iubat-logo.png"> IUBAT Review</a>
+    <nav id="navbar_top" class="navbar nav-class navbar-expand-xl navbar-expand{-sm|-md|-lg|-xl} navbar-light ">
+        <a class="navbar-brand ml-3" style="font-size:20px;" href="<?php  echo $url; ?>"><img src="images/Iubat-logo.png"> IUBAT Review</a>
         <button style="margin-top:0px;" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto ul-nav">
                 <li class="nav-item">
-                    <span class="navbar-text"><a class="nav-link active" href="index">Home</a></span>
+                    <span class="navbar-text"><a class="nav-link active" href="<?php  echo $url; ?>">Home</a></span>
                 </li>
                 <li class="nav-item ">
                     <span class="navbar-text"><a class="nav-link" href="aimandscope">Aim and Scope</a></span>
@@ -64,39 +46,15 @@ if (isset($_SESSION['alogin'])){
 
                 <?php if(empty($authoremail)) {?>
                 <li class="nav-item">
-                    <span class="navbar-text"><a class="nav-link" href="login">Login</i></a></span>
+                    <span class="navbar-text mr-3"><a class="nav-link" href="login">Login</i></a></span>
                 </li>
                 <?php  }
                         else {
                         ?>
                 <li class="nav-item">
-                    <span class="navbar-text"><a class="nav-link" href="logout">logout</i></a></span>
+                    <span class="navbar-text mr-3"><a class="nav-link" href="logout">logout</i></a></span>
                 </li>
-                <?php    } ?>
+                <?php  } ?>
             </ul>
         </div>
     </nav>
-    <!-- Essential Js,jquery,section starts  -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-
-    <script>
-    ///////////////// fixed menu on scroll for desktop
-
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 40) {
-            $('#navbar_top').addClass("fixed-top");
-            // add padding top to show content behind navbar
-            $('body').css('padding-top', $('.navbar').outerHeight() + 'px');
-        } else {
-            $('#navbar_top').removeClass("fixed-top");
-            // remove padding top from body
-            $('body').css('padding-top', '0');
-        }
-    });
-    </script>
-    <!-- Essential Js,Jquery  section ends  -->
-</body>
-
-</html>

@@ -1,26 +1,20 @@
 <?php
-session_start();
-error_reporting(0);
-include('../link/config.php');
-
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location:../adminlogin");  
-    } else {
-
+if(strlen($_SESSION['alogin'])=="")  
+    {      
+    header("Location:../login");  
+    } else { 
       // Check that the admin is logged in or not section starts here 
-      $adminemail = $_SESSION["email"];
-
-       $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$adminemail'"; 
+      $adminemail = $_SESSION["alogin"];
+      $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$adminemail'"; 
       $query = $dbh->prepare($sql); 
       $query->execute(); 
-      $results=$query->fetchAll(PDO::FETCH_OBJ); 
+      $results=$query->fetchAll(PDO::FETCH_OBJ);  
       $cnt=1;
       if($query->rowCount() > 0) 
       { 
         foreach($results as $result) {
       // Check that the admin is logged in or not section ends here   
-?>
+      ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,9 +26,6 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <!-- <script src="../js/jquery-3.5.1.slim.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="../css/admin-dashboard.css"> -->
-    <!-- <link rel="stylesheet" href="../css/index.css">  -->
     <style>
     @media screen and (max-width: 990px) {
         .hidden {
@@ -51,7 +42,7 @@ if(strlen($_SESSION['alogin'])=="")
 
 <body>
 
-    <nav class="navbar nav-class navbar-expand-lg navbar-light">
+    <nav class="navbar nav-class navbar-expand-xl navbar-expand{-sm|-md|-lg|-xl}  navbar-light">
         <a class="navbar-brand" href="dashboard"><img src="../images/Iubat-logo.png">IUBAT Review</a>
         <h6 style="font-size:12px;">Welcome,<?php  echo htmlentities($result->fullname);  } ?></h6>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -59,7 +50,7 @@ if(strlen($_SESSION['alogin'])=="")
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse navbar-expand{-sm|-md|-lg|-xl}" id="navbarSupportedContent">
 
             <ul class="navbar-nav ml-auto ul-nav">
 
@@ -81,8 +72,7 @@ if(strlen($_SESSION['alogin'])=="")
                     <span class="navbar-text"><a href="changepassword" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a></span>
                 </li>
                 <li class="nav-item hidden active" title="Changed password">
-                    <span class="navbar-text"><a href="changepasswordchief" class="sidebars nav-link"><i
-                                class="fas fa-unlock-alt"></i>&nbsp Change password(chiefeditor)</a></span>
+                    <span class="navbar-text"><a href="changepasswordchief" class="sidebars nav-link"><i class="fas fa-unlock-alt"></i>&nbsp Change password(chiefeditor)</a></span>
                 </li>
                 <li class="nav-item hidden active" title="Author states">
                     <span class="navbar-text"><a href="admin" class="sidebars nav-link"><i  class="fas fa-users-cog"></i>&nbsp Admin States</a></span>
@@ -122,8 +112,6 @@ if(strlen($_SESSION['alogin'])=="")
 
         </div>
     </nav>
-
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
@@ -145,6 +133,6 @@ if(strlen($_SESSION['alogin'])=="")
 <?php }
     else {
       echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-      header("refresh:0;url=../adminlogin");
+      header("refresh:0;url=../login");
     }
    }?>

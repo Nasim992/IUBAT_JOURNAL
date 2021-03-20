@@ -1,6 +1,4 @@
-<?php 
- include('link/config.php'); 
-?>
+<?php include('link/config.php');  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,19 +9,15 @@
     <!-- Css links -->
     <?php include 'link/csslinks.php'; ?>
     <!-- Css links -->
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
 </head>
 
 <body>
     <div class="content">
-        <div>
+        <div class="sticky-top">
             <!-- Heading Sections starts  -->
-            <?php 
-    include 'heading.php'
-    ?>
+            <?php include 'heading.php'?>
             <!-- Heading Sections ends  -->
         </div>
-
         <div class="container">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -103,9 +97,7 @@
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>

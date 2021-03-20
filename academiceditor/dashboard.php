@@ -2,6 +2,7 @@
 session_start();
 error_reporting(0);
 include('../link/config.php'); 
+include('../link/count.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../login");  
@@ -10,7 +11,6 @@ if(strlen($_SESSION['alogin'])=="")
     {  
       $email =  $_SESSION['alogin'];
      // Check that the Associate Editor is logged in or not section starts here 
-
      $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.academiceditor from author where primaryemail='$email' and academiceditor IS NOT NULL"; 
      $query = $dbh->prepare($sql); 
      $query->execute(); 
@@ -20,11 +20,6 @@ if(strlen($_SESSION['alogin'])=="")
      {
  
 // Check that the Associate Editor  is logged in or not section ends here 
-
-      // Count
-      include '../link/count.php';
-      // Count
-
 ?>
 
 <!DOCTYPE html>
@@ -41,25 +36,17 @@ if(strlen($_SESSION['alogin'])=="")
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
-
-
 </head>
 
 <body>
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php'; 
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php';  ?>
     </div>
 
     <div id="main">
@@ -82,46 +69,12 @@ include 'header.php';
                                     <h4>Author</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo $total_authors ;  ?>
+                                    <?php echo total_authors();  ?>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
-                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <a href="editordetails">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                  <i class="far fa-user"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4> Associate Editor</h4>
-                  </div>
-                  <div class="card-body">
-                    <?php  echo $total_academiceditors; ?>
-                  </div>
-                </div>
-              </div>
-              </a>
-            </div> -->
-                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <a href="editordetails">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                  <i class="far fa-user"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>Academic Editors</h4>
-                  </div>
-                  <div class="card-body">
-                    <?php  echo $total_academiceditors; ?>
-                  </div>
-                </div>
-              </div>
-              </a>
-            </div> -->
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <a href="reviewerdetails">
                         <div class="card card-statistic-1">
@@ -133,7 +86,7 @@ include 'header.php';
                                     <h4>Reviewer</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php  echo $total_reviewered; ?>
+                                    <?php  echo total_reviewered(); ?>
                                 </div>
                             </div>
                         </div>
@@ -150,14 +103,14 @@ include 'header.php';
                                     <h4>Feedback</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php echo  $total_feedback; ?>
+                                    <?php echo  total_feedback(); ?>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
 
-                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
              <a href="publishedpaper">
              <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
@@ -169,13 +122,13 @@ include 'header.php';
                   </div>
                   <div class="card-body">
                     <?php
-                    echo $total_published;
+                    echo total_published();
                     ?>
                   </div>
                 </div>
               </div>
              </a>
-            </div> -->
+            </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <a href="paperstatus">
@@ -188,9 +141,7 @@ include 'header.php';
                                     <h4>Assigned paper</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php
-                    echo $total_acapaper;
-                    ?>
+                                    <?php echo total_acapaper($email); ?>
                                 </div>
                             </div>
                         </div>
@@ -220,15 +171,10 @@ include 'header.php';
 </html>
 
 <?php 
-
 }
 else {
   echo "<script>alert('You are not a academiceditor.Try to log in as an Author');</script>";
   header("refresh:0;url=../login");
 }
-
-
-}
-
-    
+}   
 ?>

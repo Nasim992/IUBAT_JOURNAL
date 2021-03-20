@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+error_reporting(0);  
 include('../link/config.php');
 include('../link/functionsql.php');
 include('../functions.php');
@@ -367,15 +367,11 @@ $coauthoraddress = serialize(array($cauaddress1,$cauaddress2,$cauaddress3,$cauad
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'author-header.php';
-?>
+        <?php include 'author-header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar">
-        <?php 
-  include 'author-sidebar.php';
-  ?>
+        <?php  include 'author-sidebar.php'; ?>
     </div>
     <div id="main">
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
@@ -396,7 +392,7 @@ include 'author-header.php';
                             <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Abstract:</b></label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="summary" rows="10"
-                                    placeholder="Write the Abstract of this paper" required></textarea>
+                                    placeholder="Write the Abstract of this paper" minlength="255" required></textarea>
                             </div>
                         </div>
                         <br>

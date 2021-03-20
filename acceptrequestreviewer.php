@@ -3,8 +3,10 @@
  ob_start();
 
 session_start();
- 
- include("link/linklocal.php");  
+
+error_reporting(0); 
+
+ include("link/config.php");  
  include('link/functionsql.php');
  ?>
 

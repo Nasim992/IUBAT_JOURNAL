@@ -2,13 +2,14 @@
  
  ob_start();
 
-session_start();
+session_start(); 
+
+error_reporting(0); 
  
  include("link/linklocal.php"); 
  include('link/functionsql.php');
+ include("functions.php");
  ?>
-
- <?php include("functions.php"); ?>
 
  <!DOCTYPE html>
  <html lang="en">

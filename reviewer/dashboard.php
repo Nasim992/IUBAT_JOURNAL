@@ -2,14 +2,14 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-
+include('../link/count.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
     header("Location: ../login"); 
     } 
     else 
     {  
-           $authoremail = $_SESSION["email"];
+        $authoremail = $_SESSION["email"];
         // Check that the Reviewer is logged in or not section starts here 
 
         $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail' and reviewerselection IS NOT NULL"; 
@@ -20,10 +20,6 @@ if(strlen($_SESSION['alogin'])=="")
         if($query->rowCount() > 0) 
         {
       // Check that the Reviewer is logged in or not section ends here 
-     
-      // Count
-      include '../link/count.php';
-      // Count
 ?>
 
 <!DOCTYPE html>
@@ -48,15 +44,11 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'reviewer-header.php'; 
-?>
+        <?php include 'reviewer-header.php';  ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar">
-        <?php 
-  include 'reviewer-sidebar.php';
-  ?>
+        <?php include 'reviewer-sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -79,9 +71,7 @@ include 'reviewer-header.php';
                                     <h4>Reviewed</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php
-                       echo $total_reviewed;
-                    ?>
+                                    <?php  echo total_reviewed($authoremail); ?>
                                 </div>
                             </div>
                         </div>
@@ -99,16 +89,12 @@ include 'reviewer-header.php';
                                     <h4>Reviewing</h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php
-                    echo $total_reviewing;
-                    ?>
+                                    <?php echo total_reviewing($authoremail); ?>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
-
-
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
@@ -120,14 +106,13 @@ include 'reviewer-header.php';
                                 <h4>Feedback</h4>
                             </div>
                             <div class="card-body">
-                                0
+                                <?php  echo feedbackr($authoremail); ?>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Progress bar section ends here  -->
-
             </div>
         </div>
         <!-- Essential Js,jquery,section starts  -->
@@ -169,7 +154,5 @@ include 'reviewer-header.php';
    echo "<script>alert('You are not selected as a Reviewer.');</script>";
    header("refresh:0;url=../login");
  }
-
-
 }
 ?>

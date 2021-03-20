@@ -33,7 +33,5 @@
     <a href="archive" class="sidebars"><i class="fa fa-table" aria-hidden="true"></i>&nbsp Archive</a>
     <a href="archivepaper" class="sidebars"><i class="fa fa-table" aria-hidden="true"></i>&nbsp Archive paper</a>
     <a href="#" class="sidebars"></a>
-
 </body>
-
 </html>

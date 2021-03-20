@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include('link/config.php');
 ?>
 <!DOCTYPE html>
@@ -16,18 +17,14 @@ include('link/config.php');
 
 <body>
     <div class="content">
-
             <!-- Heading Sections starts  -->
-            <?php
-            include 'heading.php';
-            ?> 
+            <div class="sticky-top">
+                <?php include 'heading.php'; ?> 
+           </div>
             <!-- Heading Sections ends  -->
-
-
         <div class="container">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
                     <div class="text-left pb-4">
@@ -39,20 +36,16 @@ include('link/config.php');
             <div class="row">
                 <!-- Sidebar section starts here  -->
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-
                     <?php include "sidelinks.php"; ?>
-
                 </div>
                 <!-- Sidebar Section ends here  -->
                 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
                     <div class="text-left pb-4">
-<!-- -----------------------Aim and Scope ------------------------------------ -->
                         <h5 class="text-center">AIM AND SCOPE</h5>
                         <hr class="bg-secondary">
                         <p>It aims to address the most important issues in the aforementioned fields. The journal can be
                             of great value to teachers, students, researchers, and experts dealing with these fields</p>
                         </p>
-<!-- -----------------------Aim and Scope ------------------------------------ -->
                     </div>
                 </div>
             </div>
@@ -60,15 +53,12 @@ include('link/config.php');
             <div class="pb-5"></div>
         </div>
         <!-- Footer section starts here  -->
-        <?php
-        include 'footer.php'
-        ?>
+        <?php include 'footer.php' ?>
         <!-- Footer section ends here  -->
     </div>
 
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script>
     $(" .ul-nav li a").on("click", function() {
@@ -76,7 +66,6 @@ include('link/config.php');
         $(this).addClass("active");
     });
     </script>
-
     <!-- Essential Js,Jquery  section ends  -->
 </body>
 

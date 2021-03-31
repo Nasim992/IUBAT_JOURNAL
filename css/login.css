@@ -119,34 +119,6 @@ margin: 10px 0px;
     
 }
 
-/* .Admin_Author {
-    display : flex !important;
-    flex-wrap: wrap;
-} */
-.Admins{
-    flex-basis: 50%;
-    float :left;
-    /* background-color:#28a745; */
-    text-align:center;
-    border-radius: 5px;
-    margin-left:2px;
-    cursor:pointer;
-}
-.Authors {
-    flex-basis: 50%;
-    float :left;
-    /* background-color:#007bff; */
-    text-align:center; 
-    border-radius: 5px;
-    margin-left:2px;
-}
-.admin-author {
-    /* color : white; */
-    font-size:16px;
-
-    text-align:center;
-    cursor:pointer;
-}
 .logo-container {
     
 width: 50px;

@@ -3,23 +3,10 @@ session_start();
 error_reporting(0);
 include('../link/config.php');
 include('../link/count.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    } 
-    else 
-    {  
-        $authoremail = $_SESSION["email"];
-        // Check that the Reviewer is logged in or not section starts here 
-
-        $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail' and reviewerselection IS NOT NULL"; 
-        $query = $dbh->prepare($sql); 
-        $query->execute(); 
-        $results=$query->fetchAll(PDO::FETCH_OBJ); 
-        $cnt=1;
-        if($query->rowCount() > 0) 
-        {
-      // Check that the Reviewer is logged in or not section ends here 
+include('../functions.php');
+checkLoggedInOrNot();  
+$authoremail = $_SESSION["email"];
+IsReviewerLoggedIn($authoremail);
 ?>
 
 <!DOCTYPE html>
@@ -145,14 +132,4 @@ if(strlen($_SESSION['alogin'])=="")
         </script>
         <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
-<?php 
- }
- else {
-   echo "<script>alert('You are not selected as a Reviewer.');</script>";
-   header("refresh:0;url=../login");
- }
-}
-?>

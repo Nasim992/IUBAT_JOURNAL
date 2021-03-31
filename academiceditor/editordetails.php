@@ -86,18 +86,13 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php';  ?>
     </div>
 
     <div id="main">
@@ -285,7 +280,7 @@ foreach($results as $result)
 }
 else {
   echo "<script>alert('You are not a academiceditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
+  echo "<script type='text/javascript'> document.location = '../login'; </script>";
 }
 
 

@@ -2,26 +2,10 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');  
-
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    }
-    else  
-    { 
-
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
-
-     $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.contact FROM chiefeditor WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     
-     // Check that the Editor is logged in or not section ends here 
+include('../functions.php');
+checkLoggedInOrNot();
+$editoremail = $_SESSION["email"];
+IsChiefEditorLoggedIn($editoremail);
 
     // Associate Editor 
     if(isset($_POST['select-associateeditor'])) {
@@ -31,7 +15,7 @@ if(strlen($_SESSION['alogin'])=="")
         $sqlquthor = "UPDATE author SET associateeditor=1,academiceditor=NULL,reviewerselection=NULL WHERE primaryemail='$pemail'";
         if(mysqli_query($link, $sqlquthor)){
             echo "<script>alert('Associate Editor Select Successfully.');</script>";
-            header("refresh:0;url=selecteditor");
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
         }
         else {
             echo "<script>alert('Something went wrong.');</script>";
@@ -48,7 +32,7 @@ if(strlen($_SESSION['alogin'])=="")
         $sqlquthor = "UPDATE author SET academiceditor=1,associateeditor=NULL,reviewerselection=NULL WHERE primaryemail='$pemail'";
         if(mysqli_query($link, $sqlquthor)){
             echo "<script>alert('Academic Editor Select Successfully.');</script>";
-            header("refresh:0;url=selecteditor");
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
         }
         else {
             echo "<script>alert('Something went wrong.');</script>";
@@ -65,7 +49,8 @@ if(strlen($_SESSION['alogin'])=="")
         $sqlquthor = "UPDATE author SET academiceditor=NULL,associateeditor=NULL WHERE primaryemail='$pemail'";
         if(mysqli_query($link, $sqlquthor)){
             echo "<script>alert('Author Selected Successfully.');</script>";
-            header("refresh:0;url=selecteditor");
+            // header("refresh:0;url=selecteditor");
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
          }
         else {
               echo "<script>alert('Something went wrong.');</script>";
@@ -216,13 +201,4 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-<?php 
-}
-else {
-  echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../login");
-}
-}
-?>

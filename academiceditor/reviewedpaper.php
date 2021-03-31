@@ -2,26 +2,12 @@
 session_start();
 error_reporting(0);
 include '../link/config.php';
-include '../functions.php';
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location:../login"); 
-    } 
-    else
-    {  
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
+include('../functions.php');
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAcademicEditorLoggedIn($email);
 
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.academiceditor from author where primaryemail='$email' and academiceditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0)  
-     {
-     // Check that the Associate Editor  is logged in or not section ends here 
-
-    //  --------------------Selecting paper id form Associate Editor ------------------------
+    //  --------------------Selecting paper id form Academic Editor ------------------------
 
             $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.feedback,editortable.academiceditor from editortable Where primaryemail='$email' and feedback IS NOT NULL and academiceditor IS NOT NULL";
             $query = $dbh->prepare($sql); 
@@ -38,7 +24,7 @@ if(strlen($_SESSION['alogin'])=="")
             }
         }
       
-    // --------------------- Selecting paper id form Associate Editor ------------------------
+    // --------------------- Selecting paper id form Academic Editor ------------------------
 ?>
 
 <!DOCTYPE html>
@@ -64,71 +50,60 @@ if(strlen($_SESSION['alogin'])=="")
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends-->
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
-
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
             <!-- --------------------------------Reviewed paper -------------------------------- -->
-
             <h6>REVIEWED PAPER</h6>
             <hr class="bg-secondary">
-
             <div class="table-responsive">
                 <table id="dtBasicExample" cellspacing="0">
-
                     <thead>
                         <tr>
                             <th></th>
                         </tr>
                     </thead>
-
                     <tbody id="myTable">
                         <?php 
-    foreach ($arraypaperidreviewer  as $pid) {
-        $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2,paper.resubmitpaper from paper WHERE  paperid='$pid'";
+                        if(empty($arraypaperidreviewer)) { echo "Not Reviewed any paper Yet !";}
+                        foreach ($arraypaperidreviewer  as $pid) {
+                            $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2,paper.resubmitpaper from paper WHERE  paperid='$pid'";
 
-        $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
-        
-        $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
+                            $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
+                            
+                            $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
-        $id =  $filereviewerselection['paperid'];
-        $papername = $filereviewerselection['papername'];
-        $numberofcoauthor = $filereviewerselection['numberofcoauthor']; 
-        $abstract = $filereviewerselection['abstract'];
-        $authoremailpaper = $filereviewerselection['authoremail'];
-        $name = $filereviewerselection['name'];
-        $filepathdoc = '../documents/file1/'.$filereviewerselection['name1']; 
-        $filepathpdf = '../documents/file2/'.$filereviewerselection['name2']; 
-        $filepathresubmit = '../documents/resubmit/'.$filereviewerselection['resubmitpaper']; 
-        $type = $filereviewerselection['type'];
-        $action = $filereviewerselection['action']; 
+                            $id =  $filereviewerselection['paperid'];
+                            $papername = $filereviewerselection['papername'];
+                            $numberofcoauthor = $filereviewerselection['numberofcoauthor']; 
+                            $abstract = $filereviewerselection['abstract'];
+                            $authoremailpaper = $filereviewerselection['authoremail'];
+                            $name = $filereviewerselection['name'];
+                            $filepathdoc = '../documents/file1/'.$filereviewerselection['name1']; 
+                            $filepathpdf = '../documents/file2/'.$filereviewerselection['name2']; 
+                            $filepathresubmit = '../documents/resubmit/'.$filereviewerselection['resubmitpaper']; 
+                            $type = $filereviewerselection['type'];
+                            $action = $filereviewerselection['action']; 
 
-        $mainuploaddate = $filereviewerselection['uploaddate'];
+                            $mainuploaddate = $filereviewerselection['uploaddate'];
 
-        $uploaddate =  date("d-M-Y",strtotime($mainuploaddate));
+                            $uploaddate =  date("d-M-Y",strtotime($mainuploaddate));
 
-        $type = $filereviewerselection['type'];
-        
-        $pdatestring = $filereviewerselection['pdate'];
-        $pdate = date("d-M-Y",strtotime( $pdatestring));
-        ?>
+                            $type = $filereviewerselection['type'];
+                            
+                            $pdatestring = $filereviewerselection['pdate'];
+                            $pdate = date("d-M-Y",strtotime( $pdatestring));
+                            ?>
                         <?php    ?>
                         <!-- Select user  name section ends here  -->
-
                         <!-- Dashboard section starts  -->
                         <tr>
                             <td>
@@ -152,8 +127,7 @@ include 'header.php';
                                                     <span style="color:green;">
                                                         <?php
                                                                 echo "Published on ".$pdate;
-                                                            }
-                                                            
+                                                            }                                                      
                                                             ?>
                                                     </span></b></p>
                                         </div>
@@ -218,15 +192,4 @@ include 'header.php';
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
-
-<?php 
-  }
-  else {
-    echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-    header("refresh:0;url=../login");
-  }
-  }
-    ?>

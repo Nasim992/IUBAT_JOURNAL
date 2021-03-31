@@ -5,7 +5,7 @@ include '../link/config.php';
 include '../functions.php'; 
 if(strlen($_SESSION['alogin'])=="")
     {     
-        header("Location:../login");  
+        echo "<script type='text/javascript'> document.location = '../login'; </script>";  
     }
     else
     {  
@@ -209,7 +209,7 @@ header("refresh:0;url=publishedpaper");
   }
   else {
     echo "<script>alert('You are not a academiceditor.Try to log in as an Author');</script>";
-    header("refresh:0;url=../login");
+    echo "<script type='text/javascript'> document.location = '../login'; </script>";
   }
   
   

@@ -2,25 +2,13 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login");  
-    }
-    else
-    {  
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
+include('../link/functionsql.php');
+include('../functions.php');
+checkLoggedInOrNot();
+$adminemail = $_SESSION["email"];
+IsAdminLoggedIn($adminemail);
 
-     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     // Check that the Editor is logged in or not section ends here 
-        // $authoremail = $_SESSION["email"];
-
+// Change password admin 
     if(isset($_POST['submit']))
       {
     $password=($_POST['password']);
@@ -29,13 +17,11 @@ if(strlen($_SESSION['alogin'])=="")
     $confirmpassword = md5($_POST['confirmpassword']);
 
     if($password !== $confirmpassword) {
-
-    $sqlpass="update admin set password='$newpassword' where email='$editoremail'";
-    
+    $sqlpass="update admin set password='".escape($newpassword)."' where email='$editoremail'";
     if(mysqli_query($link,$sqlpass))
     {
     echo "<script>alert('Password Changed Successfully');</script>";
-    header("refresh:0;url=../login");
+    echo "<script type='text/javascript'> document.location = '../logout'; </script>";
     }
     else {
         echo "<script>alert('You entered wrong password Or,Your Current password cannot be your new password');</script>";
@@ -47,6 +33,7 @@ if(strlen($_SESSION['alogin'])=="")
     header("refresh:0;url=changepassword");
   }
     }    
+// Change Password Admin
 
 ?>
 
@@ -106,7 +93,7 @@ if(strlen($_SESSION['alogin'])=="")
                 <div class="form-group has-success">
                     <label for="success" class="control-label">Current Password</label>
                     <div class="">
-                        <input type="hidden" name="editoremail" value="<?php  echo $editoremail;?>">
+                        <input type="hidden" name="editoremail" value="<?php  echo $adminemail;?>">
                         <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                             title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
                             class="form-control" required="required" id="success" placeholder="Enter Old Password">
@@ -131,11 +118,7 @@ if(strlen($_SESSION['alogin'])=="")
                     </div>
                 </div>
                 <div class="form-group has-success">
-
-
-
                     <button type="submit" name="submit" class="btn btn-success btn-sm  ">Change password</button>
-
 
             </form>
 
@@ -150,18 +133,4 @@ if(strlen($_SESSION['alogin'])=="")
     <!-- Essential Js,Jquery  section ends  -->
 
 </body>
-
 </html>
-
-<?php     
-
-
-}
-else {
-  echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-  header("refresh:0;url=../login");
-}
-
-}
-    
-?>

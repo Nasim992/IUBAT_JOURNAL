@@ -257,7 +257,7 @@ if(strlen($_SESSION['alogin'])=="")
 }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../login");
+  echo "<script type='text/javascript'> document.location = '../login'; </script>";
 }
 
 }

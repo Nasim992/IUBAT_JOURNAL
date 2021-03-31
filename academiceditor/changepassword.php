@@ -2,38 +2,26 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login");  
-    }
-    else
-    {  
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
-
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.academiceditor from author where primaryemail='$email' and academiceditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-
-// Check that the Associate Editor  is logged in or not section ends here 
-        if(isset($_POST['submit']))
-        {
+include('../link/functionsql.php');
+include('../functions.php');
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAcademicEditorLoggedIn($email);
+// Change Password
+if(isset($_POST['submit']))
+    {
       $password=($_POST['password']);
       $newpassword=md5($_POST['newpassword']);
       $confirmpassword = md5($_POST['confirmpassword']);
   
       if($password !== $confirmpassword) { 
   
-      $sqlpass="update author set password='$newpassword' where primaryemail='$email'";
+      $sqlpass="update author set password='".escape($newpassword)."' where primaryemail='$email'";
       
       if(mysqli_query($link,$sqlpass))
       {
       echo "<script>alert('Password Changed Successfully');</script>";
-      header("refresh:0;url=../login");
+      echo "<script type='text/javascript'> document.location = '../logout'; </script>";
       }
       else {
           echo "<script>alert('You entered wrong password Or,Your Current password cannot be your new password');</script>";
@@ -45,7 +33,7 @@ if(strlen($_SESSION['alogin'])=="")
       header("refresh:0;url=changepassword");
     }
       } 
-
+// Change Password   
 ?>
 
 <!DOCTYPE html>
@@ -89,29 +77,19 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
-
-
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
-
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
 
             <h6>CHANGE YOUR PASSWORD</h6>
             <hr class="bg-secondary">
-
 
             <form class="change-password-form" method="post">
                 <input type="hidden" name="authoremail" value="<?php  echo $email;?>">
@@ -168,21 +146,5 @@ include 'header.php';
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
-
 </body>
-
 </html>
-
-<?php     
-
-}
-else {
-  echo "<script>alert('You are not a academiceditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
-}
-
-
-}
-   
-
-?>

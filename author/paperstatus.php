@@ -3,29 +3,12 @@ session_start();
 error_reporting(0);  
 include('../link/config.php'); 
 include('../functions.php');
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location: ../login"); 
-    }
-    else
-    {  
-        $authoremail = $_SESSION["email"];
-
-                // Check that the Author is logged in or not section starts here 
-
-                       $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
-                       $query = $dbh->prepare($sql); 
-                       $query->execute(); 
-                       $results=$query->fetchAll(PDO::FETCH_OBJ); 
-                       $cnt=1;
-                       if($query->rowCount() > 0) 
-                       {
-                
-                // Check that the Author is logged in or not section ends here 
+checkLoggedInOrNot();  
+$authoremail = $_SESSION["email"];
+IsAuthorLoggedIn($authoremail);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,19 +49,14 @@ if(strlen($_SESSION['alogin'])=="")
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'author-header.php';
-?>
+        <?php include 'author-header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar">
-        <?php 
-  include 'author-sidebar.php';
-  ?>
+        <?php  include 'author-sidebar.php'; ?>
     </div>
 
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
@@ -126,34 +104,12 @@ include 'author-header.php';
                                     }
                               // Selecting Primary email from the reviewertable section starts here 
 
-                              // Selecting Primary email from the associateeditor section starts here 
-                                    $primaryemailarrayassociateeditor = array();
-
-                                    $sqlassociateeditor = "SELECT primaryemail FROM editortable WHERE paperid = '$paperid' and associateeditor IS NOT NULL";
-                                    $resultassociateeditor = mysqli_query($link,$sqlassociateeditor);
-                                    $fileassociateeditor = mysqli_fetch_assoc($resultassociateeditor);
-                                    foreach($resultassociateeditor as $filerev) {
-                                        array_push($primaryemailarrayassociateeditor,$filerev['primaryemail']);
-                                    }
-                              // Selecting Primmaryemail from the academiceditor section starts here 
-
-                              // Selecting Primary email from the associateeditor section starts here 
-                                    $primaryemailarrayacademiceditor = array();
-                                    $sqlacademiceditor = "SELECT primaryemail FROM editortable WHERE paperid = '$paperid' and academiceditor IS NOT NULL";
-                                    $resultacademiceditor = mysqli_query($link,$sqlacademiceditor);
-                                    $fileacademiceditor = mysqli_fetch_assoc($resultassociateeditor);
-                                    foreach($resultacademiceditor  as $filerev) {
-                                        array_push($primaryemailarrayacademiceditor,$filerev['primaryemail']);
-                                    }
-                              // Selecting Primmaryemail from the academiceditor section starts here 
-
- ?>
+                                    ?>
                                     <!-- Reviewer section ends here -->
                                     <?php 
-                                    $rejected = htmlentities($result->reject);
+                                      $rejected = htmlentities($result->reject);
                                       $rejectdatestring = htmlentities($result->rejectdate);
                                       $rejectdate = date("d-M-Y",strtotime($rejectdatestring)); 
-
                                       $accepted = htmlentities($result->action);
                                       $pdatestring = htmlentities($result->pdate);
                                       $pdate= date("d-M-Y",strtotime($pdatestring));
@@ -175,43 +131,9 @@ include 'author-header.php';
                                             echo $cnt1 .'.'.$authorname23.'<br>';
                                             $cnt1 = $cnt1 + 1;
                                           }
-    //   Reviewing paper selection section ends here 
+                                //   Reviewing paper selection section ends here 
 
-          // Associate Editor showing section
-                                            echo "<b><span class='text-info'>Associate Editor:</span></b>".'<br>';
-                                            $cnt1 =1; 
-                                            foreach ($primaryemailarrayassociateeditor as $err) {
-                                              $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-                                              $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-                                              $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-                                                  $title = $fileauthorname1['title'];
-                                                  $fname= $fileauthorname1['firstname'];
-                                                  $middlename= $fileauthorname1['middlename'];
-                                                  $lastname= $fileauthorname1['lastname'];
-                                                  $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-                                              echo $cnt1 .'.'.$authorname23.'<br>';
-                                              $cnt1 = $cnt1 + 1;
-                                            }
-        //   Associate Editor Section Ends Here 
-
-                 // Academic  Editor showing section
-                                            echo "<b><span class='text-info'>Academic Editor:</span></b>".'<br>';
-                                            $cnt1 =1; 
-                                            foreach ($primaryemailarrayacademiceditor as $err) {
-                                              $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-                                              $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-                                              $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-                                                  $title = $fileauthorname1['title'];
-                                                  $fname= $fileauthorname1['firstname'];
-                                                  $middlename= $fileauthorname1['middlename'];
-                                                  $lastname= $fileauthorname1['lastname'];
-                                                  $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-                                                echo $cnt1 .'.'.$authorname23.'<br>';
-                                                $cnt1 = $cnt1 + 1;
-                                            }
-          //   Academic Editor Section Ends Here 
-
-      // Reviewer Showing Section Ends Here
+                                // Reviewer Showing Section Ends Here
                                       }
                                       else if ($rejected==1) {
                                         echo "<p class='text-danger'><b>Reject on:<br></b> ".$rejectdate.'</p>';
@@ -224,7 +146,7 @@ include 'author-header.php';
                                           }
                                           else {
                                               $cnt = 1;
-    //  Reviewer Showing Section Starts Here 
+                                    //  Reviewer Showing Section Starts Here 
                                         foreach ($primaryemailarray as $es) {
                                             $sqlauthorname = "SELECT * FROM author WHERE  primaryemail= '$es' ";
                                             $resultauthorname = mysqli_query($link,$sqlauthorname); 
@@ -243,41 +165,6 @@ include 'author-header.php';
                                       }
         //  Reviewer Showing Section Ends Here 
 
-                 // Associate Editor showing section
-                                    echo "<br><b><span class='text-info'>Associate Editor:</span></b></br>";
-                                    $cnt1 =1; 
-                                    foreach ($primaryemailarrayassociateeditor as $err) {
-                                      $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-                                      $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-                                      $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-                                          $title = $fileauthorname1['title'];
-                                          $fname= $fileauthorname1['firstname'];
-                                          $middlename= $fileauthorname1['middlename'];
-                                          $lastname= $fileauthorname1['lastname'];
-                                          $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-                                        echo $cnt1 .'.'.$authorname23.'<br>';
-                                        $cnt1 = $cnt1 + 1;
-                                    }
-               //   Associate Editor Section Ends Here 
-       
-                        // Academic  Editor showing section
-                                      echo "<b><span class='text-info'>Academic Editor:</span></b>".'<br>';
-                                      $cnt1 =1; 
-                                      foreach ($primaryemailarrayacademiceditor as $err) {
-                                        $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
-                                        $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
-                                        $fileauthorname1 = mysqli_fetch_assoc($resultauthorname1);
-                                            $title = $fileauthorname1['title'];
-                                            $fname= $fileauthorname1['firstname'];
-                                            $middlename= $fileauthorname1['middlename'];
-                                            $lastname= $fileauthorname1['lastname'];
-                                            $authorname23 =  $title.' '.$fname.' '.$middlename.' '.$lastname;
-                                        echo $cnt1 .'.'.$authorname23.'<br>';
-                                        $cnt1 = $cnt1 + 1;
-                                      }
-                 //   Academic Editor Section Ends Here 
-
-
     //   Reviewing paper selection section ends here 
                                       } ?>
                                     <!-- Paper status section starts here  -->
@@ -286,9 +173,7 @@ include 'author-header.php';
                             <td>
                                 <?php  echo htmlentities($result->paperid); ?>
                             </td>
-
                             <td>
-
                                 <form action="paperdetails" class="indexform" method="post">
                                     <input type="hidden" name="paperid"
                                         value="<?php echo htmlentities($result->paperid);?>">
@@ -320,11 +205,8 @@ include 'author-header.php';
 
                         </tr>
                         <?php }} ?>
-
                     </tbody>
-
                 </table>
-
             </div>
             <div class="pb-4"></div>
         </div>
@@ -346,14 +228,4 @@ include 'author-header.php';
 
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
-<?php
-            }
-            else {
-              echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
-              header("refresh:0;url=../login");
-            }
-
-} ?>

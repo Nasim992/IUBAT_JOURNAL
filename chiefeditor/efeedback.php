@@ -2,25 +2,10 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-include ('../functions.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    }
-    else  
-    { 
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
-
-     $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.contact FROM chiefeditor WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     
-     // Check that the Editor is logged in or not section ends here 
+include('../functions.php');
+checkLoggedInOrNot();
+$editoremail = $_SESSION["email"];
+IsChiefEditorLoggedIn($editoremail);
 
     //  ----------------------------------Sending Review --------------------------------------------
 if(isset($_POST['send-review']))
@@ -292,20 +277,5 @@ if(isset($_POST['send-review']))
 
     <!-- Essential Js,Jquery  section ends  -->
 
-
 </body>
-
 </html>
-
-
-
-<?php 
-
-}
-else {
-  echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../login");
-}
-
-}
-?>

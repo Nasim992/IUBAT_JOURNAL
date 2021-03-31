@@ -1,6 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+.color {
+  color : red;
+}
+
 body {
   zoom:0.9;
   font-family: Roboto !important;
@@ -8,12 +12,38 @@ body {
   background-color: #fefefe !important;
   line-height:1.7em !important;
 } 
+.jumbotron__papername {
+  font-size: 19px !important;
+  color: #000000!important;
+  text-align:justify !important;
+  font-weight:500;
+}
+.container-fluid__homepage  {
+  margin-left:5% !important;
+  margin-right:5% !important;
+}
+@media screen and (max-width: 992px){
+  .container-fluid__homepage{
+    margin-left:0% !important;
+    margin-right:0% !important;
+  }
+}
 .bg-image {
-  background-image: url('../images/iubat-review.jpg');
-  background-color: rgb(152 155 150); 
+  background-image: url('../images/bg-image-ijournal.jpg');
+  /* background-repeat:no-repeat !important; */
+  background-color: rgb(255 255 255);
+  background-size:cover !important;
   background-blend-mode: multiply;
-  height: 700px;
-  width:100%
+  height: 500px;
+  width:100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+@media screen and (max-width: 600px){
+  .bg-image {
+    display:none;
+    margin-top:20px;
+  }
 }
 .bg-image__intro {
   text-align: center;
@@ -356,6 +386,38 @@ img{
 .fas, .far, .fab, .fal {
     font-size: 13px;
 }
+.navbar li a {
+  font-size : 17px !important;
+}
 /* Progress bar section ends here */
 
 /* Sidebar and Card Section Starts Here  */
+
+
+/* INdex page Card  */
+
+.container-fluid__homepage .card {
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03); */
+  background-color:none;
+  border-radius: 3px !important;
+  border: none;
+  position: relative !important;
+  margin-top:0px !important;  
+  margin-bottom: 0px !important;
+  box-shadow: 0 0px 0px rgba(0,0,0,0.12), 0 0px 0px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  cursor:pointer;
+}
+.container-fluid__homepage .accordion .card:hover {
+  background-color:rgba(0, 128, 0, 0) !important;
+}
+.container-fluid__homepage .accordion .card-header {
+  margin-bottom: 0px !important;
+}
+.container-fluid__homepage .accordion .card .card-header, .card .card-body, .card .card-footer {
+  padding: 5px 16px;
+}
+.container-fluid__homepage .accordion .card-header .btn.focus,.btn:focus{
+  box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 0%) !important;
+}
+/* INdex page Card  */

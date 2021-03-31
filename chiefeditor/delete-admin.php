@@ -12,11 +12,12 @@ $sql="DELETE FROM admin WHERE id= '$id' ";
 
 if(mysqli_query($link, $sql)){
     echo "Selected Admin  deleted successfully.";
-    header("refresh:0;url=admin");
+    echo "<script type='text/javascript'> document.location = 'admin'; </script>";
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
 // Close connection
 mysqli_close($link);
+header("Location: " . $_SERVER["HTTP_REFERER"]);
 
 ?>

@@ -96,17 +96,12 @@ if(strlen($_SESSION['alogin'])=="")
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar">
-        <?php 
-  include 'sidebar.php';
-  ?>
+        <?php  include 'sidebar.php'; ?>
     </div>
-
     <div id="main">
 
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
@@ -121,34 +116,34 @@ include 'header.php';
 
             <?php
  
-// Selecting Paper section starts Here
-$sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2 from paper WHERE  paperid='$paperid'";
+            // Selecting Paper section starts Here
+            $sqlreviewerselection = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.numberofcoauthor,paper.pdate,paper.uploaddate,paper.coauthorname,paper.name1,paper.name2 from paper WHERE  paperid='$paperid'";
 
-$resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
+            $resultreviewerselection = mysqli_query($link,$sqlreviewerselection);
 
-$filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
+            $filereviewerselection = mysqli_fetch_assoc($resultreviewerselection);
 
-$id =  $filereviewerselection['paperid']; 
-$papername = $filereviewerselection['papername'];
-$numberofcoauthor = $filereviewerselection['numberofcoauthor'];
-$abstract = $filereviewerselection['abstract'];
-$authoremailpaper = $filereviewerselection['authoremail'];
-$name = $filereviewerselection['name'];
-$filepath1 = '../documents/file1/'.$filereviewerselection['name1']; 
-$filepath2 = '../documents/file2/'.$filereviewerselection['name2']; 
-$type = $filereviewerselection['type'];
-$action = $filereviewerselection['action'];
+            $id =  $filereviewerselection['paperid']; 
+            $papername = $filereviewerselection['papername'];
+            $numberofcoauthor = $filereviewerselection['numberofcoauthor'];
+            $abstract = $filereviewerselection['abstract'];
+            $authoremailpaper = $filereviewerselection['authoremail'];
+            $name = $filereviewerselection['name'];
+            $filepath1 = '../documents/file1/'.$filereviewerselection['name1']; 
+            $filepath2 = '../documents/file2/'.$filereviewerselection['name2']; 
+            $type = $filereviewerselection['type'];
+            $action = $filereviewerselection['action'];
 
-$uploaddatestring = $filereviewerselection['uploaddate'];
-$uploaddate = date("d-M-Y",strtotime($uploaddatestring));
+            $uploaddatestring = $filereviewerselection['uploaddate'];
+            $uploaddate = date("d-M-Y",strtotime($uploaddatestring));
 
-$type = $filereviewerselection['type'];
-$pdatestring = $filereviewerselection['pdate'];
-$pdate = date("d-M-Y",strtotime($pdatestring));
+            $type = $filereviewerselection['type'];
+            $pdatestring = $filereviewerselection['pdate'];
+            $pdate = date("d-M-Y",strtotime($pdatestring));
 
-$cauname = $filereviewerselection['coauthorname'];;
-        
-?>
+            $cauname = $filereviewerselection['coauthorname'];;
+                    
+            ?>
 
             <div class="jumbotron mt-0">
 
@@ -159,20 +154,14 @@ $cauname = $filereviewerselection['coauthorname'];;
                     <div>
                         <p class="fontSize14px"><b> Status: <?php
 
-if ($action!=1) {
-    ?>
+                                if ($action!=1) { ?>
                                 <span style="color:goldenrod;">
                                     <?php  echo "Pending";
-}
-else {
-    ?>
+                                    } else {   ?>
                                 </span>
                                 <span style="color:green;">
                                     <?php
-    echo "Published on ".$pdate;
-}
-
-?>
+                                echo "Published on ".$pdate; } ?>
                                 </span></b></p>
                     </div>
                 </div>
@@ -203,31 +192,31 @@ else {
 
             <?php 
 
-  // Reviewer Selection section starts here 
-  $sqlreviewerupdate = "SELECT * from editortable WHERE  paperid='$id' and primaryemail='$email'";
+                // Reviewer Selection section starts here 
+                $sqlreviewerupdate = "SELECT * from editortable WHERE  paperid='$id' and primaryemail='$email'";
 
-  $resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
+                $resultreviewerupdate = mysqli_query($link,$sqlreviewerupdate);
 
-  $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
+                $filereviewerupdate = mysqli_fetch_assoc($resultreviewerupdate);
 
-  $feedbackfile = $filereviewerupdate['feedbackfile']; 
+                $feedbackfile = $filereviewerupdate['feedbackfile']; 
 
-  $feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
+                $feedbackfilepath = '../documents/review/'.$filereviewerupdate['feedbackfile'];
 
-  $feedback =  unserialize($filereviewerupdate['feedback']);
-  $feedbackdate = unserialize($filereviewerupdate['feedbackdate']);
- 
+                $feedback =  unserialize($filereviewerupdate['feedback']);
+                $feedbackdate = unserialize($filereviewerupdate['feedbackdate']);
+                
 
-  // Reviewer Selection ends here 
-?>
+                // Reviewer Selection ends here 
+                ?>
 
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
 
                     <!-- Review Showing Section starts here  -->
                     <?php for ($x =count($feedback)-1; $x >=0 ; $x--) {
-  $date = date('d-M-Y',strtotime($feedbackdate[$x]));
-  ?>
+                    $date = date('d-M-Y',strtotime($feedbackdate[$x]));
+                    ?>
                     <div style="border:2px solid #e3e3e3;  padding:10px;margin-top:5px;border-radius:10px;">
                         <b class="text-white bg-success btn-sm"><i>Your Review:</i></b>
                         <hr>
@@ -237,8 +226,8 @@ else {
                         <a style="font-size:14px;" class="btn btn-sm btn-info" href="<?php echo $feedbackfilepath; ?> "
                             target="_blank" role="button">Your Reviewed file</a>
                         <?php  } else {
-  echo "Not Reviewed yet!";
-} ?>
+                            echo "Not Reviewed yet!";
+                            } ?>
                     </div>
                     <?php  } ?>
                     <!-- Review Showing Section Ends Here  -->
@@ -309,7 +298,7 @@ else {
   }
   else {
     echo "<script>alert('You are not selected as a Reviewer.');</script>";
-    header("refresh:0;url=../login");
+    echo "<script type='text/javascript'> document.location = '../login'; </script>";
   }
  }
     ?>

@@ -4,6 +4,7 @@ error_reporting(0);
 include('link/config.php');
 include('link/functionsql.php');
     $email = $_GET['email'];
+    $password_token =$_GET['token'];
     // Reset-Password section starts here 
     if(isset($_POST['change-submit']))  
     {
@@ -17,12 +18,11 @@ include('link/functionsql.php');
         else {
 
     // Change Password Section Starts Here 
-    $sql="update author set password='$password' where primaryemail='$pemail'";
+    $sql="update author set password='".escape($password)."',validation_code='0' where primaryemail='$pemail' and validation_code='$password_token'";
 
     if(query($sql)) {
-    
         echo "<script>alert('Password Changed Successfully');</script>";
-        header("refresh:0;url=login");
+        echo "<script type='text/javascript'> document.location = 'login'; </script>";
 
     }else
     {

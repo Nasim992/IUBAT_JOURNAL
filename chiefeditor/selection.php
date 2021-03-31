@@ -2,25 +2,12 @@
   session_start();
   error_reporting(0);
   include '../link/config.php';
-  include '../functions.php';
-  if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location:../login"); 
-    } 
-    else
-    {  
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
-
-     $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.contact FROM chiefeditor WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     
-     // Check that the Editor is logged in or not section ends here 
+  include('../link/functionsql.php');
+  include('../link/count.php');
+  include('../functions.php');
+  checkLoggedInOrNot();
+  $editoremail = $_SESSION["email"];
+  IsChiefEditorLoggedIn($editoremail);
 
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
@@ -29,8 +16,6 @@ if($link === false){
 // Paper description showing section starts here 
  
 $idstr=strval($_GET['id']);
-
-
 // Check that the id is available or not in the database 
 $querypublished = "SELECT COUNT(*) as total_available FROM paper WHERE paperid='$idstr'";
 $stmt = $dbh->prepare($querypublished);     
@@ -42,7 +27,6 @@ $total_available = $row['total_available'];
 // Check that the id is available or not in the database
 
 
- 
 $unpublished = $idstr[-1];
 
 $paperid=rtrim($_GET['id'],"u");
@@ -247,12 +231,12 @@ if(isset($_POST['select-reviewer']))
 // Select Reviewer Outside  Section
 if(isset($_POST['select-reviewer-outside']))
 {
+    $pname = $_POST['outsideName'];
     $pemail = $_POST['email'];
-    // $sqlauthorselect = "SELECT primaryemail FROM author WHERE username = '$usernameauthor'";
-    // $resultauthorselect = mysqli_query($link,$sqlauthorselect);
-    // $fileauthorselect = mysqli_fetch_assoc($resultauthorselect);
-    // $primaryemail = $fileauthorselect['primaryemail']; 
 
+    if(is_author_available($pemail) > 0) {
+        echo "<script type='text/javascript'>alert('User is already registered');</script>";
+    }else {
     //  Count that same email and paper id is availale or not 
     $querypublished = "SELECT COUNT(*) as total_rowspublished FROM reviewertable WHERE paperid='$paperid' and primaryemail='$pemail'";
     $stmt = $dbh->prepare($querypublished);     
@@ -268,9 +252,7 @@ if(isset($_POST['select-reviewer-outside']))
     $endingdate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 7, date('Y')));
 
     $sqlinsert="INSERT INTO reviewertable (paperid,primaryemail,assigndate,endingdate) VALUES('$paperid','$pemail','$assigndate','$endingdate')";
-    // $reviewerselection =1;
-    // $sqlupdatereviewer = "update author set reviewerselection=$reviewerselection where username = '$usernameauthor' ";
-     
+
     if(mysqli_query($link, $sqlinsert))
     {
       // Sending Messages that selected as a reviewer section starts here.
@@ -287,6 +269,8 @@ if(isset($_POST['select-reviewer-outside']))
     }
 }else {
     echo "<script>alert('Already Requested this author');</script>";
+}
+        
 }
 }
 // Select Reviewer Outside Section 
@@ -590,7 +574,7 @@ if(isset($_POST['chief-update'])) {
         }
         // Unlink Previous file 
 
-  $sqlreviewer="update chieffeedback set feedback='$feedback',file='$namereviewer',date='$feedbackdate',status='$status' where paperid='$paperid'";
+  $sqlreviewer="update chieffeedback set feedback='".escape($feedback)."',file='".escape($namereviewer)."',date='$feedbackdate',status='".escape($status)."' where paperid='$paperid'";
 
   if(mysqli_query($link, $sqlreviewer))
   {
@@ -924,6 +908,12 @@ if(isset($_POST['chief-update'])) {
                         <div id="handleoutsidereviewer">
                         <form method = "post" >
                                 <div class="input-group">
+                                <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Name:</b></label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" id="exampleFormControlTextarea1" name= "outsideName" required>
+                                </div>
+                                </div> <br>
+                                <div class="input-group">
                                 <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Email:</b></label>
                                 <div class="col-sm-10">
                                 <input type="email" class="form-control" id="exampleFormControlTextarea1" name= "email" required>
@@ -1091,19 +1081,8 @@ if(isset($_POST['chief-update'])) {
     </script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
 <?php }} else  { 
-
 echo "<script>alert('Id is empty!!');</script>";
-header("refresh:0;url=unpublishedpaper");
-    } 
- 
-  }
-  else {
-    echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-    header("refresh:0;url=../login");
-  }
-  }
-    ?>
+echo "<script type='text/javascript'> document.location = 'unpublishedpaper'; </script>";
+}

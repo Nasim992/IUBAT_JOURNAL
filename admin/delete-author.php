@@ -124,13 +124,14 @@ $sql="DELETE FROM author WHERE id= '$id' ";
 
 if(mysqli_query($link, $sql)){
     echo "<script>alert('Selected Authors were deleted successfully.')</script>";
-    header("refresh:0;url=authors");
+    echo "<script type='text/javascript'> document.location = 'authors'; </script>";
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-    header("refresh:0;url=authors");
+    echo "<script type='text/javascript'> document.location = 'authors'; </script>";
 }
  
 // Close connection
 mysqli_close($link);
+header("Location: " . $_SERVER["HTTP_REFERER"]);
 
 ?>

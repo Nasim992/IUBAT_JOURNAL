@@ -3,24 +3,9 @@ session_start();
 error_reporting(0);
 include('../link/config.php');
 include('../functions.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    }
-    else   
-    { 
-      $email =  $_SESSION['alogin']; 
-     // Check that the Associate Editor is logged in or not section starts here 
-
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.academiceditor from author where primaryemail='$email' and academiceditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
- 
-// Check that the Associate Editor  is logged in or not section ends here 
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAcademicEditorLoggedIn($email);
 
  
      // Sending Review to the author section starts here  
@@ -340,25 +325,6 @@ foreach($results as $result)
             $('.dataTables_length').addClass('bs-select');
             });
             </script>
-
 <!-- Essential Js,Jquery  section ends  -->
-
-
 </body>
 </html>
-
-
-
-<?php 
-
-}
-else {
-  echo "<script>alert('You are not a academiceditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
-}
-
-
-}
-
-
-?>

@@ -2,29 +2,13 @@
 session_start();
 error_reporting(0);  
 include('../link/config.php');
-
-if(strlen($_SESSION['alogin'])=="") 
-    {     
-    header("Location: ../login"); 
-    } 
-    else
-    {  
-        $authoremail = $_SESSION["email"];
-
-                  // Check that the admin is logged in or not section starts here 
-
-                  $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$authoremail'"; 
-                  $query = $dbh->prepare($sql); 
-                  $query->execute(); 
-                  $results=$query->fetchAll(PDO::FETCH_OBJ); 
-                  $cnt=1;
-                  if($query->rowCount() > 0) 
-                  {
-            
-           // Check that the admin is logged in or not section ends here 
+include('../link/functionsql.php');
+include('../functions.php');
+checkLoggedInOrNot();  
+$authoremail = $_SESSION["email"];
+IsAuthorLoggedIn($authoremail);
         
-
-           if(isset($_POST['submit']))
+     if(isset($_POST['submit']))
            {
          $password=($_POST['password']);
          $newpassword=md5($_POST['newpassword']);
@@ -33,12 +17,12 @@ if(strlen($_SESSION['alogin'])=="")
      
          if($password !== $confirmpassword) {
      
-         $sqlpass="update author set password='$newpassword' where primaryemail='$authoremails '";
+         $sqlpass="update author set password='".escape($newpassword)."' where primaryemail='$authoremails '";
          
          if(mysqli_query($link,$sqlpass))
          {
-         echo "<script>alert('Password Changed Successfully');</script>";
-         header("refresh:0;url=../login");
+         echo "<script>alert('Password Changed Successfully.');</script>";
+         echo "<script type='text/javascript'> document.location = '../logout'; </script>";
          }
          else {
              echo "<script>alert('You entered wrong password Or,Your Current password cannot be your new password');</script>";
@@ -89,15 +73,11 @@ if(strlen($_SESSION['alogin'])=="")
 
 <body>
     <div class="sticky-top header-floating">
-        <?php
-include 'author-header.php';
-?>
+        <?php include 'author-header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar">
-        <?php 
-  include 'author-sidebar.php';
-  ?>
+        <?php  include 'author-sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -160,11 +140,4 @@ include 'author-header.php';
 
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
-<?php              }
-else {
-  echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
-}   }  ?>

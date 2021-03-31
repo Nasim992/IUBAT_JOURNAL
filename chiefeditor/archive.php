@@ -3,25 +3,9 @@ session_start();
 error_reporting(0);
 include('../link/config.php');
 include('../functions.php');
-
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location:../login"); 
-    } 
-    else
-    {  
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
-
-     $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.contact FROM chiefeditor WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     // Check that the Editor is logged in or not section ends here 
-
+checkLoggedInOrNot();
+$editoremail = $_SESSION["email"];
+IsChiefEditorLoggedIn($editoremail);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +13,7 @@ if(strlen($_SESSION['alogin'])=="")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unpublished paper</title>
+    <title>Archive</title>
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -124,13 +108,3 @@ if(strlen($_SESSION['alogin'])=="")
 </body>
 
 </html>
-<?php 
-}
-else {
-  echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../login");
-}
-
-}
-      
-?>

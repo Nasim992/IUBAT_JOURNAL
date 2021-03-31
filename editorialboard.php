@@ -1,10 +1,11 @@
 <?php
+session_start();
 error_reporting(0);
- include('link/config.php');
-  ?>
+include('link/config.php');
+include("functions.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,10 +33,9 @@ error_reporting(0);
             <!-- Heading Sections ends  -->
         </div>
 
-        <div class="container">
+        <div style="font-size:17px;" class="container">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
-
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
                     <div class="text-left pb-4">
@@ -62,6 +62,7 @@ error_reporting(0);
                                         <div class="card-body">
                                             <h6 class="text-info"><b>EDITORS</b></h6>
                                             <p><b>Prof. Dr. Md. Monirul Islam</b></p>
+                                            <p> Chiefeditor</p>
                                             <p> Professor & Chair</p>
                                             <p> Dept of Civil Engineering Dean, CEAT</p>
                                         </div>
@@ -268,8 +269,7 @@ error_reporting(0);
         <!-- Footer section starts here  -->
         <?php include 'footer.php' ?>
         <!-- Footer section ends here  -->
-    </div>
-    <!-- Essential Js,jquery,section starts  -->
+ <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->

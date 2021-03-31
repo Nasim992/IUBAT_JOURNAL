@@ -2,24 +2,12 @@
 session_start();
 error_reporting(0);
 include('../link/config.php'); 
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    }  
-    else 
-    {  
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
+include('../link/functionsql.php');
+include('../functions.php');
+checkLoggedInOrNot();
+$adminemail = $_SESSION["email"];
+IsAdminLoggedIn($adminemail);
 
-     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     
-     // Check that the Editor is logged in or not section ends here 
   if(isset($_POST['submit']))
   { 
   $paperid = $_POST['paperid'];
@@ -37,7 +25,7 @@ if(strlen($_SESSION['alogin'])=="")
   $type = $_FILES['file']['type']; 
    // Full pdf if necessary info  File section ends here
 
-   $sqlarchive="INSERT INTO  archive(versionissue,paperid,papername,authorname,abstract,filename,publisheddate) VALUES('$versionissue','$paperid','$papername','$authorname','$abstract','$name','$publisheddate')";
+   $sqlarchive="INSERT INTO  archive(versionissue,paperid,papername,authorname,abstract,filename,publisheddate) VALUES('$versionissue','$paperid','".escape($papername)."','$authorname','".escape($abstract)."','$name','$publisheddate')";
 
    if( mysqli_query($link,$sqlarchive))
    {
@@ -93,11 +81,9 @@ if(strlen($_SESSION['alogin'])=="")
 
     <div id="mySidebar" class="sidebar">
         <?php include 'sidebar.php'; ?>
-
     </div>
 
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
@@ -200,17 +186,4 @@ if(strlen($_SESSION['alogin'])=="")
     </script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
-<?php 
-
-}
-else {
-  echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-  header("refresh:0;url=../login");
-}
-
-}
-    
-?>

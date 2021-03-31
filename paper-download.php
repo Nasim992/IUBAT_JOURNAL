@@ -60,7 +60,7 @@
             <?php include 'heading.php'?>
             <!-- Heading Sections ends  -->
         </div>
-        <div class="container mt-3">
+        <div style="font-size:17px;" class="container mt-3">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
@@ -88,7 +88,7 @@
                         <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
                         <hr class="my-4">
 
-                        <a style="font-size:14px;" class="btn btn-success btn-sm float-right mb-4"
+                        <a style="font-size:15px;" class="btn btn-success btn-sm float-right mb-4"
                             href="<?php echo $filepath ?> " target="_blank" role="button">Download</a>
                     </div>
                 </div>

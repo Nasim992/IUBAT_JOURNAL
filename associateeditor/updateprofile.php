@@ -2,13 +2,8 @@
 session_start();
 error_reporting(0); 
 include('../link/config.php');
- 
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location:../login"); 
-    } 
-    else  
-    {  
+include('../functions.php');
+checkLoggedInOrNot(); 
       $email =  $_SESSION['alogin'];
      // Check that the Associate Editor is logged in or not section starts here 
 
@@ -85,15 +80,11 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating ">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar ">
-        <?php 
-  include 'sidebar.php';
-  ?>
+        <?php  include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -201,11 +192,7 @@ include 'header.php';
 }
 else {
   echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
+  echo "<script type='text/javascript'> document.location = '../login'; </script>";
 }
 
-
-}
-
-    
 ?>

@@ -3,25 +3,9 @@ session_start();
 error_reporting(0);
 include('../link/config.php');
 include('../functions.php');
-
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location:../login"); 
-    }  
-    else
-    {  
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
-
-     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     
-     // Check that the Editor is logged in or not section ends here 
+checkLoggedInOrNot();
+$adminemail = $_SESSION["email"];
+IsAdminLoggedIn($adminemail);
 
 ?>
 <!DOCTYPE html>
@@ -47,14 +31,10 @@ if(strlen($_SESSION['alogin'])=="")
     </div>
     <!-- Author showing header sections ends   -->
 
-
     <div id="mySidebar" class="sidebar">
         <?php include 'sidebar.php'; ?>
-
     </div>
-
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
@@ -94,24 +74,20 @@ if(strlen($_SESSION['alogin'])=="")
                                 <a style="font-size:14px;" href="<?php echo $filepath ?> " target="_blank"
                                     role="button"> <?php  echo htmlentities($result->papername); ?></a>
                                 <p>Published year: <b><?php  echo htmlentities($result->versionissue); ?></b></p>
-                            </td>
+                            </td> 
                             <td>
                                 <?php   echo htmlentities($result->authorname); ?>
                             </td>
                             <td class="text-dark">
-                                <?php   echo htmlentities($result->abstract); ?>
+                                <?php   echo htmlentities($result->abstract); ?><br>
+                                <a href="edit_archive_paper.php?id=<?php echo htmlentities($result->paperid);?>"><i class="fas fa-edit"></i></a>
+                                <a title="delete this paper" style="color:red;" href="delete_archive_paper.php?id=<?php echo htmlentities($result->paperid);?>"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         <?php }} ?>
-
                     </tbody>
-
                 </table>
-
-
             </div>
-
-
             <div class="mb-5"></div>
         </div>
     </div>
@@ -121,7 +97,6 @@ if(strlen($_SESSION['alogin'])=="")
     <script src="../js/popper.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
-
     <script>
     // DataTables section starts here 
     $(document).ready(function() {
@@ -133,15 +108,4 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-<?php 
-}
-else {
-  echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-  header("refresh:0;url=../login");
-}
-
-}
-      
-?>

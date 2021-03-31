@@ -214,7 +214,7 @@ if(strlen($_SESSION['alogin'])=="")
  }
  else {
    echo "<script>alert('You are not selected as a Reviewer.');</script>";
-   header("refresh:0;url=../login");
+   echo "<script type='text/javascript'> document.location = '../login'; </script>";
  }
 }
 ?>

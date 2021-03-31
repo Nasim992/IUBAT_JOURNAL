@@ -3,25 +3,9 @@ session_start();
 error_reporting(0);
 include('../link/config.php');
 include('../functions.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    }
-    else    
-    { 
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
-
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.associateeditor from author where primaryemail='$email' and associateeditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
- 
-// Check that the Associate Editor  is logged in or not section ends here 
-
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAssociateEditorLoggedIn($email);
 
     //  Remove as a Reviewer section starts Here 
 
@@ -122,16 +106,11 @@ if(strlen($_SESSION['alogin'])=="")
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -320,11 +299,3 @@ include 'header.php';
     <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>
-<?php 
-}
-else {
-  echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
-}
-}
-?>

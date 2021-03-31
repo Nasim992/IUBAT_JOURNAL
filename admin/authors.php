@@ -2,28 +2,10 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');  
-
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    }
-    else  
-    { 
-
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
-
-     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     
-     // Check that the Editor is logged in or not section ends here 
-
-
+include('../functions.php');
+checkLoggedInOrNot();
+$adminemail = $_SESSION["email"];
+IsAdminLoggedIn($adminemail);
 
 ?>
 
@@ -155,15 +137,4 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-<?php 
-
-}
-else {
-  echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-  header("refresh:0;url=../login");
-}
-
-}
-?>

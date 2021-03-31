@@ -1,25 +1,12 @@
 <?php 
 session_start();
 error_reporting(0);
-include '../link/config.php';
-include '../functions.php';
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location:../login"); 
-    } 
-    else
-    {  
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
-
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.associateeditor from author where primaryemail='$email' and associateeditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     // Check that the Associate Editor  is logged in or not section ends here 
+include('../link/config.php');
+include('../link/count.php');
+include('../functions.php');
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAssociateEditorLoggedIn($email); 
 
     if($link === false){
         die("ERROR: Could not connect. " . mysqli_connect_error());
@@ -173,11 +160,12 @@ if(isset($_POST['select-reviewer']))
 // Select Reviewer Outside  Section
 if(isset($_POST['select-reviewer-outside']))
 {
+    $pname = $_POST['outsideName'];
     $pemail = $_POST['email'];
-    // $sqlauthorselect = "SELECT primaryemail FROM author WHERE username = '$usernameauthor'";
-    // $resultauthorselect = mysqli_query($link,$sqlauthorselect);
-    // $fileauthorselect = mysqli_fetch_assoc($resultauthorselect);
-    // $primaryemail = $fileauthorselect['primaryemail']; 
+      
+    if(is_author_available($pemail) > 0 ) {
+        echo "<script type='text/javascript'>alert('Users are already registered');</script>";
+    }else {
 
       //  Count that same email and paper id is availale or not 
       $querypublished = "SELECT COUNT(*) as total_rowspublished FROM reviewertable WHERE paperid='$paperid' and primaryemail='$pemail'";
@@ -216,6 +204,7 @@ if(isset($_POST['select-reviewer-outside']))
     }
 }else {
     echo "<script>alert('Already Requested this author');</script>";
+}
 }
 }
 // Select Reviewer Outside Section 
@@ -380,17 +369,12 @@ $resultacademiceditorshown=array_diff($arrayallusernameacademiceditor,$academice
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends-->
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -630,6 +614,12 @@ include 'header.php';
                         <div id="handleoutsidereviewer">
                         <form method = "post" >
                                 <div class="input-group">
+                                <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Name:</b></label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" id="exampleFormControlTextarea1" name= "outsideName" required>
+                                </div>
+                                </div> <br>
+                                <div class="input-group">
                                 <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Email:</b></label>
                                 <div class="col-sm-10">
                                 <input type="email" class="form-control" id="exampleFormControlTextarea1" name= "email" required>
@@ -695,22 +685,8 @@ include 'header.php';
     </script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
- 
 </html> 
-
-
 <?php } } else  {
-
 echo "<script>alert('ID is empty');</script>";
-header("refresh:0;url=paperstatus");
-    } 
-  }
-  else {
-    echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-    header("refresh:0;url=../login");
-  }
-  
-  
-  }
-  
-    ?>
+echo "<script type='text/javascript'> document.location = 'paperstatus'; </script>";
+}

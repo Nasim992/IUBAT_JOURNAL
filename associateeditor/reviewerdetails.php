@@ -2,25 +2,11 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
+include('../functions.php');
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAssociateEditorLoggedIn($email);
 
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location: ../login"); 
-    }
-    else  
-    { 
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
-
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.associateeditor from author where primaryemail='$email' and associateeditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
- 
-// Check that the Associate Editor  is logged in or not section ends here 
     //  Remove as a Reviewer section starts Here 
     if(isset($_POST['reviewer-remove'])) {
       $paperid = $_POST['paperid'];
@@ -84,22 +70,16 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
@@ -122,40 +102,40 @@ include 'header.php';
 
                     <tbody id="myTable-admin">
                         <?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.endingdate,reviewertable.action from reviewertable where action IS NULL";
-$query = $dbh->prepare($sql); 
-$query->execute(); 
-$results=$query->fetchAll(PDO::FETCH_OBJ); 
-$cnt=1;
-if($query->rowCount() > 0) 
-{
-foreach($results as $result) 
-{   ?>
+                            $query = $dbh->prepare($sql); 
+                            $query->execute(); 
+                            $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                            $cnt=1;
+                            if($query->rowCount() > 0) 
+                            {
+                            foreach($results as $result) 
+                            {   ?>
                         <tr>
                             <td><?php echo htmlentities($cnt);?></td>
                             <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
                             <?php 
-      $username = htmlentities($result->username);
-      include '../link/linklocal.php';
-      $sql1 = "SELECT * FROM author WHERE  username='$username' ";
+                                $username = htmlentities($result->username);
+                                include '../link/linklocal.php';
+                                $sql1 = "SELECT * FROM author WHERE  username='$username' ";
 
-      $result1 = mysqli_query($link,$sql1); 
+                                $result1 = mysqli_query($link,$sql1); 
 
-      $file1 = mysqli_fetch_assoc($result1);
-      
-      $title = $file1['title'];
-      $fname= $file1['firstname'];
-      $middlename= $file1['middlename'];
-      $lastname= $file1['lastname'];
+                                $file1 = mysqli_fetch_assoc($result1);
+                                
+                                $title = $file1['title'];
+                                $fname= $file1['firstname'];
+                                $middlename= $file1['middlename'];
+                                $lastname= $file1['lastname'];
 
-      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+                                $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
-      $assigndate = htmlentities($result->assigndate);
-      $endingdatestring = htmlentities($result->endingdate);
-      $date = date("d-M-Y",strtotime($assigndate));
-      $endingdate = date("d-M-Y",strtotime($endingdatestring));
+                                $assigndate = htmlentities($result->assigndate);
+                                $endingdatestring = htmlentities($result->endingdate);
+                                $date = date("d-M-Y",strtotime($assigndate));
+                                $endingdate = date("d-M-Y",strtotime($endingdatestring));
 
-?>
+                            ?>
 
                             <td><?php echo $authorname;?></td>
                             <td><?php echo htmlentities($result->primaryemail);?></td>
@@ -164,11 +144,7 @@ foreach($results as $result)
 
                         </tr>
                         <?php $cnt=$cnt+1;}} ?>
-
-
                     </tbody>
-
-
                 </table>
             </div>
 
@@ -177,8 +153,6 @@ foreach($results as $result)
     </div>
 
     <!-- Authors showing section ends here  -->
-
-
     </div>
 
     <!-- Essential Js,jquery,section starts  -->
@@ -204,26 +178,6 @@ foreach($results as $result)
         $('.dataTables_length').addClass('bs-select');
     });
     </script>
-
     <!-- Essential Js,Jquery  section ends  -->
-
-
 </body>
-
 </html>
-
-
-
-<?php 
-
-}
-else {
-  echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
-}
-
-
-}
-
-    
-?>

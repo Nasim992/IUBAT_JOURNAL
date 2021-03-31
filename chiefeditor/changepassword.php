@@ -2,25 +2,11 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login");  
-    }
-    else
-    {  
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
-
-     $sql = "SELECT chiefeditor.id,chiefeditor.fullname,chiefeditor.password,chiefeditor.contact FROM chiefeditor WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     // Check that the Editor is logged in or not section ends here 
-        // $authoremail = $_SESSION["email"];
-
+include('../link/functionsql.php');
+include('../functions.php');
+checkLoggedInOrNot();
+$editoremail = $_SESSION["email"];
+IsChiefEditorLoggedIn($editoremail);
     if(isset($_POST['submit']))
       {
     $password=($_POST['password']);
@@ -30,21 +16,21 @@ if(strlen($_SESSION['alogin'])=="")
 
     if($password !== $confirmpassword) {
 
-    $sqlpass="update chiefeditor set password='$newpassword' where email='$editoremail'";
+    $sqlpass="update chiefeditor set password='".escape($newpassword)."' where email='$editoremail'";
     
     if(mysqli_query($link,$sqlpass))
     {
     echo "<script>alert('Password Changed Successfully');</script>";
-    header("refresh:0;url=../login");
+    echo "<script type='text/javascript'> document.location = '../logout'; </script>";
     }
     else {
         echo "<script>alert('You entered wrong password Or,Your Current password cannot be your new password');</script>";
-        header("refresh:0;url=changepassword");
+        echo "<script type='text/javascript'> document.location = 'changepassword'; </script>";
     }
   }
   else {
     echo "<script>alert('New password and confirm password doesn't match');</script>";
-    header("refresh:0;url=changepassword");
+    echo "<script type='text/javascript'> document.location = 'changepassword'; </script>";
   }
     }    
 
@@ -99,14 +85,11 @@ if(strlen($_SESSION['alogin'])=="")
     </div>
 
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
-
             <h6>CHANGE YOUR PASSWORD</h6>
             <hr class="bg-secondary">
-
             <form class="change-password-form" method="post">
                 <div class="form-group has-success">
                     <label for="success" class="control-label">Current Password</label>
@@ -138,24 +121,12 @@ if(strlen($_SESSION['alogin'])=="")
                 <div class="form-group has-success">
                     <button type="submit" name="submit" class="btn btn-success btn-sm  ">Change password</button>
             </form>
-
             <div class="mb-5"></div>
         </div>
     </div>
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
-
 </body>
-
 </html>
-<?php     
-}
-else {
-  echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../login");
-}
-}
-?>

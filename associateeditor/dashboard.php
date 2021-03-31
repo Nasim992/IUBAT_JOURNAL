@@ -3,22 +3,10 @@ session_start();
 error_reporting(0);
 include('../link/config.php'); 
 include('../link/count.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login");  
-    } 
-    else 
-    {  
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.associateeditor from author where primaryemail='$email' and associateeditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-    // Check that the Associate Editor  is logged in or not section ends here 
+include('../functions.php');
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAssociateEditorLoggedIn($email);
 ?>
 
 <!DOCTYPE html>
@@ -146,7 +134,6 @@ if(strlen($_SESSION['alogin'])=="")
               </div>
              </a>
             </div>
-
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <a href="paperstatus">
                         <div class="card card-statistic-1">
@@ -184,14 +171,4 @@ if(strlen($_SESSION['alogin'])=="")
         </script>
         <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
-<?php 
-}
-else {
-  echo "<script>alert('You are not a AssociateEditor.Try to log in as a associate-editor');</script>";
-  header("refresh:0;url=../login");
-}
-}
-?>

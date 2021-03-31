@@ -1,4 +1,4 @@
-<footer style="background-color:#1f4706;">
+<footer style="background-color:#1e5f16;">
 
     <div class="container text-white text-center">
 
@@ -13,6 +13,6 @@
     </div>
 
     <div class="credit">
-        <a class="text-secondary" href="https://www.cse.iubat.edu" target="_blank"> <small>Developed by © Dept. of Computer Science and Engineering</small></a>
+        <a class="text-white" href="https://www.cse.iubat.edu" target="_blank"> <small>Developed by © Dept. of Computer Science and Engineering</small></a>
     </div>
 </footer>

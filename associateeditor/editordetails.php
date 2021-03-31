@@ -2,26 +2,10 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    }
-    else  
-    {  
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
-
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.associateeditor from author where primaryemail='$email' and associateeditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
- 
-// Check that the Associate Editor  is logged in or not section ends here 
-
+include('../functions.php');
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAssociateEditorLoggedIn($email);
     //  Remove as a Reviewer section starts Here 
     if(isset($_POST['editor-remove'])) {
       $paperid = $_POST['paperid'];
@@ -86,18 +70,13 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -126,45 +105,43 @@ include 'header.php';
                     </thead>
                     <tbody id="myTable-admin1">
                         <?php $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.primaryemail,editortable.assigndate,editortable.endingdate,editortable.action,editortable.associateeditor,editortable.academiceditor from editortable where action IS NULL and academiceditor IS NOT NULL"; 
-$query = $dbh->prepare($sql); 
-$query->execute(); 
-$results=$query->fetchAll(PDO::FETCH_OBJ); 
-$cnt=1;
-if($query->rowCount() > 0) 
-{
-foreach($results as $result) 
-{   ?>
+                                $query = $dbh->prepare($sql); 
+                                $query->execute(); 
+                                $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                                $cnt=1;
+                                if($query->rowCount() > 0) 
+                                {
+                                foreach($results as $result) 
+                                {   ?>
                         <tr>
                             <td><?php echo htmlentities($cnt);?></td>
                             <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
                             <?php 
-      $username = htmlentities($result->username);
-      $sql1 = "SELECT * FROM author WHERE  username='$username' ";
+                                $username = htmlentities($result->username);
+                                $sql1 = "SELECT * FROM author WHERE  username='$username' ";
 
-      $result1 = mysqli_query($link,$sql1); 
+                                $result1 = mysqli_query($link,$sql1); 
 
-      $file1 = mysqli_fetch_assoc($result1);
-      
-      $title = $file1['title'];
-      $fname= $file1['firstname'];
-      $middlename= $file1['middlename'];
-      $lastname= $file1['lastname'];
+                                $file1 = mysqli_fetch_assoc($result1);
+                                
+                                $title = $file1['title'];
+                                $fname= $file1['firstname'];
+                                $middlename= $file1['middlename'];
+                                $lastname= $file1['lastname'];
 
-      $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+                                $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
-      $datedatabase = htmlentities($result->assigndate);
-      $date = date("d-M-Y",strtotime($datedatabase)); 
-      $endingdate = htmlentities($result->endingdate);
-      $edate = date("d-M-Y",strtotime($endingdate)); 
-?>
+                                $datedatabase = htmlentities($result->assigndate);
+                                $date = date("d-M-Y",strtotime($datedatabase)); 
+                                $endingdate = htmlentities($result->endingdate);
+                                $edate = date("d-M-Y",strtotime($endingdate)); 
+                            ?>
 
                             <td><?php echo $authorname;?></td>
                             <td><?php echo htmlentities($result->primaryemail);?></td>
                             <td><?php echo $date;?></td>
                             <td><?php echo $edate;?></td>
-
-
                         </tr>
                         <?php $cnt=$cnt+1;}} ?>
                     </tbody>
@@ -177,10 +154,7 @@ foreach($results as $result)
     </div>
 
     <!-- Authors showing section ends here  -->
-
-
     </div>
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
@@ -209,23 +183,5 @@ foreach($results as $result)
     </script>
 
     <!-- Essential Js,Jquery  section ends  -->
-
-
 </body>
-
 </html>
-
-
-
-<?php 
-
-}
-else {
-  echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
-}
-
-
-}
-
-?>

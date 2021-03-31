@@ -1,0 +1,251 @@
+.hero-banner .cta-block .link::before {
+  font-family: gizmo, "Segoe UI Symbol", "Lucida Grande", "Arial Unicode MS",
+    sans-serif;
+  vertical-align: middle;
+  margin-right: 0.333rem;
+}
+.hero-banner.bottom .cta-blocks {
+  display: none;
+  overflow: auto;
+  text-align: right;
+  background-color: #eee;
+}
+.hero-banner.bottom.show-cta-blocks .cta-blocks {
+  display: block;
+}
+.hero-banner .hero-image {
+  position: relative;
+  overflow: hidden;
+  height: 68vh;
+  min-height: 30rem;
+}
+.hero-banner .hero-image::after {
+  content: "";
+  display: block;
+  padding-top: 89%;
+}
+.hero-banner .hero-image img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: none;
+  max-height: none;
+}
+.hero-banner .standout-content {
+  padding: 0.9375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: #fff;
+}
+.hero-banner .standout-content * {
+  margin: 4px 0;
+}
+.hero-banner .standout-content small {
+  font-size: 0.875rem;
+}
+.hero-banner .standout-content.top h1 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  max-width: 100%;
+}
+.hero-banner .standout-content.top .body-copy {
+  font-family: elsevierdisplaylight, arial, sans-serif;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  max-width: 100%;
+}
+.hero-banner .standout-content.top .solution-hero-title-top {
+  white-space: nowrap;
+  overflow: visible;
+}
+.hero-banner .solution-hero-wordmark-title {
+  line-height: 1.2;
+  color: #000000;
+}
+.hero-banner .standout-content.top .solution-hero-additional-title,
+.hero-banner .standout-content.top .solution-hero-wordmark-title {
+  display: inline-block;
+}
+.hero-banner .standout-content.top .solution-hero-wordmark-title::after {
+  content: "  ";
+}
+.big-search form,
+.hero-banner .standout-content.top .solution-hero-body-text,
+form#search_page_116726,
+form#search_page_142290 {
+  max-width: none;
+}
+.hero-banner .standout-content.bottom h1 {
+  font-family: nexussans, arial, sans-serif;
+}
+@media only screen and (max-width: 640px) {
+  .hero-banner .solution-hero-additional-title,
+  .hero-banner .solution-hero-wordmark-title {
+    font-size: 1.25rem;
+  }
+  .hero-banner .solution-hero-body-text {
+    font-size: 2rem;
+  }
+  .hero-banner .hero-image {
+    height: 38vh;
+    min-height: 16rem;
+  }
+}
+@media screen and (min-width: 641px) {
+  .hero-banner {
+    position: relative;
+  }
+  .hero-banner .hero-image::after {
+    content: "";
+    display: block;
+    padding-top: 41%;
+  }
+  .hero-banner .standout-content {
+    position: absolute;
+  }
+  .hero-banner .standout-content small {
+    font-size: 1rem;
+  }
+  .hero-banner .standout-content.top {
+    top: 0;
+    left: 0;
+    background: 0 0;
+    padding: 2vw 0 0 1.5rem;
+    max-width: 50%;
+  }
+  .hero-banner .standout-content.top .body-copy {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .hero-banner .standout-content.bottom {
+    padding: 3.5rem;
+    width: 50vw;
+    max-width: 736px;
+    min-height: 258px;
+    margin-left: 32px;
+  } 
+  .hero-banner .cta-block {
+    display: inline-block;
+    width: calc(25vw - 2rem);
+    padding-left: 0;
+  }
+  .hero-banner .cta-block .link,
+  .hero-banner .cta-block .text,
+  .hero-banner .cta-block .title {
+    max-height: 4.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  .hero-banner.top .solution-hero-additional-title,
+  .hero-banner.top .solution-hero-wordmark-title {
+    font-size: 1.5rem;
+  }
+  .hero-banner.top .solution-hero-body-text {
+    font-size: 2.5rem;
+  }
+  .hero-banner.bottom {
+    padding-bottom: 10vw;
+  }
+  .hero-banner.bottom .solution-hero-wordmark-title {
+    font-size: 3.5rem;
+  }
+  .hero-banner.bottom .solution-hero-additional-title {
+    font-size: 1.5rem;
+  }
+  .hero-banner.bottom .solution-hero-body-text {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .hero-banner .solution-hero-body-text {
+    line-height: 1.2;
+  }
+  .hero-banner.bottom .standout-content {
+    bottom: 0;
+  }
+  .hero-banner.bottom.show-cta-blocks {
+    margin-bottom: -10vw;
+  }
+  .hero-banner.bottom.show-cta-blocks .standout-content {
+    bottom: 15rem;
+  }
+}
+@media screen and (min-width: 827px) {
+  .hero-banner .standout-content.top .body-copy {
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+  }
+}
+@media screen and (max-width: 991px) {
+  .hero-banner .standout-content.top .solution-hero-additional-title,
+  .hero-banner .standout-content.top .solution-hero-wordmark-title {
+    display: block;
+  }
+  .hero-banner .standout-content.top .solution-hero-wordmark-title::after {
+    content: " /";
+  }
+}
+@media screen and (min-width: 992px) {
+  .hero-banner .standout-content.top {
+    padding-top: 6vw;
+    padding-left: 6rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .hero-banner .standout-content.top h1 {
+    font-size: 2rem;
+    line-height: 2.625rem;
+  }
+  .hero-banner .standout-content.top .body-copy {
+    font-size: 2.625rem;
+    line-height: 3.5rem;
+  }
+}
+@media screen and (min-width: 1240px) {
+  .hero-banner .standout-content.top {
+    padding-top: 6vw;
+    padding-left: 6rem;
+  }
+  .hero-banner .standout-content.top .body-copy {
+    font-size: 3.5rem;
+    line-height: 4rem;
+  }
+  .hero-banner .standout-content.bottom {
+    margin-left: 105px;
+  }
+  .hero-banner .cta-block {
+    width: calc(27vw - 6rem);
+    font-size: 1.25rem;
+  }
+  .hero-banner .cta-block .title {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 1412px) {
+  .hero-banner .standout-content * {
+    margin: 6px 0;
+  }
+}
+@media screen and (min-width: 1921px) {
+  .hero-banner.bottom.show-cta-blocks .standout-content {
+    margin-bottom: calc(10vw - 12rem);
+  }
+}
+@media screen and (min-width: 1412px) {
+  .hero-banner .standout-content * {
+    margin: 6px 0;
+  }
+}
+.hero-banner a {
+  font-size:1.25rem;
+}
+.hero-banner span {
+  font-size: 20px;
+}

@@ -1,4 +1,9 @@
-<?php include('link/config.php');  ?>
+<?php
+session_start();
+error_reporting(0);
+include('link/config.php'); 
+include("functions.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,15 +15,13 @@
     <?php include 'link/csslinks.php'; ?>
     <!-- Css links -->
 </head>
-
 <body>
-    <div class="content">
-        <div class="sticky-top">
+        <header class="sticky-top">
             <!-- Heading Sections starts  -->
             <?php include 'heading.php'?>
             <!-- Heading Sections ends  -->
-        </div>
-        <div class="container">
+        </header>
+        <div style="font-size:17px;" class="container">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
                 </div>
@@ -85,16 +88,15 @@
                             elsewhere. The articles should generally analyze current issues relevant to management,
                             social sciences, engineering, agriculture, science and technology.
 
-                            For submission guidelines, contact the editor at ijournal@iubat.edu.</p>
-<!-- ------------------------------Journal Information -------------------------------------- -->                           
+                            For submission guidelines, contact the editor at ijournal@iubat.edu.</p>                       
                     </div>
+                <!-- ------------------------------Journal Information -------------------------------------- -->    
                 </div>
             </div>
         </div>
         <!-- Footer section starts here  -->
         <?php include 'footer.php'?>
         <!-- Footer section ends here  -->
-    </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/popper.min.js"></script>

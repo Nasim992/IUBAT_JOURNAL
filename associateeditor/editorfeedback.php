@@ -1,27 +1,13 @@
 <?php 
 session_start();
 error_reporting(0);
-include '../link/config.php';
-include '../functions.php';
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location:../login"); 
-    } 
-    else
-    {  
-      $email =  $_SESSION['alogin'];
-     // Check that the Associate Editor is logged in or not section starts here 
-
-     $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact,author.associateeditor from author where primaryemail='$email' and associateeditor IS NOT NULL"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     // Check that the Associate Editor  is logged in or not section ends here 
+include('../link/config.php');
+include('../link/functionsql.php');
+include('../functions.php');
+checkLoggedInOrNot();
+$email =  $_SESSION['alogin'];
+IsAssociateEditorLoggedIn($email);
      
-
      if(isset($_POST['reviewer-feedbacks'])) {
         $paperid = $_POST['paperid'];
       }
@@ -40,7 +26,7 @@ if(strlen($_SESSION['alogin'])=="")
           // Full pdf if necessary info  File section ends here
        $feedback = serialize(array($feedbackin));
        $feedbackdate = serialize(array($feedbackdatein));
-        $sqlreviewer="update editortable set feedback='$feedback',feedbackdate='$feedbackdate',feedbackfile='$namereviewer' where paperid='$paperid' and primaryemail='$email'";
+        $sqlreviewer="update editortable set feedback='".escape($feedback)."',feedbackdate='$feedbackdate',feedbackfile='$namereviewer' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
         {
@@ -82,16 +68,12 @@ if(strlen($_SESSION['alogin'])=="")
 <body>
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends-->
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
+        <?php include 'sidebar.php'; ?>
 
     </div>
 
@@ -257,18 +239,4 @@ include 'header.php';
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
-
-<?php 
-  }
-  else {
-    echo "<script>alert('You are not a AssociateEditor.Try to log in as an Associateeditor');</script>";
-    header("refresh:0;url=../login");
-  }
-  
-  
-  }
-  
-    ?>

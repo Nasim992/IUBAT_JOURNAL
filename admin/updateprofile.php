@@ -2,14 +2,9 @@
 session_start();
 error_reporting(0); 
 include('../link/config.php');
+include('../functions.php');
+checkLoggedInOrNot();
 
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location:../login"); 
-    } 
-    else  
-    {  
-      
      // Check that the Editor is logged in or not section starts here  
      $editoremail = $_SESSION["email"];
      $editoremail1 = $_SESSION["email"];
@@ -161,9 +156,5 @@ if(strlen($_SESSION['alogin'])=="")
          }
          else {
            echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-           header("refresh:0;url=../login");
+           echo "<script type='text/javascript'> document.location = '../login'; </script>";
          }
-         
-         }
-              
-?>

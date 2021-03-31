@@ -5,7 +5,7 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location:../login");  
+    echo "<script type='text/javascript'> document.location = '../login'; </script>";  
     } else {
       $email =  $_SESSION['alogin'];
      // Check that the Associate Editor is logged in or not section starts here 
@@ -176,7 +176,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 <?php }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../login");
+  echo "<script type='text/javascript'> document.location = '../login'; </script>";
 }
 
 }

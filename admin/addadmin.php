@@ -2,26 +2,10 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login"); 
-    } 
-    else 
-    { 
-
-     // Check that the Editor is logged in or not section starts here  
-     $email = $_SESSION["email"];
-
-     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$email'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     
-     // Check that the Editor is logged in or not section ends here 
+include('../functions.php');
+checkLoggedInOrNot();
+$adminemail = $_SESSION["email"];
+IsAdminLoggedIn($adminemail);
 
 
             if(isset($_POST['submit'])) 
@@ -177,15 +161,4 @@ if(strlen($_SESSION['alogin'])=="")
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
-<?php 
-}
-else {
-  echo "<script>alert('You are not a Admin.Try to log in as an admin');</script>";
-  header("refresh:0;url=../login");
-}
-
-}
-    ?>

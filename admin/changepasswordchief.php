@@ -2,35 +2,21 @@
 session_start();
 error_reporting(0);
 include('../link/config.php');
-if(strlen($_SESSION['alogin'])=="")
-    {    
-    header("Location: ../login");  
-    }
-    else
-    {  
-     // Check that the Editor is logged in or not section starts here  
-     $editoremail = $_SESSION["email"];
+include('../link/functionsql.php');
+include('../functions.php');
+checkLoggedInOrNot();
+$adminemail = $_SESSION["email"];
+IsAdminLoggedIn($adminemail);
 
-     $sql = "SELECT admin.id,admin.fullname,admin.password,admin.contact FROM admin WHERE email='$editoremail'"; 
-     $query = $dbh->prepare($sql); 
-     $query->execute(); 
-     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-     $cnt=1;
-     if($query->rowCount() > 0) 
-     {
-     // Check that the Editor is logged in or not section ends here 
-
+// Change password 
     if(isset($_POST['submit']))
       {
-    $password=($_POST['password']);
     $newpassword=md5($_POST['newpassword']);
     $editoremail =$_POST['editoremail'];
     $confirmpassword = md5($_POST['confirmpassword']);
 
-    if($password !== $confirmpassword) {
-
-    $sqlpass="update chiefeditor set password='$newpassword' where email='$editoremail'";
-    
+    if($newpassword == $confirmpassword) {
+    $sqlpass="update chiefeditor set password='".escape($newpassword)."' where email='$editoremail'";
     if(mysqli_query($link,$sqlpass))
     {
     echo "<script>alert('Password Changed Successfully');</script>";
@@ -46,12 +32,10 @@ if(strlen($_SESSION['alogin'])=="")
     header("refresh:0;url=changepasswordchief");
   }
     }    
-
+// Change Password
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,9 +44,7 @@ if(strlen($_SESSION['alogin'])=="")
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="shortcut icon" href="../images/Iubat-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/index.css">
-
     <title>Change Chief Editor password</title>
-
     <style>
     @media only screen and (max-width: 992px) {
         form {
@@ -70,7 +52,6 @@ if(strlen($_SESSION['alogin'])=="")
             margin-right: 0px !important;
         }
     }
-
     form {
 
         padding: 20px;
@@ -79,43 +60,35 @@ if(strlen($_SESSION['alogin'])=="")
         margin-right: 200px;
         border: 2px solid #e3e3e3;
         font-size: 14px;
-
     }
     </style>
 
 </head>
 
 <body>
-
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
         <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
-
-
     <div id="mySidebar" class="sidebar">
         <?php include 'sidebar.php'; ?>
     </div>
-
     <div id="main">
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
-
             <h6>CHANGE CHIEF EDITOR PASSWORD</h6>
             <hr class="bg-secondary">
-
             <form class="change-password-form" method="post">
                 <div class="form-group has-success">
-                    <label for="success" class="control-label">Current Password</label>
-                    <div class="">
-                        <input type="hidden" name="editoremail" value="<?php  echo $editoremail;?>">
-                        <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                            title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
-                            class="form-control" required="required" id="success" placeholder="Enter Old Password">
-                    </div>
+                    <?php 
+                         $sql = "SELECT email FROM chiefeditor";
+                         $result = mysqli_query($link,$sql);
+                         $file = mysqli_fetch_assoc($result);
+                         $email=$file['email'];
+                    ?>
+                        <input type="hidden" name="editoremail" value="<?php  echo $email;?>">
                 </div>
                 <div class="form-group has-success">
                     <label for="success" class="control-label">New Password</label>
@@ -136,33 +109,16 @@ if(strlen($_SESSION['alogin'])=="")
                     </div>
                 </div>
                 <div class="form-group has-success">
-
-
-
                     <button type="submit" name="submit" class="btn btn-success btn-sm  ">Change password</button>
-
-
             </form>
 
             <div class="mb-5"></div>
         </div>
     </div>
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <!-- Essential Js,Jquery  section ends  -->
-
 </body>
-
 </html>
-
-<?php     
-}
-else {
-  echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-  header("refresh:0;url=../login");
-}
-}
-?>

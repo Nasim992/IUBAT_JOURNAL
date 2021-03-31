@@ -2,13 +2,8 @@
 session_start();
 error_reporting(0); 
 include('../link/config.php');
- 
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location:../login"); 
-    } 
-    else  
-    {  
+include('../functions.php');
+checkLoggedInOrNot(); 
       $email =  $_SESSION['alogin'];
      // Check that the Associate Editor is logged in or not section starts here 
 
@@ -21,7 +16,7 @@ if(strlen($_SESSION['alogin'])=="")
      {
  
 // Check that the Associate Editor  is logged in or not section ends here 
-        //   Update Author Profile Section starts here  
+//   Update Author Profile Section starts here  
 
         if(isset($_POST['updateauthor']))
         { 
@@ -82,29 +77,21 @@ if(strlen($_SESSION['alogin'])=="")
 </head>
 
 <body>
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating ">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar ">
-        <?php 
-  include 'sidebar.php';
-  ?>
+        <?php  include 'sidebar.php'; ?>
     </div>
-
     <div id="main">
         <!-- <a href="#"><span class="resbtn"onclick="openNav()" id="closesign">☰</span></a> -->
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
-
             <h6>EDITOR PROFILE</h6>
             <hr class="bg-success">
-
             <!-- Update Profile section starts here  -->
             <?php  foreach($resultacademiceditor as $result) {   ?>
             <form class="form-signup marginbtm" method="post">
@@ -194,18 +181,10 @@ include 'header.php';
     </script>
     <!-- Essential Js,Jquery  section ends  -->
 </body>
-
 </html>
-
 <?php 
 }
 else {
-  echo "<script>alert('You are not a academiceditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
+  echo "<script>alert('You are not a academiceditor.Try to log in as a Academic Editor');</script>";
+  echo "<script type='text/javascript'> document.location = '../login'; </script>";
 }
-
-
-}
-
-    
-?>

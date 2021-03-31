@@ -1,3 +1,4 @@
+<?php include('../mailmessage/url.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +14,9 @@
     </style> 
 </head>
 <body> 
+<a href="<?php echo $url;?>" class="sidebars" title="Main Home page"><i class="fas fa-home"></i>&nbsp Home</a>
 <a href="dashboard" class="sidebars"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a>
 <a href="publishedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Published Paper</a>
-<!-- <a href="addadmin" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Add Admin</a> -->
   <a href="unpublishedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Unpublished Paper</a>
   <a href="updateprofile" class="sidebars"><i class="fas fa-user-shield"></i>&nbsp Update Profile</a>
   <a href="changepassword" class="sidebars"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a>
@@ -24,17 +25,9 @@
   <a href="reviewerdetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a>
   <a href="selecteditor" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Select Editor</a>
   <a href="editordetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editor</a>
-  <!-- <a href="editored" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editored</a> -->
   <a href="rfeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Reviewer Feedback</a>
   <a href="efeedback" class="sidebars"><i class="fas fa-comments"></i>&nbsp Editor Feedback</a>
   <a href="archive" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Archive</a>
-  <!-- <a href="aimandscopeadmin" class="sidebars"><i class="fas fa-crosshairs"></i>&nbsp Aim and Scope</a>
-  <a href="#" class="sidebars"><i class="fas fa-user-edit"></i>&nbsp Editorial Board</a>
-  <a href="#" class="sidebars"><i class="fas fa-journal-whills"></i>&nbsp Journal Information</a>
-  <a href="#" class="sidebars"><i class="fas fa-database"></i>&nbsp Research Data</a>
-  <a href="#" class="sidebars"><i class="fas fa-address-card"></i>&nbsp About Us</a>
-  <a href="#" class="sidebars"><i class="fas fa-address-card"></i>&nbsp Contact Us</a>
-  <a href="#" class="sidebars"><i class="fas fa-user-secret"></i>&nbsp Privacy Policy</a> -->
   <a href="#" class="sidebars"></a>
     
 </body>

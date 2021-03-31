@@ -1,10 +1,11 @@
 <?php
+session_start();
 error_reporting(0);
 include('link/config.php');
+include("functions.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@ include('link/config.php');
     <style>
     .guidelines div ul li {
         list-style-type: square;
+        font-size:18px;
     }
     </style>
     <!-- Css links -->
@@ -22,11 +24,11 @@ include('link/config.php');
 <body>
     <div class="content">
             <!-- Heading Sections starts  -->
-            <div class="sticky-top">
+            <header class="sticky-top">
                 <?php include 'heading.php'; ?> 
-            </div>
+            </header>
             <!-- Heading Sections ends  -->
-        <div class="container">
+        <div style="font-size:17px;" class="container">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
                 </div>
@@ -539,11 +541,8 @@ include('link/config.php');
         </div>
     </div>
     <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php'
-    ?>
+    <?php include 'footer.php' ?>
     <!-- Footer section ends here  -->
-    </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/popper.min.js"></script>

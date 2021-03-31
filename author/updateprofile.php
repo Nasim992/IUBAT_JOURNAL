@@ -2,31 +2,21 @@
 session_start(); 
 error_reporting(0);  
 include('../link/config.php');
-
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location:../login"); 
-    } 
-    else  
-    {  
+include('../functions.php');
+checkLoggedInOrNot();  
            $authoremail = $_SESSION["email"];
-
           //  Check that the author is logged in to the section or not starts here 
-
             $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.primaryemailcc,author.secondaryemail,author.secondaryemailcc,author.contact,author.address,author.password from author where primaryemail='$authoremail'"; 
             $query = $dbh->prepare($sql); 
             $query->execute(); 
             $resultsauthor=$query->fetchAll(PDO::FETCH_OBJ); 
             if($query->rowCount() > 0) 
             {
-    
           // Check that the author is logged in to the section or not ends here 
 
         //   Update Author Profile Section starts here  
-
             if(isset($_POST['updateauthor']))
             { 
-    
             // $username=$_POST['userName'];
             $title=$_POST['title'];
             $firstname=$_POST['firstName'];
@@ -53,7 +43,6 @@ if(strlen($_SESSION['alogin'])=="")
           }
     
         // Update Author Profile Section ends here 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,18 +72,13 @@ if(strlen($_SESSION['alogin'])=="")
 </head>
 
 <body>
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating ">
-        <?php
-    include 'author-header.php';
-    ?>
+        <?php  include 'author-header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
     <div id="mySidebar" class="sidebar ">
-        <?php 
-      include 'author-sidebar.php';
-      ?>
+        <?php  include 'author-sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -105,9 +89,14 @@ if(strlen($_SESSION['alogin'])=="")
 
             <h6>AUTHOR PROFILE</h6>
             <hr class="bg-success">
-
             <!-- Update Profile section starts here  -->
-            <?php  foreach($resultsauthor as $result) {   ?>
+            <?php
+            $sql = "SELECT author.id,author.username,author.title,author.firstname,author.middlename,author.lastname,author.primaryemail,author.primaryemailcc,author.secondaryemail,author.secondaryemailcc,author.contact,author.address,author.password from author where primaryemail='$authoremail'"; 
+            $query = $dbh->prepare($sql); 
+            $query->execute(); 
+            $resultsauthor=$query->fetchAll(PDO::FETCH_OBJ);
+            
+            foreach($resultsauthor as $result) {   ?>
             <form class="form-signup marginbtm" method="post">
                 <input type="text" id="txt_username" class="form-control" name="userName" placeholder=" User Name"
                     value="<?php echo htmlentities($result->username);?>" disabled>
@@ -198,7 +187,6 @@ if(strlen($_SESSION['alogin'])=="")
        }
 else {
   echo "<script>alert('You are not a Author.Try to log in as an Author');</script>";
-  header("refresh:0;url=login.php");
-}
+  echo "<script type='text/javascript'> document.location = 'login'; </script>";
 }
 ?>

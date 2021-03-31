@@ -2,14 +2,8 @@
 session_start();
 error_reporting(0); 
 include('../link/config.php');
-
-if(strlen($_SESSION['alogin'])=="") 
-    {    
-    header("Location:../login"); 
-    } 
-    else  
-    {  
-      
+include('../functions.php');
+checkLoggedInOrNot();
      // Check that the Editor is logged in or not section starts here  
      $editoremail = $_SESSION["email"];
      $editoremail1 = $_SESSION["email"];
@@ -150,12 +144,9 @@ if(strlen($_SESSION['alogin'])=="")
 </body>
 
 </html>
-
 <?php 
          }
          else {
            echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-           header("refresh:0;url=../login");
-         }       
-         }
-?>
+           echo "<script type='text/javascript'> document.location = '../login'; </script>";
+         }    

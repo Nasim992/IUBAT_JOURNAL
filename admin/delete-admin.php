@@ -20,13 +20,14 @@ $sql="DELETE FROM admin WHERE id= '$id' ";
 
 if(mysqli_query($link, $sql)){
     echo "<script>alert('Selected Admin  deleted successfully')</script>";
-    header("refresh:0;url=admin");
+    echo "<script type='text/javascript'> document.location = 'admin'; </script>";
 } else{
     echo "<script>alert('Something went wrong')</script>";
-    header("refresh:0;url=admin");
+    echo "<script type='text/javascript'> document.location = 'admin'; </script>";
 }
  
 // Close connection
 mysqli_close($link);
+header("Location: " . $_SERVER["HTTP_REFERER"]);
 
 ?>

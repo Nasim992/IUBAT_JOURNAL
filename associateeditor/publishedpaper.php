@@ -5,7 +5,7 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location:../login");  
+    echo "<script type='text/javascript'> document.location = '../login'; </script>";  
     } else {
       $email =  $_SESSION['alogin'];
      // Check that the Associate Editor is logged in or not section starts here 
@@ -37,17 +37,12 @@ if(strlen($_SESSION['alogin'])=="")
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php'; ?>
     </div>
 
     <div id="main">
@@ -69,27 +64,26 @@ include 'header.php';
       if($query->rowCount() > 0) 
       {
       foreach($results as $result) 
-
-{   ?>
+            {   ?>
 
                     <!-- Select User name section starts here  -->
                     <?php  
-$authoremail = htmlentities($result->authoremail);
+                        $authoremail = htmlentities($result->authoremail);
 
-$sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
+                        $sql1 = "SELECT * FROM author WHERE  primaryemail= '$authoremail' ";
 
-$result1 = mysqli_query($link,$sql1); 
+                        $result1 = mysqli_query($link,$sql1); 
 
-$file1 = mysqli_fetch_assoc($result1);
+                        $file1 = mysqli_fetch_assoc($result1);
 
-$title = $file1['title'];
-$fname= $file1['firstname'];
-$middlename= $file1['middlename'];
-$lastname= $file1['lastname'];
+                        $title = $file1['title'];
+                        $fname= $file1['firstname'];
+                        $middlename= $file1['middlename'];
+                        $lastname= $file1['lastname'];
 
-$authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
- 
-?>
+                        $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+                        
+                        ?>
                     <!-- Select user  name section ends here  -->
 
                     <!-- Dashboard section starts  -->
@@ -108,11 +102,11 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
                                     <div class="text-info">
                                         Published on:
                                         <?php 
-            $pdatestring = htmlentities($result->pdate);
-            $pdate= date("d-M-Y",strtotime($pdatestring));
-            echo $pdate;
-            ?>
-                                    </div>
+                                $pdatestring = htmlentities($result->pdate);
+                                $pdate= date("d-M-Y",strtotime($pdatestring));
+                                echo $pdate;
+                                ?>
+                                                        </div>
                                 </div>
                                 <h5 class="text-secondary" style="font-size:15px;"><?php echo $authorname;?></h5>
                                 <p id="paper-abstract<?php echo htmlentities($result->id);?>"
@@ -176,7 +170,7 @@ $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 <?php }
 else {
   echo "<script>alert('You are not a Chief Editor.Try to log in as a Chief Editor');</script>";
-  header("refresh:0;url=../login");
+  echo "<script type='text/javascript'> document.location = '../login'; </script>";
 }
 
 }

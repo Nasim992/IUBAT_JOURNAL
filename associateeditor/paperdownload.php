@@ -5,7 +5,7 @@ include '../link/config.php';
 include '../functions.php'; 
 if(strlen($_SESSION['alogin'])=="")
     {     
-        header("Location:../login");  
+        echo "<script type='text/javascript'> document.location = '../login'; </script>";  
     }
     else
     {  
@@ -68,11 +68,9 @@ $authormail = $file['authoremail'];
 $abstract = $file['abstract'];
 $numberofcoauthor = $file['numberofcoauthor'];
 
-$uploaddate = $file['uploaddate'];
-$uploadmonth = $file['uploadmonth'];
-$uploadyear = $file['uploadyear'];
+$uploaddatestring = $file['uploaddate'];
 
-$maindate = $uploaddate.' '.month($uploadmonth).' '.$uploadyear;
+$maindate= date("d-M-Y",strtotime($uploaddatestring));
 
 // Selecting paper section ends here 
 
@@ -113,18 +111,13 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
-        <?php
-include 'header.php';
-?>
+        <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
 
 
     <div id="mySidebar" class="sidebar">
-        <?php
-  include 'sidebar.php';
-  ?>
-
+        <?php include 'sidebar.php';?>
     </div>
 
     <div id="main">
@@ -199,8 +192,6 @@ include 'header.php';
 
 </html>
 
-
-
 <?php } else  {
 echo "<script>alert('Id is not recognized');</script>";
 header("refresh:0;url=publishedpaper");
@@ -209,10 +200,8 @@ header("refresh:0;url=publishedpaper");
   }
   else {
     echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-    header("refresh:0;url=../login");
+    echo "<script type='text/javascript'> document.location = '../login'; </script>";
   }
-  
-  
   }
   
     ?>

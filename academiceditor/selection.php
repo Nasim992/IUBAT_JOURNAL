@@ -5,7 +5,7 @@ include '../link/config.php';
 include '../functions.php';
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location:../login"); 
+    echo "<script type='text/javascript'> document.location = '../login'; </script>"; 
     } 
     else
     {  
@@ -27,7 +27,7 @@ if($link === false){
 
 // Paper description showing section starts here 
 
-$idstr=strval($_GET['id']); 
+$idstr=$_GET['id']; 
 
 // Check that the id is available or not in the database 
 $querypublished = "SELECT COUNT(*) as total_available FROM paper WHERE paperid='$idstr'";
@@ -49,7 +49,7 @@ $total_available = $row['total_available'];
  
 $unpublished = $idstr[-1];
 
-$paperid=rtrim($_GET['id'],"u");
+$paperid=$_GET['id'];
 
 if (!empty($_GET['id'])) {
 
@@ -59,7 +59,7 @@ if (!empty($_GET['id'])) {
     }
     else {
 
-$paperid=rtrim($_GET['id'],"u");
+$paperid=$_GET['id'];
 
 $sql = "SELECT * FROM paper WHERE paperid = '$paperid' and action=0";
 $result = mysqli_query($link,$sql);
@@ -205,6 +205,7 @@ if(isset($_POST['select-reviewer']))
 // Select Reviewer Outside  Section
 if(isset($_POST['select-reviewer-outside']))
 {
+    $pname = $_POST['outsideName'];
     $pemail = $_POST['email'];
     // $sqlauthorselect = "SELECT primaryemail FROM author WHERE username = '$usernameauthor'";
     // $resultauthorselect = mysqli_query($link,$sqlauthorselect);
@@ -587,6 +588,12 @@ $resultacademiceditorshown=array_diff($arrayallusernameacademiceditor,$academice
                         <div id="handleoutsidereviewer">
                         <form method = "post" >
                                 <div class="input-group">
+                                <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Name:</b></label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" id="exampleFormControlTextarea1" name= "outsideName" required>
+                                </div>
+                                </div> <br>
+                                <div class="input-group">
                                 <label class="col-sm-2 col-form-label" for="formGroupExampleInput"><b>Email:</b></label>
                                 <div class="col-sm-10">
                                 <input type="email" class="form-control" id="exampleFormControlTextarea1" name= "email" required>
@@ -664,7 +671,7 @@ header("refresh:0;url=paperstatus");
   }
   else {
     echo "<script>alert('You are not a AssociateEditor.Try to log in as an Author');</script>";
-    header("refresh:0;url=../login");
+    echo "<script type='text/javascript'> document.location = '../login'; </script>";
   }
   }
     ?>

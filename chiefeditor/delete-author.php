@@ -119,19 +119,22 @@ $id=intval($_GET['id']);
     }
     // Delete Editor section 
 
-
+ 
 $sql="DELETE FROM author WHERE id= '$id' ";
 
 if(mysqli_query($link, $sql)){
     echo "<script>alert('Selected Authors were deleted successfully.')</script>";
-    header("refresh:0;url=authors");
-} else{
+    echo "<script type='text/javascript'> document.location = 'authors'; </script>";
+    //header("refresh:0;url=authors"); 
+} else{ 
     echo "<script>alert('Something went wrong')</script>";
-    header("refresh:0;url=authors");
+    echo "<script type='text/javascript'> document.location = 'authors'; </script>";
+    // header("refresh:0;url=authors");
+    
 }
  
 // Close connection
-// header("Location: " . $_SERVER["HTTP_REFERER"]);
-// mysqli_close($link);
+header("Location: " . $_SERVER["HTTP_REFERER"]);
+mysqli_close($link);
 
 ?>

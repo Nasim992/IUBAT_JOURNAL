@@ -1,8 +1,8 @@
 <?php
 session_start();
 error_reporting(0);
-
 include('../link/config.php');
+include('../link/functionsql.php');
 include('../functions.php');
 if(strlen($_SESSION['alogin'])=="")
     {     
@@ -10,11 +10,8 @@ if(strlen($_SESSION['alogin'])=="")
     }
     else
     {  
-
       $email =  $_SESSION['alogin'];
-
               // Check that the Author is logged in or not section starts here 
-
               $sql = "SELECT author.id,author.username,author.primaryemail,author.password,author.contact from author where primaryemail='$email' and reviewerselection IS NOT NULL"; 
               $query = $dbh->prepare($sql); 
               $query->execute(); 
@@ -43,7 +40,7 @@ if(strlen($_SESSION['alogin'])=="")
           // Full pdf if necessary info  File section ends here
        $feedback = serialize(array($feedbackin));
        $feedbackdate = serialize(array($feedbackdatein));
-        $sqlreviewer="update reviewertable set feedback='$feedback',feedbackfile='$namereviewer',feedbackdate='$feedbackdate' where paperid='$paperid' and primaryemail='$email'";
+        $sqlreviewer="update reviewertable set feedback='".escape($feedback)."',feedbackfile='$namereviewer',feedbackdate='$feedbackdate' where paperid='$paperid' and primaryemail='$email'";
 
         if(mysqli_query($link, $sqlreviewer))
         {
@@ -71,10 +68,7 @@ if(strlen($_SESSION['alogin'])=="")
         array_push($academiceditorshowing,$usernameeditor);
         }}
         $alleditoremail = implode(',',$academiceditorshowing);
-
-
         // Select editor mail  
-
         $to_mail = "$chiefmail,$alleditoremail ";
         //   Reviewed messages sending
         include '../mailmessage/rfeedbackmail.php';
@@ -88,10 +82,8 @@ if(strlen($_SESSION['alogin'])=="")
           echo "<script>alert('Something went wrong');</script>";
           header("refresh:0;url=reviewerfeedback");
         }
-
       }
       // Reviewer Paper Section Ends Here 
-
 ?>
 
 <!DOCTYPE html>
@@ -263,7 +255,7 @@ if(strlen($_SESSION['alogin'])=="")
      }
      else {
        echo "<script>alert('You are not selected as a Reviewer.');</script>";
-       header("refresh:0;url=../login");
+       echo "<script type='text/javascript'> document.location = '../login'; </script>";
      }   
     }
     ?>

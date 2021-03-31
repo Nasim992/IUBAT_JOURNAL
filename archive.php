@@ -1,7 +1,9 @@
 <?php
+session_start();
 error_reporting(0);
- include('link/config.php'); 
- ?>
+include('link/config.php'); 
+include("functions.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +43,7 @@ error_reporting(0);
             <?php  include 'heading.php'?>
             <!-- Heading Sections ends  -->
         </div>
-        <div class="container">
+        <div style="font-size:18px;" class="container">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3">
 
@@ -89,47 +91,32 @@ error_reporting(0);
                                         $query = $dbh->prepare($sql); 
                                         $query->execute(); 
                                         $results=$query->fetchAll(PDO::FETCH_OBJ); 
-                                        $cnt=1; 
-                                    
                                         if($query->rowCount() > 0) 
                                         {
                                         foreach($results as $result)  
                                         {  
                                             $filepathname = htmlentities($result->filename);
                                             $filepath = 'documents/archivefile/'.$filepathname;
-
-                                        $publishdatestring = htmlentities($result->publisheddate);
-                                        $publishdate = date("Y",strtotime($publishdatestring));
+                                            $publishdatestring = htmlentities($result->publisheddate);
+                                            $publishdate = date("Y",strtotime($publishdatestring));
                                         ?>
-                                    <!-- Dashboard section starts  -->
                                     <tr>
                                         <td>
                                             <div class="jumbotron text-justify  mb-0 bg-transparent">
-
-                                                <a class="bg-transparent"
-                                                    style="font-size:17px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
-
+                                                <a class="bg-transparent"style="font-size:18px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
                                                 <div class="d-flex justify-content-between">
                                                     <div>
-                                                        <h5 class="text-primary" style="font-size:16px;">
-                                                            <small>Published on <?php echo $publishdate;?></small></h5>
+                                                        <h5 class="text-primary" style="font-size:16px;"><small>Published on <?php echo $publishdate;?></small></h5>
                                                     </div>
                                                     <div>
-                                                        <a style="font-size:14px;" class="btn btn-info btn-sm"
-                                                            href="<?php echo $filepath ?> " target="_blank"
-                                                            role="button">Download</a>
+                                                        <a style="font-size:17px;" class="btn btn-info btn-sm"href="<?php echo $filepath ?> " target="_blank" role="button">Download</a>
                                                     </div>
                                                 </div>
-                                                <h5 class="text-dark" style="font-size:16px;">
-                                                    <?php echo htmlentities($result->authorname);?></h5>
-
-                                                <p id="paper-abstract<?php echo htmlentities($result->id);?>"
-                                                    style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;">
+                                                <h5 class="text-dark" style="font-size:16px;"><?php echo htmlentities($result->authorname);?></h5>
+                                                <p id="paper-abstract<?php echo htmlentities($result->id);?>"style="font-size:17px;height: 6.0em;overflow: hidden;width:auto;">
                                                     <span style="font-weight:bold">Abstract:</span>
                                                     <?php echo htmlentities($result->abstract);?></p>
-                                                <a style="cursor:pointer;" class="text-secondary float-right"><span
-                                                        id="read-more-abstract<?php echo htmlentities($result->id);?>">Read
-                                                        more...</span></a>
+                                                <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
                                                 <!--Individual Read More section starts here   -->
                                                 <script>
                                                 document.querySelector(
@@ -146,8 +133,6 @@ error_reporting(0);
                                         </td>
                         </div>
                         </tr>
-                        <!-- DashBoard Section ends  -->
-
                         <?php }} ?>
                         </tbody>
                         </table>
@@ -174,40 +159,26 @@ error_reporting(0);
                                         {  
                                             $filepathname = htmlentities($result->filename);
                                             $filepath = 'documents/archivefile/'.$filepathname;
-
-                                        $publishdatestring = htmlentities($result->publisheddate);
-                                        $publishdate = date("Y",strtotime($publishdatestring));
+                                            $publishdatestring = htmlentities($result->publisheddate);
+                                            $publishdate = date("Y",strtotime($publishdatestring));
                                         ?>
-
-                                    <!-- Dashboard section starts  -->
                                     <tr>
                                         <td>
                                             <div class="jumbotron text-justify  mb-0 bg-transparent">
-
-                                                <a class="bg-transparent"
-                                                    style="font-size:17px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
-
+                                                <a class="bg-transparent" style="font-size:18px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
                                                 <div class="d-flex justify-content-between">
                                                     <div>
-                                                        <h5 class="text-primary" style="font-size:16px;">
-                                                            <small>Published on <?php echo $publishdate;?></small></h5>
+                                                        <h5 class="text-primary" style="font-size:16px;"><small>Published on <?php echo $publishdate;?></small></h5>
                                                     </div>
                                                     <div>
-                                                        <a style="font-size:14px;" class="btn btn-info btn-sm"
-                                                            href="<?php echo $filepath ?> " target="_blank"
-                                                            role="button">Download</a>
+                                                        <a style="font-size:14px;" class="btn btn-info btn-sm"href="<?php echo $filepath ?> " target="_blank"role="button">Download</a>
                                                     </div>
                                                 </div>
-                                                <h5 class="text-dark" style="font-size:16px;">
-                                                    <?php echo htmlentities($result->authorname);?></h5>
-
-                                                <p id="paper-abstract<?php echo htmlentities($result->id);?>"
-                                                    style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;">
+                                                <h5 class="text-dark" style="font-size:17px;"><?php echo htmlentities($result->authorname);?></h5>
+                                                <p id="paper-abstract<?php echo htmlentities($result->id);?>"style="font-size:17px;height: 6.0em;overflow: hidden;width:auto;">
                                                     <span style="font-weight:bold">Abstract:</span>
                                                     <?php echo htmlentities($result->abstract);?></p>
-                                                <a style="cursor:pointer;" class="text-secondary float-right"><span
-                                                        id="read-more-abstract<?php echo htmlentities($result->id);?>">Read
-                                                        more...</span></a>
+                                                <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
                                                 <!--Individual Read More section starts here   -->
                                                 <script>
                                                 document.querySelector(
@@ -225,7 +196,6 @@ error_reporting(0);
                         </div>
                         </tr>
                         <!-- DashBoard Section ends  -->
-
                         <?php }} ?>
                         </tbody>
                         </table>
@@ -244,48 +214,32 @@ error_reporting(0);
                                     $query = $dbh->prepare($sql); 
                                     $query->execute(); 
                                     $results=$query->fetchAll(PDO::FETCH_OBJ); 
-                                    $cnt=1; 
-                                
                                     if($query->rowCount() > 0) 
                                     {
                                     foreach($results as $result)  
                                     {  
                                         $filepathname = htmlentities($result->filename);
                                         $filepath = 'documents/archivefile/'.$filepathname;
-
-                                    $publishdatestring = htmlentities($result->publisheddate);
-                                    $publishdate = date("Y",strtotime($publishdatestring));
+                                        $publishdatestring = htmlentities($result->publisheddate);
+                                        $publishdate = date("Y",strtotime($publishdatestring));
                                     ?>
-
                                 <!-- Dashboard section starts  -->
                                 <tr>
                                     <td>
                                         <div class="jumbotron text-justify  mb-0 bg-transparent">
-
-                                            <a class="bg-transparent"
-                                                style="font-size:17px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
-
+                                            <a class="bg-transparent" style="font-size:18px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
                                             <div class="d-flex justify-content-between">
                                                 <div>
-                                                    <h5 class="text-primary" style="font-size:16px;"><small>Published on
-                                                            <?php echo $publishdate;?></small></h5>
+                                                    <h5 class="text-primary" style="font-size:16px;"><small>Published on <?php echo $publishdate;?></small></h5>
                                                 </div>
                                                 <div>
-                                                    <a style="font-size:14px;" class="btn btn-info btn-sm"
-                                                        href="<?php echo $filepath ?> " target="_blank"
-                                                        role="button">Download</a>
+                                                    <a style="font-size:16px;" class="btn btn-info btn-sm" href="<?php echo $filepath ?> " target="_blank" role="button">Download</a>
                                                 </div>
                                             </div>
-                                            <h5 class="text-dark" style="font-size:16px;">
-                                                <?php echo htmlentities($result->authorname);?></h5>
-
-                                            <p id="paper-abstract<?php echo htmlentities($result->id);?>"
-                                                style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span
-                                                    style="font-weight:bold">Abstract:</span>
+                                            <h5 class="text-dark" style="font-size:16px;"><?php echo htmlentities($result->authorname);?></h5>
+                                            <p id="paper-abstract<?php echo htmlentities($result->id);?>"style="font-size:17px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span>
                                                 <?php echo htmlentities($result->abstract);?></p>
-                                            <a style="cursor:pointer;" class="text-secondary float-right"><span
-                                                    id="read-more-abstract<?php echo htmlentities($result->id);?>">Read
-                                                    more...</span></a>
+                                            <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
                                             <!--Individual Read More section starts here   -->
                                             <script>
                                             document.querySelector(
@@ -322,48 +276,32 @@ error_reporting(0);
                             $query = $dbh->prepare($sql); 
                             $query->execute(); 
                             $results=$query->fetchAll(PDO::FETCH_OBJ); 
-                            $cnt=1; 
-                        
                             if($query->rowCount() > 0) 
                             {
                             foreach($results as $result)  
                             {  
                                 $filepathname = htmlentities($result->filename);
                                 $filepath = 'documents/archivefile/'.$filepathname;
-
-                            $publishdatestring = htmlentities($result->publisheddate);
-                            $publishdate = date("Y",strtotime($publishdatestring));
+                                $publishdatestring = htmlentities($result->publisheddate);
+                                $publishdate = date("Y",strtotime($publishdatestring));
                             ?>
-
                             <!-- Dashboard section starts  -->
                             <tr>
                                 <td>
                                     <div class="jumbotron text-justify  mb-0 bg-transparent">
-
-                                        <a class="bg-transparent"
-                                            style="font-size:17px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
+                                        <a class="bg-transparent"style="font-size:18px;border:none;outline:none;font-weight:500;color:#098680;text-align:left;"><?php echo htmlentities($result->papername);?></a>
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <h5 class="text-primary" style="font-size:16px;"><small>Published on
-                                                        <?php echo $publishdate;?></small></h5>
+                                                <h5 class="text-primary" style="font-size:16px;"><small>Published on <?php echo $publishdate;?></small></h5>
                                             </div>
                                             <div>
-                                                <a style="font-size:14px;" class="btn btn-info btn-sm"
-                                                    href="<?php echo $filepath ?> " target="_blank"
-                                                    role="button">Download</a>
+                                                <a style="font-size:16px;" class="btn btn-info btn-sm"href="<?php echo $filepath ?> " target="_blank" role="button">Download</a>
                                             </div>
                                         </div>
-
-                                        <h5 class="text-dark" style="font-size:16px;">
-                                            <?php echo htmlentities($result->authorname);?></h5>
-
-                                        <p id="paper-abstract<?php echo htmlentities($result->id);?>"
-                                            style="font-size:14px;height: 6.0em;overflow: hidden;width:auto;"><span
-                                                style="font-weight:bold">Abstract:</span>
+                                        <h5 class="text-dark" style="font-size:16px;"><?php echo htmlentities($result->authorname);?></h5>
+                                        <p id="paper-abstract<?php echo htmlentities($result->id);?>"style="font-size:17px;height: 6.0em;overflow: hidden;width:auto;"><span style="font-weight:bold">Abstract:</span>
                                             <?php echo htmlentities($result->abstract);?></p>
-                                        <a style="cursor:pointer;" class="text-secondary float-right"><span
-                                                id="read-more-abstract<?php echo htmlentities($result->id);?>">Read
-                                                more...</span></a>
+                                        <a style="cursor:pointer;" class="text-secondary float-right"><span id="read-more-abstract<?php echo htmlentities($result->id);?>">Read more...</span></a>
                                         <!--Individual Read More section starts here   -->
                                         <script>
                                         document.querySelector(
@@ -389,16 +327,12 @@ error_reporting(0);
             <!-- Archive  -->
             </p>
         </div>
-
     </div>
     </div>
     </div>
     <!-- Footer section starts here  -->
-    <?php
-    include 'footer.php'
-    ?>
+    <?php include 'footer.php' ?>
     <!-- Footer section ends here  -->
-
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="js/bootstrap.min.js"></script>
@@ -450,7 +384,6 @@ error_reporting(0);
         document.getElementById("4thpoint").classList.add('colorbtn');
     }
     </script>
-
     <!-- Essential Js,Jquery  section ends  -->
 </body>
 </html>

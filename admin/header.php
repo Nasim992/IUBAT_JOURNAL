@@ -1,7 +1,8 @@
 <?php
+include('../mailmessage/url.php'); 
 if(strlen($_SESSION['alogin'])=="")  
     {      
-    header("Location:../login");  
+    echo "<script type='text/javascript'> document.location = '../login'; </script>";  
     } else { 
       // Check that the admin is logged in or not section starts here 
       $adminemail = $_SESSION["alogin"];
@@ -54,6 +55,9 @@ if(strlen($_SESSION['alogin'])=="")
 
             <ul class="navbar-nav ml-auto ul-nav">
 
+            <li class="nav-item hidden active" title="Dashboard">
+                    <span class="navbar-text"><a href="<?php echo $url;?>" class="sidebars" title="Main Home page"><i class="fas fa-home"></i>&nbsp Home</a></span>
+            </li>
 
                 <li class="nav-item hidden active" title="Dashboard">
                     <span class="navbar-text"><a href="dashboard" class="sidebars nav-link"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
@@ -133,6 +137,6 @@ if(strlen($_SESSION['alogin'])=="")
 <?php }
     else {
       echo "<script>alert('You are not a admin.Try to log in as a admin');</script>";
-      header("refresh:0;url=../login");
+      echo "<script type='text/javascript'> document.location = '../login'; </script>";
     }
    }?>

@@ -1,3 +1,4 @@
+<?php include('../mailmessage/url.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +17,7 @@
 </head>
 
 <body>
+<a href="<?php echo $url;?>" class="sidebars" title="Main Home page"><i class="fas fa-home"></i>&nbsp Home</a>
     <a href="dashboard" class="sidebars"><i class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a>
     <a href="paperstatus" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Paper Status</a>
     <a href="updateprofile" class="sidebars"><i class="fas fa-user-shield"></i>&nbsp Update Profile</a>

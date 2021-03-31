@@ -1,7 +1,8 @@
 <?php
+include('../mailmessage/url.php');
 if(strlen($_SESSION['alogin'])=="") 
     {    
-    header("Location:../login");  
+    echo "<script type='text/javascript'> document.location = '../login'; </script>";  
     } else {
 
       $email =  $_SESSION['alogin'];
@@ -64,11 +65,12 @@ if(strlen($_SESSION['alogin'])=="")
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul class="navbar-nav ml-auto ul-nav">
-
+            <li class="nav-item hidden active" title="Dashboard">
+                    <span class="navbar-text"><a href="<?php echo $url;?>" class="sidebars" title="Main Home page"><i class="fas fa-home"></i>&nbsp Home</a></span>
+            </li>
 
                 <li class="nav-item hidden active" title="Dashboard">
-                    <span class="navbar-text"><a href="dashboard" class="sidebars nav-link"><i
-                                class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
+                    <span class="navbar-text"><a href="dashboard" class="sidebars nav-link"><i  class="fas fa-tachometer-alt"></i>&nbsp Dashboard</a></span>
                 </li>
 
                 <li class="nav-item hidden active" title="Unpublished paper">
@@ -130,7 +132,7 @@ if(strlen($_SESSION['alogin'])=="")
 <?php }
 else {
   echo "<script>alert('You are not a academiceditor.Try to log in as an Author');</script>";
-  header("refresh:0;url=../login");
+  echo "<script type='text/javascript'> document.location = '../login'; </script>";
 }
 }
 ?>

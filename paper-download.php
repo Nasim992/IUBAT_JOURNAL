@@ -6,7 +6,7 @@
         die("ERROR: Could not connect. " .mysqli_connect_error());
     }
     $id=($_POST['paperidpublic']); 
-
+ 
     $sql = "SELECT * FROM paper WHERE paperid = '$id' ";
 
     $result = mysqli_query($link,$sql);
@@ -83,13 +83,13 @@
                     </div>
                     <hr class="bg-secondary">
                     <div class="jumbotron " style="text-align:justify;">
-                        <h5 class="display-4">Name : <?php echo $papername ?></h5>
+                        <h5 class="display-4">Name : <?php echo $papername; ?></h5>
                         <h6 class="display-5 ">Author:<span class="text-info"> <?php echo $name; ?></span></h6>
-                        <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract ?></p>
+                        <p style="font-size:14px;"><b>Abstract:</b><?php echo $abstract; ?></p>
                         <hr class="my-4">
 
                         <a style="font-size:15px;" class="btn btn-success btn-sm float-right mb-4"
-                            href="<?php echo $filepath ?> " target="_blank" role="button">Download</a>
+                            href="<?php echo $filepath; ?> " target="_blank" role="button">Download</a>
                     </div>
                 </div>
             </div>

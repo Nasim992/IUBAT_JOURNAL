@@ -8,6 +8,7 @@
   checkLoggedInOrNot();
   $adminemail = $_SESSION["email"];
   IsAdminLoggedIn($adminemail);
+
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
@@ -35,6 +36,7 @@ if (!empty($_GET['id'])) {
     if($total_available==0) {
         echo "<script>alert('This id is not available');</script>";
         header("refresh:0;url=unpublishedpaper");
+        exit;
     } 
     else {
 
@@ -121,10 +123,12 @@ if(isset($_POST['accept-paper']))
       send_email($authormail, $subject, $msg, $headers);
     echo "<script>alert('Paper accepted...');</script>";
       header("refresh:0;url=unpublishedpaper");
+      exit;
     }
     else {
         echo "<script>alert('Paper is already Accepted!');</script>";
         header("refresh:0;url=unpublishedpaper");
+        exit;
 
     }
 }
@@ -149,10 +153,12 @@ if(isset($_POST['reject-paper']))
       send_email($authormail, $subject, $msg, $headers);
     echo "<script>alert('Paper Rejected');</script>";
       header("refresh:0;url=unpublishedpaper");
+      exit;
     }
     else {
         echo "<script>alert('Something went wrong');</script>";
         header("refresh:0;url=unpublishedpaper");
+        exit;
 
     }
 } 
@@ -523,9 +529,11 @@ if(isset($_POST['deletepaperchiefeditor'])) {
                 unlink('../documents/review/'.$chieffilename);
                 echo "<script>alert('Paper Deleted Successfully!');</script>";
                 header("refresh:0;url=unpublishedpaper"); 
+                exit;
             } else{
                 echo "<script>alert('Could not be able to execute!');</script>";
                 header("refresh:0;url=unpublishedpaper"); 
+                exit;
             }
             // mysqli_close($link);
             }

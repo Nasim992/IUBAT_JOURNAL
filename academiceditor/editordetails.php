@@ -5,7 +5,8 @@ include('../link/config.php');
 
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../login"); 
+    header("Location: ../login");
+    exit; 
     }
     else  
     {  

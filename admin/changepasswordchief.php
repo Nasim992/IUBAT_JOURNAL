@@ -21,15 +21,18 @@ IsAdminLoggedIn($adminemail);
     {
     echo "<script>alert('Password Changed Successfully');</script>";
     header("refresh:0;url=changepasswordchief");
+    exit;
     }
     else {
         echo "<script>alert('You entered wrong password Or,Your Current password cannot be your new password');</script>";
         header("refresh:0;url=changepasswordchief");
+        exit;
     }
   }
   else {
     echo "<script>alert('New password and confirm password doesn't match');</script>";
     header("refresh:0;url=changepasswordchief");
+    exit;
   }
     }    
 // Change Password

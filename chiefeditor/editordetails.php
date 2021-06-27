@@ -20,10 +20,12 @@ IsChiefEditorLoggedIn($editoremail);
       {
       echo "<script>alert('Editor of this paper removed.');</script>";
         header("refresh:0;url=editordetails");
+        exit;
       }
       else {
           echo "<script>alert('Something went wrong');</script>";
           header("refresh:0;url=editordetails");
+          exit;
       }
 
         }

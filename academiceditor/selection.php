@@ -56,6 +56,7 @@ if (!empty($_GET['id'])) {
     if($total_available==0 || $total_assign==0) {
         echo "<script>alert('This id is not available.Or,You are not assign this paper');</script>";
         header("refresh:0;url=paperstatus");
+        exit;
     }
     else {
 
@@ -667,6 +668,7 @@ $resultacademiceditorshown=array_diff($arrayallusernameacademiceditor,$academice
 
 echo "<script>alert('You are trying with wrong direction');</script>";
 header("refresh:0;url=paperstatus");
+exit;
     } 
   }
   else {

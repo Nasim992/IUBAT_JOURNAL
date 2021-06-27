@@ -169,8 +169,6 @@ IsChiefEditorLoggedIn($editoremail);
                                               $cnt1 = $cnt1 + 1;
                                           }
           //   Academic Editor Section Ends Here 
-
-      // Reviewer Showing Section Ends Here
                                           }
                                           else if ($rejected==1) {
                                             echo "<p class='text-danger'><b>Reject on:<br></b> ".$rejectdate.'</p>';
@@ -205,6 +203,7 @@ IsChiefEditorLoggedIn($editoremail);
                  // Associate Editor showing section
                                         echo "<br><span class='text-info'>Associate Editor:</span></br>";
                                         $cnt1 =1; 
+                                        if(empty($primaryemailarrayassociateeditor)){ echo "Associate Editor Not Selected Yet!<br>";}
                                         foreach ($primaryemailarrayassociateeditor as $err) {
                                           $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
                                           $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 
@@ -220,8 +219,9 @@ IsChiefEditorLoggedIn($editoremail);
                //   Associate Editor Section Ends Here  
        
                         // Academic  Editor showing section
-                                        echo "<b><span class='text-info'>Academic Editor:</span></b>".'<br>';
+                                        echo "<b><span class='text-info'>Academic Editor:</span></b></br>";
                                         $cnt1 =1; 
+                                        if(empty($primaryemailarrayacademiceditor)){ echo "Academic Editor Not Selected Yet!<br>";}
                                         foreach ($primaryemailarrayacademiceditor as $err) {
                                           $sqlauthorname1 = "SELECT * FROM author WHERE  primaryemail= '$err' ";
                                           $resultauthorname1 = mysqli_query($link,$sqlauthorname1); 

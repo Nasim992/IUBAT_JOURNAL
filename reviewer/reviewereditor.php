@@ -6,6 +6,7 @@ include('../link/functionsql.php');
 if(strlen($_SESSION['alogin'])=="")
     {     
     header("Location: ../login");  
+    exit;
     }
     else
     {  

@@ -133,5 +133,6 @@ if(mysqli_query($link, $sql)){
 // Close connection
 mysqli_close($link);
 header("Location: " . $_SERVER["HTTP_REFERER"]);
+exit;
 
 ?>

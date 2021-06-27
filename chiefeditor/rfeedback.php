@@ -24,10 +24,12 @@ if(isset($_POST['send-review']))
     send_email($primaryemailauthor, $subject, $msg, $headers);
     echo "<script>alert('Send this Review to the author Successfully.');</script>";
       header("refresh:0;url=rfeedback");
+      exit;
     }
     else {
         echo "<script>alert('Already sent!');</script>";
         header("refresh:0;url=rfeedback");
+        exit;
 
     }
 }
@@ -55,10 +57,12 @@ if(isset($_POST['send-review']))
         unlink($filepathreviewer);
       echo "<script>alert('Feedback Removed Successfully for this paper.');</script>";
         header("refresh:0;url=rfeedback");
+        exit;
       }
       else {
           echo "<script>alert('Something went wrong');</script>";
           header("refresh:0;url=rfeedback");
+          exit;
       }
         }
 

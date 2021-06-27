@@ -12,3 +12,4 @@ unset($_SESSION['login']);
 session_destroy(); // destroy session
 header("location:index");
 exit;
+?>

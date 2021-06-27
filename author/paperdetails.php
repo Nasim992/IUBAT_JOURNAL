@@ -186,10 +186,12 @@ IsAuthorLoggedIn($authoremail);
         move_uploaded_file($filetmpresubmit,"../documents/resubmit/".$nameresubmit);
      echo "<script>alert('Paper Resubmitted Successfully.');</script>";
        header("refresh:0;url=paperstatus");
+       exit;
      }
      else {
          echo "<script>alert('Paper is already Resubmitted!');</script>";
          header("refresh:0;url=paperstatus");
+         exit;
      }   
 }
 // Resubmit paper section ends here
@@ -281,9 +283,11 @@ if(isset($_POST['deletepaper'])) {
     unlink('../documents/review/'.$chieffilename);
     echo "<script>alert('Paper Deleted Successfully!');</script>";
       header("refresh:0;url=paperstatus"); 
+      exit;
   } else{
     echo "<script>alert('Could not be able to execute!');</script>";
       header("refresh:0;url=paperstatus"); 
+      exit;
   }
 
 } 

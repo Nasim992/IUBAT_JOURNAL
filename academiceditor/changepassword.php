@@ -31,6 +31,7 @@ if(isset($_POST['submit']))
     else {
       echo "<script>alert('New password and confirm password doesn't match');</script>";
       header("refresh:0;url=changepassword");
+      exit;
     }
       } 
 // Change Password   

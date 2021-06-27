@@ -63,7 +63,7 @@ if(strlen($_SESSION['alogin'])=="")
 
             <ul class="navbar-nav ml-auto ul-nav">
 
-            <li class="nav-item hidden active" title="Dashboard">
+            <li class="nav-item hidden active" title="Home">
                     <span class="navbar-text"><a href="<?php echo $url;?>" class="sidebars" title="Main Home page"><i class="fas fa-home"></i>&nbsp Home</a></span>
             </li>
                 <li class="nav-item hidden active" title="Dashboard">

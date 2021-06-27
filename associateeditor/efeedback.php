@@ -27,10 +27,12 @@ IsAssociateEditorLoggedIn($email);
         unlink($filepathreviewer);
       echo "<script>alert('Feedback Removed Successfully for this paper.');</script>";
         header("refresh:0;url=feedback");
+        exit;
       }
       else {
           echo "<script>alert('Something went wrong');</script>";
           header("refresh:0;url=feedback");
+          exit;
       }
    
 
@@ -76,10 +78,12 @@ IsAssociateEditorLoggedIn($email);
           send_email($primaryemailauthor, $subject, $msg, $headers);
           echo "<script>alert('Send this Review to the author Successfully.');</script>";
             header("refresh:0;url=feedback");
+            exit;
           }
           else {
               echo "<script>alert('Already sent!');</script>";
               header("refresh:0;url=feedback");
+              exit;
 
           }
       }

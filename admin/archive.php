@@ -36,6 +36,7 @@ IsAdminLoggedIn($adminemail);
        
        echo "<script>alert('Invalid Details !This paper has already Uploaded');</script>";
        header("refresh:0;url=archive");
+       exit;
     }   
   }
 ?>

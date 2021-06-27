@@ -14,8 +14,9 @@ IsChiefEditorLoggedIn($editoremail);
 
         $sqlquthor = "UPDATE author SET associateeditor=1,academiceditor=NULL,reviewerselection=NULL WHERE primaryemail='$pemail'";
         if(mysqli_query($link, $sqlquthor)){
-            echo "<script>alert('Associate Editor Select Successfully.');</script>";
             header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
+            echo "<script>alert('Associate Editor Select Successfully.');</script>";
         }
         else {
             echo "<script>alert('Something went wrong.');</script>";
@@ -31,8 +32,9 @@ IsChiefEditorLoggedIn($editoremail);
 
         $sqlquthor = "UPDATE author SET academiceditor=1,associateeditor=NULL,reviewerselection=NULL WHERE primaryemail='$pemail'";
         if(mysqli_query($link, $sqlquthor)){
-            echo "<script>alert('Academic Editor Select Successfully.');</script>";
             header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
+            echo "<script>alert('Academic Editor Select Successfully.');</script>";
         }
         else {
             echo "<script>alert('Something went wrong.');</script>";
@@ -48,9 +50,10 @@ IsChiefEditorLoggedIn($editoremail);
     
         $sqlquthor = "UPDATE author SET academiceditor=NULL,associateeditor=NULL WHERE primaryemail='$pemail'";
         if(mysqli_query($link, $sqlquthor)){
-            echo "<script>alert('Author Selected Successfully.');</script>";
             // header("refresh:0;url=selecteditor");
             header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
+            echo "<script>alert('Author Selected Successfully.');</script>";
          }
         else {
               echo "<script>alert('Something went wrong.');</script>";

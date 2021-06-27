@@ -39,7 +39,7 @@ IsAuthorLoggedIn($authoremail);
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
-
+                
             <!-- Progress bar section starts here  -->
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">

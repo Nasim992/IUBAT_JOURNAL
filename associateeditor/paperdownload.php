@@ -195,6 +195,7 @@ $name = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 <?php } else  {
 echo "<script>alert('Id is not recognized');</script>";
 header("refresh:0;url=publishedpaper");
+exit;
     } 
 
   }

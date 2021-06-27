@@ -16,7 +16,6 @@ if (isset($_SESSION['alogin'])){
     if(isset($_POST['author-login']))  
     {
         author_login();  // form loginfunction.php file
-
     }
     if(isset($_POST['reviewer-login']))  
     {
@@ -148,9 +147,9 @@ if (isset($_SESSION['alogin'])){
                             <h2 style="text-align:center;font-size:18px;padding:5px;"><b>REGISTRATION FORM</b></h2>
                             <input style="font-size:16px;" type="text" class="form-control" name="title"  placeholder="Title (Mr., Mrs., Dr., etc.)" required="" autofocus="">
                             <div class="input-group">
-                                <input style="font-size:16px;" type="text" class="form-control col-sm-6"name="firstName" placeholder="First Name" required="" autofocus="">
-                                <input style="font-size:16px;" type="text" class="form-control col-sm-6 ml-1"name="middleName" placeholder="Middle Name(Optional)" autofocus="">
-                                <input style="font-size:16px;" type="text" class="form-control col-sm-6 ml-1"name="lastName" placeholder="Last Name" required="" autofocus="">
+                            <input style="font-size:16px;" type="text" class="form-control col-sm-6"name="firstName" placeholder="First Name" required="" autofocus="">
+                            <input style="font-size:16px;" type="text" class="form-control col-sm-6 ml-1"name="middleName" placeholder="Middle Name(Optional)" autofocus="">
+                            <input style="font-size:16px;" type="text" class="form-control col-sm-6 ml-1"name="lastName" placeholder="Last Name" required="" autofocus="">
                             </div>
                             <input style="font-size:16px;" type="email" id="pemail" class="form-control"onfocusout="handlefocus()" name="pemail" placeholder="Primary Email Address" required="" autofocus="">
                             <span><b id="pemail-text"></b></span>

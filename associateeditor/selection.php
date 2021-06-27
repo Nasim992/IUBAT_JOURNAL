@@ -41,6 +41,7 @@ IsAssociateEditorLoggedIn($email);
         if($total_available==0 || $total_assign==0) {
             echo "<script>alert('This id is not available.Or, you are not assign this paper');</script>";
             header("refresh:0;url=paperstatus");
+            exit;
         }
         else {
 

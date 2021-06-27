@@ -7,6 +7,7 @@ include('../functions.php');
 if(strlen($_SESSION['alogin'])=="")
     {     
     header("Location: ../login"); 
+    exit;
     }
     else
     {  
@@ -69,18 +70,20 @@ if(strlen($_SESSION['alogin'])=="")
         }}
         $alleditoremail = implode(',',$academiceditorshowing);
         // Select editor mail  
-        $to_mail = "$chiefmail,$alleditoremail ";
+        $to_mail = "$chiefmail";
         //   Reviewed messages sending
         include '../mailmessage/rfeedbackmail.php';
-        send_email($to_mail, $subject, $msg, $headers);
+        send_email($chiefmail, $subject, $msg, $headers);
         //  Reviewed messages sending 
 
           echo "<script>alert('Feedback Sent Successfully');</script>";
           header("refresh:0;url=reviewedpaper");
+          exit;
         }
         else {
           echo "<script>alert('Something went wrong');</script>";
           header("refresh:0;url=reviewerfeedback");
+          exit;
         }
       }
       // Reviewer Paper Section Ends Here 

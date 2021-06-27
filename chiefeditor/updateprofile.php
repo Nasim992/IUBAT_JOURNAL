@@ -34,10 +34,12 @@ checkLoggedInOrNot();
 
               echo "<script>alert('Profile Updated Successfully');</script>";
               header("refresh:0;url=dashboard");
+              exit;
           } 
           else {
             echo "<script>alert('Something went Wrong !');</script>";
             header("refresh:0;url=updateprofile");
+            exit;
           }
           }
     

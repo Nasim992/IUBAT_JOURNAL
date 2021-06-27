@@ -25,7 +25,7 @@
     <a href="changepassword" class="sidebars"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a>
     <a href="changepasswordchief" class="sidebars"><i class="fas fa-unlock-alt"></i>&nbsp Change password(chief)</a>
     <a href="admin" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Admin Pannel</a>
-    <a href="addadmin" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Add Admin</a>
+    <!-- <a href="addadmin" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Add Admin</a> -->
     <a href="authors" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Author States</a>
     <a href="reviewerdetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a>
     <a href="selecteditor" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Select Editor</a>

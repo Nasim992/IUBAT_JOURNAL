@@ -19,10 +19,12 @@ IsAdminLoggedIn($adminemail);
      if(mysqli_query($link, $sqlresubmit))
      {
         header("Location: " . $_SERVER["HTTP_REFERER"]);
+        exit;
      echo "<script>alert('Paper Updated Successfully.');</script>";
      }
      else {
          header("Location: " . $_SERVER["HTTP_REFERER"]);
+         exit;
          echo "<script>alert('Something went wrong!');</script>";
      }   
 }
@@ -37,10 +39,12 @@ IsAdminLoggedIn($adminemail);
     if(mysqli_query($link, $sqlresubmit))
     {
        header("Location: " . $_SERVER["HTTP_REFERER"]);
+       exit;
     echo "<script>alert('Paper Updated Successfully.');</script>";
     }
     else {
         header("Location: " . $_SERVER["HTTP_REFERER"]);
+        exit;
         echo "<script>alert('Something went wrong!');</script>";
     }   
 }
@@ -55,10 +59,12 @@ IsAdminLoggedIn($adminemail);
         if(mysqli_query($link, $sqlresubmit))
         {
            header("Location: " . $_SERVER["HTTP_REFERER"]);
+           exit;
         echo "<script>alert('Paper Updated Successfully.');</script>";
         }
         else {
             header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit;
             echo "<script>alert('Something went wrong!');</script>";
         }   
     }
@@ -73,10 +79,12 @@ IsAdminLoggedIn($adminemail);
                 if(mysqli_query($link, $sqlresubmit))
                 {
                    header("Location: " . $_SERVER["HTTP_REFERER"]);
+                   exit;
                 echo "<script>alert('Paper Updated Successfully.');</script>";
                 }
                 else {
                     header("Location: " . $_SERVER["HTTP_REFERER"]);
+                    exit;
                     echo "<script>alert('Something went wrong!');</script>";
                 }   
             }

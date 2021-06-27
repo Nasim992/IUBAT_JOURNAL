@@ -1,4 +1,5 @@
 <?php 
+use PHPMailer\PHPMailer\PHPMailer;
 // Return html Entities section starts Here 
 function clean($string){
     return htmlentities($string);
@@ -26,9 +27,97 @@ function display_message(){
     
 // Send Mail Function Starts Here 
 function send_email($email, $subject, $msg, $headers) {
-    return (mail($email, $subject, $msg, $headers)); 
+    require 'vendor/autoload.php';
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'journal.iubat@gmail.com';
+    $mail->Password = 'iubat123';
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => true,
+            'verify_peer_name' => false,
+            'allow_self_signed' => false
+        )
+    );
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port = 465;
+
+    $mail->setFrom('journal.iubat@gmail.com');
+
+    //Recipients
+    $mail->addAddress($email);
+    $mail->addReplyTo('journal.iubat@gmail.com');
+
+    //Content
+    $mail->isHTML(true);
+    $mail->Subject = $subject;
+    $mail->Body    = $msg;
+
+    
+    // $mail = new PHPMailer(); 
+	// // $mail->SMTPDebug  = 3;
+	// $mail->IsSMTP(); 
+	// $mail->SMTPAuth = true; 
+	// $mail->SMTPSecure = 'tls'; 
+	// $mail->Host = "smtp.gmail.com";
+	// $mail->Port = 587; 
+	// $mail->IsHTML(true);
+	// $mail->CharSet = 'UTF-8';
+	// $mail->Username = "journal.iubat@gmail.com";
+	// $mail->Password = "iubat123";
+	// $mail->SetFrom("journal.iubat@gmail.com");
+	// $mail->Subject = $subject;
+	// $mail->Body =$msg;
+	// $mail->AddAddress($email);
+	// $mail->SMTPOptions=array('ssl'=>array(
+	// 	'verify_peer'=>false,
+	// 	'verify_peer_name'=>false,
+	// 	'allow_self_signed'=>false
+	// ));
+    //  if($mail ->send()) {
+    //      return true;
+    //  }else {
+    //     return (mail($email, $subject, $msg, $headers)); 
+    //  }
+    // if (mail($email, $subject, $msg, $headers)) {
+    //     return mail($email, $subject, $msg, $headers);
+    //  }else {
+        return ($mail ->send()); 
+    //  }
+
+    
+
+    // return (mail($email, $subject, $msg, $headers)); 
 }
+
+// function smtp_mailer($to,$subject, $msg){
+//     include('smtp/PHPMailerAutoload.php');
+//     //$mail = new PHPMailer();
+//     $mail = new PHPMailer();
+//     $mail->IsSMTP();
+//     $mail->SMTPAuth = true;
+//     $mail->SMTPSecure = 'tls';
+//     $mail->Host = "smtp.gmail.com";
+//     $mail->Port = 587;
+//     $mail->IsHTML(true);
+//     $mail->CharSet = 'UTF-8';
+//     $mail->Username = "journal.iubat@gmail.com";
+//     $mail->Password = "iubat123";
+//     $mail->SetFrom(" journal.iubat@gmail.com ");
+//     $mail->Subject = $subject;
+//     $mail->Body =$msg;
+//     $mail->AddAddress($to);
+//     if(!$mail->Send()){
+//     return true;
+//     }else{
+//     return false;
+//     }
+//     }
+
 // Send Mail Function Ends Here 
+
 
 // Redirect Function section starts Here 
 function redirect($location){
@@ -75,10 +164,12 @@ function activate_user(){
                     $result2 = query($sql2);
                     confirm($result2);
                     set_message("<p class='bg-success text-white p-2 text-center'>Your are Accepted the Reviewer Invitation.Now Logged in as a Reviewer and Give your Valuable Feedback.If you don't have any account then register first</p>");
-                    redirect("login");     
+                    redirect("login");
+                    exit;     
                   } else {       
                       set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
                       redirect("login");
+                      exit;
                   }              
                 }
             }
@@ -100,10 +191,12 @@ function activate_user(){
                         $result2 = query($sql2);
                         confirm($result2);           
                         set_message("<p class='bg-danger text-white p-2 text-center'>Your are Reject the Invitation.For giving feedback ask admin</p>");    
-                        redirect("login");            
+                        redirect("login");
+                        exit;        
                       } else {
                           set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");    
                           redirect("login");
+                          exit;
                       }    
                     }
                 }          
@@ -124,10 +217,12 @@ function activate_user(){
                     $result2 = query($sql2);
                     confirm($result2);       
                     set_message("<p class='bg-success text-white p-2 text-center'>Your are Accepted the Editor Invitation.Now Logged in as a Editor to see the paper.If you don't have any account then register first</p>");
-                    redirect("login");       
+                    redirect("login");
+                    exit;       
                   } else {        
                       set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
                       redirect("login");
+                      exit;
                   }                 
                 }
             }       
@@ -148,10 +243,12 @@ function activate_user(){
                                 $result2 = query($sql2);
                                 confirm($result2);
                                 set_message("<p class='bg-danger text-white p-2 text-center'>Your are Reject the Invitation.For giving feedback ask admin</p>");
-                                redirect("login");              
+                                redirect("login");
+                                exit;              
                               } else {                  
                                   set_message("<p class='bg-danger text-white p-2 text-center'>You Are not Accepted any Invitation</p>");
                                   redirect("login");
+                                  exit;
                               }                       
                             }
                         }

@@ -47,10 +47,12 @@ if(strlen($_SESSION['alogin'])=="")
           move_uploaded_file($filetmpreviewer,"../documents/review/".$namereviewer);
           echo "<script>alert('Feedback Sent Successfully');</script>";
           header("refresh:0;url=reviewedpaper");
+          exit;
         }
         else {
           echo "<script>alert('Something went wrong');</script>";
           header("refresh:0;url=reviewedpaper");
+          exit;
         }
 
       }

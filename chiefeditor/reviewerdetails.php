@@ -10,9 +10,9 @@ IsChiefEditorLoggedIn($editoremail);
     //  Remove as a Reviewer section starts Here 
     if(isset($_POST['reviewer-remove'])) {
       $paperid = $_POST['paperid'];
-      $username = $_POST['username'];
+      $primaryemail = $_POST['primaryemail'];
 
-      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  username='$username' and action IS  NULL";
+      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  primaryemail='$primaryemail' and action IS  NULL";
       $stmt = $dbh->prepare($query);
                               
        // execute query
@@ -24,7 +24,7 @@ IsChiefEditorLoggedIn($editoremail);
       $action = 1;
       $actionz= 0;
       include '../link/linklocal.php';
-      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
+      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and primaryemail='$primaryemail'";
 
       if(mysqli_query($link, $sqlremovereview))
       {
@@ -111,9 +111,9 @@ IsChiefEditorLoggedIn($editoremail);
                             <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
                             <?php 
-                                $username = htmlentities($result->username);
+                                $primaryemail = htmlentities($result->primaryemail);
                                 include '../link/linklocal.php';
-                                $sql1 = "SELECT * FROM author WHERE  username='$username' ";
+                                $sql1 = "SELECT * FROM author WHERE  primaryemail='$primaryemail' ";
 
                                 $result1 = mysqli_query($link,$sql1); 
 
@@ -139,7 +139,7 @@ IsChiefEditorLoggedIn($editoremail);
                                 <form method="post">
                                     <input type="hidden" name="paperid"
                                         value="<?php echo htmlentities($result->paperid);?>">
-                                    <input type="hidden" name="username" value="<?php echo $username?>">
+                                    <input type="hidden" name="primaryemail" value="<?php echo $primaryemail?>">
                                     <input class="text-danger"
                                         onclick="return confirm('Are you sure you want to remove reviewer for this paper?');"
                                         style="font-size:18px;border:none;font-weight:600;background-color:transparent;"

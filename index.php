@@ -130,20 +130,29 @@ $maximumyear = maximumyear();
                         <div class="card-body">
                     <!-- If Published paper Showing Section Starts Here  -->                                   
                       <?php if ($total_published > 0) {
-                            $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.pdate from paper WHERE action=1 ORDER BY pdate DESC LIMIT 5";
+                            $sql = "SELECT paper.id,paper.paperid,paper.authoremail,paper.papername,paper.abstract,paper.name,paper.type,paper.action,paper.pdate,paper.resubmitpaper from paper WHERE action=1 ORDER BY pdate DESC LIMIT 5";
                             $query = $dbh->prepare($sql);
                             $query->execute();
                             $results = $query->fetchAll(PDO::FETCH_OBJ);
                             if ($query->rowCount() > 0) {
                             foreach ($results as $result) {
+                                if(!empty(htmlentities($result->resubmitpaper))) {
+                                    $filepath = 'documents/resubmit/'.htmlentities($result->resubmitpaper);
+                                }
+                                else  {
+                                    $filepath = 'documents/file2/'.htmlentities($result->resubmitpaper);
+                                }
+                            
                                 $authoremail = htmlentities($result->authoremail);
                                 $publishdatestring = htmlentities($result->pdate);
                                 $publishdate = date("d-M-Y", strtotime($publishdatestring));
                                 include 'link/selectauthorname.php'; ?>
-                            <form action="paper-download" class="indexform" method="post">
-                                <input type="hidden" name="paperidpublic" value="<?php echo htmlentities($result->paperid); ?>">
-                                <button class="bg-transparent" style="color:black;font-size: 17px;border:none;outline:none;font-weight:500;text-align:left;cursor:pointer;" type="submit"name="paperdownload"><?php echo htmlentities($result->papername); ?></button>
-                            </form>
+                            <!-- <form action="paper-download" class="indexform" method="post">
+                              -->
+                                <a class="bg-transparent" style="color:black;font-size: 17px;border:none;outline:none;font-weight:500;text-align:left;cursor:pointer;"
+                            href="<?php echo $filepath; ?> " target="_blank" role="button"><?php echo htmlentities($result->papername); ?></a>
+                                
+                            <!-- </form> -->
                             <h5 class="text-primary" style="font-size:16px;"><small><i class="fa fa-calendar" aria-hidden="true"></i> Published on <?php echo $publishdate; ?></small></h5>
                             <?php }  } ?>
                             <!-- If Published paper showing section ends here  -->

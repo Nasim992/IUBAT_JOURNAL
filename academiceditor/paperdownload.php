@@ -68,11 +68,9 @@ $authormail = $file['authoremail'];
 $abstract = $file['abstract'];
 $numberofcoauthor = $file['numberofcoauthor'];
 
-$uploaddate = $file['uploaddate'];
-$uploadmonth = $file['uploadmonth'];
-$uploadyear = $file['uploadyear'];
+$uploaddateString = $file['uploaddate'];
 
-$maindate = $uploaddate.' '.month($uploadmonth).' '.$uploadyear;
+$maindate =  date("d-M-Y",strtotime($uploaddateString));
 
 // Selecting paper section ends here 
 
@@ -204,6 +202,7 @@ include 'header.php';
 <?php } else  {
 echo "<script>alert('Id is not recognized');</script>";
 header("refresh:0;url=publishedpaper");
+exit;
     } 
 
   }

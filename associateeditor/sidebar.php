@@ -24,6 +24,7 @@
     <a href="changepassword" class="sidebars"><i class="fas fa-unlock-alt"></i>&nbsp Change password</a>
 
     <a href="authors" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Author States</a>
+    <a href="editors" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Editor States</a>
     <a href="editordetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Academic Editor</a>
     <a href="reviewerdetails" class="sidebars"><i class="fas fa-users-cog"></i>&nbsp Reviewer</a>
     <a href="reviewedpaper" class="sidebars"><i class="far fa-newspaper"></i>&nbsp Reviewed paper</a>

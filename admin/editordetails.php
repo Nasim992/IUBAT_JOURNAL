@@ -6,44 +6,29 @@ include('../functions.php');
 checkLoggedInOrNot();
 $adminemail = $_SESSION["email"];
 IsAdminLoggedIn($adminemail);
-
-    //  Remove as a Reviewer section starts Here 
+    //  Remove as a Editor section starts Here 
     if(isset($_POST['editor-remove'])) {
       $paperid = $_POST['paperid'];
       $username = $_POST['username'];
 
-      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  username='$username' and action IS  NULL";
-      $stmt = $dbh->prepare($query);
-                              
-       // execute query
-       $stmt->execute();
-                              
-       // get total rows
-       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-       $total_re = $row['total_rows'];
       $action = 1;
       $actionz= 0;
-      include '../link/linklocal.php';
-      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
+      $sqlremovereview="update editortable set action=$action where paperid='$paperid' and username='$username'";
 
       if(mysqli_query($link, $sqlremovereview))
       {
-      echo "<script>alert('Reviewer Removed Successfully for this paper.');</script>";
-        // header("refresh:0;url=reviewerdetails");
+      echo "<script>alert('Editor of this paper removed.');</script>";
+        header("refresh:0;url=editordetails");
+        exit;
       }
       else {
           echo "<script>alert('Something went wrong');</script>";
-          // header("refresh:0;url=reviewerdetails");
+          header("refresh:0;url=editordetails");
+          exit;
       }
 
-        if ($total_re-1==0) {
-          include '../link/linklocal.php';
-              $sqlremovereviewauthor="update author set reviewerselection=$actionz where username='$username'";
-              mysqli_query($link,$sqlremovereviewauthor);
         }
-
-        }
-         // Remove as  a Reviewer Section Ends Here 
+         // Remove as  a Editor Section Ends Here 
 
 ?>
 
@@ -61,7 +46,7 @@ IsAdminLoggedIn($adminemail);
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" href="../css/admin-dashboard.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
@@ -78,11 +63,9 @@ IsAdminLoggedIn($adminemail);
 
     <div id="mySidebar" class="sidebar">
         <?php include 'sidebar.php'; ?>
-
     </div>
 
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
@@ -106,14 +89,14 @@ IsAdminLoggedIn($adminemail);
                     </thead>
                     <tbody id="myTable-admin">
                         <?php $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.primaryemail,editortable.assigndate,editortable.endingdate,editortable.action,editortable.associateeditor from editortable where action IS NULL and associateeditor IS NOT NULL";
-                              $query = $dbh->prepare($sql); 
-                              $query->execute(); 
-                              $results=$query->fetchAll(PDO::FETCH_OBJ); 
-                              $cnt=1;
-                              if($query->rowCount() > 0) 
-                              {
-                              foreach($results as $result) 
-                              {   ?>
+                                $query = $dbh->prepare($sql); 
+                                $query->execute(); 
+                                $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                                $cnt=1;
+                                if($query->rowCount() > 0) 
+                                {
+                                foreach($results as $result) 
+                                {   ?>
                         <tr>
                             <td><?php echo htmlentities($cnt);?></td>
                             <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
@@ -137,7 +120,7 @@ IsAdminLoggedIn($adminemail);
                                 $date = date("d-M-Y",strtotime($datedatabase)); 
                                 $endingdate = htmlentities($result->endingdate);
                                 $edate = date("d-M-Y",strtotime($endingdate)); 
-                                  ?>
+                                    ?>
 
                             <td><?php echo $authorname;?></td>
                             <td><?php echo htmlentities($result->primaryemail);?></td>
@@ -152,7 +135,7 @@ IsAdminLoggedIn($adminemail);
                                     <input class="text-danger"
                                         onclick="return confirm('Are you sure you want to remove reviewer for this paper?');"
                                         style="font-size:18px;border:none;font-weight:600;background-color:transparent;"
-                                        type="submit" name="reviewer-remove" value="x">
+                                        type="submit" name="editor-remove" value="x">
                                 </form>
 
                             </td>
@@ -182,14 +165,14 @@ IsAdminLoggedIn($adminemail);
                     </thead>
                     <tbody id="myTable-admin1">
                         <?php $sql = "SELECT editortable.id,editortable.paperid,editortable.username,editortable.primaryemail,editortable.assigndate,editortable.endingdate,editortable.action,editortable.associateeditor,editortable.academiceditor from editortable where action IS NULL and academiceditor IS NOT NULL"; 
-                              $query = $dbh->prepare($sql); 
-                              $query->execute(); 
-                              $results=$query->fetchAll(PDO::FETCH_OBJ); 
-                              $cnt=1;
-                              if($query->rowCount() > 0) 
-                              {
-                              foreach($results as $result) 
-                              {   ?>
+                                $query = $dbh->prepare($sql); 
+                                $query->execute(); 
+                                $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                                $cnt=1;
+                                if($query->rowCount() > 0) 
+                                {
+                                foreach($results as $result) 
+                                {   ?>
                         <tr>
                             <td><?php echo htmlentities($cnt);?></td>
                             <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
@@ -213,7 +196,7 @@ IsAdminLoggedIn($adminemail);
                                 $date = date("d-M-Y",strtotime($datedatabase)); 
                                 $endingdate = htmlentities($result->endingdate);
                                 $edate = date("d-M-Y",strtotime($endingdate)); 
-                                  ?>
+                                    ?>
 
                             <td><?php echo $authorname;?></td>
                             <td><?php echo htmlentities($result->primaryemail);?></td>
@@ -228,7 +211,7 @@ IsAdminLoggedIn($adminemail);
                                     <input class="text-danger"
                                         onclick="return confirm('Are you sure you want to remove reviewer for this paper?');"
                                         style="font-size:18px;border:none;font-weight:600;background-color:transparent;"
-                                        type="submit" name="reviewer-remove" value="x">
+                                        type="submit" name="editor-remove" value="x">
                                 </form>
 
                             </td>
@@ -238,19 +221,13 @@ IsAdminLoggedIn($adminemail);
                 </table>
             </div>
             <!-- Academic Editor Showing Section Ends Here  -->
-
             <div class="mb-5"></div>
         </div>
     </div>
-
     <!-- Authors showing section ends here  -->
-
-
     </div>
-
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
     <script>

@@ -6,13 +6,12 @@ include('../functions.php');
 checkLoggedInOrNot();
 $adminemail = $_SESSION["email"];
 IsAdminLoggedIn($adminemail);
-
     //  Remove as a Reviewer section starts Here 
     if(isset($_POST['reviewer-remove'])) {
       $paperid = $_POST['paperid'];
-      $username = $_POST['username'];
+      $primaryemail = $_POST['primaryemail'];
 
-      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  username='$username' and action IS  NULL";
+      $query = "SELECT COUNT(*) as total_rows FROM reviewertable where  primaryemail='$primaryemail' and action IS  NULL";
       $stmt = $dbh->prepare($query);
                               
        // execute query
@@ -24,7 +23,7 @@ IsAdminLoggedIn($adminemail);
       $action = 1;
       $actionz= 0;
       include '../link/linklocal.php';
-      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and username='$username'";
+      $sqlremovereview="update reviewertable set action=$action where paperid='$paperid' and primaryemail='$primaryemail'";
 
       if(mysqli_query($link, $sqlremovereview))
       {
@@ -61,28 +60,21 @@ IsAdminLoggedIn($adminemail);
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/fontawesome.v5.3.1.all.css">
-    <!-- <script src="js/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <link rel="stylesheet" href="../css/admin-dashboard.css">
     <link rel="stylesheet" href="../css/index.css">
 </head>
 
 <body>
-
-
     <!-- Author showing header sections starts  -->
     <div class="sticky-top header-floating">
         <?php include 'header.php'; ?>
     </div>
     <!-- Author showing header sections ends   -->
-
-
     <div id="mySidebar" class="sidebar">
         <?php include 'sidebar.php'; ?>
-
     </div>
-
     <div id="main">
-
         <a href="#"><span class="openbtn" onclick="openNav()" id="closesign">☰</span></a>
         <a href="javascript:void(0)" class="closebtn" id="closesignof" onclick="closeNav()">×</a>
         <div class="container">
@@ -91,7 +83,6 @@ IsAdminLoggedIn($adminemail);
             <hr class="bg-secondary">
             <div class="table-responsive table-responsive-lg table-responsize-xl table-responsive-sm p-4">
                 <table id="dtBasicExample" class="table table-striped table-bordered table-hover">
-
                     <thead>
                         <tr>
                             <th>#</th>
@@ -106,52 +97,48 @@ IsAdminLoggedIn($adminemail);
 
                     <tbody id="myTable-admin">
                         <?php $sql = "SELECT reviewertable.id,reviewertable.paperid,reviewertable.username,reviewertable.primaryemail,reviewertable.assigndate,reviewertable.endingdate,reviewertable.action from reviewertable where action IS NULL";
-                              $query = $dbh->prepare($sql); 
-                              $query->execute(); 
-                              $results=$query->fetchAll(PDO::FETCH_OBJ); 
-                              $cnt=1;
-                              if($query->rowCount() > 0) 
-                              {
-                              foreach($results as $result) 
-                              {   ?>
-                          <tr>
+                                $query = $dbh->prepare($sql); 
+                                $query->execute(); 
+                                $results=$query->fetchAll(PDO::FETCH_OBJ); 
+                                $cnt=1;
+                                if($query->rowCount() > 0) 
+                                {
+                                foreach($results as $result) 
+                                {   ?>
+                        <tr>
                             <td><?php echo htmlentities($cnt);?></td>
                             <td class="result-color1"><?php echo htmlentities($result->paperid);?></td>
 
                             <?php 
-                              $username = htmlentities($result->username);
-                              include '../link/linklocal.php';
-                              $sql1 = "SELECT * FROM author WHERE  username='$username' ";
+                                $primaryemail = htmlentities($result->primaryemail);
+                                include '../link/linklocal.php';
+                                $sql1 = "SELECT * FROM author WHERE  primaryemail='$primaryemail' ";
 
-                              $result1 = mysqli_query($link,$sql1); 
+                                $result1 = mysqli_query($link,$sql1); 
 
-                              $file1 = mysqli_fetch_assoc($result1);
-                              
-                              $title = $file1['title'];
-                              $fname= $file1['firstname'];
-                              $middlename= $file1['middlename'];
-                              $lastname= $file1['lastname'];
+                                $file1 = mysqli_fetch_assoc($result1);
+                                
+                                $title = $file1['title'];
+                                $fname= $file1['firstname'];
+                                $middlename= $file1['middlename'];
+                                $lastname= $file1['lastname'];
 
-                              $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
+                                $authorname = $title.' '.$fname.' '.$middlename.' ' .$lastname;
 
-                              $assigndate = htmlentities($result->assigndate);
-                              $endingdatestring = htmlentities($result->endingdate);
-                              $date = date("d-M-Y",strtotime($assigndate));
-                              $endingdate = date("d-M-Y",strtotime($endingdatestring));
-
-                                ?>
-
+                                $assigndate = htmlentities($result->assigndate);
+                                $endingdatestring = htmlentities($result->endingdate);
+                                $date = date("d-M-Y",strtotime($assigndate));
+                                $endingdate = date("d-M-Y",strtotime($endingdatestring));
+                                    ?>
                             <td><?php echo $authorname;?></td>
                             <td><?php echo htmlentities($result->primaryemail);?></td>
                             <td><?php echo $date?></td>
                             <td><?php echo $endingdate?></td>
-
                             <td>
-
                                 <form method="post">
                                     <input type="hidden" name="paperid"
                                         value="<?php echo htmlentities($result->paperid);?>">
-                                    <input type="hidden" name="username" value="<?php echo $username?>">
+                                    <input type="hidden" name="primaryemail" value="<?php echo $primaryemail?>">
                                     <input class="text-danger"
                                         onclick="return confirm('Are you sure you want to remove reviewer for this paper?');"
                                         style="font-size:18px;border:none;font-weight:600;background-color:transparent;"
@@ -161,14 +148,9 @@ IsAdminLoggedIn($adminemail);
                             </td>
                         </tr>
                         <?php $cnt=$cnt+1;}} ?>
-
-
                     </tbody>
-
-
                 </table>
             </div>
-
             <div class="mb-5"></div>
         </div>
     </div>
@@ -176,7 +158,6 @@ IsAdminLoggedIn($adminemail);
     </div>
     <!-- Essential Js,jquery,section starts  -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.5.1.slim.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
     <script>

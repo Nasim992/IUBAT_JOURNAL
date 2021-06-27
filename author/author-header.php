@@ -2,7 +2,8 @@
 include('../mailmessage/url.php');
 if(strlen($_SESSION['alogin'])=="")
     {    
-    header("Location: ../login");    
+    header("Location: ../login");
+    exit;    
     }
     else 
     {   
